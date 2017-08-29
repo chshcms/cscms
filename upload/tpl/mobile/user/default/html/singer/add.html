@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset=utf-8>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <title>{cscms:title}</title>
+    <meta name="Keywords" content="{cscms:keywords}" />
+    <meta name="Description" content="{cscms:description}" />
+    <link rel="shortcut icon" href="{cscms:path}favicon.ico" />
+    <link rel="stylesheet" href="{cscms:webpath}packs/font/font.css">
+    <link rel="stylesheet" type="text/css" href="{cscms:tempurl}css/singer.css"/>
+    <script type="text/javascript" src="{cscms:tempurl}js/user.js"></script>
+</head>
+<body>
+    {cscms:head}
+    {cscms:right}
+    <div class="layui-tab layui-tab-card" lay-filter="dt1" style="margin-top: 0px;margin-bottom: 0px">
+        <ul class="layui-tab-title">
+            <li class="layui-this"><a href="">编辑歌手</a></li>
+            <li><a href="[user:url userlink=singer]">已审核</a></li>
+            <li><a href="[user:url userlink=singer,verify]">待审核</a></li>
+            <a style="float: right;margin-right: 5px;margin-top: 5px" href="[user:url userlink=singer,add]" class="layui-btn layui-btn-small layui-btn-danger">新增</a>
+        </ul>
+        <div class="layui-tab-content" style="background-color: #fff;padding: 0px">
+            <div class="layui-tab-item layui-show">
+                <form action="[user:singersave]" class="layui-form layui-form-pane" method="post">
+                <div class="layui-tab layui-tab-brief" style="margin: 0px">
+                    <ul class="layui-tab-title">
+                        <li class="layui-this">主要参数</li>
+                        <li>可选参数</li>
+                        <li>其他参数</li>
+                    </ul>
+                    <div class="layui-tab-content">
+                        <div class="layui-tab-item layui-show">
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">歌手分类</label>
+                                <div class="layui-input-block">
+                                    <select name="cid">
+                                    {cscms:class table="singer_list" fid="0" sort="xid" order="asc"}
+                                        <option value="[class:id]" {if:[singer:cid]==[class:id]}selected{end if}>&nbsp;|—[class:name]</option>
+                                        {cscmstype:class2 table="singer_list" fid="auto" sort="xid" order="asc"}
+                                        <option value="[class2:id]" {if:[singer:cid]==[class2:id]}selected{end if}>&nbsp;|&nbsp;&nbsp;&nbsp;|—[class2:name]</option>
+                                        {/cscmstype:class2}
+                                    {/cscms:class}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">歌手名称</label>
+                                <div class="layui-input-block">
+                                    <input type="text" placeholder="请输入歌手名称" name="name" value="[singer:name]" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">英文名</label>
+                                <div class="layui-input-block">
+                                    <input type="text" placeholder="请输入歌手英文名" name="bname" value="[singer:bname]"  class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">歌手图片</label>
+                                <div class="layui-input-block" style="margin-bottom: 5px;">
+                                    <input id="pic" placeholder="请点击右侧按钮上传图片" type="text" name="pic" class="layui-input" value="[singer:pic]">
+                                </div>
+                                <a href="javascript:cscms.get_upurl('singer','pic','*.jpg;*.png;*.gif','up_msg');" class="layui-btn layui-btn-primary layui-upload-icon" style="display: inline-block;margin: 0px;padding: 0px 15px"><i class="layui-icon" style="font-size:20px">&#xe61f;</i>上传歌手图片</a>
+                            </div>
+                        </div>
+                        <div class="layui-tab-item">
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">身高</label>
+                                <div class="layui-input-block">
+                                    <input type="text" placeholder="" name="height" class="layui-input" value="[singer:height]">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">体重</label>
+                                <div class="layui-input-block">
+                                    <input placeholder="" type="text" name="weight" class="layui-input" value="[singer:weight]">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">性别</label>
+                                <div class="layui-input-block">
+                                    <input placeholder="" type="text" name="sex" class="layui-input" value="[singer:sex]">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">生日</label>
+                                <div class="layui-input-block">
+                                    <input type="text" placeholder="" name="sr"  class="layui-input" value="[singer:sr]">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">国籍</label>
+                                <div class="layui-input-block">
+                                    <input type="text" placeholder="" name="nat" class="layui-input" value="[singer:nat]">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">语言</label>
+                                <div class="layui-input-block">
+                                    <input placeholder="" type="text" name="yuyan" class="layui-input" value="[singer:yuyan]">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">星座</label>
+                                <div class="layui-input-block">
+                                    <input placeholder="" type="text" name="xingzuo" class="layui-input" value="[singer:xingzuo]">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">家乡</label>
+                                <div class="layui-input-block">
+                                    <input type="text" placeholder="" name="city"  class="layui-input" value="[singer:city]">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">标签</label>
+                                <div class="layui-input-block">
+                                    <input id="tags" type="text" name="tags" placeholder="多个用逗号隔开" class="layui-input" value="[singer:tags]">
+                                </div>
+                            </div>
+                            <div class="layui-form-item layui-form-text">
+                                <label class="layui-form-label">歌手介绍</label>
+                                <div class="layui-input-block">
+                                    <textarea name="content"style="display: none;" id="gc0" placeholder="请输入歌手的详细信息" class="layui-textarea">[singer:content]</textarea > 
+                                </div>
+                            </div>
+                        </div>
+						<script type="text/javascript">
+							cscms.mode("cscms.getEditup('singer','gc0','{cscms:upkey}')");
+`						</script>
+                        <div class="layui-tab-item">
+                        {cscms:opt_field_singer}
+                        </div>
+                        <input type="hidden" name="token" value="[user:token]"/>
+                        <input type="hidden" name="id" value="[singer:id]"/>
+                        <input type="hidden" name="yid" value="[singer:yid]"/>
+                        <div class="layui-form-item">
+                            <div class="layui-input-block" style="text-align: center;margin-left: 0px">
+                                <button class="layui-btn" lay-submit lay-filter="">提交</button>
+                                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{cscms:bottom}
+</body>
+</html>
+

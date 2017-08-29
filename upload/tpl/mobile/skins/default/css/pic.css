@@ -1,0 +1,19 @@
+.md-head-more{display: none;background-color: #393D49;border-top: 1px solid #666;margin-top: -1px;padding-top: 5px}
+.mclass{padding: 5px;text-align: center;}
+.mclass a{color: #eee;padding: 3px 5px;display: inline-block;margin-bottom: 5px;}
+.md-head-search{padding:5px 10px 10px;position: relative;border: 0px}
+.md-head-search button{position: absolute;top: 4.3px;right: 10px;height: 31px}
+.md-head-search input{height: 30px;line-height: 30px}
+
+.md-zj{width: 100%;}
+.md-zj tr{margin-bottom: 10px;display: block;}
+.md-zj tr .md-zj-info{padding-left: 10px}
+.md-zj tr .md-zj-info a{text-align: left;display: block;height: 25px;line-height: 25px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;}
+.mp-more{overflow: hidden;font-size: 12px;color: #999;white-space: nowrap;overflow: hidden;line-height: 17px}
+.mp-more span{display: inline-block;text-align: center;padding: 0px 5px;font-size: 12px;}
+/*相册详情页---show*/
+.mn-pl{clear: both;padding: 10px;padding-top: 0px}
+#imgshade{display: none;width: 100%;height: 100%;background: rgba(0,0,0,0.9);position: fixed;top: 0px;left: 0px;z-index: 19999;vertical-align:middle;text-align: center;}
+#imgshade a{position: absolute;right: 5px;top: 5px;font-size: 20px;z-index: 20000}
+#imgshade a i{color: #999;font-size: 20px}
+#imgshow{z-index: 20000;max-width: 100%;max-height: 100%;}

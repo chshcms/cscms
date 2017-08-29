@@ -1,0 +1,98 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset=utf-8>
+    <title></title>
+    <meta name="robots" content="noindex,nofollow">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/layui/css/layui.css">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/admin/css/font.css">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/admin/css/style.css">
+    <?=$opt_gc?>
+    <script src="<?=Web_Path?>packs/js/jquery.min.js"></script>
+    <script src="<?=Web_Path?>packs/layui/layui.js"></script>
+    <script src="<?=Web_Path?>packs/admin/js/cscms.js"></script>
+</head>
+<body id="common">
+    <form class="layui-form layui-form-pane" action="<?=site_url('dance/admin/lists/save')?>" method="post">
+        <div class="layui-form-item">
+            <label class="layui-form-label">上级分类</label>
+            <div class="layui-input-block">
+                <select class="select2" name="fid">
+                    <option value="0">顶级分类</option>
+                    <?php
+                    $query = $this->db->query("SELECT id,name FROM ".CS_SqlPrefix."dance_list where fid=0 order by xid asc"); 
+                    foreach ($query->result() as $row) {
+                        $clas=($row->id==$fid)?' selected="selected"':'';
+                        echo '<option value="'.$row->id.'"'.$clas.'>'.$row->name.'</option>';
+                    }
+                    ?>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label"><span class="colorr">* </span>分类名称</label>
+            <div class="layui-input-block">
+                <input type="text" name="name" lay-verify="required" value="<?=$name?>" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">英文别名</label>
+            <div class="layui-input-block">
+                <input type="text" name="bname" value="<?=$bname?>" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">模板文件</label>
+            <div class="layui-input-block">
+                <input type="text" name="skins" value="<?=$skins?>" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">分类排序</label>
+            <div class="layui-input-block">
+                <input type="text" name="xid" value="<?=$xid?>" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">分类状态</label>
+            <div class="layui-input-block">
+                <select class="select2" name="yid">
+                    <option value="0"<?php if(0==$yid) echo ' selected="selected"';?>>显示</option>
+                    <option value="1"<?php if(1==$yid) echo ' selected="selected"';?>>隐藏</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">SEO标题</label>
+            <div class="layui-input-block">
+                <input type="text" name="title" value="<?=$title?>" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">SEO关键字</label>
+            <div class="layui-input-block">
+                <input type="text" name="keywords" value="<?=$keywords?>" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">SEO描述</label>
+            <div class="layui-input-block">
+                <input type="text" name="description" value="<?=$description?>" class="layui-input">
+            </div>
+        </div>
+        <?=$opt_field?>
+        <input name="id" type="hidden" value="<?=$id?>">
+        <div class="layui-form-item">
+            <div class="layui-input-block center">
+                <button class="layui-btn" lay-submit lay-filter="setting">提交</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </form>
+    <script type="text/javascript">
+        cscms.init();
+    </script>
+</body>
+</html>

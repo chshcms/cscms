@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{cscms:title}</title>
+<meta name="keywords" content="{cscms:keywords}"/>
+<meta name="description" content="{cscms:description}"/>
+<link href="{cscms:indextempurl}css/public.css" rel="stylesheet" type="text/css" />
+<link href="{cscms:indextempurl}css/space.css" rel="stylesheet" type="text/css" />
+<link href="{cscms:indextempurl}css/song.css" rel="stylesheet" type="text/css" />
+<link href="{cscms:indextempurl}css/more.css" rel="stylesheet" type="text/css" />
+<link href="{cscms:indextempurl}css/manage.css" rel="stylesheet" type="text/css" />
+<script type='text/javascript' src='{cscms:indextempurl}js/common.js'></script>
+</head>
+<body>
+{cscms:indexhead}     
+<div class="k_content s_content no_flush_content">
+    <div class="main_tit">
+          <h2 class="main_tit_album" style="width:260px;">{if:{cscms:uid}==[user:id]}我{else}TA{end if}的视频</h2>
+          {if:{cscms:uid}==[user:id]}
+		  <div class="k_main_tit_btn show_owner_panel">
+                <a href="{cscmsphp}spacelink('vod,add','vod');{/cscmsphp}" class="f_green lt space_add_album"><b></b>分享视频</a>
+          </div>
+		 {end if}
+     </div>
+     <div class="yc_song" style="margin-top:20px;">
+	        <div class="dj_lists">
+                <h2 class="dj_title c_wap">
+                    <a href="[user:url ulink=vod]" class="lt a_btn f16 {if:{cscms:fid}==0}song_coll coll_pull{else}list_coll{end if} noFlush_load_link">全部视频</a>
+					{cscms:class table="vod_list" loop="8" fid="0" order="asc"}
+                    <a href="[user:url ulink=vod]/[class:id]" class="lt a_btn f16 {if:{cscms:fid}==[class:id]}song_coll coll_pull{else}list_coll{end if} noFlush_load_link">[class:name]</a>
+					{/cscms:class}
+                </h2>
+            </div>
+            <div class="vod_lists"{if:{cscms:pagedata}==0} style="display:none;"{end if}>
+                <ul>
+				{cscms:vod table="vod" field="id,name,pic" pagesize="21" uid="auto"}
+                     <li><a target="_blank" href="[vod:url link=show,id]" title="[vod:name]"><img src="[vod:pic dir=vod]?size=120*180"><br>[vod:name]</a></li>
+				{/cscms:vod}
+                </ul>
+            </div>
+			{if:{cscms:pagedata}==0}<div class="song_null_box show_owner_panel" style=""><dl><dt></dt><dd><p>你目前的视频数为 <span class="tips_yel">0</span> 首<br>分享视频，为你赚取更多人气吧！</p><div class="song_null_btn"><a href="{cscmsphp}spacelink('vod,add','vod');{/cscmsphp}">分享视频</a></div></dd></dl></div>{end if}
+     </div>
+	 <div class="msg_page f14 tc fa_g6 g6 mt20 msg_page_green" style="display:{if:{cscms:pagecout}==1}none{end if};">
+			<span class="msg_page_list">
+				<a href="{cscms:pageup}" class="commentsPrevPage">上一页</a>
+				{cscms:pagenum len=10}
+				<a href="{cscms:pagedown}" class="commentsNextPage">下一页</a>
+			</span>
+			<span class="msg_page_jump ml10"> 到<input type="text" id="home_page" class="tc commentsJumpPageTxt" size="4" maxlength="4">页<a href="javascript:window.location.href='[user:url ulink=vod]/{cscms:fid}/'+$('#home_page').val();" class="tdn commentsJumpPageBtn">确 定</a></span>
+	 </div>
+</div>
+{cscms:indexbottom}
+<script>$('#nav_vod').addClass('sel');</script>
+</body>
+</html>

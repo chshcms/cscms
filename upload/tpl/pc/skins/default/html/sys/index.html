@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html>
+<head> 
+<meta charset=utf-8>
+<meta http-equiv="X-UA-Compatible" content="IE=9">
+<title>{cscms:title}</title>
+<meta name="Keywords" content="{cscms:keywords}" />
+<meta name="Description" content="{cscms:description}" />
+<link rel="shortcut icon" href="{cscms:webpath}favicon.ico" />
+<link rel="stylesheet" href="{cscms:webpath}packs/font/font.css">
+<link rel="stylesheet" type="text/css" href="{cscms:tempurl}css/index.css"/>
+<link rel="stylesheet" type="text/css" href="{cscms:webpath}packs/swiper/swiper.css"/>
+<script type='text/javascript' src='{cscms:webpath}packs/swiper/swiper.js'></script>
+</head>
+<body>
+	{cscms:head}
+	<div class="w960" style="margin-top: 60px;background-color: #fff;padding:10px 20px;overflow: hidden;">
+		<div class="swiper-container" style="height: 300px">
+		    <div class="swiper-wrapper">
+			    <!--音乐幻灯片-->
+		    	{cscms:hdance table="dance" loop="3" sort="addtime"}
+		        <div class="swiper-slide">
+		        	<a target="_blank" href="[hdance:url zdy=dance,id,play,id]"><img style="width: 100%;height: 100%;" src="[hdance:pic dir=dance]" alt="[hdance:name]"></a>
+		        </div>
+		        {/cscms:hdance}
+		        <!--视频幻灯片-->
+		        {cscms:hvod table="vod"  loop="3" sort="addtime"}
+		        <div class="swiper-slide">
+		        	<a target="_blank" href="[hvod:url zdy=vod,id,show,id]"><img style="width: 100%;height: 100%;" src="[hvod:pic2 dir=vod]" alt="[hvod:name]"></a>
+		        </div>
+		        {/cscms:hvod}
+		    </div>
+		    <div class="swiper-pagination"></div>
+		    <div class="swiper-button-prev swiper-button-white"></div>
+		    <div class="swiper-button-next swiper-button-white"></div>
+		</div>
+	</div>
+	<div class="w960" style="background-color: #fff;padding:0px 20px;overflow: hidden;">
+		<div class="site-l">
+			<div class="layui-tab layui-tab-brief">
+				<ul class="layui-tab-title" style="border-bottom: 2px solid #5FB878">
+					<li style="font-size: 16px;vertical-align: baseline;">音乐推荐</li>
+					{cscms:class table="dance_list" loop="8" sort="xid" order="desc"}
+					<li class="site-cls" style="{if:[class:i]==1}border-left: 0px{end if}"><a href="{cscmsphp}linkurl('lists','id',[class:id],1,'dance');{/cscmsphp}">[class:name]</a></li>
+					{/cscms:class}
+					<a target="_blank" href="{cscmsphp}cscmslink('dance');{/cscmsphp}" class="site-more">更多</a>
+				</ul>
+				<div class="layui-tab-content" style="overflow: hidden;padding: 5px">
+					<ul id="dance-left" style="border-right: 1px solid #eee">
+					{cscms:dance table="dance" loop="8" field="id,name,singerid,hits,shits,cid" reco="1,2,3,4,5" sort="rhits"}
+						<li class="dance-one">
+							<div class="dance-one-left">
+								<span class="dance-jx">荐</span><a target="_blank" class="title" title="[dance:name]" href="[dance:url zdy=dance,id,play,id]">[dance:name]</a>
+								<div class="dance-one-more"><span><i class="layui-icon">&#xe6fc;</i><i title="人气">[dance:hits]</i></span><span><i class="layui-icon">&#xe600;</i><i title="收藏">[dance:shits]</i></span><span><a target="_blank" href="[dance:url zdy=dance,cid,lists,hits]">[dance:zdy zd=dance_list,name,cid]</a></span></div>
+							</div>
+							<a target="_blank" class="dance-singer" href="[dance:url zdy=singer,singerid,show]">[dance:singer zd=name]</a>
+						</li>
+					{/cscms:dance}
+					</ul>
+					<ul id="dance-left" style="margin-left: 9px">
+					{cscms:dance table="dance" loop="8" field="id,name,singerid,hits,shits,cid" sort="addtime"}
+						<li class="dance-one">
+							<div class="dance-one-left">
+								<span class="dance-jx jx-d">新</span><a class="title" target="_blank" title="[dance:name]" href="[dance:url zdy=dance,id,play,id]">[dance:name]</a>
+								<div class="dance-one-more"><span  title="人气"><i class="layui-icon">&#xe6fc;</i><i>[dance:hits]</i></span><span title="收藏"><i class="layui-icon">&#xe600;</i><i>[dance:shits]</i></span><span><a target="_blank" href="[dance:url zdy=dance,cid,lists,hits]">[dance:zdy zd=dance_list,name,cid]</a></span></div>
+							</div>
+							<a target="_blank" class="dance-singer" href="[dance:url zdy=singer,singerid,show]">[dance:singer zd=name]</a>
+						</li>
+					{/cscms:dance}
+					</ul>
+				</div>
+			</div>  
+		</div>
+		<div class="site-r">
+			<div class="layui-tab layui-tab-brief">
+				<ul class="layui-tab-title" style="border-bottom: 2px solid #5FB878">
+					<li style="font-size: 16px;vertical-align: baseline;">专辑推荐</li>
+					<a href="{cscmsphp}linkurl('topic','id',0,1,'dance');{/cscmsphp}" class="site-more" target="_blank">更多</a>
+				</ul>
+				<div class="layui-tab-content" style="overflow: hidden;padding: 5px 0px 0px 0px">
+				{cscms:zj table="dance_topic" loop="12" field="id,name,pic,hits" sort="addtime"}
+					<li class="index-zj">
+						<a href="[zj:url zdy=dance,id,topic/show]" class="zj-link">
+							<img src="[zj:pic dir=dancetopic]" alt="[zj:name]">
+							<div class="zj-hits-bg"></div>
+							<div class="zj-hits"><i class="layui-icon">&#xe6fc;</i>[zj:hits]</div>
+							<div class="zj-hover-bg"></div>
+							<div class="zj-hover"><i class="layui-icon">&#xe6fc;</i>浏览</div>
+						</a>
+						<a href="[zj:url zdy=dance,id,topic/show]" class="zj-name" title="[zj:name]">[zj:name]</a>
+					</li>
+				{/cscms:zj}
+				</div>
+			</div>
+		</div>
+		<div class="mar10"></div>
+		<div class="site-l">
+			<div class="layui-tab layui-tab-brief" style="margin: 0px">
+				<ul class="layui-tab-title" style="border-bottom: 2px solid #5FB878">
+					<li style="font-size: 16px;vertical-align: baseline;">视频推荐</li>
+					{cscms:class table="vod_list" loop="8" sort="xid" order="desc"}
+					<li class="site-cls" style="{if:[class:i]==1}border-left: 0px{end if}"><a href="{cscmsphp}linkurl('lists','id',[class:id],1,'vod');{/cscmsphp}">[class:name]</a></li>
+					{/cscms:class}
+					<a target="_blank" href="{cscmsphp}cscmslink('vod');{/cscmsphp}" class="site-more">更多</a>
+				</ul>
+				<div class="layui-tab-content" style="overflow: hidden;padding: 5px">
+					{cscms:vod table="vod" loop="10" field="id,name,addtime,pic,hits,shits,remark" reco="1,2,3,4,5" sort="hits"}
+					<li class="index-vod">
+						<a target="_blank" href="[vod:url zdy=vod,id,show,id]" class="ivod-link" title="[vod:name]">
+							<img src="[vod:pic dir=vod]" alt="[vod:name]">
+							<div class="layui-btn layui-btn-mini layui-btn-danger ivod-info">[vod:remark]</div>
+							<div class="ivod-title">
+								<a target="_blank" href="[vod:url zdy=vod,id,show,id]" class="ivod-name" title="[vod:name]">[vod:name]</a>
+								<div class="ivod-more">
+									<span title="人气"><i class="layui-icon">&#xe652;</i><i>[vod:hits]</i></span>
+									<span title="收藏"><i class="layui-icon">&#xe600;</i><i>[vod:shits]</i></span>
+								</div>
+							</div>
+						</a>
+					</li>
+					{/cscms:vod}
+				</div>
+			</div>  
+		</div>
+		<div class="site-r">
+			<div class="layui-tab layui-tab-brief" style="margin: 0px">
+				<ul class="layui-tab-title" style="border-bottom: 2px solid #5FB878">
+					<li style="font-size: 16px;vertical-align: baseline;">最新视频</li>
+					<a href="{cscmsphp}cscmslink('vod');{/cscmsphp}" class="site-more" target="_blank">更多</a>
+				</ul>
+				<div class="layui-tab-content" style="overflow: hidden;padding: 10px 5px 0px">
+					{cscms:vod table="vod" loop="10" field="id,name,pic,hits,shits,zhuyan,text" sort="addtime"}
+					<li class="index-rlist {if:[vod:i]==1}on{end if}" {if:[vod:i]==17}style="margin-bottom:0px"{end if}>
+						<a class="ir-name" href="[vod:url zdy=vod,id,show,id]"><i class="layui-btn layui-btn-mini {if:[vod:i]<4}layui-btn-danger{else}layui-btn-primary{end if}" style="min-width: 26px">[vod:i]</i>&nbsp;[vod:name]</a>
+						<span class="ir-yan" title="[vod:zhuyan]">[vod:zhuyan]</span>
+						<div class="ir-info">
+							<a target="_blank" class="ir-info-a" href="[vod:url zdy=vod,id,show,id]"><img src="[vod:pic dir=vod]" alt="[vod:name]"></a>
+							<div class="ir-right">
+								<a target="_blank" class="ir-info-name" title="[vod:name]" href="[vod:url zdy=vod,id,show,id]">[vod:name]</a>
+								<div class="ir-info-yan" title="[vod:zhuyan]">主演：[vod:zhuyan]</div>
+								<div class="ir-intro">简介：[vod:text]</div>
+							</div>
+						</div>
+					</li>
+					{/cscms:vod}
+				</div>
+			</div>
+		</div>
+		<div class="mar10"></div>
+		<div class="site-l">
+			<div class="layui-tab layui-tab-brief" style="margin: 0px">
+				<ul class="layui-tab-title" style="border-bottom: 2px solid #5FB878">
+					<li style="font-size: 16px;vertical-align: baseline;">热门歌手</li>
+					{cscms:class table="singer_list" loop="8" fid="0" sort="xid" order="asc"}
+					<li class="site-cls" style="{if:[class:i]==1}border-left: 0px{end if}"><a target="_blank" href="{cscmsphp}linkurl('lists','id',[class:id],1,'singer');{/cscmsphp}">[class:name]</a></li>
+					{/cscms:class}
+					<a target="_blank" href="{cscmsphp}cscmslink('singer');{/cscmsphp}" class="site-more">更多</a>
+				</ul>
+				<div class="layui-tab-content" style="overflow: hidden;padding: 10px 0px 0px 10px">
+					{cscms:singer table="singer" loop="10" field="id,name,pic" reco="1,2,3,4,5" sort="hits"}
+					<li class="index-sing">
+						<a target="_blank" href="[singer:url zdy=singer,id,show]" class="is-link"><img src="[singer:pic dir=singer]" alt="[singer:name]"></a>
+						<a target="_blank" class="is-name" href="[singer:url zdy=singer,id,show]">[singer:name]</a>
+					</li>
+					{/cscms:singer}
+				</div>
+			</div>  
+		</div>
+		<div class="site-r">
+			<div class="layui-tab layui-tab-brief" style="margin: 0px">
+				<ul class="layui-tab-title" style="border-bottom: 2px solid #5FB878">
+					<li style="font-size: 16px;vertical-align: baseline;">最新歌手</li>
+				</ul>
+				<div class="layui-tab-content" style="overflow:hidden;padding:10px 0px 5px 10">
+					{cscms:singer table="singer" loop="32" field="id,name" sort="id"}
+						<a title="[singer:name]" target="_blank" class="is-hits" href="[singer:url zdy=singer,id,show]">[singer:name]</a>
+					{/cscms:singer}
+				</div>
+			</div>
+		</div>
+		<div class="mar10"></div>
+		<div class="site-l">
+			<div class="layui-tab layui-tab-brief" style="margin: 0px">
+				<ul class="layui-tab-title" style="border-bottom: 2px solid #5FB878">
+					<li style="font-size: 16px;vertical-align: baseline;">精品图集</li>
+					{cscms:class table="pic_list" loop="8" fid="0" sort="xid" order="asc"}
+					<li class="site-cls" style="{if:[class:i]==1}border-left: 0px{end if}"><a target="_blank" href="{cscmsphp}linkurl('lists','id',[class:id],1,'pic');{/cscmsphp}">[class:name]</a></li>
+					{/cscms:class}
+					<a target="_blank" href="{cscmsphp}cscmslink('pic');{/cscmsphp}" class="site-more">更多</a>
+				</ul>
+				<div class="layui-tab-content" style="overflow:hidden;padding:5px">
+					{cscms:pic table="pic_type" loop="10" field="id,name,pic" reco="1,2,3,4,5" sort="hits"}
+					<li class="index-sing">
+						<a target="_blank" href="[pic:url zdy=pic,id,show]" class="is-link"><img src="[pic:pic dir=pic]" alt="[pic:name]">
+						<div class="ip-num">[pic:count zdy=pic,sid,id]&nbsp;张</div>
+						<div class="ip-num-bg"></div>
+						</a>
+						<a target="_blank" class="is-name" href="[pic:url zdy=pic,id,show]">[pic:name]</a>
+					</li>
+					{/cscms:pic}
+				</div>
+			</div>
+		</div>
+		<div class="site-r">
+			<div class="layui-tab layui-tab-brief" style="margin: 0px">
+				<ul class="layui-tab-title" style="border-bottom: 2px solid #5FB878">
+					<li style="font-size:16px;vertical-align:baseline;">人气会员</li>
+				</ul>
+				<div class="layui-tab-content" style="overflow:hidden;padding:10px 0px 10px 15px">
+					{cscms:user table="user" loop="16" field="id,logo,name,nichen,hits,addtime"}
+					<li class="index-user" title="{if:'[user:nichen]'==''}[user:name]{else}[user:nichen]{end if}">
+						<a target="_blank" href="[user:url ulink=index]" class="iu-link">
+							<img src="[user:logo dir=logo]" alt="[user:name]">
+							<div class="iu-name">[user:name]</div>
+							<div class="iu-name-bg"></div>
+						</a>
+					</li>
+				{/cscms:user}
+				</div>
+			</div>
+		</div>
+		<div class="mar10"></div>
+		<div class="site-l">
+			<div class="layui-tab layui-tab-brief" style="margin: 0px">
+				<ul class="layui-tab-title" style="border-bottom: 2px solid #5FB878">
+					<li style="font-size: 16px;vertical-align: baseline;">最新资讯</li>
+					{cscms:class table="news_list" loop="10" fid="0" sort="xid" order="asc"}
+					<li class="site-cls" style="{if:[class:i]==1}border-left: 0px{end if}"><a target="_blank" href="{cscmsphp}linkurl('lists','id',[class:id],1,'news');{/cscmsphp}">[class:name]</a></li>
+					{/cscms:class}
+					<a target="_blank" href="{cscmsphp}cscmslink('news');{/cscmsphp}" class="site-more">更多</a>
+				</ul>
+				<div class="layui-tab-content" style="overflow: hidden;padding: 10px 0px 10px 10px">
+					<div class="index-nl">
+						{cscms:news table="news" field="id,cid,name,hits,addtime" loop="8" sort="addtime"}
+						<li class="index-news">
+							<div class="in-dot "><span>新</span></div>
+							<div class="in-link">
+								<a target="_blank" class="in-link-a" href="[news:url zdy=news,id,show,id]" title="[news:name]">[news:name]</a>
+							</div>
+							<div class="in-more">
+								<span title="阅读次数" class="in-hits"><i class="layui-icon">&#xe609;</i><i>[news:hits]</i></span>
+								<span title="资讯分类">[news:zdy zd=news_list,name,cid]</span>
+								<span title="发布日期" >[news:addtime style=Y-m-d]</span>
+							</div>
+						</li>
+						{/cscms:news}
+					</div>
+					<div class="index-nl" style="padding-left: 10px;border-left: 1px solid #eee;">
+						{cscms:news table="news" field="id,cid,name,hits,addtime" loop="8" sort="hits"}
+						<li class="index-news">
+							<div class="in-dot in-dot2"><span>热</span></div>
+							<div class="in-link">
+								<a target="_blank" class="in-link-a" href="[news:url zdy=news,id,show,id]" title="[news:name]">[news:name]</a>
+							</div>
+							<div class="in-more">
+								<span title="阅读次数" class="in-hits"><i class="layui-icon">&#xe609;</i><i>[news:hits]</i></span>
+								<span title="资讯分类">[news:zdy zd=news_list,name,cid]</span>
+								<span>[news:addtime style=Y-m-d]</span>
+							</div>
+						</li>
+						{/cscms:news}
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="site-r">
+			<div class="layui-tab layui-tab-brief" style="margin: 0px">
+				<ul class="layui-tab-title" style="border-bottom: 2px solid #5FB878">
+					<li style="font-size: 16px;vertical-align: baseline;">活跃会员</li>
+				</ul>
+				<div class="layui-tab-content" style="overflow:hidden;padding:10px 0px 0px 15px">
+				{cscms:user table="user" field="id,logo,nichen,name,hits,addtime" sort="logtime" loop="24"}
+					<li class="index-user" title="{if:'[user:nichen]'==''}[user:name]{else}[user:nichen]{end if}">
+						<a target="_blank" href="[user:url ulink=index]" class="iu-link">
+							<img src="[user:logo dir=logo]" alt="title="{if:'[user:nichen]'==''}[user:name]{else}[user:nichen]{end if}"">
+							<div class="iu-name">{if:'[user:nichen]'==''}[user:name]{else}[user:nichen]{end if}</div>
+							<div class="iu-name-bg"></div>
+						</a>
+					</li>
+				{/cscms:user}
+				</div>
+			</div>
+		</div>
+		<div class="layui-tab layui-tab-brief" style="clear: both;">
+			<ul class="layui-tab-title" style="border-bottom: 2px solid #5FB878">
+				<li style="font-size: 16px;vertical-align: baseline;">友情链接</li>
+				<a target="_blank" href="javascript:;" class="site-more">站长QQ：{cscms:qq}</a>
+			</ul>
+			<div class="layui-tab-content" style="overflow: hidden;padding: 10px 0px">
+				{cscms:link table="link" sid="1"}
+				<a class="yqlink" href="[link:url]">[link:name]</a>
+				{/cscms:link}
+			</div>
+		</div>
+	</div>
+	{cscms:bottom}
+</body>
+<script type="text/javascript">
+	var mySwiper = new Swiper ('.swiper-container', {
+        direction: 'horizontal',
+        loop: true,
+        autoplay: 3000,
+        pagination: '.swiper-pagination',
+        // 如果需要前进后退按钮
+        nextButton: '.swiper-button-next',
+        prevButton: '.swiper-button-prev',
+    });
+	$(document).ready(function() {
+		$('.index-rlist').hover(function() {
+			$('.index-rlist').removeClass('on');
+			$(this).addClass('on');
+		});
+	});
+</script>
+</html>

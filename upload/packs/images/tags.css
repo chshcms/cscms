@@ -1,0 +1,42 @@
+/*css reset*/
+html,body,div,span,h1,h2,h3,h4,h5,h6,p,a,em,img,sub,sup,dl,dt,dd,ol,ul,li,form,input,button,label,textarea,table,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;}
+body{font:400 12px/1.5 Tahoma,Arial,Helvetica,sans-serif;color:#5b6778; background:#fff; }
+a{text-decoration:none;color:#333;}
+a:hover{text-decoration:underline;color:#198cd5;}
+h1,h2,h3,h4,h5,h6,strong{font-weight:800;font-size:100%;}
+em{font-style:normal;}
+h1{font-size:18px;}h2{font-size:16px;}h3{font-size:14px;}h4,h5,h6{font-size:12px;}
+label,input,select,textarea{vertical-align:middle; font-family:Arial,sans-serif;}
+img,button{background:none;border:none;}
+ol,ul,li{list-style:none;}
+table,td {border:none;border-collapse:collapse;}
+.red,.red,.red:hover,.red a,.red a:hover{ color:#fb2f00;}
+.clearfix:after{ content:""; display:block;visibility:hidden; height:0; clear:both;}
+.clearfix {zoom:1;}
+.fl{ float:left;}
+.fr{ float:right;}
+
+.popDiyTags-form{ overflow-x:hidden; overflow-y:auto;position:relative;left:0;top:0;background:#fff; padding:0 10px 10px;font-size:12px;}
+.popDiyTags-title{ overflow:hidden;zoom:1; height:48px; padding-top:10px; padding-bottom:10px\0;}
+.popDiyTags-title .fl{ width:80%}
+.popDiyTags-title .btnTure{ float:right; margin-top:10px;}
+.popDiyTags-title .selected-index{ font-size:12px;}
+.popDiyTags-title .selected-index em{ font-weight:400;}
+.popDiyTags-title .selected-list{ width:100%; overflow:hidden;zoom:1; margin-top:5px;}
+.popDiyTags-title .selected-list li{display:inline-block;*display:inline;zoom:1;margin-right:5px;padding:0 5px;width:auto;height:22px;line-height:22px;border:1px solid #ccc;vertical-align:middle;overflow:hidden; font-size:12px; background:#f1f1f1;}
+.popDiyTags-title .selected-list li span{float:left;height:22px;line-height:22px;vertical-align:middle;width:auto;}
+.popDiyTags-title .selected-list li .selected-del{display:inline-block;background:url(pub.png) -147px -122px no-repeat; width:16px; height:17px;text-indent:-9999px; margin:3px 0 0 2px;_margin:4px 0 0 2px; line-height:16px;}
+.popDiyTags-title .selected-list li .selected-del:hover{ background:url(pub.png) -147px -139px no-repeat;}
+.popDiyTags-list{ padding:10px; border:1px solid #ccc; margin:15px 0 0; position:relative;}
+.popDiyTags-list dt{ font-size:14px; font-weight:800; position:absolute; top:-10px; left:10px; background:#fff; padding:0 5px;}
+.popDiyTags-list dd { float:left; width:90px; margin-top:8px;}
+.popDiyTags-list dd a{background:#fff;border:1px solid #e6e6e6;color:#666;margin-right:5px;padding:1px 8px;text-decoration:none; display:inline-block;}
+.popDiyTags-list dd a:hover{ background:#daf4b7; border:1px solid #aedc70;}
+.popDiyTags-list dd a.selected{ color:#fff; border:1px solid #73af22; background:#90cb41;}
+.popDiyTags-list dd a.selected:hover{ color:#fff; border:1px solid #73af22; background:#90cb41;}
+
+/*btn public*/
+.btn,.btn-inner,.btn-txt{float:left;cursor:pointer;display:inline-block;*display:inline;zoom:1;vertical-align:middle;}
+.btnTure{ height:28px; line-height:28px;}
+.btnTure .btn-inner{color:#fff;background:#666;padding-right:20px;}
+.btn-txt{text-align:center;padding-left:20px;}

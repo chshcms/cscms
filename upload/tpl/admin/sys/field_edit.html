@@ -1,0 +1,300 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset=utf-8>
+    <title></title>
+    <meta name="robots" content="noindex,nofollow">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/layui/css/layui.css">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/admin/css/font.css">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/admin/css/style.css">
+    <script src="<?=Web_Path?>packs/js/jquery.min.js"></script>
+    <script src="<?=Web_Path?>packs/layui/layui.js"></script>
+    <script src="<?=Web_Path?>packs/admin/js/cscms.js"></script>
+</head>
+<body id="index_setting">
+    <span class="layui-breadcrumb" >
+        <a ><cite><i class="fa fa-map-marker"></i><?=L('tpl_fe_01')?></cite></a>
+        <a href=""><?=$title?><?=L('tpl_fe_02')?></a>
+    </span>
+    <div class="layui-tab layui-tab-brief" style="overflow: visible;">
+        <ul class="layui-tab-title">
+            <li><a class="tablink" href="<?=site_url('field')?>?dir=<?=$dir?>"><?=L('tpl_fe_03')?></a></li>
+            <li class="layui-this"><ahref="<?=site_url('field/edit')?>?dir=<?=$dir?>"><?=$title.L('tpl_fe_04')?></a></li>
+        </ul>
+        <div class="layui-tab-content">
+            <form class="layui-form layui-form-pane" action="<?=site_url('field/save')?>?dir=<?=$dir?>">
+                <div class="layui-form-item">
+                    <label class="layui-form-label"><?=L('tpl_fe_05')?></label>
+                    <div class="layui-input-inline layui-input-inlinew3">
+                        <select name="leix" lay-filter="field">
+                        <option value=""><?=L('tpl_fe_06')?></option>
+                        <option value="number"<?php if($leix=='number') echo ' selected="selected"';?>><?=L('tpl_fe_07')?></option>
+                        <option value="text"<?php if($leix=='text') echo ' selected="selected"';?>><?=L('tpl_fe_08')?></option>
+                        <option value="image"<?php if($leix=='image') echo ' selected="selected"';?>><?=L('tpl_fe_09')?></option>
+                        <option value="select"<?php if($leix=='select') echo ' selected="selected"';?>><?=L('tpl_fe_10')?></option>
+                        <option value="datetime"<?php if($leix=='datetime') echo ' selected="selected"';?>><?=L('tpl_fe_11')?></option>
+                        <option value="upload"<?php if($leix=='upload') echo ' selected="selected"';?>><?=L('tpl_fe_12')?></option>
+                        </select>
+                    </div>
+                    <div class="layui-input-inline layui-input-inlinew">
+                        <select name="required">
+                        <option value="0"<?php if($required==0) echo ' selected="selected"';?>><?=L('tpl_fe_13')?></option>
+                        <option value="1"<?php if($required==1) echo ' selected="selected"';?>><?=L('tpl_fe_14')?></option>
+                        </select>
+                    </div>
+                    <div class="layui-input-inline layui-input-inlinew">
+                        <select name="status">
+                        <option value="1"<?php if($status==1) echo ' selected="selected"';?>><?=L('tpl_fe_15')?></option>
+                        <option value="0"<?php if($status==0) echo ' selected="selected"';?>><?=L('tpl_fe_16')?></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label"><?=L('tpl_fe_17')?></label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="zd" placeholder="<?=L('tpl_fe_18')?>" class="layui-input" value="<?=$zd?>">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label"><?=L('tpl_fe_19')?></label>
+                    <div class="layui-input-inline">
+                        <select name="table">
+                    <?php
+                        if($dir=='user'){
+                            echo '<option selected="selected" value="user">'.L('tpl_fe_20').'</option>';
+                        }
+                        if(file_exists(CSCMS.$dir.'/install.php')){
+                            $dirsql = require_once(CSCMS.$dir.'/install.php');
+                            //判断数据库
+                            if(is_array($dirsql)){
+                                foreach ($dirsql as $sql) {
+                                    preg_match('/CREATE TABLE IF NOT EXISTS `{prefix}([\s\S]+?)`([\s\S]+?)COMMENT=\'([\s\S]+?)\';/',$sql,$arr);
+                                    if(!empty($arr[1]) && $this->db->table_exists(CS_SqlPrefix.$arr[1])){
+                                        $tname=!empty($arr[3])?$arr[3]:$arr[1];
+                                        if($table == $arr[1]){
+                                            $sel = 'selected="selected"';
+                                        }else{
+                                            $sel = '';
+                                        }
+                                        echo '<option '.$sel.' value="'.$arr[1].'">'.$tname.'</option>';
+                                    }
+                                }
+                            }
+                        }
+                    ?></select>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label"><?=L('tpl_fe_21')?></label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="note" class="layui-input" value="<?=$note?>">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label"><?=L('tpl_fe_22')?></label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="notice" placeholder="<?=L('tpl_fe_23')?>" class="layui-input" value="<?=$notice?>">
+                    </div>
+                </div>
+                <fieldset class="layui-elem-field field number" <?=($leix=='number')?'':'style="display:none"'?>>
+                    <legend><?=L('tpl_fe_24')?></legend>
+                    <div class="layui-field-box">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label"><?=L('tpl_fe_25')?></label>
+                            <div class="layui-input-inline">
+                                <select name="number_attr" lay-filter="field_number">
+                                    <option value="tinyint"<?php if($attr=='tinyint') echo ' selected="selected"';?>><?=L('tpl_fe_26')?></option>
+                                    <option  value="int"<?php if($attr=='int') echo ' selected="selected"';?>><?=L('tpl_fe_27')?></option>
+                                    <option value="float"<?php if($attr=='float') echo ' selected="selected"';?>><?=L('tpl_fe_28')?></option>
+                                    <option value="decimal"<?php if($attr=='decimal') echo ' selected="selected"';?>><?=L('tpl_fe_29')?></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label"><?=L('tpl_fe_30')?></label>
+                            <div class="layui-input-inline layui-input-inlinew">
+                                <input type="text" name="number_default" class="layui-input" value="<?=$default?>">
+                            </div>
+                            <label class="layui-form-label dot" <?=($attr!='float' && $attr!='decimal')?'style="display:none"':''?>><?=L('tpl_fe_31')?></label>
+                            <div class="layui-input-inline layui-input-inlinew dot" <?=($attr!='float' && $attr!='decimal')?'style="display:none"':''?>>
+                                <input type="text" name="dot" class="layui-input" value="<?=$dot?>">
+                            </div>
+                            <div class="layui-input-inline">
+                                <?=L('tpl_fe_32')?><span id="range_num" class="apply-link">0~127</span>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset class="layui-elem-field field text" <?=($leix=='text')?'':'style="display:none"'?>>
+                    <legend><?=L('tpl_fe_33')?></legend>
+                    <div class="layui-field-box">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label"><?=L('tpl_fe_34')?></label>
+                            <div class="layui-input-inline" onclick="cscms.show_hide('attr','text_attr')">
+                                <input type="radio" name="text_attr" value="0" title="<?=L('tpl_fe_35')?>" <?=($attr==0)?'checked':''?>>
+                                <input type="radio" name="text_attr" value="1" title="<?=L('tpl_fe_36')?>" <?=($attr==1)?'checked':''?>>
+                                <input type="radio" name="text_attr" value="2" title="<?=L('tpl_fe_37')?>" <?=($attr==2)?'checked':''?>>
+                            </div>
+                        </div>
+                        <div class="layui-form-item attr attr0" <?=($attr!=0)?'style="display:none"':''?>>
+                            <label class="layui-form-label"><?=L('tpl_fe_38')?></label>
+                            <div class="layui-input-inline">
+                                <input type="radio" name="pass" value="1" title="<?=L('tpl_fe_39')?>" <?=($pass==1)?'checked':''?>>
+                                <input type="radio" name="pass" value="0" title="<?=L('tpl_fe_40')?>" <?=($pass==0)?'checked':''?>>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label"><?=L('tpl_fe_30')?></label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="text_default" class="layui-input" value="<?=$default?>">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label"><?=L('tpl_fe_77')?></label>
+							<div class="layui-input-inline">
+								<input type="radio" name="search" value="1" title="<?=L('tpl_fe_39')?>" <?=($search==1)?'checked':''?> >
+								<input type="radio" name="search" value="0" title="<?=L('tpl_fe_40')?>" <?=($search==0)?'checked':''?>>
+							</div>
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset class="layui-elem-field field image" <?=($leix=='image')?'':'style="display:none"'?>>
+                    <legend><?=L('tpl_fe_41')?></legend>
+                    <div class="layui-field-box">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label"><?=L('tpl_fe_42')?></label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="image_accept" class="layui-input" value="<?=$accept?>">
+                            </div>
+                            <div class="layui-form-mid layui-word-aux"><?=L('tpl_fe_43')?></div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label"><?=L('tpl_fe_44')?></label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="image_default" class="layui-input" value="<?=$default?>">
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset class="layui-elem-field field select" <?=($leix=='select')?'':'style="display:none"'?>>
+                    <legend><?=L('tpl_fe_45')?></legend>
+                    <div class="layui-field-box">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label"><?=L('tpl_fe_46')?></label>
+                            <div class="layui-input-inline">
+                                <input type="radio" name="select_attr" value="0" title="<?=L('tpl_fe_47')?>" <?=($attr==0)?'checked':''?>>
+                                <input type="radio" name="select_attr" value="1" title="<?=L('tpl_fe_48')?>" <?=($attr==1)?'checked':''?>>
+                                <input type="radio" name="select_attr" value="2" title="<?=L('tpl_fe_49')?>" <?=($attr==2)?'checked':''?>>
+                            </div>
+                        </div>
+                        <div class="layui-form-item layui-form-text">
+                            <label class="layui-form-label"><?=L('tpl_fe_50')?></label>
+                            <div class="layui-input-block">
+                                <textarea name="option" placeholder="<?=L('tpl_fe_51')?>" class="layui-textarea"><?=$option?></textarea>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label"><?=L('tpl_fe_52')?></label>
+                            <div class="layui-input-inline">
+                                <input type="radio" name="opcls" value="tinyint" title="<?=L('tpl_fe_53')?>" <?=($opcls=='tinyint')?'checked':''?>>
+                                <input type="radio" name="opcls" value="int" title="<?=L('tpl_fe_54')?>" <?=($opcls=='int')?'checked':''?>>
+                                <input type="radio" name="opcls" value="varchar" title="<?=L('tpl_fe_55')?>" <?=($opcls=='varchar')?'checked':''?>>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label"><?=L('tpl_fe_30')?></label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="select_default" class="layui-input" value="<?=$default?>">
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset class="layui-elem-field field datetime" <?=($leix=='datetime')?'':'style="display:none"'?>>
+                    <legend><?=L('tpl_fe_56')?></legend>
+                    <div class="layui-field-box">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label"><?=L('tpl_fe_57')?></label>
+                            <div class="layui-input-inline">
+                                <select name="date_attr">
+                                    <option value="date"<?php if($attr=='date') echo ' selected="selected"';?>><?=L('tpl_fe_58')?> <?=date('Y-m-d')?></option>
+                                    <option  value="datetime"<?php if($attr=='datetime') echo ' selected="selected"';?>><?=L('tpl_fe_59')?> <?=date('Y-m-d H:i:s')?></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label"><?=L('tpl_fe_30')?></label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="date_default" class="layui-input" value="<?=$default?>">
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset class="layui-elem-field field upload" <?=($leix=='upload')?'':'style="display:none"'?>>
+                    <legend><?=L('tpl_fe_60')?></legend>
+                    <div class="layui-field-box">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label"><?=L('tpl_fe_61')?></label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="upload_accept" class="layui-input" value="<?=$accept?>">
+                            </div>
+                            <div class="layui-form-mid layui-word-aux"><?=L('tpl_fe_62')?></div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label"><?=L('tpl_fe_63')?></label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="upload_attr" class="layui-input" value="<?=$attr?>">
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+                <div class="layui-form-item">
+                    <label class="layui-form-label"><?=L('tpl_fe_64')?></label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="regexp" name="regexp" class="layui-input" value="<?=$regexp?>">
+                    </div>
+                    <div class="layui-input-inline layui-input-inlinew">
+                        <select lay-filter="field_regexp">
+                            <option value=" "><?=L('tpl_fe_65')?></option>
+                            <option value="/^\d+$/i"><?=L('tpl_fe_66')?></option>
+                            <option value="/^\w+$/i"><?=L('tpl_fe_67')?></option>
+                            <option value="/^[\w\-\.]+@[\w\-\.]+(\.\w+)+$/"><?=L('tpl_fe_68')?></option>
+                            <option value="/^[0-9]{5,20}$/"><?=L('tpl_fe_69')?></option>
+                            <option value="/^http:\/\//"><?=L('tpl_fe_70')?></option>
+                            <option value="/^(1)[0-9]{10}$/"><?=L('tpl_fe_71')?></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label"><?=L('tpl_fe_72')?></label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="wrong" placeholder="<?=L('tpl_fe_73')?>" class="layui-input" value="<?=$wrong?>">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label"><?=L('tpl_fe_74')?></label>
+                    <div class="layui-input-inline">
+                        <input type="radio" name="qiantai" value="1" title="<?=L('tpl_fe_39')?>" <?=($qiantai==1)?'checked':''?> >
+                        <input type="radio" name="qiantai" value="0" title="<?=L('tpl_fe_40')?>" <?=($qiantai==0)?'checked':''?>>
+                    </div>
+                </div>
+                <input type="hidden" name="old_zd" value="<?=$zd?>">
+                <input type="hidden" name="old_table" value="<?=$table?>">
+                <input type="hidden" name="dir" value="<?=$dir?>">
+                <div class="layui-form-item">
+                    <div class="layui-input-block layui-input-common noborder">
+                        <button class="layui-btn" lay-submit lay-filter="setting"><?=L('tpl_fe_75')?></button>
+                        <button type="reset" class="layui-btn layui-btn-primary"><?=L('tpl_fe_76')?></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+<script type="text/javascript">
+    cscms.init();
+</script>
+</body>
+</html>
+

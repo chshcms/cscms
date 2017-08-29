@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head> 
+<meta charset=utf-8>
+<meta http-equiv="X-UA-Compatible" content="IE=9">
+<title>[singer:name]_最新[singer:name]好听的歌曲_MV_资料图片_新歌_[singer:name]专辑_{cscms:webname}</title>
+<meta name="Keywords" content="[singer:name],[singer:name]资料,[singer:name]歌曲,[singer:name]专辑,[singer:name]好听的歌,[singer:name]新歌,[singer:name]图片,{cscms:webname}" />
+<meta name="Description" content="[singer:name]好听的歌曲，{cscms:webname}收集所有[singer:name]的歌曲大全，包含最新[singer:name]专辑免费在线试听、[singer:name]的歌曲mp3下载、以及[singer:name]资料、MV、新歌和[singer:name]专辑等信息" />
+<link rel="shortcut icon" href="{cscms:webpath}favicon.ico" />
+<link rel="stylesheet" href="{cscms:webpath}packs/font/font.css">
+<link rel="stylesheet" type="text/css" href="{cscms:tempurl}css/singer.css"/>
+<script type='text/javascript' src='{cscms:tempurl}js/singer.js'></script>
+</head>
+<body>
+    {cscms:head}
+    <div class="w960 bcolor">
+        <div class="mar10" style="margin-top: 60px;"></div>
+        <div class="mar10"></div>
+        <div class="play-show">
+            <div class="play-intro left">
+                <div class="gs-imgBox" style="overflow: hidden;zoom: 1;">
+                    <img class="play-img" id="gs-img" src="[singer:pic dir=singer]?size=290*290" width="290" height="290">
+                    <div class="mar10"></div>
+                    {cscms:pic table="pic_type" field="id,name,pic" loop="1" singerid="auto" sort="addtime" order="desc"}
+                        {cscmstype:pic2 table="pic" field="id,pic" loop="4" sid="[pic:id]" sort="addtime" order="desc"}
+                            <li class="gs-imgList"><a href="javascript:;" target="_blank" title="[pic:name]"><img src="[pic2:pic dir=pic]" width="60" height="60"/></a></li>
+                        {/cscmstype:pic2}
+                    {/cscms:pic}
+                </div>
+                <div class="mar10"></div>
+                <div class="layui-collapse">
+                    <div class="layui-colla-item">
+                        <h2 class="layui-colla-title " align="left">[singer:name]相似歌手</h2>
+                        <div class="layui-colla-content layui-show" style="padding: 5px;overflow: hidden;zoom:1;">
+                            {cscms:singer table="singer" loop="12" tags="auto" sort="hits"}
+                            <li class="gs-same">
+                                <a href="[singer:url link=show]" title="[singer:name]" class="img"><img src="[singer:pic dir=singer]?size=83*83" width="83" height="83"></a>
+                                <a href="[singer:url link=show]" title="[singer:name]" class="s_name">[singer:name]</a>
+                            </li>
+                            {/cscms:singer}
+                        </div>
+                    </div>
+                </div>
+                <div class="mar10"></div>
+            </div>
+            <div class="play-list left">
+                <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+                    <ul class="layui-tab-title">
+                        <li><a href="[singer:url link=info]">资料</a></li>
+                        <li class="layui-this"><a href="[singer:url link=music,id]">歌曲</a></li>
+                        <li><a href="[singer:url link=pic,id]">图集</a></li>
+                        <li><a href="[singer:url link=mv,hits]">MV</a></li>
+                        <li><a href="[singer:url link=album,id]">专辑</a></li>
+                    </ul>
+                    <div class="layui-tab-content">
+                        <div class="layui-tab-item layui-show">
+                            <form action="#" class="layui-form" method="post">
+                                <table class="layui-table" lay-even lay-skin="nob" style="margin-bottom: 0px;">
+                                    <thead>
+                                        <tr><th class="mini">歌曲名称</th><th class="mini">歌手</th><th class="mini">试听</th><th>分享</th><th class="mini">下载</th></tr>
+                                    </thead>
+                                    <tbody id="topic_list">
+                                    {cscms:dance table="dance" field="id,name,tid,singerid" pagesize="15" singerid="auto" sort="addtime" order="desc"}
+                                        <tr>
+                                            <td><div class="left"><input type="checkbox" class="xuan" lay-skin="primary" checked name="check" value="[dance:id]" checked="checked"></div><a class="dance_nobr" title="[dance:name]" href="[dance:url zdy=dance,id,play,id]">[dance:i]、[dance:name]</a></td>
+                                            <td><a href="[dance:url zdy=singer,singerid,show]" title="[dance:singer zd=name]" target="_blank">{if:'[dance:singer zd=name]'=='null'}佚名{else}[dance:singer zd=name]{end if}</a></td>
+                                            <td><a href="[dance:url zdy=dance,id,play,id]"><i class="layui-icon" style="font-weight: bold">&#xe6fc;</i></a></td>
+                                            <td><a href="javascript:shareOpen('[dance:name]','[dance:url zdy=dance,id,play,id]');"><i class="layui-icon">&#xe641;</i></a></td>
+                                            <td><a href="[dance:url zdy=dance,id,down,id]" title="[dance:name]下载"><i class="layui-icon" style="font-weight: bolder">&#xe601;</i></a></td>
+                                        </tr>
+                                    {/cscms:dance}
+                                        <tr><td colspan="5" style="padding-bottom: 5px;"><a href="javascript:singer.select_all();" class="layui-btn layui-btn-small layui-btn-primary"><i class="layui-icon colorl">&#xe618;</i>全选/取消</a><a href="javascript:singer.playsongs(1);" class="layui-btn layui-btn-small layui-btn-primary"><i class="layui-icon colord" style="font-size:17px!important">&#xe652;</i>&nbsp;&nbsp;播放选中</a></td></tr>
+                                    </tbody>
+                                </table>
+                                <div class="page right">
+                                    <div class="layui-box layui-laypage layui-laypage-default" id="layui-laypage-0" style="margin-top: 0px">
+                                        <a href="{cscms:pagefirst}" class="layui-laypage-last" title="首页">首页</a>
+                                        <a href="{cscms:pageup}" class="layui-laypage-last" title="上一页">上一页</a>
+                                        {cscms:pagenum len=6}
+                                        <a href="{cscms:pagedown}" class="layui-laypage-next">下一页</a>
+                                        <a href="{cscms:pagelast}" class="layui-laypage-last" title="尾页">末页</a>
+                                    </div>
+                               </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mar10"></div>
+    {cscms:bottom}
+    <script type="text/javascript">
+        var gsimg = '[singer:pic dir=singer]';
+        $(document).ready(function() {
+            var len = $('#topic_list').children('tr').children('td').length;
+            if(len<2){
+                $('#topic_list').prepend('<tr><td colspan="5" height="60" align="center">暂无相关记录~!</td></tr>');
+                $('#gs-dlist').hide();
+            }
+            $('.gs-imgList').hover(function() {
+                var imgsrc = $(this).children('a').children('img').attr('src');
+                if(imgsrc){
+                    $('#gs-img').attr('src', imgsrc);
+                }
+            });
+            $('.gs-imgBox').hover(function() {},function(){
+                $('#gs-img').attr('src', gsimg);
+            });
+        });
+    </script>
+</body>
+</html>

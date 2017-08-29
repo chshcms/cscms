@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <title>{cscms:title}</title>
+    <meta name="Keywords" content="{cscms:keywords}" />
+    <meta name="Description" content="{cscms:description}" />
+    <link rel="shortcut icon" href="{cscms:path}favicon.ico" />
+    <link rel="stylesheet" href="{cscms:webpath}packs/font/font.css">
+    <link rel="stylesheet" type="text/css" href="{cscms:tempurl}css/user.css"/>
+    <script type="text/javascript" src="{cscms:tempurl}js/user.js"></script>
+</head>
+<body>
+    {cscms:head}
+    {cscms:right}
+    <div class="layui-tab layui-tab-card layui-tab-min" lay-filter="dt1" style="margin-top: 5px">
+	    <ul class="layui-tab-title" style="height: 41px">
+	        <li {if:'{cscms:fid}'=='all'}class="layui-this"{end if}><a href="[user:url userlink=msg]">全部消息</a></li>
+	        <li {if:'{cscms:fid}'=='xt'}class="layui-this"{end if}><a href="[user:url userlink=msg,index,xt]">系统消息</a></li>
+	        <li {if:'{cscms:fid}'=='wd'}class="layui-this"{end if}><a href="[user:url userlink=msg,index,wd]">未读消息</a></li>
+	        <a style="float: right;margin-right: 10px;margin-top: 9px" href="[user:url userlink=msg,add]" class="layui-btn layui-btn-mini layui-btn-danger">发送</a>
+	    </ul>
+	    <div class="layui-tab-content" style="padding:10px 15px">
+	        <div class="layui-tab-item layui-show">
+		        {cscms:msg table="msg" pagesize="10" uid="auto" sort="addtime" order="desc"}
+		        	<li class="dt-one" id="del[msg:id]">
+		        		{if:[msg:uidb]==0}
+		        			<a class="dt-img" href="javascript:;"><img src="{cscms:tempurl}images/xt.gif"></a>
+						{else}
+							<a target="_blank" class="dt-img" href="[msg:url ulink=index]"><img src="[msg:user zd=logo]?size=60*60"></a>
+						{end if}
+		        		<div class="dt-neir">
+		        			<div class="dt-time">[msg:addtime style=time]</div>
+		        			{if:'{cscms:fid}'=='my'}<div title="删除" onclick="user.blog_del([msg:id])" class="dt-del"><i class="fa fa-trash-o"></i></div>{end if}
+		        			<div class="dt-title" style="margin-bottom: 15px">
+		        				<i class="fa fa-lightbulb-o colorw"></i>&nbsp;{if:[msg:uidb]==0}系统消息{else}<a href="[msg:url ulink=index]" style="font-weight: normal;" title="查看他的主页" target="_blank">[msg:user zd=nichen]</a>{end if}
+		        			</div>
+		        			<div class="dt-nl">
+		        				<a href="[msg:url userlink=msg,show]/[msg:id]" title="查看详情"><font style="font-size: 12px;color: #666">●</font> [msg:name]</a>&nbsp;
+								{if:[msg:did]==0}<img src="{cscms:tempurl}images/new.gif" />{end if}</span>
+		        			</div>
+		        		</div>
+		        	</li>
+		        {/cscms:msg}
+		        {if:{cscms:pagedata}==0}<div style="line-height: 100px;text-align: center;color: #666">暂无相关数据！</div>{end if}
+		        <div>
+		        	<a class="layui-btn layui-btn-small layui-btn-primary" href="javascript:user.yidu();"><i class="fa fa-check colorl"></i>全部标记为已读</a>
+		        	<a class="layui-btn layui-btn-small layui-btn-primary" href="javascript:user.msg_del('[user:url userlink=msg,del,all]','确定清空全部消息?')"><i class="fa fa-trash colord"></i>&nbsp;清空全部消息</a></div>
+		        <div class="page" style="text-align: center;{if:{cscms:pagecout}<2}display: none;{end if}">
+                    <div class="layui-box layui-laypage layui-laypage-default" id="layui-laypage-0">
+                        <a href="{cscms:pageup}" class="layui-laypage-last" title="上一页">上一页</a>
+                        {cscms:pagenum len=3}
+                        <a href="{cscms:pagedown}" class="layui-laypage-next">下一页</a>
+                    </div>
+               </div>
+	        </div>
+	    </div>
+	</div>
+	{cscms:bottom}
+</body>
+</html>

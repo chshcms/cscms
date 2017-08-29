@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "/www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="/www.w3.org/1999/xhtml" >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title><?=L('tags_01')?></title>
+<link href="<?=Web_Path?>packs/images/tags.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="<?=Web_Path?>packs/js/jquery.min.js"></script>
+<script type="text/javascript" src="<?=Web_Path?>packs/js/cscms.js"></script>
+<script type="text/javascript" src="<?=Web_Path?>packs/js/tags.js"></script>
+</head>
+<body>
+<script type="text/javascript">
+function ReturnValue(reimg){
+	    if(parent.$('#<?=$fid?>').length>0){
+		   parent.$('#<?=$fid?>').val(reimg);
+		}
+        parent.layer.closeAll();
+}
+function popclose(){
+		parent.layer.closeAll();
+}
+</script>
+<div class="popDiyTags-form form-box">
+    <div class="popDiyTags-title">
+        <div class="fl">
+             <h4 class="selected-index"><?=L('tags_02')?> <span class="red">0</span> <?=L('tags_03')?><em>（<?=L('tags_04')?>）</em></h4>
+             <ul class="selected-list selected-list01"></ul>
+        </div>
+        <a class="btn btnTure" href="javascript:void(0);">
+           <span class="btn-wrap">
+             <span class="btn-inner">
+                 <span class="btn-txt"><?=L('tags_05')?></span>
+             </span>
+           </span>
+        </a>
+    </div>
+<?php
+foreach ($tags as $rows) {
+		echo '<dl class="popDiyTags-list clearfix">';
+		echo '<dt>'.$rows->name.'</dt>';
+        $result=$this->db->query("SELECT * FROM ".CS_SqlPrefix."tags where fid=".$rows->id." order by xid asc")->result();
+        foreach ($result as $row) {
+			echo '<dd><a href="javascript:;">'.$row->name.'</a></dd>';
+        }
+		echo '</dl>';
+}
+?>
+    <div class="popDiyTags-title">
+        <div class="fl">
+             <h4 class="selected-index"><?=L('tags_02')?> <span class="red">0</span> <?=L('tags_03')?><em>（<?=L('tags_04')?>）</em></h4>
+             <ul class="selected-list selected-list02"></ul>
+        </div>
+        <a class="btn btnTure" href="javascript:void(0);">
+           <span class="btn-wrap">
+             <span class="btn-inner">
+                 <span class="btn-txt"><?=L('tags_05')?></span>
+             </span>
+           </span>
+        </a>
+    </div>
+</div>
+</body>
+</html>
+

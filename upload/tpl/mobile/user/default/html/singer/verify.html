@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <title>{cscms:title}</title>
+    <meta name="Keywords" content="{cscms:keywords}" />
+    <meta name="Description" content="{cscms:description}" />
+    <link rel="shortcut icon" href="{cscms:path}favicon.ico" />
+    <link rel="stylesheet" href="{cscms:webpath}packs/font/font.css">
+    <link rel="stylesheet" type="text/css" href="{cscms:tempurl}css/singer.css"/>
+    <script type="text/javascript" src="{cscms:tempurl}js/user.js"></script>
+</head>
+<body>
+    {cscms:head}
+    {cscms:right}
+    <div class="layui-tab layui-tab-card" lay-filter="dt1" style="margin-top: 0px;margin-bottom: 0px">
+        <ul class="layui-tab-title" >
+            <li><a href="[user:url userlink=singer]">已审核歌手</a></li>
+            <li class="layui-this"><a href="[user:url userlink=singer,verify]">待审核歌手</a></li>
+            <a style="float: right;margin-right: 5px;margin-top: 5px" href="[user:url userlink=singer,add]" class="layui-btn layui-btn-small layui-btn-danger">新增</a>
+        </ul>
+        <div class="layui-tab-content" style="padding:0px;background-color: #fff">
+            <div class="layui-tab-item layui-show">
+                <div class="layui-tab layui-tab-brief">
+                    <ul class="layui-tab-title">
+                        <li{if:[singer:cid]==0} class="layui-this"{end if}><a href="[user:url userlink=singer,verify]">全部类型</a></li>
+                        {cscms:class table="singer_list" sort="id" order="asc"}
+                        <li{if:[singer:cid]==[class:id]} class="layui-this"{end if}><a href="[user:url userlink=singer,verify]/[class:id]">[class:name]</a></li>
+                        {/cscms:class}
+                    </ul>
+                    <div class="layui-tab-content" style="padding: 10px 0px 0px 0px;overflow: hidden;">
+                        
+                        <ul class="ms-ul">
+                            {cscms:singer table="singer_verify" uid="auto" yid="1" pagesize="20"  sort="time" order="desc"}
+                            <li class="ms-li" id="sdel_[singer:id]"><a title="[singer:name]" href="javascript:cscms.layer.msg('审核中...');" ><img src="[singer:pic dir=singer]" alt="[singer:name]"><p class="msin-name">[singer:name]</p></a>
+                               <div class="msin-more">
+                                    <a href="[user:url userlink=singer,add]?id=[singer:id]&yid=1" class="box-left"><i class="layui-icon">&#xe642;</i>编辑</a>
+                                    <a href="javascript:user.singerDel([singer:id],1);" class="box-right"><i class="fa fa-trash-o"></i>&nbsp;删除</a>
+                                </div>
+                            </li>
+                           {/cscms:singer}
+                        </ul>
+                        
+                        {if:{cscms:pagedata}==0}<div class="zanwu">暂无相关记录！</div>{end if}
+                        <div class="page" style="text-align: right;clear: both;{if:{cscms:pagecout}<2}display: none;{end if}">
+                            <div class="layui-box layui-laypage layui-laypage-default" id="layui-laypage-0">
+                                <a href="{cscms:pageup}" class="layui-laypage-last" title="上一页">上一页</a>
+                                {cscms:pagenum len=3}
+                                <a href="{cscms:pagedown}" class="layui-laypage-next">下一页</a>
+                            </div>
+                       </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{cscms:bottom}
+</body>
+</html>

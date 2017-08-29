@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <title>{cscms:title}</title>
+    <meta name="Keywords" content="{cscms:keywords}" />
+    <meta name="Description" content="{cscms:description}" />
+    <link rel="shortcut icon" href="{cscms:path}favicon.ico" />
+    <link rel="stylesheet" href="{cscms:webpath}packs/font/font.css">
+    <link rel="stylesheet" type="text/css" href="{cscms:tempurl}css/pic.css"/>    
+    <script type="text/javascript" src="{cscms:tempurl}js/user.js"></script>
+</head>
+<body>
+    {cscms:head}
+    {cscms:right}
+    <div class="layui-tab layui-tab-card layui-tab-min" lay-filter="dt1" style="margin-top: 0px;margin-bottom: 0px">
+        <ul class="layui-tab-title" style="height: 41px">
+            <li><a href="[user:url userlink=pic,type]">已通过的</a></li>
+            <li class="layui-this"><a href="[user:url userlink=pic,verify]">审核中的</a></li>
+            <li><a href="[user:url userlink=pic]">我的图片</a></li>
+            <a style="float: right;margin-right: 5px;margin-top: 5px" href="[user:url userlink=pic,addtype]" class="layui-btn layui-btn-small layui-btn-danger">制作</a>
+        </ul>
+        <div class="layui-tab-content" style="padding:0px;background-color: #fff">
+            <div class="layui-tab-item layui-show">
+                <div class="layui-tab layui-tab-brief">
+				    <ul class="layui-tab-title">
+				        <li{if:[pic:cid]==0} class="layui-this"{end if}><a href="[user:url userlink=pic,verify]">全部类型</a></li>
+                        {cscms:class table="pic_list" order="asc"}
+						<li{if:[pic:cid]==[class:id]} class="layui-this"{end if}><a href="[user:url userlink=pic,verify]/[class:id]">[class:name]</a></li>
+                        {/cscms:class}
+				    </ul>
+				    <style type="text/css">
+						.layui-table td, .layui-table th{padding: 9px 10px;}
+				    </style>
+				    <div class="layui-tab-content" style="padding: 10px;overflow: hidden;">
+                        <table class="md-zj">
+                            <tbody>
+                                {cscms:pic table="pic_type_verify" pagesize="15" user="auto" sort="addtime" order="desc"}
+                                <tr>
+                                    <td><a href="javascript:;"><img style="width: 60px;height: 60px;" src="[pic:pic dir=pic]" alt="[pic:name]"></a></td>
+                                    <td class="md-zj-info">
+                                        <a href="javascript:;" class="colord">[pic:name]<span style="color: #999;font-size: 12px">&nbsp;(共<i>{cscmscount param="pic|sid=[pic:id]"}</i>张)<a class="colorn" href="[user:url userlink=pic,add]/[pic:id]">上传图片</a></span></a>
+                                        <div class="mp-more" style="margin-bottom: 3px;">
+                                            <span><i class="fa fa-eye"></i>&nbsp;浏览([pic:hits])</span>
+                                            <span onclick="pic.ding('ding',[pic:id])"><i class="fa fa-thumbs-o-up"></i>&nbsp;顶(<i  id="upCnt">[pic:dhits]</i>)</span>
+                                            <span onclick="pic.ding('cai',[pic:id]);"><i class="fa fa-thumbs-o-down"></i>&nbsp;踩(<i id="downCnt">[pic:chits]</i>)</span>
+                                        </div>
+                                        <div class="mp-more">
+                                            <span>分类：[pic:zdy zd=pic_list,name,cid]</span>
+                                            <span>歌手：{if:'[pic:zdy zd=singer,name,singerid]'!=''}[pic:zdy zd=singer,name,singerid]{else}佚名{end if}</span>
+                                            <span>会员：{if:'[pic:zdy zd=user,name,cid]'!=''}[pic:zdy zd=user,name,cid]{else}暂无{end if}</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {/cscms:pic}
+                            </tbody>
+                        </table>
+						{if:{cscms:pagedata}==0}<div class="zanwu">暂无数据！</div>{end if}
+						<div class="page" style="text-align: center;clear: both;{if:{cscms:pagecout}<2}display: none;{end if}">
+                            <div class="layui-box layui-laypage layui-laypage-default" id="layui-laypage-0">
+                                <a href="{cscms:pageup}" class="layui-laypage-last" title="上一页">上一页</a>
+                                {cscms:pagenum len=3}
+                                <a href="{cscms:pagedown}" class="layui-laypage-next">下一页</a>
+                            </div>
+                       </div>
+				    </div>
+				</div>
+            </div>
+        </div>
+    </div>
+{cscms:bottom}
+</body>
+</html>

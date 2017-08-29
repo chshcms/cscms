@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset=utf-8>
+    <meta http-equiv="X-UA-Compatible" content="IE=9">
+    <title>{cscms:title}</title>
+    <meta name="Keywords" content="{cscms:keywords}" />
+    <meta name="Description" content="{cscms:description}" />
+    <link rel="shortcut icon" href="{cscms:webpath}favicon.ico" />
+    <link rel="stylesheet" href="{cscms:webpath}packs/font/font.css">
+    <link rel="stylesheet" type="text/css" href="{cscms:indextempurl}css/user.css" />
+    <script type='text/javascript' src='{cscms:indextempurl}js/user.js'></script>
+</head>
+<body style="background: #f5f5f5">
+    {cscms:indexhead}
+    {cscms:indexright}
+        {cscms:indexleft}
+            <div class="sp-cont-r">
+                <div class="layui-tab layui-tab-card" lay-filter="dt1" style="margin-top: 0px;margin-bottom: 0px">
+                    <ul class="layui-tab-title" style="height: 41px">
+                        <li><a href="[user:url userlink=album]">已审核的</a></li>
+                        <li class="layui-this"><a href="[user:url userlink=album,verify]">审核中的</a></li>
+                        <li><a href="[user:url userlink=fav,album]">我收藏的</a></li>
+                        <a style="float: right;margin-right: 15px;margin-top: 5px" href="[user:url userlink=album,add]" class="layui-btn layui-btn-small layui-btn-danger">制作专辑</a>
+                    </ul>
+                    <div class="layui-tab-content" style="background-color: #fff">
+                        <div class="layui-tab-item layui-show">
+                            <table class="layui-table" lay-even lay-skin="nob">
+                            	<thead>
+                            		<tr>
+                            			<th>专辑名称</th>
+                            			<th>歌手</th>
+                            			<th>发行年份</th>
+                            			<th>专辑人气</th>
+                            			<th>制作时间</th>
+                            		</tr>
+                            	</thead>
+                            	<tbody>
+                            	{cscms:topic table="dance_topic" uid="auto" pagesize="8" yid="1" sort="time" order="desc"}
+                            		<tr>
+                            			<td><img style="width:40px;height: 40px" src="[topic:pic dir=dancetopic]" art="[topic:name]"/>&nbsp;&nbsp;[topic:i]、<a href="javascript:cscms.layui.msg('审核中...');" title="[topic:name]">[topic:name]</a></td>
+                            			<td>{cscmsphp}getzd('singer','name','[topic:singerid]');{/cscmsphp}</td>
+                            			<td>{if:'[topic:year]'==''}暂无{else}[topic:year]{end if}</td>
+                            			<td>[topic:hits]</td>
+                            			<td>[topic:addtime style=time]</td>
+                            		</tr>
+                            	{/cscms:topic}
+                            	</tbody>
+							</table>
+							{if:{cscms:pagedata}==0}<div class="zanwu">暂无数据！</div>{end if}
+							<div class="page" style="text-align: right;{if:{cscms:pagedata}==0}display: none;{end if}">
+	                            <div class="layui-box layui-laypage layui-laypage-default" id="layui-laypage-0">
+	                                <a href="{cscms:pagefirst}" class="layui-laypage-last" title="首页">首页</a>
+	                                <a href="{cscms:pageup}" class="layui-laypage-last" title="上一页">上一页</a>
+	                                {cscms:pagenum len=6}
+	                                <a href="{cscms:pagedown}" class="layui-laypage-next">下一页</a>
+	                                <a href="{cscms:pagelast}" class="layui-laypage-last" title="尾页">末页</a>
+	                            </div>
+	                       </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mar10"></div>
+    <div class="mar10"></div>
+{cscms:indexbottom}
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#left_dance_3').addClass('on');
+        $('#left_first').removeClass('layui-nav-itemed');
+        $('#left_dance_3').parent().parent().addClass('layui-nav-itemed');
+    });
+</script>
+</body>
+</html>

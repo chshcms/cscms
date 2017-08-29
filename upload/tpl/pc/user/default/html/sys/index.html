@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset=utf-8>
+    <meta http-equiv="X-UA-Compatible" content="IE=9">
+    <title>{cscms:title}</title>
+    <meta name="Keywords" content="{cscms:keywords}" />
+    <meta name="Description" content="{cscms:description}" />
+    <link rel="shortcut icon" href="{cscms:webpath}favicon.ico" />
+    <link rel="stylesheet" href="{cscms:webpath}packs/font/font.css">
+    <link rel="stylesheet" type="text/css" href="{cscms:tempurl}css/user.css" />
+    <script type='text/javascript' src='{cscms:tempurl}js/user.js'></script>
+</head>
+{cscms:head}
+    <div class="w960" style="background-color: #fff;margin-top: 60px;border: 1.5px solid #e2e2e2;margin-bottom: 10px;overflow: hidden;">
+    <div style="padding: 0px 10px">
+            <div class="layui-tab layui-tab-card" style="box-shadow: none;">
+                <ul class="layui-tab-title" style="height: 41px">
+                    <li class="layui-this">人气用户榜</li>
+                    <li>活跃用户榜</li>
+                    <span class="zx">当前在线用户&nbsp;<em class="colord">{cscmscount param="user|zx=1"}</em>人</span>
+                </ul>
+                <div class="layui-tab-content">
+                    <div class="layui-tab-item layui-show" style="overflow: hidden;">
+                    {cscms:user table="user" field="id,name,nichen,logo,hits" order="desc" sort="hits" loop="9"}
+                        <li class="dt-one2" id="del[user:id]" style="width: 270px">
+                            <a target="_blank" class="dt-img" href="[user:url ulink=index]"><img src="[user:logo dir=logo]?size=60*60"></a>
+                            <div class="dt-neir" style="width: 198px">
+                                <div class="dt-title">
+                                    <a style="font-weight: normal;" href="[user:url ulink=index]">[user:user zd=nichen]</a><a target="_blank" href="[user:url ulink=index]" style="font-size: 12px;color: #666;">([user:user zd=name])</a>
+                                </div>
+                                <div class="fans3"><span>关注</span><font>[user:count zdy=friend,uida,id]</font><span></span><span>|<span></span>粉丝</span><font>[user:count zdy=fans,uida,id]</font><span></span><span>|<span></span>人气</span><font>[user:hits]</font></div>
+                                <div class="dt-nl uc-qm2" title="[user:user zd=qianm]">
+                                    个性签名：[user:user zd=qianm]
+                                </div>
+                            </div>
+                            <hr style="margin-bottom: 4px">
+                            <div class="fans-more">
+                                <a href="[user:url userlink=msg,add]?user=[user:name]">给Ta私信</a><a target="_blank" href="[user:url ulink=index]">访问空间</a>
+                            </div>
+                        </li>
+                    {/cscms:user} 
+                    </div>
+                    <div class="layui-tab-item" style="overflow: hidden;">
+                        {cscms:user table="user" field="id,name,nichen,logo"  order="desc" sort="logtime" loop="9"}
+                        <li class="dt-one2" id="del[user:id]" style="width: 270px">
+                            <a target="_blank" class="dt-img" href="[user:url ulink=index]"><img src="[user:logo dir=logo]?size=60*60"></a>
+                            <div class="dt-neir" style="width: 198px">
+                                <div class="dt-title">
+                                    <a style="font-weight: normal;" href="[user:url ulink=index]">[user:user zd=nichen]</a><a target="_blank" href="[user:url ulink=index]" style="font-size: 12px;color: #666;">([user:user zd=name])</a>
+                                </div>
+                                <div class="fans3"><span>关注</span><font>[user:count zdy=friend,uida,id]</font><span></span><span>|<span></span>粉丝</span><font>[user:count zdy=fans,uida,id]</font><span></span><span>|<span></span>人气</span><font>[user:user zd=hits]</font></div>
+                                <div class="dt-nl uc-qm2" title="[user:user zd=qianm]">
+                                    个性签名：[user:user zd=qianm]
+                                </div>
+                            </div>
+                            <hr style="margin-bottom: 4px">
+                            <div class="fans-more">
+                                <a href="[user:url userlink=msg,add]?user=[user:name]">给Ta私信</a><a target="_blank" href="[user:url ulink=index]">访问空间</a>
+                            </div>
+                        </li>
+                    {/cscms:user} 
+                    </div>
+                </div>
+            </div>  
+        </div>
+    <div style="overflow: hidden;">
+        <div class="uc-l">
+            <div class="layui-tab layui-tab-card" style="margin:0px;box-shadow: none;">
+                <ul class="layui-tab-title" style="height: 41px">
+                    <li class="layui-this">明星用户</li>
+                </ul>
+                <div class="layui-tab-content" style="padding: 5px 0px">
+                    <div class="layui-tab-item layui-show">
+                    {cscms:user table="user" field="id,name,nichen,logo,hits,qianm" loop="8" tid="1" sort="hits" order="desc"}
+                        <li class="uc-one">
+                            <a class="uc-link" href="[user:url ulink=index]"><img src="[user:logo dir=logo]?size=60*60" alt="[user:nichen]"></a>
+                            <div class="uc-right">
+                                <a class="uc-name" href="[user:url ulink=index]">{if:'[user:nichen]'==''}[user:name]{else}[user:nichen]{end if}</a>
+                                <div class="fans3"><span>歌曲</span><font>[user:count zdy=dance,uid,id]</font><span></span><span>|<span></span>粉丝</span><font>[user:count zdy=fans,uida,id]</font><span></span><span>|<span></span>人气</span><font>[user:hits]</font></div>
+                                <div class="uc-qm" title="[user:qianm]">
+                                    个性签名：{if:'[user:qianm]'==''}此人很懒，还没有签名哦...{else}[user:qianm]{end if}
+                                </div>
+                            </div>
+                        </li>
+                    {/cscms:user}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="uc-r" style="overflow: hidden;width: 628px;">
+            <div class="layui-tab layui-tab-brief" style="margin: 0px;">
+                <ul class="layui-tab-title">
+                    <li class="layui-this">全站动态</li>
+                </ul>
+                <div class="layui-tab-content" style="overflow: hidden;height: 582px;padding-left: 0px;">
+                    <div class="layui-tab-item layui-show" id="demo"style="overflow: hidden;height: 582px;position: absolute;">
+                        <ul id="demo1">
+                        {cscms:dt table="dt" field="*" loop="30" sort="addtime" order="desc"}
+                            <li class="dt-one dt-one-uc" style="border: 0px">
+                                <a target="_blank" class="dt-img" href="[dt:url ulink=index]"><img src="[dt:user zd=logo]?size=60*60"></a>
+                                <div class="dt-neir uc-neir">
+                                    <div class="dt-time">[dt:addtime style=time]</div>
+                                    <div class="dt-title"><a target="_blank" href="[dt:url ulink=index]">[dt:user zd=nichen]</a></div>
+                                    <div class="dt-nl">
+                                        [dt:title]<a class="uc-dtlink" target="_blank" href="[dt:link]">《[dt:name]》</a>
+                                    </div>
+                                </div>
+                            </li>
+                        {/cscms:dt}
+                        </ul>
+                        <ul id="demo2"></ul>
+                    </div>
+                        
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+{cscms:bottom}
+<script type="text/javascript"> 
+var speed=30;
+demo2.innerHTML=demo1.innerHTML
+function Marquee(){
+    if(demo2.offsetTop-demo.scrollTop<=0)
+        demo.scrollTop-=demo1.offsetHeight
+    else{
+        demo.scrollTop++
+    }
+}
+var MyMar=setInterval(Marquee,speed)
+demo.onmouseover=function() {clearInterval(MyMar)}
+demo.onmouseout=function() {MyMar=setInterval(Marquee,speed)}
+</script>
+</body>
+</html>

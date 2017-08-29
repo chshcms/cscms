@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title><?=L('login_title')?></title>
+		<meta name="robots" content="noindex,nofollow">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<link rel="stylesheet" href="<?=Web_Path?>packs/layui/css/layui.css">
+		<script src="<?=Web_Path?>packs/js/jquery.min.js"></script>
+		<script src="<?=Web_Path?>packs/layui/layui.js"></script>
+		<script src="<?=Web_Path?>packs/js/cscms.js"></script>
+		<script type="text/javascript">
+			cscms.get_host();
+		</script>
+	</head>
+	<body>
+	</body>
+	<script>
+		cscms.init();
+		var url = '<?=$url?>';
+		cscms.layer.confirm('<?=$title?>', {
+			btn: ['<?=L('cscms_msg_02')?>', '<?=L('cscms_msg_03')?>']
+		}, function() {
+		    location.href = url;
+		}, function() {
+		    location.href = '<?=is_ssl().Web_Url.Web_Path.?>';
+		});
+		if(url=='javascript:window.close();' ||　url=='close'){
+			setTimeout(function (){
+				window.opener=null;
+				window.open('','_self');
+				window.close();
+			},2000);
+		}else{
+			setTimeout(function (){
+				location.href = url;
+			},<?=$time?>);
+		}
+	</script>
+</html>
+

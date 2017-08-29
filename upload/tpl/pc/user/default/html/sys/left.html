@@ -1,0 +1,31 @@
+		<div class="sp-cont-l">
+			<ul id="user-left" class="layui-nav layui-nav-tree">
+			    <li id="left_first" class="layui-nav-item layui-nav-itemed"> <a href="javascript:;">综合管理</a>
+			        <dl class="layui-nav-child">
+			            <dd id="left_space"><a href="[user:url userlink=space]">最新动态</a></dd>
+			            <dd id="left_blog"><a href="[user:url userlink=blog]">我的说说</a></dd>
+			            <dd id="left_msg"><a href="[user:url userlink=msg]">我的消息</a></dd>
+			            <dd id="left_gbook"><a href="[user:url userlink=gbook]">我的留言</a></dd>
+			            <dd id="left_fans"><a href="[user:url userlink=fans]">粉丝关注</a></dd>
+			        </dl>
+			    </li>
+			    <li class="layui-nav-item"> <a href="javascript:;">账号管理</a>
+			        <dl class="layui-nav-child">
+			            <dd id="left_edit"><a href="[user:url userlink=edit]">账号设置</a></dd>
+			            <dd id="left_web"><a href="[user:url userlink=web]">主页模板</a></dd>
+			            <dd id="left_pay"><a href="[user:url userlink=pay]">充值升级</a></dd>
+			            <dd id="left_paylist"><a href="[user:url userlink=pay,lists]">财务记录</a></dd>
+			            <dd id="left_journal"><a href="[user:url userlink=journal]">登陆日志</a></dd>
+			            <dd id="left_share"><a href="[user:url userlink=share]">宣传分享</a></dd>
+			        </dl>
+			    </li>
+			    {cscmsmenu:user}
+			    <li class="layui-nav-item"><a href="javascript:;">[menu:name]</a>
+			        <dl class="layui-nav-child">
+          			{cscmsmenu:auto}
+          				<dd id="left_[menu:dir]_[menu:i]"><a id="left_[menu:dir]_[menu:i]" href="[menu:link]">[menu:name]</a></dd>
+          			{/cscmsmenu:auto}
+          			</dl>
+          		</li>
+				{/cscmsmenu}
+			</ul>

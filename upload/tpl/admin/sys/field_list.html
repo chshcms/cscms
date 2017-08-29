@@ -1,0 +1,83 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset=utf-8>
+    <title></title>
+    <meta name="robots" content="noindex,nofollow">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/layui/css/layui.css">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/admin/css/font.css">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/admin/css/style.css">
+    <script src="<?=Web_Path?>packs/js/jquery.min.js"></script>
+    <script src="<?=Web_Path?>packs/layui/layui.js"></script>
+    <script src="<?=Web_Path?>packs/admin/js/cscms.js"></script>
+</head>
+<body>
+    <span class="layui-breadcrumb" >
+        <a ><cite><i class="fa fa-map-marker"></i><?=L('tpl_fl_01')?></cite></a>
+        <a href=""><?=L('tpl_fl_02')?></a>
+    </span>
+    <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+        <ul class="layui-tab-title">
+            <li class="layui-this"><?=L('tpl_fl_03')?></li>
+            <li><a class="tablink" href="<?=site_url('field/edit')?>?dir=<?=$dir?>"><?=L('tpl_fl_04')?></a></li>
+        </ul>
+        <div class="layui-tab-content">
+            <table class="layui-table">
+                <colgroup>
+                    <col>
+                </colgroup>
+                <thead>
+                    <tr><th class="phide"><?=L('tpl_fl_05')?></th>
+                        <th><?=L('tpl_fl_06')?></th>
+                        <th><?=L('tpl_fl_07')?></th>
+                        <th><?=L('tpl_fl_08')?></th>
+                        <th class="phide"><?=L('tpl_fl_09')?></th>
+                        <th><?=L('tpl_fl_10')?></th>
+                        <th class="phide"><?=L('tpl_fl_11')?></th>
+                        <th class="phide"><?=L('tpl_fl_12')?></th>
+                        <th><?=L('tpl_fl_13')?></th>
+                    </tr>
+                </thead>
+                <tbody>
+                <?php
+                    if(empty($field)) echo '<tr><td colspan="9" style="height: 50px;line-height: 50px;text-align: center;">'.L('tpl_fl_14').'</td></tr>';
+                    $key = 1;
+                    foreach($field as $row){
+                        switch ($row['leix']){
+                            case 'number':$class=L('tpl_fl_15');$leix=$row['attr'];break;
+                            case 'text':$class=L('tpl_fl_16');$leix=($row['attr']==0)?'varchar':'text';break;
+                            case 'image':$class=L('tpl_fl_17');$leix='varchar';break;
+                            case 'select':$class=L('tpl_fl_18');$leix=$row['opcls'];break;
+                            case 'datetime':$class=L('tpl_fl_19');$leix=$row['attr'];break;
+                            case 'upload':$class=L('tpl_fl_20');$leix='varchar';break;
+                            default:$class=L('tpl_fl_21');break;
+                        }
+                        $required = $row['required']?'<a href="javascript:cscms.ok_no(\''.site_url('field/init/required').'?dir='.$dir.'&zd='.$row['zd'].'\','.$key.',1,\'bt_\');"><i class="fa fa-check colorl"></i></a>':'<a href="javascript:cscms.ok_no(\''.site_url('field/init/required').'?dir='.$dir.'&zd='.$row['zd'].'\','.$key.',0,\'bt_\');"><i class="fa fa-close colorr"></i></a>';
+                        $status = $row['status']?'<a href="javascript:cscms.ok_no(\''.site_url('field/init/status').'?dir='.$dir.'&zd='.$row['zd'].'\','.$key.',1,\'st_\');"><i class="fa fa-check colorl"></i></a>':'<a href="javascript:cscms.ok_no(\''.site_url('field/init/status').'?dir='.$dir.'&zd='.$row['zd'].'\','.$key.',0,\'st_\');"><i class="fa fa-close colorr"></i></a>';
+                        echo '<tr id="row_'.$row['zd'].'">
+                            <td class="phide" align="center">'.$key.'</td>
+                            <td>'.$row['zd'].'</td>
+                            <td>'.$row['note'].'</td>
+                            <td>'.$class.'</td>
+                            <td class="phide">'.$leix.'</td>
+                            <td>'.$row['table'].'</td>
+                            <td align="center" class="phide" id="bt_'.$key.'">'.$required.'</td>
+                            <td align="center" class="phide" id="st_'.$key.'">'.$status.'</td>
+                            <td class="basedb-more"><a class="layui-btn layui-btn-mini" href="'.site_url('field/edit').'?dir='.$dir.'&zd='.$row['zd'].'">'.L('tpl_fl_22').'</a>
+                                <a href="javascript:cscms.del_one(\''.site_url('field/del').'?dir='.$dir.'\',\''.$row['zd'].'\');" class="layui-btn layui-btn-mini layui-btn-danger">'.L('tpl_fl_23').'</a>
+                            </td>
+                        </tr>';$key++;
+                    }
+                ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+<script type="text/javascript">
+    cscms.init();
+</script>
+</body>
+</html>
+

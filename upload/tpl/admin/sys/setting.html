@@ -1,0 +1,392 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset=utf-8>
+    <meta name="robots" content="noindex,nofollow">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/layui/css/layui.css">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/admin/css/font.css">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/admin/css/style.css">
+    <script src="<?=Web_Path?>packs/js/jquery.min.js"></script>
+    <script src="<?=Web_Path?>packs/layui/layui.js"></script>
+    <script>
+    </script>
+</head>
+<body id="index_setting">
+    <span class="layui-breadcrumb" >
+        <a ><cite><i class="fa fa-map-marker"></i><?=L('tpl_set_00')?></cite></a>
+        <a href="<?=site_url('opt/main')?>"><?=L('tpl_set_01')?></a>
+        <a href="#"><?=L('tpl_set_02')?></a>
+    </span>
+    <form class="layui-form layui-form-pane" action="<?=site_url('setting/save')?>" method="post">
+        <div class="layui-tab layui-tab-brief">
+            <ul class="layui-tab-title">
+                <li class="layui-this"><?=L('tpl_set_03')?></li>
+                <li><?=L('tpl_set_04')?></li>
+                <li><?=L('tpl_set_05')?></li>
+                <li><?=L('tpl_set_06')?></li>
+                <li><?=L('tpl_set_07')?></li>
+                <li><?=L('tpl_set_08')?></li>
+                <li><?=L('tpl_set_09')?></li>
+            </ul>
+            <div class="layui-tab-content">
+                <div class="layui-tab-item layui-show">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><?=L('tpl_set_10')?></label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="Web_Name" placeholder="<?=L('tpl_set_11')?>"  value="<?=Web_Name?>" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><?=L('tpl_set_12')?></label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="Web_Url"  value="<?=Web_Url?>" placeholder="<?=L('tpl_set_13')?>" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><?=L('tpl_set_14')?></label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="Web_Path"  value="<?=Web_Path?>" placeholder="<?=L('tpl_set_15')?>" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><?=L('tpl_set_16')?></label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="Admin_Code"  value="<?=Admin_Code?>" placeholder="<?=L('tpl_set_17')?>" class="layui-input">
+                        </div>
+                       <div class="layui-form-mid layui-word-aux"></div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><?=L('tpl_set_18')?></label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="Admin_QQ"  value="<?=Admin_QQ?>" placeholder="<?=L('tpl_set_19')?>" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><?=L('tpl_set_20')?></label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="Admin_Tel"  value="<?=Admin_Tel?>" placeholder="<?=L('tpl_set_21')?>" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><?=L('tpl_set_22')?></label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="Admin_Mail"  value="<?=Admin_Mail?>" placeholder="<?=L('tpl_set_23')?>" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><?=L('tpl_set_24')?></label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="Web_Icp"  value="<?=Web_Icp?>" placeholder="<?=L('tpl_set_25')?>" class="layui-input">
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-tab-item">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><?=L('tpl_set_26')?></label>
+                        <div class="layui-input-inline" id="run">
+                            <input type="radio" name="Web_Off" value="1" title="<?=L('tpl_set_27')?>" <?php if(Web_Off==1){echo 'checked';}?> >
+                            <input type="radio" name="Web_Off" value="0" title="<?=L('tpl_set_28')?>" <?php if(Web_Off==0){echo 'checked';}?> >
+                        </div>
+                    </div>
+                    <div id="run_1" class="layui-form-item" <?php if(Web_Off==1){echo 'style="display:none"';}?>>
+                        <label class="layui-form-label"><?=L('tpl_set_29')?></label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="Web_Onneir" value="<?=Web_Onneir?>" placeholder="<?=L('tpl_set_30')?>" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><?=L('tpl_set_31')?></label>
+                        <div class="layui-input-inline">
+                            <input type="radio" name="Is_Ssl" value="1" title="<?=L('tpl_set_27')?>" <?php if(Is_Ssl==1){echo 'checked';}?> >
+                            <input type="radio" name="Is_Ssl" value="0" title="<?=L('tpl_set_28')?>" <?php if(Is_Ssl==0){echo 'checked';}?> >
+							<div class="layui-form-mid layui-word-aux" style="float:right;color:red;"><?=L('tpl_set_32')?></div>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><?=L('tpl_set_33')?></label>
+                        <div class="layui-input-inline" onclick="cscms.show_hide('mode','Web_Mode');">
+                            <input type="radio" name="Web_Mode" value="1" title="<?=L('tpl_set_34')?>" <?php if(Web_Mode==1){echo 'checked';}?> >
+                            <input type="radio" name="Web_Mode" value="2" title="<?=L('tpl_set_35')?>" <?php if(Web_Mode==2){echo 'checked';}?> >
+                            <input type="radio" name="Web_Mode" value="3" title="<?=L('tpl_set_36')?>" <?php if(Web_Mode==3){echo 'checked';}?> >
+                        </div>
+                    </div>
+                    <div class="layui-form-item mode mode3" <?php if(Web_Mode!=3){echo 'style="display:none"';}?>>
+                        <label class="layui-form-label"><?=L('tpl_set_37')?></label>
+                        <div class="layui-input-inline">
+                            <select name="Html_Index" >
+                                <option value="index.html"<?php if(Html_Index=='index.html') echo ' selected';?>>index.html</option>
+                                <option value="index.htm"<?php if(Html_Index=='index.htm') echo ' selected';?>>index.htm</option>
+                                <option value="index.shtml"<?php if(Html_Index=='index.shtml') echo ' selected';?>>index.shtml</option>
+                                <option value="index.shtm"<?php if(Html_Index=='index.shtm') echo ' selected';?>>index.shtm</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="layui-form-item mode mode3" <?php if(Web_Mode!=3){echo 'style="display:none"';}?>>
+                        <label class="layui-form-label"><?=L('tpl_set_38')?></label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="Html_Wap_Dir" value="<?=Html_Wap_Dir?>" placeholder="<?=L('tpl_set_39')?>" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item mode mode3" <?php if(Web_Mode!=3){echo 'style="display:none"';}?>>
+                        <label class="layui-form-label"><?=L('tpl_set_40')?></label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="Html_StopTime" value="<?=Html_StopTime?>" placeholder="<?=L('tpl_set_41')?>" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item mode mode3" <?php if(Web_Mode!=3){echo 'style="display:none"';}?>>
+                        <label class="layui-form-label"><?=L('tpl_set_42')?></label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="Html_PageNum" value="<?=Html_PageNum?>" placeholder="<?=L('tpl_set_43')?>" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><?=L('tpl_set_44')?></label>
+                        <div class="layui-input-inline">
+                            <select name="CS_Language" >
+                            <option <?php if(CS_Language=='zh_cn') echo ' selected';?> value="zh_cn"><?=L('tpl_set_45')?></option>
+                            <option <?php if(CS_Language=='english') echo ' selected';?> value="english"><?=L('tpl_set_46')?></option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-tab-item">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><?=L('tpl_set_47')?></label>
+                        <div class="layui-input-inline" onclick="cscms.show_hide('pcache','Cache_Is')">
+                            <input type="radio" name="Cache_Is" value="1" title="<?=L('tpl_set_27')?>" <?php if(Cache_Is==1){echo 'checked';}?> >
+                            <input type="radio" name="Cache_Is" value="0" title="<?=L('tpl_set_28')?>" <?php if(Cache_Is==0){echo 'checked';}?> >
+                        </div>
+                    </div>
+                    <div class="layui-form-item pcache pcache1" style="<?php if(Cache_Is==0){echo 'display: none';}?>">
+                        <label class="layui-form-label"><?=L('tpl_set_48')?></label>
+                        <div class="layui-input-inline" style="width:50%;" onclick="cscms.show_hide('pcache2','Cache_Mx')">
+                            <input type="radio" name="Cache_Mx" value="file" title="file" <?php if(Cache_Mx=='file'){echo 'checked';}?> >
+                            <input type="radio" name="Cache_Mx" value="memcached" title="memcached" <?php if(Cache_Mx=='memcached'){echo 'checked';}?> >
+                            <input type="radio" name="Cache_Mx" value="redis" title="redis" <?php if(Cache_Mx=='redis'){echo 'checked';}?> >
+							<div class="layui-form-mid layui-word-aux" style="float:right;color:red;"><?=L('tpl_set_49')?></div>
+                        </div>
+                    </div>
+                    <div class="layui-form-item pcache2 pcache2memcached" style="<?php if(Cache_Mx!='memcached'){echo 'display: none';}?>">
+                        <label class="layui-form-label"><?=L('tpl_set_50')?></label>
+                        <div class="layui-input-inline layui-input-inlinew4">
+                            <input type="text" name="mc_hostname" value="<?=$mc['hostname']?>" placeholder="<?=L('tpl_set_51')?>" class="layui-input">
+                        </div>
+                        <label class="layui-form-label"><?=L('tpl_set_52')?></label>
+                        <div class="layui-input-inline" style="width:80px;">
+                            <input type="text" name="mc_port" value="<?=$mc['port']?>" placeholder="<?=L('tpl_set_53')?>" class="layui-input">
+                        </div>
+                        <label class="layui-form-label"><?=L('tpl_set_54')?></label>
+                        <div class="layui-input-inline" style="width:50px;">
+                            <input type="text" name="mc_weight" value="<?=$mc['weight']?>" placeholder="<?=L('tpl_set_55')?>" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item pcache pcache1" style="<?php if(Cache_Is==0){echo 'display: none';}?>">
+                        <label class="layui-form-label"><?=L('tpl_set_56')?></label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="Cache_Time" value="<?=Cache_Time?>" placeholder="<?=L('tpl_set_57')?>" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><?=L('tpl_set_58')?></label>
+                        <div class="layui-input-inline" onclick="cscms.show_hide('dcache','CS_Cache_On')">
+                            <input type="radio" name="CS_Cache_On" value="1" title="<?=L('tpl_set_27')?>" <?php if(CS_Cache_On==1){echo 'checked';}?> >
+                            <input type="radio" name="CS_Cache_On" value="0" title="<?=L('tpl_set_28')?>" <?php if(CS_Cache_On==0){echo 'checked';}?> >
+                        </div>
+                    </div>
+                    <div class="layui-form-item dcache dcache1" style="<?php if(CS_Cache_On==0){echo 'display: none';}?>">
+                        <label class="layui-form-label"><?=L('tpl_set_59')?></label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="CS_Cache_Time" value="<?=CS_Cache_Time?>" placeholder="<?=L('tpl_set_60')?>" class="layui-input">
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-tab-item">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><?=L('tpl_set_61')?></label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="CS_Play_w" value="<?=CS_Play_w?>" placeholder="<?=L('tpl_set_62')?>" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><?=L('tpl_set_63')?></label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="CS_Play_h" value="<?=CS_Play_h?>" placeholder="<?=L('tpl_set_62')?>" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><?=L('tpl_set_64')?></label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="CS_Play_sw" value="<?=CS_Play_sw?>" placeholder="<?=L('tpl_set_62')?>" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><?=L('tpl_set_65')?></label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="CS_Play_sh" value="<?=CS_Play_sh?>" placeholder="<?=L('tpl_set_62')?>" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><?=L('tpl_set_96')?></label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="CS_Play_AdloadTime" value="<?=CS_Play_AdloadTime?>" placeholder="<?=L('tpl_set_97')?>" class="layui-input">
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-tab-item layui-form-text">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><?=L('tpl_set_66')?> <span><?=L('tpl_set_67')?></span></label>
+                        <div class="layui-input-block">
+                             <textarea name="Web_Title" class="layui-textarea"><?=Web_Title?></textarea>
+                        </div>
+                    </div>
+                    <div class="layui-form-item layui-form-text">
+                        <label class="layui-form-label"><?=L('tpl_set_68')?><span>可以在模板里通过{cscms:keywords}<?=L('tpl_set_69')?></span></label>
+                        <div class="layui-input-block">
+                            <textarea name="Web_Keywords" class="layui-textarea"><?=Web_Keywords?></textarea>
+                        </div>
+                    </div>
+                    <div class="layui-form-item layui-form-text">
+                        <label class="layui-form-label"><?=L('tpl_set_70')?><span><?=L('tpl_set_71')?></span></label>
+                        <div class="layui-input-block">
+                            <textarea cols="2" name="Web_Description" class="layui-textarea"><?=Web_Description?></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-tab-item">
+                    <div class="layui-form-item layui-form-text">
+                        <label class="layui-form-label"><?=L('tpl_set_72')?></label>
+                        <div class="layui-input-block">
+                            <textarea name="Web_Key" class="layui-textarea"><?=Web_Key?></textarea>
+                        </div>
+                    </div>
+                    <div class="layui-form-item layui-form-text">
+                        <label class="layui-form-label"><?=L('tpl_set_73')?><span><?=L('tpl_set_74')?></span></label>
+                        <div class="layui-input-block">
+                            <textarea name="Web_Notice" class="layui-textarea"><?=Web_Notice?></textarea>
+                        </div>
+                    </div>
+                    <div class="layui-form-item layui-form-text">
+                        <label class="layui-form-label"><?=L('tpl_set_75')?></label>
+                        <div class="layui-input-block">
+                            <textarea name="Web_Count" class="layui-textarea"><?=Web_Count?></textarea>
+                        </div>
+                    </div>
+                    <div class="layui-form-item layui-form-text">
+                        <label class="layui-form-label"><?=L('tpl_set_76')?></label>
+                        <div class="layui-input-block">
+                            <textarea name="Pl_Str" class="layui-textarea"><?=Pl_Str?></textarea>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><?=L('tpl_set_77')?></label>
+                        <div class="layui-input-block" id="pl_xuan">
+                            <input type="radio" name="Pl_Modes" value="0" title="<?=L('tpl_set_78')?>" <?php if(Pl_Modes==0){echo 'checked';}?> >
+                            <input type="radio" name="Pl_Modes" value="1" title="<?=L('tpl_set_79')?>" <?php if(Pl_Modes==1){echo 'checked';}?> >
+                            <input type="radio" name="Pl_Modes" value="2" title="<?=L('tpl_set_80')?>" <?php if(Pl_Modes==2){echo 'checked';}?> >
+                            <input type="radio" name="Pl_Modes" value="3" title="<?=L('tpl_set_81')?>" <?php if(Pl_Modes==3){echo 'checked';}?> >
+                            <input type="radio" name="Pl_Modes" value="4" title="<?=L('tpl_set_82')?>" <?php if(Pl_Modes==4){echo 'checked';}?> >
+                        </div>
+                    </div>
+                    <div id="pl_0" class="pl_show" style="<?php if(Pl_Modes!=0){echo 'display: none';}?>" >
+                        <div class="layui-form-item">
+                            <label class="layui-form-label"><?=L('tpl_set_83')?></label>
+                            <div class="layui-input-inline">
+                                <input type="radio" name="Pl_Youke" value="1" title="<?=L('tpl_set_27')?>" <?php if(Pl_Youke==1){echo 'checked';}?> >
+                                <input type="radio" name="Pl_Youke" value="0" title="<?=L('tpl_set_28')?>" <?php if(Pl_Youke==0){echo 'checked';}?> >
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label"><?=L('tpl_set_84')?></label>
+                            <div class="layui-input-inline">
+                                <input type="number" name="Pl_Num" value="<?=Pl_Num?>" placeholder="<?=L('tpl_set_85')?>" class="layui-input">
+                            </div>
+                        </div>
+                    </div>
+                    <div id="pl_1" class="pl_show"  style="<?php if(Pl_Modes!=1){echo 'display: none';}?>" >
+                        <div class="layui-form-item">
+                            <label class="layui-form-label"><?=L('tpl_set_86')?></label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="Pl_Yy_Name" placeholder="<?=L('tpl_set_87')?>" value="<?=Pl_Yy_Name?>" class="layui-input">
+                            </div>
+                        </div>
+                    </div>
+                    <div id="pl_2" class="pl_show" style="<?php if(Pl_Modes!=2){echo 'display: none';}?>" >
+                        <div class="layui-form-item">
+                            <label class="layui-form-label"><?=L('tpl_set_88')?></label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="Pl_Ds_Name" placeholder="<?=L('tpl_set_88')?>" value="<?=Pl_Ds_Name?>" class="layui-input">
+                            </div>
+                        </div>
+                    </div>
+                    <div id="pl_3" class="pl_show" style="<?php if(Pl_Modes!=3){echo 'display: none';}?>" >
+                        <div class="layui-form-item">
+                            <label class="layui-form-label"><?=L('tpl_set_89')?></label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="Pl_Cy_Id" value="<?=Pl_Cy_Id?>" class="layui-input">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-tab-item">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><?=L('tpl_set_90')?></label>
+                        <div class="layui-input-inline" onclick="cscms.show_hide('mobile','Mobile_Is')">
+                            <input type="radio" name="Mobile_Is" value="1" title="<?=L('tpl_set_27')?>" <?php if(Mobile_Is==1){echo 'checked';}?> >
+                            <input type="radio" name="Mobile_Is" value="0" title="<?=L('tpl_set_28')?>" <?php if(Mobile_Is==0){echo 'checked';}?> >
+                        </div>
+                    </div>
+                    <div class="mobile mobile1" style="<?php if(Mobile_Is==0){echo 'display: none;';}?>">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label"><?=L('tpl_set_91')?></label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="Mobile_Url" value="<?=Mobile_Url?>" placeholder="<?=L('tpl_set_92')?>" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label"><?=L('tpl_set_93')?></label>
+                            <div class="layui-input-inline">
+                                <input type="radio" name="Mobile_Win" value="1" title="<?=L('tpl_set_27')?>" <?php if(Mobile_Win==1){echo 'checked';}?> >
+                                <input type="radio" name="Mobile_Win" value="0" title="<?=L('tpl_set_28')?>" <?php if(Mobile_Win==0){echo 'checked';}?> >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+				<!-----//模版配置路径----->
+				<input name="Pc_Skins_Dir" value="<?=Pc_Skins_Dir?>" type="hidden">
+				<input name="Pc_User_Dir" value="<?=Pc_User_Dir?>" type="hidden">
+				<input name="Pc_Home_Dir" value="<?=Pc_Home_Dir?>" type="hidden">
+				<input name="Mobile_Skins_Dir" value="<?=Mobile_Skins_Dir?>" type="hidden">
+				<input name="Mobile_User_Dir" value="<?=Mobile_User_Dir?>" type="hidden">
+				<input name="Mobile_Home_Dir" value="<?=Mobile_Home_Dir?>" type="hidden">
+                <div class="layui-form-item">
+                    <div class="layui-input-block layui-input-common noborder">
+                        <button class="layui-btn" lay-submit lay-filter="setting"><?=L('tpl_set_94')?></button>
+                        <button type="reset" class="layui-btn layui-btn-primary"><?=L('tpl_set_95')?></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+<script src="<?=Web_Path?>packs/admin/js/cscms.js"></script>
+<script>
+    cscms.init();
+    $(document).ready(function() {
+        $('#pl_xuan').click(function(event) {
+            var xuan = $('input[name="Pl_Modes"]:checked').val();
+            $('.pl_show').hide();
+            $('#pl_'+xuan).show();
+        });
+        $('#run').click(function(event) {
+            var xuan = $('input[name="Web_Off"]:checked').val();
+            if(xuan==1){
+                $('#run_1').hide();
+            }else{
+                $('#run_1').show();
+            }
+        });
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,225 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset=utf-8>
+    <title></title>
+    <meta name="robots" content="noindex,nofollow">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/layui/css/layui.css">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/admin/css/font.css">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/admin/css/style.css">
+    <?=$opt_gc?>
+    <script src="<?=Web_Path?>packs/js/jquery.min.js"></script>
+    <script src="<?=Web_Path?>packs/admin/js/setcolor.js"></script>
+    <script src="<?=Web_Path?>packs/layui/layui.js"></script>
+    <script src="<?=Web_Path?>packs/admin/js/cscms.js"></script>
+</head>
+<body id="index_setting">
+    <span class="layui-breadcrumb" >
+        <a ><cite><i class="fa fa-map-marker"></i>位置</cite></a>
+        <a href="<?=site_url('dance/admin/dance')?>">音乐</a>
+        <a href="<?=site_url('dance/admin/topic')?>">歌曲专辑管理</a>
+        <a href=""><?=$title2?></a>
+    </span>
+    <div class="layui-tab layui-tab-brief" >
+        <ul class="layui-tab-title">
+            <li><a class="tablink" href="<?=site_url('dance/admin/topic')?>">歌曲专辑列表</a></li>
+            <li class="layui-this"><a class="tablink" href="<?=site_url('dance/admin/topic/edit')?>">增加歌曲专辑</a></li>
+        </ul>
+        <div class="layui-tab-content" style="min-height: 360px;">
+            <form class="layui-form layui-form-pane" action="<?=site_url('dance/admin/topic/save')?>" method="post">
+            <div class="layui-tab">
+                <ul class="layui-tab-title">
+                    <li class="layui-this">基本参数</li>
+                    <li>其他参数</li>
+                    <li>介绍/SEO</li>
+                    <li>自定义字段</li>
+                </ul>
+                <div class="layui-tab-content">
+                    <div class="layui-tab-item layui-show">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">专辑类别</label>
+                            <div class="layui-input-inline layui-input-inlinew marg10">
+                                <select name="cid">
+                                    <option value="0">选择分类</option>
+                                    <?php
+                                    $query = $this->db->query("SELECT id,name FROM ".CS_SqlPrefix."dance_list where fid=0 order by xid asc"); 
+                                    foreach ($query->result() as $row) {
+                                        $clas=($row->id==$cid)?' selected="selected"':'';
+                                        echo '<option value="'.$row->id.'"'.$clas.'>'.$row->name.'</option>';
+                                        $query2 = $this->db->query("SELECT id,name FROM ".CS_SqlPrefix."dance_list where fid=".$row->id." order by xid asc"); 
+                                        foreach ($query2->result() as $row2) {
+                                            $clas2=($row2->id==$cid)?' selected="selected"':'';
+                                            echo '<option value="'.$row2->id.'"'.$clas2.'>'.$row2->name.'</option>';
+                                        }
+                                    }
+                                    ?>
+                                     </select>
+                            </div>
+                            <div class="layui-input-inline layui-input-inlinew">
+                                <select class="select" name="tid">
+                                    <option value="0"<?php if($tid==0) echo ' selected';?>>不推荐</option>
+                                    <option value="1"<?php if($tid==1) echo ' selected';?>>推荐</option>
+                                </select>
+                            </div>
+                            <div class="layui-input-inline layui-input-inlinew" >
+                                <select class="select" name="yid">
+                                    <option value="0"<?php if($yid==0) echo ' selected';?>>显示</option>
+                                    <option value="1"<?php if($yid==1) echo ' selected';?>>隐藏</option>
+                                </select>
+                            </div>
+                            <div class="layui-input-inline layui-input-inlinew" >
+                                <input class="layui-input" name="color" id="color" type="text" value="<?=$color?>"/>
+                                <img src="<?=Web_Path?>packs/admin/images/rect.gif" width="18" height="17" border=0 style="position:absolute;right: 5px;top:9px;cursor:pointer;background-Color:<?=$color?>;" title="字体颜色" onClick="initcolor('color','imgs_color');" id="imgs_color" align="absmiddle" vspace="1">
+                            </div>
+                            <div class="layui-form-mid layui-word-aux">名称颜色</div>
+                            <div class="layui-input-inline">
+                                <input type="checkbox" name="addtime" lay-skin="primary" value="ok" title="更新时间" checked>
+                            </div>
+                        </div>
+
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">专辑名称</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="name" placeholder="请输入专辑名称" value="<?=$name?>" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">专辑图片</label>
+                            <div class="layui-input-inline" >
+                                <input id="pic" type="text" name="pic" value="<?=$pic?>" class="layui-input">
+                            </div>
+                            <?php 
+                                if(preg_match("/(iPhone|iPad|iPod|Android)/i", strtoupper($_SERVER['HTTP_USER_AGENT']))){
+                                   echo '<button type="button" class="layui-btn layui-btn-primary" id="pics"><i class="layui-icon colorb">&#xe608;</i>上传图片</button>';
+                                }else{
+                                    echo '<div class="layui-input-inline" style="width: auto;"><a href="javascript:cscms.get_open(\''.site_url('upload/up').'?dir=dancetopic\',\'上传图片\',\'500px\',\'360px\')" class="layui-btn layui-btn-primary"><i class="layui-icon" style="color:green">&#xe608;</i>上传图片</a></div>';
+                                }
+                            ?>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">TAGS标签</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="tags" placeholder="多个逗号隔开" value="<?=$tags?>" class="layui-input">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-tab-item">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">版权信息</label>
+                            <label class="layui-form-label label2 marg10">公司</label>
+                            <div class="layui-input-inline layui-input-inlinew">
+                                <input type="text" name="fxgs" value="<?=$fxgs?>" class="layui-input">
+                            </div>
+                            <label class="layui-form-label label2 marg10">语言</label>
+                            <div class="layui-input-inline layui-input-inlinew">
+                                <input type="text" name="yuyan" value="<?=$yuyan?>" class="layui-input">
+                            </div>
+                            <label class="layui-form-label label2 marg10">地区</label>
+                            <div class="layui-input-inline layui-input-inlinew">
+                                <input type="text" name="diqu" value="<?=$diqu?>" class="layui-input">
+                            </div>
+                            <label class="layui-form-label label2 marg10">年份</label>
+                            <div class="layui-input-inline layui-input-inlinew">
+                                <input type="text" name="year" value="<?=$year?>" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">归属信息</label>
+                            <label class="layui-form-label label2 marg10">会员</label>
+                            <div class="layui-input-inline layui-input-inlinew">
+                                <input type="text" name="user" value="<?=getzd('user','name',$uid)?>" class="layui-input">
+                            </div>
+                            <?php if($this->db->table_exists(CS_SqlPrefix.'singer')){ ?>
+                            <label class="layui-form-label label2 marg10">歌手</label>
+                            <div class="layui-input-inline layui-input-inlinew">
+                                <input type="text" name="singer" value="<?=getzd('singer','name',$singerid)?>" class="layui-input">
+                            </div>
+                            <div class="layui-form-mid layui-word-aux">可以留空，不存在可以在个歌手库新增</div>
+                            <?php }?>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">默认模版</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="skins" value="<?=$skins?>" class="layui-input">
+                            </div>
+                            <div class="layui-form-mid layui-word-aux">默认为topic-show.html</div>
+                        </div>    
+
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">专辑人气</label>
+                            <label class="layui-form-label label2 marg10">总</label>
+                            <div class="layui-input-inline layui-input-inlinehot">
+                                <input type="text" name="hits" value="<?=$hits?>" class="layui-input">
+                            </div>
+                            <label class="layui-form-label label2 marg10">月</label>
+                            <div class="layui-input-inline layui-input-inlinehot">
+                                <input type="text" name="yhits" value="<?=$yhits?>" class="layui-input">
+                            </div>
+                            <label class="layui-form-label label2 marg10">周</label>
+                            <div class="layui-input-inline layui-input-inlinehot">
+                                <input type="text" name="zhits" value="<?=$zhits?>" class="layui-input">
+                            </div>
+                            <label class="layui-form-label label2 marg10">日</label>
+                            <div class="layui-input-inline layui-input-inlinehot">
+                                <input type="text" name="rhits" value="<?=$rhits?>" class="layui-input">
+                            </div>
+                            <label class="layui-form-label label2 marg10">收藏</label>
+                            <div class="layui-input-inline layui-input-inlinehot">
+                                <input type="text" name="shits" value="<?=$shits?>" class="layui-input">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-tab-item">
+                        <div class="layui-form-item layui-form-text" >
+                            <label class="layui-form-label">专辑介绍</label>
+                            <div class="layui-input-block">
+                                <textarea id="text" lay-verify="content" name="neir" placeholder="" style="display: none;" class="layui-textarea"><?=$neir?></textarea>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">SEO设置</label>
+                            <div class="layui-input-inline">
+                                <a class="layui-btn layui-btn-small" style="margin: 4px 10px;" href="javascript:$('#seo').toggle();">点击展开/合并SEO设置</a>
+                            </div>
+                        </div>
+                        <div id="seo" style="display: none;">
+                        <div class="layui-form-item layui-form-text">
+                            <label class="layui-form-label">SEO标题</label>
+                            <div class="layui-input-block">
+                                <textarea name="title" style="height: 100px" class="layui-textarea"><?=$title?></textarea>
+                            </div>
+                        </div>
+                        <div class="layui-form-item layui-form-text">
+                            <label class="layui-form-label">SEO关键字</label>
+                            <div class="layui-input-block">
+                                <textarea name="keywords" style="height: 100px" class="layui-textarea"><?=$keywords?></textarea>
+                            </div>
+                        </div>
+                        <div class="layui-form-item layui-form-text">
+                            <label class="layui-form-label">SEO介绍</label>
+                            <div class="layui-input-block">
+                                <textarea name="description" style="height: 100px" class="layui-textarea"><?=$description?></textarea>
+                            </div>
+                        </div></div>
+                    </div>
+                    <div class="layui-tab-item"><?=$opt_field?></div>
+                </div>
+            </div>
+                <input type="hidden" name="id" value="<?=$id?>">
+                <div class="layui-form-item">
+                    <div class="layui-input-block layui-input-common noborder">
+                        <button class="layui-btn" lay-submit lay-filter="setting">提交</button>
+                        <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script type="text/javascript">
+        cscms.init(5);
+        cscms.mode("cscms.getUpload('<?=Web_Path.SELF?>/upload/up_save_json?dir=dancetopic')");
+    </script>
+</body>
+</html>

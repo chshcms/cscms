@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset=utf-8>
+    <title>相册选择</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="stylesheet" type="text/css" href="{cscms:indextempurl}css/user.css" />
+    <script type='text/javascript' src='{cscms:indextempurl}js/user.js'></script>
+</head>
+<body>
+<div class="rightinfo">
+    <ul style="padding: 10px;overflow: hidden;">
+    {cscms:pic table="pic_type" pagesize="8" user="auto" sort="addtime" order="desc"}
+        <li class="picXc_x" {if:[pic:id]==[pic:sid]} class="on"{end if} onclick="pic_go('[pic:id]','[pic:name]');" title="选择相册" {if:[pic:i]%4==0}style="margin-right: 0px"{end if}>
+        <img src="[pic:pic dir=pic]" />
+        <div class="picXc_xm">[pic:name]</div>
+    </li>
+    {/cscms:pic}
+    </ul>
+    {if:{cscms:pagedata}==0}<div class="zanwu">暂无数据！</div>{end if}
+    <div class="page" style="text-align: right;margin-right: 10px;{if:{cscms:pagedata}==0}display: none;{end if}">
+        <div class="layui-box layui-laypage layui-laypage-default" id="layui-laypage-0">
+            <a href="{cscms:pagefirst}" class="layui-laypage-last" title="首页">首页</a>
+            <a href="{cscms:pageup}" class="layui-laypage-last" title="上一页">上一页</a>
+            {cscms:pagenum len=6}
+            <a href="{cscms:pagedown}" class="layui-laypage-next">下一页</a>
+            <a href="{cscms:pagelast}" class="layui-laypage-last" title="尾页">末页</a>
+        </div>
+   </div>
+</div> 
+<script type="text/javascript"> 
+function pic_go(_sid,_name) { 
+	parent.$('#sid').val(_sid);
+	parent.$('#name').val(_name);
+	parent.cscms.layer.closeAll();
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head> 
+<meta charset=utf-8>
+<meta http-equiv="X-UA-Compatible" content="IE=9">
+<title>{cscms:title}-音乐盒</title>
+<meta name="Keywords" content="{cscms:keywords}" />
+<meta name="Description" content="{cscms:description}" />
+<link rel="shortcut icon" href="{cscms:webpath}favicon.ico" />
+<link rel="stylesheet" href="{cscms:webpath}packs/font/font.css">
+<link rel="stylesheet" type="text/css" href="{cscms:tempurl}css/dance.css"/>
+<script type="text/javascript">
+	var web_url = "{cscms:tempurl}";
+	var data_id = "{cscms:lbid}";
+</script>
+<script type='text/javascript' src='{cscms:tempurl}js/jquery.slimscroll.min.js'></script>
+<script type='text/javascript' src='{cscms:tempurl}js/dance.js'></script>
+</head>
+<body>
+    {cscms:head}
+    <div class="w960 bcolor">
+		<div class="mar10" style="margin-top: 60px;"></div>
+    	<div class="play-show">
+            <div class="play-intro box-left">
+            	<ul class="title-tags">
+            		<li class="li_list on" onclick="dance.get_data();"><div class="plistIcon icon"><i class="layui-icon">&#xe649;</i></div>播放列表</li>
+            		<li class="li_fav" onclick="dance.get_fav();"><div class="favIcon icon"><i class="layui-icon">&#xe600;</i></div>我的收藏</li>
+            		<li class="li_rand" onclick="dance.get_rand()"><div class="randomIcon icon"><i class="layui-icon">&#xe6fc;</i></div>随便听听</li>
+                    <li style="border-bottom: 0px;"><div class="randomIcon icon"><i class="fa fa-heart-o"></i></div>猜你喜欢<div class="change" onclick="dance.get_change();"><i class="fa fa-refresh"></i>&nbsp;换一换</div></li>
+            	</ul>
+                <div class="cailist">
+                    <table class="layui-table" lay-even lay-skin="nob">
+                        <tbody class="cai-list">
+                            
+                        </tbody>
+                    </table>
+                    <a href="javascript:dance.cai_add();" style="margin-left: 15px;" class="layui-btn layui-btn-small layui-btn-primary"><i class="layui-icon colord" style="font-size:17px!important">&#xe652;</i>&nbsp;全部加入</a>
+                </div>
+            </div>
+            <div class=" box-left height" id="myPlay">
+            	<ul class="title-tags" id="listTitle">
+            		<li><div class="plistIcon title-list">播放列表</div></li>
+            	</ul>
+            	<div style="height: 42px;"></div>
+	            	<div class="play-list2 list-kuang">
+	            	<table class="layui-table" lay-even lay-skin="nob">
+	            		<colgroup>
+							<col>
+							<col width="138">
+							<col width="90">
+							<col width="70">
+						</colgroup>
+		            	<thead >
+		            		
+		            	</thead>
+		            	<tbody id="play_list">
+		            		<tr style="display: none;">
+		            			<td align="left">Music[i]['name']</td>
+		            			<td class="td-icon">
+		            				<a href="javascript:;" target="_blank" title="下载"><i class="layui-icon">&#xe601;</i></a>
+		            				<a href="javascript:;" title="收藏"><i class="layui-icon">&#xe600;</i></a>
+		            				<a href="javascript:;" title="试听"><i class="layui-icon">&#xe6fc;</i></a>
+		            				<a href="javascript:;" title="删除"><i class="layui-icon">&#x1006;</i></a>
+		            			</td>
+		            			<td>singer</td>
+		            			<td>time</td>
+		            		</tr>
+		            	</tbody>
+					</table>
+	            </div>
+            </div>
+        </div>
+    </div>
+    <div class="playerBox">
+    	<div class="w960">
+    	<audio src="" id="audio" style="display: none;"></audio>
+    		<div class="playBar">
+    			<a href="javascript:dance.play_pre();" class="playUp"></a>
+    			<a href="javascript:dance.play_pause();" id="playNow" class="playNow1"></a>
+    			<a href="javascript:dance.play_nxt();" class="playDown"></a>
+    		</div>
+    		<img id="playImg" src="{cscms:tempurl}images/music.png" alt="">
+    		<div class="playPro">
+    			<div class="playInfo">
+    				<p><span id="palySinger"></span><span id="playSong"></span></p>
+    			</div>
+    			<div class="layui-progress1" onclick="dance.get_pro();">
+    				<div class="playDot"></div>
+    				<div class="layui-progress-bar1"></div>
+				</div>
+    		</div>
+    		<div class="playTime"><span id="timeNow">00:00</span>/<span id="timeEnd">00:00</span></div>
+    		<div class="playSet">
+    			<a href="javascript:dance.play_loop();" id="playLoop" class="loop" title="循环"></a>
+    			<a href="javascript:dance.play_vol();" id="playVol" class="onvol" title="音量"></a>
+    		</div>
+    		<div class="playTools">
+    			<a href="javascript:;" id="playFav" title="收藏"><i class="layui-icon">&#xe600;</i></a>
+    			<a href="javascript:;" target="_blank" id="playDown" title="下载"><i class="fa fa-cloud-download"></i></a>
+    			<a href="javascript:dance.show_lrc();" id="playLrc">歌词</a>
+    		</div>
+    	</div>
+    </div>
+    <div id="lrcKuang">
+    <div class="mb-lrc-wrap js-lrc-wrap" data-hdiff="120">
+            <div class="lrc-block-wrap js-lrc-block-wrap anmi-wrap">
+            	<div class="lrcTitle"><span id="gc-title">歌词</span><a href="javascript:close();" style="position: absolute;right: 10px;"><i class="layui-icon">&#x1006;</i></a></div>
+            	<div style="height: 42px;"></div>
+                <ul id="lyric" class="lrc-list js-lrc-list js-lrc-block lrc-list-m" style="display: block;">
+                    <li class="LR0"></li>
+                    <li id="LR1"></li>
+                    <li id="LR2"></li>
+                    <li id="LR3"></li>
+                    <li id="LR4"></li>
+                    <li id="LR5"></li>
+                    <li id="LR6"></li>
+                    <li id="LR7"></li>
+                    <li id="LR8"></li>
+                    <li id="LR9"></li>
+                    <li id="LR10"></li>
+                    <li id="LR11"></li>
+                    <li id="LR12"></li>
+                    <li id="LR13"></li>
+                    <li id="LR14"></li>
+                    <li id="LR15"></li>
+                    <li id="LR16"></li>
+                    <li id="LR17"></li>
+                    <li id="LR18"></li>
+                    <li id="LR19"></li>
+                    <li id="LR20"></li>
+                    <li class="empty"></li>
+                </ul>
+                <div class="no-lrc js-lrc-no js-lrc-block" style="display: none;">
+                    <p><span>暂无歌词显示</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+	</div>
+    <script type="text/javascript">
+		cscms.mode("dance.init('playsong')");
+        function close(){
+            $('#lrcKuang').hide();
+        }
+        $('.layui-nav-item').removeClass('layui-this');
+        $('#zhw-playsong').addClass('layui-this');
+    </script>
+</body>
+</html>

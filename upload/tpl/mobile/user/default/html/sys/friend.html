@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <title>{cscms:title}</title>
+    <meta name="Keywords" content="{cscms:keywords}" />
+    <meta name="Description" content="{cscms:description}" />
+    <link rel="shortcut icon" href="{cscms:path}favicon.ico" />
+    <link rel="stylesheet" href="{cscms:webpath}packs/font/font.css">
+    <link rel="stylesheet" type="text/css" href="{cscms:tempurl}css/user.css"/>
+    <script type="text/javascript" src="{cscms:tempurl}js/user.js"></script>
+</head>
+<body>
+    {cscms:head}
+    {cscms:right}
+	<div class="layui-tab layui-tab-card layui-tab-min" lay-filter="dt1" style="box-shadow: none;">
+	    <ul class="layui-tab-title" style="height: 41px">
+	        <li><a href="[user:url userlink=fans]">我的粉丝</a></li>
+	        <li class="layui-this"><a href="[user:url userlink=friend]">我的关注</a></li>
+	        <li><a href="[user:url userlink=funco]">访问脚印</a></li>
+	    </ul>
+	    <div class="layui-tab-content">
+	        <div class="layui-tab-item layui-show" style="overflow: hidden;zoom: 1;">
+		        {cscms:friend table="friend" pagesize="10" uida="auto" sort="addtime" order="desc"}
+		        	<li class="dt-one2" id="del[friend:id]" >
+		        		<a target="_blank" class="dt-img" href="[friend:url ulink=index]"><img src="[friend:user zd=logo]"></a>
+		        		<div class="dt-neir">
+		        			<div class="dt-time" style="width: 20px"><div title="删除" style="font-size: 14px;cursor: pointer;" onclick="user.fans_del([friend:id])"><i class="fa fa-trash-o"></i></div></div>
+		        			<div class="dt-title">
+		        				<a style="font-weight: normal;" href="[friend:url ulink=index]">[friend:user zd=nichen]</a><a target="_blank" href="[friend:url ulink=index]" style="font-size: 12px;color: #666;">([friend:user zd=name])</a>
+		        			</div>
+		        			<div class="fans3"><span>关注</span><font>[friend:count zdy=friend,uida,uidb]</font><span></span><span>|<span></span>粉丝</span><font>[friend:count zdy=fans,uida,uidb]</font><span></span><span>|<span></span>人气</span><font>[friend:user zd=hits]</font></div>
+		        			<div class="dt-nl">
+		        				个性签名：[friend:user zd=qianm]
+		        			</div>
+		        		</div>
+		        		<hr style="margin-bottom: 4px">
+		        		<div class="fans-more">
+		        			<a href="[user:url userlink=msg,add]?user=[friend:user zd=name]">给Ta私信</a><a href="[friend:url ulink=index]">访问空间</a>
+		        		</div>
+		        	</li>
+		        {/cscms:friend} 
+		        {if:{cscms:pagedata}==0}<div class="zanwu">暂无相关数据！</div>{end if}
+		        <div class="page" style="text-align: center;{if:{cscms:pagecout}<2}display: none;{end if}clear: both;">
+                    <div class="layui-box layui-laypage layui-laypage-default" id="layui-laypage-0">
+                        <a href="{cscms:pageup}" class="layui-laypage-last" title="上一页">上一页</a>
+                        {cscms:pagenum len=3}
+                        <a href="{cscms:pagedown}" class="layui-laypage-next">下一页</a>
+                    </div>
+               </div>
+	        </div>
+	    </div>
+	</div>
+{cscms:bottom}
+</body>
+</html>

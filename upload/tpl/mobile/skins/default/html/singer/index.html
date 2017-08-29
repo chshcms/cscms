@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <title>{cscms:title}</title>
+    <meta name="Keywords" content="{cscms:keywords}" />
+    <meta name="Description" content="{cscms:description}" />
+    <link rel="shortcut icon" href="{cscms:path}favicon.ico" />
+    <link rel="stylesheet" href="{cscms:webpath}packs/font/font.css">
+    <link rel="stylesheet" type="text/css" href="{cscms:tempurl}css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="{cscms:tempurl}css/singer.css"/>
+    <script type='text/javascript' src='{cscms:tempurl}js/wap.js'></script>
+    <script type='text/javascript' src='{cscms:tempurl}js/singer.js'></script>
+</head>
+<body>
+    {cscms:head}
+    <div class="layui-collapse" style="margin-top: 10px;display: none;">
+        <div class="layui-colla-item">
+            <h2 class="layui-colla-title" align="left">&nbsp;&nbsp;按字母查找</h2> 
+            <div class="layui-colla-content layui-show" style="text-align: center;padding: 10px 10px 10px 0px">
+                {cscmszm:27}
+                    <a style="width: 34px;margin-bottom: 10px;margin-left: 6px" class="layui-btn layui-btn-mini layui-btn-primary zm" href="{cscmsphp}linkurl('search','zm','[zm:name]',1);{/cscmsphp}">[zm:name]</a>
+                {/cscmszm}
+            </div>
+        </div>
+    </div>
+    <div class="layui-tab layui-tab-brief" style="margin: 0px">
+        <ul class="layui-tab-title">
+            <li class="layui-this">热门推荐歌手</li>
+            <a href="javascript:zmShow()" class="layui-btn layui-btn-mini" style="float: right;margin-top:12px;margin-right: 8px;background-color:#5FB878">字母查找</a>
+        </ul>
+        <div class="layui-tab-content" style="padding: 10px 0px;background-color: #f6f6f6">
+            <div class="layui-tab-item layui-show" style="overflow: hidden;text-align: center;">
+                <ul class="ms-ul">
+                    {cscms:singer table="singer" field="id,name,pic" loop="12" start="1" reco="1,2,3,4,5" sort="hits"}
+                       <li class="ms-li"><a title="[singer:name]" href="[singer:url link=show]" ><img src="[singer:pic dir=singer]" alt="[singer:name]"><p>[singer:name]</p></a></li>
+                   {/cscms:singer}
+                </ul>
+                <hr>
+                {cscms:singer table="singer" field="id,name,pic" start="21" reco="1,2,3,4,5" sort="hits"}
+                <a title="[singer:name]" href="[singer:url link=show]" class="ms-name">[singer:name]</a>
+                {/cscms:singer}
+                    
+            </div>
+        </div>
+    </div>
+</body>
+{cscms:bottom}
+<script type="text/javascript">
+	function zmShow(){
+        $('.layui-collapse').toggle();
+    }
+</script>
+</body>
+</html>

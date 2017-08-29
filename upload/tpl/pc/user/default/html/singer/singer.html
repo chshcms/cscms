@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset=utf-8>
+    <meta http-equiv="X-UA-Compatible" content="IE=9">
+    <title>{cscms:title}</title>
+    <meta name="Keywords" content="{cscms:keywords}" />
+    <meta name="Description" content="{cscms:description}" />
+    <link rel="stylesheet" href="{cscms:webpath}packs/font/font.css">
+    <link rel="stylesheet" type="text/css" href="{cscms:indextempurl}css/user.css" />
+    <script type='text/javascript' src='{cscms:indextempurl}js/user.js'></script>
+</head>
+<body style="background: #f5f5f5">
+    {cscms:indexhead}
+    {cscms:indexright}
+        {cscms:indexleft}
+            <div class="sp-cont-r">
+                <div class="layui-tab layui-tab-card" lay-filter="dt1" style="margin-top: 0px;margin-bottom: 0px">
+                    <ul class="layui-tab-title" style="height: 41px">
+                        <li class="layui-this"><a href="[user:url userlink=singer]">已审核歌手</a></li>
+                        <li><a href="[user:url userlink=singer,verify]">待审核歌手</a></li>
+                        <a style="float: right;margin-right: 15px;margin-top: 5px" href="[user:url userlink=singer,add]" class="layui-btn layui-btn-small layui-btn-danger">新增歌手</a>
+                    </ul>
+                    <div class="layui-tab-content" style="padding:0px;background-color: #fff">
+                        <div class="layui-tab-item layui-show">
+                            <div class="layui-tab layui-tab-brief">
+							    <ul class="layui-tab-title">
+							        <li{if:[singer:cid]==0} class="layui-this"{end if}><a href="[user:url userlink=singer]">全部类型</a></li>
+	                                {cscms:class table="singer_list" fid="0" sort="id" order="asc"}
+									<li{if:[singer:cid]==[class:id]} class="layui-this"{end if}><a href="[user:url userlink=singer,index]/[class:id]">[class:name]</a></li>
+	                                {/cscms:class}
+							    </ul>
+							    <div class="layui-tab-content" style="padding: 10px 0px 0px 10px;overflow: hidden;">
+					                {cscms:singer table="singer" uid="auto" pagesize="20"  sort="time" order="desc"}
+					                   <li class="index-sing" id="sdel_[singer:id]">
+											<a target="_blank" href="[singer:url zdy=singer,id,show]" class="is-link">
+												<img src="[singer:pic dir=singer]" alt="[singer:name]">
+												<span target="_blank" class="is-name" href="[singer:url zdy=singer,id,show]">[singer:name]</span>
+											</a>
+											<div class="singer-u-more">
+												<a href="[user:url userlink=singer,add]?id=[singer:id]&yid=0" class="box-left"><i class="layui-icon">&#xe642;</i>编辑</a>
+												<a href="javascript:user.singerDel([singer:id],0);" class="box-right"><i class="fa fa-trash-o"></i>&nbsp;删除</a>
+											</div>
+										</li>
+					                {/cscms:singer}
+							                   
+									{if:{cscms:pagedata}==0}<div class="zanwu">暂无数据！</div>{end if}
+									<div class="page" style="text-align: right;clear: both;{if:{cscms:pagecout}<2}display: none;{end if}">
+			                            <div class="layui-box layui-laypage layui-laypage-default" id="layui-laypage-0">
+			                                <a href="{cscms:pagefirst}" class="layui-laypage-last" title="首页">首页</a>
+			                                <a href="{cscms:pageup}" class="layui-laypage-last" title="上一页">上一页</a>
+			                                {cscms:pagenum len=6}
+			                                <a href="{cscms:pagedown}" class="layui-laypage-next">下一页</a>
+			                                <a href="{cscms:pagelast}" class="layui-laypage-last" title="尾页">末页</a>
+			                            </div>
+			                       </div>
+							    </div>
+							</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mar10"></div>
+    <div class="mar10"></div>
+{cscms:indexbottom}
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#left_singer_1').addClass('on');
+        $('#left_first').removeClass('layui-nav-itemed');
+        $('#left_singer_1').parent().parent().addClass('layui-nav-itemed');
+    });
+</script>
+</body>
+</html>

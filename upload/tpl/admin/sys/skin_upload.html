@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset=utf-8>
+    <title></title>
+    <meta name="robots" content="noindex,nofollow">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/layui/css/layui.css">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/admin/css/font.css">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/admin/css/style.css">
+    <script src="<?=Web_Path?>packs/js/jquery.min.js"></script>
+    <script src="<?=Web_Path?>packs/layui/layui.js"></script>
+    <script src="<?=Web_Path?>packs/admin/js/cscms.js"></script>
+</head>
+<body>
+    <fieldset class="layui-elem-field  layui-field-title" style="margin-top: 15px;">
+        <legend><?=L('tpl_su_01')?></legend>
+        <div class="layui-field-box">
+            <blockquote class="layui-elem-quote"><?=L('tpl_su_02')?></blockquote>
+            <form class="layui-form layui-form-pane" action="javascript:;" method="post">
+                <div id="logo" class="layui-form-item">
+                    <div class="layui-input-inline submit-block">
+                        <input type="file" name="userfile" lay-type="images" class="layui-upload-file">
+                    </div>
+                </div>
+            </form>
+         </div>
+    </fieldset>
+
+<script type="text/javascript">
+    cscms.init();
+layui.use('upload', function(){
+    layui.upload({
+        url: '<?=$savelink?>'
+        ,title: '<?=L('tpl_su_03')?>'
+        ,ext: 'zip'
+        ,before: function(input){
+            var ind = cscms.layer.load(1);
+        }
+        ,success: function(res){
+           if(res.error==0){
+                cscms.layer.msg(res.info.msg,{icon:1});
+                setTimeout(function(){
+                    parent.location.href = res.info.url;
+                },1500);
+           }else{
+                cscms.layer.msg(res.info,{icon:2});
+           }
+        }
+    });
+});
+</script>
+</body>
+</html>

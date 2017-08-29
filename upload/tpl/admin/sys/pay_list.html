@@ -1,0 +1,136 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset=utf-8>
+    <title></title>
+    <meta name="robots" content="noindex,nofollow">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/layui/css/layui.css">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/admin/css/font.css">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/admin/css/style.css">
+    <script src="<?=Web_Path?>packs/js/jquery.min.js"></script>
+    <script src="<?=Web_Path?>packs/layui/layui.js"></script>
+    <script src="<?=Web_Path?>packs/admin/js/cscms.js"></script>
+</head>
+<body>
+    <span class="layui-breadcrumb" >
+        <a ><cite><i class="fa fa-map-marker"></i><?=L('tpl_01')?></cite></a>
+        <a href="javascript:;"><?=L('tpl_02')?></a>
+        <a href="<?=site_url('pay/lists')?>"><?=L('tpl_03')?></a>
+    </span>
+    <div class="layui-tab layui-tab-brief" >
+        <ul class="layui-tab-title">
+            <li class="layui-this"><a class="tablink" href="<?=site_url('pay/lists')?>"><?=L('tpl_04')?></a></li>
+            <li><a class="tablink" href="<?=site_url('pay/spend')?>"><?=L('tpl_05')?></a></li>
+            <li><a class="tablink" href="<?=site_url('pay/income')?>"><?=L('tpl_06')?></a></li>
+            <li><a class="tablink" href="<?=site_url('pay/card')?>"><?=L('tpl_07')?></a></li>
+        </ul>
+        <div class="layui-tab-content" style="min-height: 260px;">
+            <form class="layui-form layui-form-so" action="<?=site_url('pay/lists')?>" method="post">
+                <div class="layui-form-item">
+                    <label class="layui-form-label"><?=L('tpl_pl_01')?></label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="dingdan" value="<?=$dingdan?>" class="layui-input">
+                    </div>
+                    <label class="layui-form-label"><?=L('tpl_pl_02')?></label>
+                    <div class="layui-input-inline">
+                        <input style="width:90px;" name="kstime" id="kstime" type="text" value="<?=$kstime?>" class="layui-input" /> 
+                    </div>
+                    <div class="layui-input-inline">-</div>
+                    <div class="layui-input-inline">
+                        <input style="width:90px;" name="jstime" id="jstime" value="<?=$jstime?>" type="text" class="layui-input" />
+                    </div>
+                    <div class="layui-input-inline">
+                        <select name="zd">
+                            <option value="name" <?php if($zd=='name') echo ' selected';?>><?=L('tpl_pl_03')?></option>
+                            <option value="id" <?php if($zd=='id') echo ' selected';?>><?=L('tpl_pl_04')?></option>
+                        </select>
+                    </div>
+                    <div class="layui-input-inline">
+                        <input type="text" name="key" value="<?=$key?>" class="layui-input">
+                    </div>
+                    <div class="layui-input-inline">
+                        <select name="pid">
+                            <option value="0"<?php if($pid==0) echo ' selected';?>><?=L('tpl_pl_05')?></option>
+                            <option value="1"<?php if($pid==1) echo ' selected';?>><?=L('tpl_pl_06')?></option>
+                            <option value="2"<?php if($pid==2) echo ' selected';?>><?=L('tpl_pl_07')?></option>
+                            <option value="3"<?php if($pid==3) echo ' selected';?>><?=L('tpl_pl_08')?></option>
+                        </select>
+                    </div>
+                     <div class="layui-input-inline">
+                        <button class="layui-btn" type="submit"><?=L('tpl_pl_09')?></button>
+                    </div>
+                </div>
+            </form>
+            <form class="layui-form" action="<?=site_url('pay/del')?>" method="post">
+                <table class="layui-table">
+                    <thead>
+                        <tr>
+                            <th><?=L('tpl_pl_10')?></th>
+                            <th><?=L('tpl_pl_03')?></th>
+                            <th class="phide"><?=L('tpl_pl_01')?></th>
+                            <th  class="phide"><?=L('tpl_pl_11')?></th>
+                            <th class="phide"><?=L('tpl_pl_12')?></th>
+                            <th><?=L('tpl_pl_13')?></th>
+                            <th><?=L('tpl_pl_14')?></th>
+                            <th class="phide"><?=L('tpl_pl_15')?></th>
+                            <th  class="phide"><?=L('tpl_pl_16')?></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <?php
+                        if(empty($pay)) echo '<tr><td align="center" height="50" colspan="9">'.L('tpl_pl_17').'</td></tr>';
+                        foreach ($pay as $row) {
+                            //状态
+                            if($row->pid==1){
+                                $zt='<font color=#0000ff>'.L('tpl_pl_18').'</font>';
+                            }elseif($row->pid==2){
+                                $zt='<font color=#009966>'.L('tpl_pl_19').'</font>';
+                            }elseif($row->pid==3){
+                                $zt='<font color=#ff9900>'.L('tpl_pl_20').'</font>';
+                            }else{
+                                $zt='<font color=#ff3300>'.L('tpl_pl_21').'</font>';
+                            }
+                            //会员
+                            $rowu=$this->db->query("SELECT name FROM ".CS_SqlPrefix."user where id=".$row->uid."")->row();
+                            $uname=($rowu)?$rowu->name:L('tpl_pl_22').$row->uid;
+                            echo '
+                            <tr id="row_'.$row->id.'">
+                            <td><input name="id['.$row->id.']" class="xuan" type="checkbox" value="'.$row->id.'" /></td>
+                            <td>'.$uname.'</td>
+                            <td  class="phide">'.$row->dingdan.'</td>
+                            <td  class="phide">'.date('Y-m-d H:i:s',$row->addtime).'</td>
+                            <td  class="phide">'.$row->type.'</td>
+                            <td>'.$row->rmb.'</td>
+                            <td>'.$zt.'</td>
+                            <td  class="phide">'.$row->ip.'</td>
+                            <td  class="phide" style="text-align: center;">';
+                            if($row->pid!=1){
+                                echo '<a class="layui-btn layui-btn-mini" href="javascript:cscms.go_confirm(\''.site_url('pay/init').'?id='.$row->id.'\',\''.L('tpl_pl_23').'\');">'.L('tpl_pl_24').'</a><a class="layui-btn layui-btn-mini layui-btn-danger" href="javascript:cscms.del_one(\''.site_url('pay/del').'?id='.$row->id.'\','.$row->id.');">'.L('tpl_pl_25').'</a>';
+                            }else{
+                                echo '<a class="layui-btn layui-btn-mini layui-btn-danger" href="javascript:cscms.del_one(\''.site_url('pay/del').'?id='.$row->id.'\','.$row->id.');">'.L('tpl_pl_25').'</a>';
+                            }
+                            echo '</td></tr> ';
+                        }
+                    ?>
+                    </tbody>
+                </table>
+                <div class="more_func">
+                    <a class="layui-btn layui-btn-primary layui-btn-small" href="javascript:cscms.select_all();"><i class="fa fa-check colorl" ></i><?=L('tpl_pl_26')?></a>
+                    <a class="layui-btn layui-btn-primary layui-btn-small" lay-submit lay-filter="del_pl"><i class="fa fa-close " style="color: red" ></i><?=L('tpl_pl_27')?></a>
+                </div>
+            </form>
+            <div id="page">
+                <div class="data_nums phide"><?=$page_data?></div>
+                <div class="data_page"><?=$page_list?></div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        cscms.init();
+        cscms.mode("cscms.getTime('kstime')");
+        cscms.mode("cscms.getTime('jstime')");
+    </script>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset=utf-8>
+    <meta name="robots" content="noindex,nofollow">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/layui/css/layui.css">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/admin/css/font.css">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/admin/css/style.css">
+    <script src="<?=Web_Path?>packs/js/jquery.min.js"></script>
+    <script src="<?=Web_Path?>packs/admin/js/setcolor.js"></script>
+    <script src="<?=Web_Path?>packs/layui/layui.js"></script>
+    <script src="<?=Web_Path?>packs/admin/js/cscms.js"></script>
+</head>
+<body id="index_setting">
+    <span class="layui-breadcrumb">
+        <a ><cite><i class="fa fa-map-marker"></i><?=L('tpl_tb_00')?></cite></a>
+        <a href="javascript:;"><?=L('tpl_tb_01')?></a>
+        <a href="<?=site_url('setting/tb')?>"><?=L('tpl_tb_02')?></a>
+    </span>
+    <form class="layui-form layui-form-pane" action="<?=site_url('setting/tb_save')?>" method="post">
+        <fieldset class="layui-elem-field" style="margin-top: 15px;">
+            <legend><?=L('tpl_tb_02')?></legend>
+            <div class="layui-field-box">
+                <div class="layui-form-item">
+                    <label class="layui-form-label"><?=L('tpl_tb_03')?></label>
+                    <div class="layui-input-block">
+                        <input name="CS_WaterMark" title="<?=L('tpl_tb_04')?>" type="radio" value="1" <?php if(CS_WaterMark==1) echo ' checked="checked"';?>>
+                        <input name="CS_WaterMark" title="<?=L('tpl_tb_05')?>" type="radio" value="0" <?php if(CS_WaterMark==0) echo ' checked="checked"';?>>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label"><?=L('tpl_tb_06')?></label>
+                    <div class="layui-input-block" onclick="cscms.show_hide('sy','CS_WaterMode')">
+                        <input name="CS_WaterMode" title="<?=L('tpl_tb_07')?>" type="radio" value="1" <?php if(CS_WaterMode==1) echo ' checked="checked"';?>>
+                        <input name="CS_WaterMode" title="<?=L('tpl_tb_08')?>" type="radio" value="2" <?php if(CS_WaterMode==2) echo ' checked="checked"';?>>
+                    </div>
+                </div>
+                <div class="sy sy1" <?php if(CS_WaterMode==2) echo 'style="display:none";';?>>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><?=L('tpl_tb_09')?></label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="CS_WaterFont" value="<?=CS_WaterFont?>" placeholder="<?=L('tpl_tb_10')?>" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><?=L('tpl_tb_11')?></label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="CS_WaterFontSize" placeholder="<?=L('tpl_tb_12')?>" value="<?=CS_WaterFontSize?>" class="layui-input">
+                        </div>
+                        <div class="layui-form-mid layui-word-aux">px</div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><?=L('tpl_tb_13')?></label>
+                        <div class="layui-input-block">
+                            <input name="CS_WaterLocation" type="radio" title="<?=L('tpl_tb_14')?>" value="1" <?php if(CS_WaterLocation==1) echo ' checked="checked"';?>>
+                            <input name="CS_WaterLocation" type="radio" title="<?=L('tpl_tb_15')?>" value="2" <?php if(CS_WaterLocation==2) echo ' checked="checked"';?>>
+                            <input name="CS_WaterLocation" type="radio" title="<?=L('tpl_tb_16')?>" value="3" <?php if(CS_WaterLocation==3) echo ' checked="checked"';?>>
+                            <input name="CS_WaterLocation" type="radio" title="<?=L('tpl_tb_17')?>" value="4" <?php if(CS_WaterLocation==4) echo ' checked="checked"';?>>
+                            <input name="CS_WaterLocation" type="radio" title="<?=L('tpl_tb_18')?>" value="5" <?php if(CS_WaterLocation==5) echo ' checked="checked"';?>>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><?=L('tpl_tb_19')?></label>
+                        <div class="layui-input-inline">
+                           <input class="layui-input" name="CS_WaterFontColor" id="CS_WaterFontColor" type="text" value="<?=CS_WaterFontColor?>"/>
+                           <img src="<?=Web_Path?>packs/admin/images/rect.gif" width="18" height="17" border=0 style="position:absolute;right: 5px;top:9px;cursor:pointer;background-Color:<?=CS_WaterFontColor?>;" title="<?=L('tpl_tb_19')?>" onClick="initcolor('CS_WaterFontColor','imgs_CS_WaterFontColor');" id="imgs_CS_WaterFontColor" align="absmiddle" vspace="1">
+                        </div>
+                    </div>
+                </div>
+                <div class="sy sy2" <?php if(CS_WaterMode==1) echo 'style="display:none";';?>>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><?=L('tpl_tb_20')?></label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="CS_WaterLogo" value="<?=CS_WaterLogo?>" placeholder="<?=L('tpl_tb_21')?>" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><?=L('tpl_tb_22')?></label>
+                        <div class="layui-input-block">
+                            <input name="CS_WaterLocations" type="radio" title="<?=L('tpl_tb_14')?>" value="1"<?php if(CS_WaterLocations==1) echo ' checked="checked"';?>>
+                            <input name="CS_WaterLocations" type="radio" title="<?=L('tpl_tb_15')?>" value="2"<?php if(CS_WaterLocations==2) echo ' checked="checked"';?>>
+                            <input name="CS_WaterLocations" type="radio" title="<?=L('tpl_tb_17')?>" value="3"<?php if(CS_WaterLocations==3) echo ' checked="checked"';?>>
+                            <input name="CS_WaterLocations" type="radio" title="<?=L('tpl_tb_16')?>" value="4"<?php if(CS_WaterLocations==4) echo ' checked="checked"';?>>
+                            <input name="CS_WaterLocations" type="radio" title="<?=L('tpl_tb_18')?>" value="5"<?php if(CS_WaterLocations==5) echo ' checked="checked"';?>>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><?=L('tpl_tb_23')?></label>
+                        <div class="layui-input-inline">
+                           <input class="layui-input" title="<?=L('tpl_tb_24')?>" placeholder="<?=L('tpl_tb_24')?>" name="CS_WaterLogotm" type="text" value="<?=CS_WaterLogotm?>"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block noborder">
+                        <button style="margin-left: 20%;" class="layui-btn" lay-submit lay-filter="setting"><?=L('tpl_tb_25')?></button>
+                        <button type="reset" class="layui-btn layui-btn-primary"><?=L('tpl_tb_26')?></button>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+<script type="text/javascript">
+    cscms.init();
+</script>
+</body>
+</html>

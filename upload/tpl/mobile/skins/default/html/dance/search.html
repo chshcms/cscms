@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <title>{cscms:title}</title>
+    <meta name="Keywords" content="{cscms:keywords}" />
+    <meta name="Description" content="{cscms:description}" />
+    <link rel="shortcut icon" href="{cscms:path}favicon.ico" />
+    <link rel="stylesheet" href="{cscms:webpath}packs/font/font.css">
+    <link rel="stylesheet" type="text/css" href="{cscms:tempurl}css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="{cscms:tempurl}css/dance.css"/>
+    <script type='text/javascript' src='{cscms:tempurl}js/wap.js'></script>
+    <script type='text/javascript' src='{cscms:tempurl}js/dance.js'></script>
+</head>
+<body>
+    {cscms:head}
+    <div class="layui-collapse" style="margin-top: 10px;">
+	    <div class="layui-colla-item">
+	        <h2 class="layui-colla-title" align="left">&nbsp;&nbsp;按字母查找<span style="font-size:12px;color: #ccc;float: right;">点击展开</span></h2> 
+	        <div class="layui-colla-content " style="text-align: center;padding: 10px 10px 10px 0px">
+                <a style="width: 34px;margin-bottom: 10px;margin-left: 10px" class="layui-btn layui-btn-mini {if:''=='{cscms:zm}'}layui-btn-danger{else}layui-btn-primary{end if} zm" href="{cscmsphp}linkurl('search','zm','',1);{/cscmsphp}">全部</a>
+                {cscmszm:27}
+                    <a style="width: 34px;margin-bottom: 10px;" class="layui-btn layui-btn-mini {if:'[zm:name]'=='{cscms:zm}'}layui-btn-danger{else}layui-btn-primary{end if} zm" href="{cscmsphp}linkurl('search','zm','[zm:name]',1);{/cscmsphp}">[zm:name]</a>
+                {/cscmszm}
+	        </div>
+	    </div>
+	</div>
+    <div class="layui-tab layui-tab-brief" style="margin-top: 0px">
+        <ul class="layui-tab-title">
+            <li class="layui-this">
+            	搜索{if:'{cscms:zm}'==''}关键字{else}字母{end if}：&nbsp;{if:'{cscms:zm}'==''}{cscms:key}{else}{cscms:zm}{end if}
+            </li>
+        </ul>
+        <div class="layui-tab-content">
+            <div class="layui-tab-item layui-show">
+                <ul class="dance_list">
+                {cscms:dance table="dance" field="id,name,cid,uid,addtime,singerid,hits,shits,addtime" pagesize="20" cid="auto" sort="addtime" order="desc"}
+                    <li class="dance-one">
+                        <div class="dance-one-left">
+                            <a class="id-title" title="[dance:name]" href="[dance:url zdy=dance,id,play,id]"><span class="dance-jx">[dance:i]</span>[dance:name]</a>
+                            <div class="dance-one-more"><span><i class="fa fa-eye"></i>&nbsp;<i title="人气">[dance:hits]</i></span><span><i class="fa fa-star-o"></i>&nbsp;<i title="收藏">[dance:shits]</i></span><span><a href="[dance:url zdy=dance,cid,lists,hits]">[dance:zdy zd=dance_list,name,cid]</a></span></div>
+                        </div>
+                        <a class="dance-singer" href="[dance:url zdy=singer,singerid,show]">[dance:singer zd=name]</a>
+                    </li>
+                {/cscms:dance}
+                </ul>
+                <div class="zanwu" {if:{cscms:pagedata}>0}style="display: none"{end if}>暂无相关记录！</div>
+                <div class="page" {if:{cscms:pagecout}<2}style="display:none"{end if}>
+		    		<div class="layui-box layui-laypage layui-laypage-default" id="layui-laypage-0" style="width: 100%;text-align: center;">
+		    			<a href="{cscms:pageup}" class="layui-laypage-last" title="上一页">上一页</a>
+					  	{cscms:pagenum len=3}
+					    <a href="{cscms:pagedown}" class="layui-laypage-next">下一页</a>
+					</div>
+	           </div>
+            </div>
+        </div>
+    </div>
+</body>
+{cscms:bottom}
+<script type="text/javascript">
+$('.mclass').remove();
+</script>
+</body>
+</html>

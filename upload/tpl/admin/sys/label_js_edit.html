@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset=utf-8>
+    <title></title>
+    <meta name="robots" content="noindex,nofollow">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/layui/css/layui.css">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/admin/css/font.css">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/admin/css/style.css">
+    <script src="<?=Web_Path?>packs/js/jquery.min.js"></script>
+    <script src="<?=Web_Path?>packs/layui/layui.js"></script>
+    <script src="<?=Web_Path?>packs/admin/js/cscms.js"></script>
+</head>
+<body id="form-block">
+    <form style="padding: 2%;width: 96%;" class="layui-form layui-form-pane" action="<?=site_url('label/js_save')?>">
+       <div class="layui-form-item">
+            <label class="layui-form-label"><?=L('tpl_le_01')?></label>
+            <div class="layui-input-block">
+                <input type="text" name="name" value="<?=$name?>" class="layui-input" placeholder="<?=L('tpl_le_02')?>" onkeyup="this.value=this.value.replace(/[^0-9a-zA-Z]/g,'')">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">JS</label>
+            <div class="layui-input-inline">
+                <input type="text" name="js" value="<?=$js?>" class="layui-input" placeholder="<?=L('tpl_je_01')?>" onkeyup="this.value=this.value.replace(/[^0-9a-zA-Z]/g,'')">
+            </div>
+            <div class="layui-form-mid layui-word-aux phide">.js</div>
+        </div>
+       <div class="layui-form-item">
+            <label class="layui-form-label"><?=L('tpl_le_03')?></label>
+            <div class="layui-input-block">
+                <input type="text" name="neir" value="<?=$neir?>" class="layui-input" placeholder="<?=L('tpl_le_04')?>">
+            </div>
+        </div>
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label"><?=L('tpl_le_05')?></label>
+            <div class="layui-input-block">
+                <textarea style="min-height: 160px;" name="html" placeholder="<?=L('tpl_le_06')?>" class="layui-textarea"><?=$html?></textarea>
+            </div>
+        </div>
+        <input name="id" type="hidden" value="<?=$id?>">
+        <div class="layui-form-item">
+            <div class="layui-input-block submit-block">
+                <button class="layui-btn" lay-submit lay-filter="setting"><?=L('tpl_le_07')?></button>
+                <button type="reset" class="layui-btn layui-btn-primary"><?=L('tpl_le_08')?></button>
+            </div>
+        </div>
+    </form>
+<script type="text/javascript">
+    cscms.init();
+</script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <title>{cscms:title}</title>
+    <meta name="Keywords" content="{cscms:keywords}" />
+    <meta name="Description" content="{cscms:description}" />
+    <link rel="shortcut icon" href="{cscms:path}favicon.ico" />
+    <link rel="stylesheet" href="{cscms:webpath}packs/font/font.css">
+    <link rel="stylesheet" type="text/css" href="{cscms:tempurl}css/user.css"/>
+    <script type="text/javascript" src="{cscms:tempurl}js/user.js"></script>
+</head>
+<body>
+    {cscms:head}
+    {cscms:right}
+    <div class="layui-tab layui-tab-card layui-tab-min" lay-filter="dt1" style="margin-top: 0px;margin-bottom: 0px">
+        <ul class="layui-tab-title" style="height: 41px">
+            <li class="layui-this"><a href="[user:url userlink=share]">宣传分享</a></li>
+            <li><a href="[user:url userlink=share,lists]">宣传记录</a></li>
+        </ul>
+        <div class="layui-tab-content" style="padding:10px;">
+            <div class="layui-tab-item layui-show">
+                <blockquote class="layui-elem-quote layui-quote-nm" style="padding-left: 15px;margin-bottom: 0px">
+                	<font class="colorl">方式： </font>复制宣传代码发给QQ好友或QQ群，被好友或则其他用户通过链接访问；<br>
+					<font class="colorn">奖励： </font>每个用户访问一次可获得 <font color=red>[user:sharecion]</font> 个金币，
+					每个用户访问一次可获得 <font color=red>[user:sharejinyan]</font> 个经验值；<br>
+					<font class="colord">限制： </font>每天最多获得 <font color=red>[user:sharenums]</font> 次金币和经验的宣传分享奖励。
+                </blockquote>
+                <div class="layui-tab layui-tab-brief" style="margin: 0px">
+                    <ul class="layui-tab-title">
+                    <li class="layui-this">宣传地址</li>
+                    </ul>
+                    <div class="layui-tab-content" style="padding: 5px 0px">
+                        [user:sharelink]&nbsp;&nbsp;{cscms:webname}，真心觉得不错，您快去看看吧！
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{cscms:bottom}
+</body>
+</html>

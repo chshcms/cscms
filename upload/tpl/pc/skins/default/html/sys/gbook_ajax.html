@@ -1,0 +1,37 @@
+{cscms:gbook table="gbook" cid="1" pagesize="5" sort="id" fid="0" order="desc"}
+<div class="index-gbook">
+	<div class="ig-title">
+		<span class="ig-name">[gbook:user zd=nichen]</span><span class="ig-ip">IP：[gbook:ip]</span>
+		<font class="ig-time">[gbook:addtime]</font>
+	</div>
+    <div class="ig-neir">[gbook:neir]</div>
+	{cscmstype:gbook2 table="gbook" fid="auto" sort="id" order="desc"}
+        <div class="ig-hf">站长回复：[gbook2:neir]</div>
+	{/cscmstype:gbook2}
+</div>
+{/cscms:gbook}
+<div class="page" style="text-align: center;{if:{cscms:pagecout}<2}display:none;{end if}">
+    <div class="layui-box layui-laypage layui-laypage-default" id="layui-laypage-0">
+        <a href="{cscms:pagefirst}" class="layui-laypage-last" title="首页">首页</a>
+        <a href="{cscms:pageup}" class="layui-laypage-last" title="上一页">上一页</a>
+        {cscms:pagenum len=5}
+        <a href="{cscms:pagedown}" class="layui-laypage-next">下一页</a>
+        <a href="{cscms:pagelast}" class="layui-laypage-last" title="尾页">末页</a>
+    </div>
+</div>
+<blockquote class="layui-elem-quote layui-quote-nm">声明：您如果有什么建议或意见,请在这里给管理员留言,您所发的信息不能触犯国家法律,否者您需对自己言行负全部责任！</blockquote>
+<form action="javascript:;" method="post" class="layui-form layui-form-pane">
+	<input type="hidden" id="gbook_token" value="[gbook:token]"/>
+	<div class="layui-form-item layui-form-text">
+	    <label class="layui-form-label">留言内容</label>
+	    <div class="layui-input-block">
+	        <textarea name="cscms_gbook_content" id="cscms_gbook_content" placeholder="请输入留言内容" class="layui-textarea"></textarea>
+	    </div>
+	</div>
+	<div class="layui-form-item">
+	    <div class="layui-input-block" style="margin-left: 0px;text-align: center;">
+	        <button class="layui-btn" onclick="cscms.postGbook();">立即提交</button>
+	        <button type="reset" class="layui-btn layui-btn-primary">清空重置</button>
+	    </div>
+	</div>
+</form>

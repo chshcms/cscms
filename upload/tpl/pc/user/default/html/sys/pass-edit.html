@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset=utf-8>
+    <meta http-equiv="X-UA-Compatible" content="IE=9">
+    <title>{cscms:title}</title>
+    <meta name="Keywords" content="{cscms:keywords}" />
+    <meta name="Description" content="{cscms:description}" />
+    <link rel="shortcut icon" href="{cscms:webpath}favicon.ico" />
+    <link rel="stylesheet" href="{cscms:webpath}packs/font/font.css">
+    <link rel="stylesheet" type="text/css" href="{cscms:tempurl}css/user.css" />
+    <script type='text/javascript' src='{cscms:tempurl}js/user.js'></script>
+</head>
+<body>
+    {cscms:head}
+    <div class="w960" style="margin-top: 70px;overflow: hidden;">
+        <div class="layui-tab layui-tab-brief" style="float: left;width: 600px;border: 1px solid #e2e2e2;">
+            <ul class="layui-tab-title" style="height: 41px">
+                <li class="layui-this">找回密码</li>
+                <li><a href="{cscms:reglink}">立即注册</a></li>
+                <li><a href="{cscms:loginlink}">直接登录</a></li>
+            </ul>
+            <div class="layui-tab-content" style="height: 320px">
+                <div class="layui-tab-item layui-show" style="margin-top: 60px;padding: 0px 20px">
+                    <form class="layui-form layui-form-pane" action="[user:passsave]" method="post">
+                        
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">新密码</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="userpass" required lay-verify="required" autocomplete="off" placeholder="请输入6-20位的密码" value="" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">确认密码</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="userpass2" required lay-verify="requried" autocomplete="off" placeholder="请确认密码" value="" class="layui-input">
+                            </div>
+                        </div>
+                        <input type="hidden" name="token" value="[user:token]"/>
+                        <div class="layui-form-item">
+                            <div class="layui-input-block" style="margin-left: 0px;text-align: center;">
+                                <button class="layui-btn" lay-submit lay-filter="">立即提交</button>
+                                <button type="reset" id="reset" class="layui-btn layui-btn-primary">清空重置</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="layui-tab layui-tab-brief" style="float: right;width: 345px;border: 1px solid #e2e2e2;">
+            <ul class="layui-tab-title" style="height: 41px">
+                <li class="layui-this">第三方直接登录</li>
+            </ul>
+            <div class="layui-tab-content" style="height: 320px">
+                <div class="layui-tab-item layui-show">
+                    <ul class="regOpen">
+                        <li><a class="qq" href="{cscms:qqlink}">腾讯QQ登录</a></li>
+                        <li><a class="weibo" href="{cscms:weibolink}">新浪微博登录</a></li>
+                        <li><a class="baidu" href="{cscms:baidulink}">百度账号登录</a></li>
+                        <li><a class="renren" href="{cscms:renrenlink}">人人账号登录</a></li>
+                        <li><a class="kaixin" href="{cscms:kaixinlink}">开心账号登录</a></li>
+                        <li><a class="douban" href="{cscms:doubanlink}">豆瓣账号登录</a></li>
+                    </ul>
+                        
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mar10"></div>
+    {cscms:bottom}
+<script type="text/javascript">
+    function reloadCodes(){
+        $('.verifyimg').attr('src', "{cscms:codes}?" + Math.random());
+    }
+</script>
+</body>
+</html>

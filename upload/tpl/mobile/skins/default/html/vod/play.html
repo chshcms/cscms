@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <title>{cscms:title}</title>
+    <meta name="Keywords" content="{cscms:keywords}" />
+    <meta name="Description" content="{cscms:description}" />
+    <link rel="shortcut icon" href="{cscms:path}favicon.ico" />
+    <link rel="stylesheet" href="{cscms:webpath}packs/font/font.css">
+    <link rel="stylesheet" type="text/css" href="{cscms:tempurl}css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="{cscms:tempurl}css/vod.css"/>
+    <script type='text/javascript' src='{cscms:tempurl}js/wap.js'></script>
+    <script type='text/javascript' src='{cscms:tempurl}js/vod.js'></script>
+</head>
+<body>
+    {cscms:head}
+    <div style="padding: 0px 10px 10px;overflow: hidden;padding-bottom: 0px">
+        
+        <div class="mv-player">
+            <iframe width="100%" height="100%" allowTransparency="true" frameborder="0" scrolling="no" src="http://jx.api.163ren.com/vod.php?url=[vod:wapurl]&type=[vod:laiy]"></iframe>
+        </div>
+        <div class="vod-more">
+            &nbsp;&nbsp;<a href="javascript:vod.vodZan([vod:id]);"><i class="fa fa-thumbs-up"></i>&nbsp;&nbsp;赞(<span id="zannum">[vod:dhits]</span>)</a>&nbsp;&nbsp;
+            <a href="javascript:vod.vodFav([vod:id]);"><i class="fa fa-star"></i>&nbsp;收藏(<span id="favnum">[vod:shits]</span>)</a>
+            <span class="right">访问人气：[vod:hits]&nbsp;&nbsp;</span>
+        </div>  
+    </div>
+    <div class="layui-tab layui-tab-brief" style="margin: 0px">
+        <ul class="layui-tab-title">
+            <li style="" class="layui-this">[vod:name]</li>
+        </ul>
+        <div class="layui-tab-content" style="">
+            <div class="mv-showl">
+                <img src="[vod:pic dir=vod]" alt="[vod:name]">
+            </div>
+            <div class="mv-showr">
+                <p>分类：[vod:zdy zd=vod_list,name,cid]</p>
+                <p>状态：[vod:remark]</p>
+                <p style="white-space: nowrap;">主演：[vod:zhuyan]</p>
+                <p>简介：<span>[vod:text len=135]</span></p>
+            </div>
+        </div>
+    </div>
+    <div class="layui-tab layui-tab-brief" style="margin: 0px">
+        <ul class="layui-tab-title">
+            {vod:play}
+                <li style="min-width: 10px" {if:[play:i]==1}class="layui-this"{end if}>[play:name]</li>
+            {/vod:play}
+                <li>相关视频</li>
+                <li>相关评论</li>
+        </ul>
+        <div class="layui-tab-content" style="overflow-y:auto;padding: 5px 0px">
+        {vod:play}
+            <div class="layui-tab-item {if:[play:i]==1}layui-show{end if}" style="max-height: 300px;">
+            {vod:url order=desc}
+                <a style="margin: 5px;" class="layui-btn layui-btn-small" title="[url:name]" href="[url:link]" >[url:name]</a>
+            {/vod:url}
+            </div>
+        {/vod:play}
+            <div class="layui-tab-item" style="overflow: hidden;text-align: center;">
+                <ul class="mv-ul">
+                    {cscms:vod table="vod" field="id,name,pic,remark" loop="12"  sort="addtime" cid="auto"}
+                    <li class="mv-li">
+                        <a title="[vod:name]" href="[vod:url zdy=vod,id,show,id]" >
+                            <img src="[vod:pic dir=vod]" alt="[vod:name]">
+                            <p>[vod:name]</p>
+                            <span>[vod:remark]</span>
+                        </a>
+                    </li>
+                   {/cscms:vod}
+                </ul> 
+            </div>
+            <div class="layui-tab-item" style="padding: 10px">
+                [vod:pl]
+            </div>
+        </div>
+    </div>
+</body>
+{cscms:bottom}
+<script type="text/javascript">
+    
+</script>
+</body>
+</html>

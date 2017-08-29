@@ -1,0 +1,47 @@
+    <div class="w960" style="background-color: #fff;margin-top: 60px;border: 1.5px solid #e2e2e2;">
+        <div class="sp-title">
+            <dl>
+                <dt>
+                    <a href="[user:url ulink=index]"><img src="[user:logo dir=logo]?size=200*200"></a>
+                </dt>
+                <dd>
+                    <div class="uname">
+                        <div class="un-left"><span>[user:name]</span><span class="u-icon un-lv">[user:level]<i class="u-icon un-lvr"></i></span><span class="u-sex un-sex[user:sex]"></span></div>
+                        <div class="un-right">
+                            <a id="cscms_qd" class="layui-btn layui-btn-small layui-btn-danger" href="javascript:user.qiandao();">{if:date('Y-m-d','[user:qdtime]')==date('Y-m-d')}今天已签到{else}签到领金币{end if}</a>
+                        </div>
+                    </div>
+                    <div class="uhits">
+                        <li style="border-left: 0px;padding-left: 0px"><a href="javascript:;">
+                            <strong>[user:count zdy=friend,uida,id]</strong>
+                            <span>关注</span>
+                        </a></li>
+                        <li><a href="javascript:;">
+                            <strong>[user:hits]</strong>
+                            <span>人气</span>
+                        </a></li>
+                        <li><a href="javascript:;">
+                            <strong>[user:count zdy=fans,uida,id]</strong>
+                            <span>粉丝</span>
+                        </a></li>
+                    </div>
+                    <div class="u-info">
+                        <div class="info-one">
+                            <div class="info-intro">会员类型：<font>{if:[user:vip]==0}普通会员{else}<font class="colorr">VIP会员</font>{end if}</font></div>
+                            <div class="info-intro">会员级别：<font>[user:user zd=zid]</font>&nbsp;&nbsp;&nbsp;<a class="colorn" href="[user:url userlink=pay,group]">升级</a></div>
+                        </div>
+                        <div class="info-one">
+                            <div class="info-intro">剩余金币：<font class="colord" style="font-weight: bold;">[user:cion]</font>&nbsp;个&nbsp;&nbsp;&nbsp;<a href="[user:url userlink=pay]" class="colorn">充值</a></div>
+                            <div class="info-intro">剩余金钱：<font class="colord" style="font-weight: bold;">[user:rmb]</font>&nbsp;元&nbsp;&nbsp;&nbsp;<a style="" href="[user:url userlink=pay,change]" class="colorn">兑换</a></div>
+                        </div>
+                        <div style="margin-bottom: 5px">空间地址：<a href="[user:url ulink=index]">[user:url ulink=index]</a></div>
+                        <div title="当前经验[user:jinyan]点，升级还需[user:user level=3]点"><div style="float: left;width: 70px">当前经验：</div>
+                            <div class="layui-progress" style="float: left;width: 400px;margin-top: 8px;">
+                                <div class="layui-progress-bar " lay-percent="[user:user level=4]%"></div>
+                            </div>
+                        </div>
+                        <span style="display: block;margin-top: 3px;margin-left: 5px;width:50px;float: left">[user:user level=4]%</span>
+                    </div>
+                </dd>
+            </dl>
+        </div>

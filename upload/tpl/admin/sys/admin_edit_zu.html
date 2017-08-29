@@ -1,0 +1,248 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset=utf-8>
+    <title></title>
+    <meta name="robots" content="noindex,nofollow">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/layui/css/layui.css">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/admin/css/font.css">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/admin/css/style.css">
+    <script src="<?=Web_Path?>packs/js/jquery.min.js"></script>
+    <script src="<?=Web_Path?>packs/layui/layui.js"></script>
+    <script src="<?=Web_Path?>packs/admin/js/cscms.js"></script>
+</head>
+<body>
+    <form class="layui-form layui-form-pane" action="<?=site_url('sys/zu_save')?>" method="post" style="">
+				<div class="layui-field-box">
+					<div class="layui-form-item">
+			            <label class="layui-form-label"><?=L('tpl_ze_01')?></label>
+			            <div class="layui-input-block">
+			                <input type="text" name="name" value="<?=$name?>" class="layui-input">
+			            </div>
+			        </div>
+				</div>
+				<div class="layui-form-item" <?php if($id>1){echo 'style="display:none"';}?>>
+		            <div class="layui-input-block noborder">
+		                <button class="layui-btn" lay-submit lay-filter="setting"><?=L('tpl_ze_02')?></button>
+		                <button type="reset" class="layui-btn layui-btn-primary"><?=L('tpl_ze_03')?></button>
+		            </div>
+		        </div>
+		<fieldset class="layui-elem-field" <?php if($id<2){echo 'style="display:none"';}?>>
+  			<legend ><?=L('tpl_ze_05')?></legend>
+			<div class="layui-field-box box-checkbox">
+				<div class="layui-form-item" id="sys_0">
+		            <label class="layui-form-label"><?=L('tpl_ze_06')?></label>
+		            <div style="overflow: hidden;"><div class="layui-input-inline">
+		                <input name="sys[0]" lay-skin="primary" type="checkbox" title="<?=L('tpl_ze_07')?>" value="setting/index"<?php if(getqx('setting/index',$sys)=='ok')  echo ' checked="checked"';?>/>
+		            </div>
+		            <div class="layui-input-inline">
+		                <input name="sys[1]" lay-skin="primary" title="<?=L('tpl_ze_08')?>" type="checkbox" value="setting/ftp"<?php if(getqx('setting/ftp',$sys)=='ok') echo ' checked="checked"';?>/>
+		            </div>
+		            <div class="layui-input-inline">
+		                <input name="sys[2]" lay-skin="primary" title="<?=L('tpl_ze_09')?>" type="checkbox" value="mail/index"<?php if(getqx('mail/index',$sys)=='ok') echo ' checked="checked"';?>/>
+		            </div>
+		            <div class="layui-input-inline">
+		                <input name="sys[3]" lay-skin="primary" title="<?=L('tpl_ze_10')?>" type="checkbox" value="sms/index"<?php if(getqx('sms/index',$sys)=='ok') echo ' checked="checked"';?>/>
+		            </div>
+		            <div class="layui-input-inline">
+		                <input name="sys[4]" lay-skin="primary" title="<?=L('tpl_ze_11')?>" type="checkbox" value="pay/index"<?php if(getqx('pay/index',$sys)=='ok') echo ' checked="checked"';?>/>
+		            </div>
+		            <div class="layui-input-inline">
+		                <input name="sys[5]" lay-skin="primary" title="<?=L('tpl_ze_12')?>" type="checkbox" value="setting/tb"<?php if(getqx('setting/tb',$sys)=='ok') echo ' checked="checked"';?>/>
+		            </div>
+					<div class="layui-input-inline">
+		                <input name="sys[6]" lay-skin="primary" title="<?=L('tpl_ze_13')?>" type="checkbox" value="setting/denglu"<?php if(getqx('setting/denglu',$sys)=='ok') echo ' checked="checked"';?>/>
+		            </div>
+		            <div class="layui-input-inline">
+		                <input name="sys[7]" lay-skin="primary" title="<?=L('tpl_ze_14')?>" type="checkbox" title="" value="plugins/"<?php if(getqx('plugins/',$sys)=='ok')  echo ' checked="checked"';?>/>
+		            </div>
+					<div class="layui-input-inline">
+		                <input name="sys[8]" lay-skin="primary" title="<?=L('tpl_ze_15')?>" type="checkbox" value="field/"<?php if(getqx('field/',$sys)=='ok') echo ' checked="checked"';?>/>
+		            </div>
+		            <div class="layui-input-inline">
+		                <input lay-skin="primary" title="<?=L('tpl_ze_04')?>" type="checkbox" lay-filter="selall" value="0"/>
+		            </div>
+		        </div>
+		        </div><div class="layui-form-item" id="sys_1">
+		            <label class="layui-form-label"><?=L('tpl_ze_16')?></label>
+		             <div style="overflow: hidden;"><div class="layui-input-inline">
+		                <input name="sys[10]" lay-skin="primary" title="<?=L('tpl_ze_17')?>" type="checkbox" title="" value="basedb/"<?php if(getqx('basedb/',$sys)=='ok')  echo ' checked="checked"';?>/>
+		            </div>
+		            <div class="layui-input-inline">
+		                <input name="sys[11]" lay-skin="primary" title="<?=L('tpl_ze_18')?>" type="checkbox" value="check/"<?php if(getqx('check/',$sys)=='ok') echo ' checked="checked"';?>/>
+		            </div>
+		            <div class="layui-input-inline">
+		                <input name="sys[12]" lay-skin="primary" title="<?=L('tpl_ze_19')?>" type="checkbox" value="upgrade/"<?php if(getqx('upgrade/',$sys)=='ok') echo ' checked="checked"';?>/>
+		            </div>
+		            <div class="layui-input-inline">
+		                <input name="sys[14]" lay-skin="primary" title="<?=L('tpl_ze_21')?>" type="checkbox" value="upload/"<?php if(getqx('upload/',$sys)=='ok') echo ' checked="checked"';?>/>
+		            </div>
+		            <div class="layui-input-inline">
+		                <input name="xuan" lay-skin="primary" title="<?=L('tpl_ze_04')?>" lay-filter="selall" type="checkbox" value="1"/>
+		            </div>
+		        </div>
+		        </div><div class="layui-form-item" id="sys_2">
+		            <label class="layui-form-label"><?=L('tpl_ze_22')?></label> <div style="overflow: hidden;">
+		            <div class="layui-input-inline">
+		                <input name="sys[21]" lay-skin="primary" title="<?=L('tpl_ze_23')?>" type="checkbox" title="" value="sys/index|sys/edit"<?php if(getqx('sys/index|sys/edit',$sys)=='ok')  echo ' checked="checked"';?>/>
+		            </div>
+		            <div class="layui-input-inline">
+		                <input name="sys[22]" lay-skin="primary" title="<?=L('tpl_ze_24')?>" type="checkbox" value="sys/zu"<?php if(getqx('sys/zu',$sys)=='ok') echo ' checked="checked"';?>/>
+		            </div>
+		            <div class="layui-input-inline">
+		                <input name="sys[23]" lay-skin="primary" title="<?=L('tpl_ze_25')?>" type="checkbox" value="sys/log"<?php if(getqx('sys/log',$sys)=='ok') echo ' checked="checked"';?>/>
+		            </div>
+		            <div class="layui-input-inline">
+		                <input name="xuan" lay-skin="primary" title="<?=L('tpl_ze_04')?>" type="checkbox" lay-filter="selall" value="2"/>
+		            </div>
+		        </div>
+		        </div><div class="layui-form-item" id="sys_3">
+		            <label class="layui-form-label"><?=L('tpl_ze_26')?></label> <div style="overflow: hidden;">
+		            <div class="layui-input-inline">
+		                <input name="sys[31]" lay-skin="primary" title="<?=L('tpl_ze_27')?>" type="checkbox"  value="label/index|label/add|label/edit|label/del"<?php if(getqx('label/index|label/add|label/edit|label/del',$sys)=='ok')  echo ' checked="checked"';?>/>
+		            </div>
+		            <div class="layui-input-inline">
+		                <input name="sys[32]" lay-skin="primary" title="<?=L('tpl_ze_28')?>" type="checkbox" value="label/js"<?php if(getqx('label/js',$sys)=='ok') echo ' checked="checked"';?>/>
+		            </div>
+		            <div class="layui-input-inline">
+		                <input name="sys[33]" lay-skin="primary" title="<?=L('tpl_ze_29')?>" type="checkbox" value="label/page"<?php if(getqx('label/page',$sys)=='ok') echo ' checked="checked"';?>/>
+		            </div>
+		            <div class="layui-input-inline">
+		                <input name="sys[34]" lay-skin="primary" title="<?=L('tpl_ze_30')?>" type="checkbox" value="label/deldata"<?php if(getqx('label/deldata',$sys)=='ok') echo ' checked="checked"';?>/>
+		            </div>
+		            <div class="layui-input-inline">
+		                <input name="sys[35]" lay-skin="primary" title="<?=L('tpl_ze_31')?>" type="checkbox" value="label/editdata"<?php if(getqx('label/editdata',$sys)=='ok') echo ' checked="checked"';?>/>
+		            </div>
+		            <div class="layui-input-inline">
+		                <input name="xuan" lay-skin="primary" title="<?=L('tpl_ze_04')?>" type="checkbox" lay-filter="selall" value="3"/>
+		            </div>
+		        </div>
+		        </div><div class="layui-form-item" id="sys_4">
+		            <label class="layui-form-label"><?=L('tpl_ze_32')?></label> <div style="overflow: hidden;">
+		            <div class="layui-input-inline">
+		                <input name="sys[41]" lay-skin="primary" title="<?=L('tpl_ze_33')?>" type="checkbox" title="" value="skin/index|skin/show|skin/add|skin/edit|skin/del|skin/copy|skin/init"<?php if(getqx('skin/index|skin/show|skin/add|skin/edit|skin/del|skin/copy|skin/init',$sys)=='ok')  echo ' checked="checked"';?>/>
+		            </div>
+		            <div class="layui-input-inline">
+		                <input name="sys[42]" lay-skin="primary" title="<?=L('tpl_ze_34')?>" type="checkbox" value="skin/upload"<?php if(getqx('skin/upload',$sys)=='ok') echo ' checked="checked"';?>/>
+		            </div>
+		            <div class="layui-input-inline">
+		                <input name="sys[43]" lay-skin="primary" title="<?=L('tpl_ze_35')?>" type="checkbox" value="skin/yun"<?php if(getqx('skin/yun',$sys)=='ok') echo ' checked="checked"';?>/>
+		            </div>
+		            <div class="layui-input-inline">
+		                <input name="sys[44]" lay-skin="primary" title="<?=L('tpl_ze_36')?>" type="checkbox" value="skin/tags"<?php if(getqx('skin/tags',$sys)=='ok') echo ' checked="checked"';?>/>
+		            </div>
+		            <div class="layui-input-inline">
+		                <input name="xuan" lay-skin="primary" title="<?=L('tpl_ze_04')?>" type="checkbox" lay-filter="selall" value="4"/>
+		            </div>
+		        </div>
+		        </div><div class="layui-form-item" id="sys_5">
+		            <label class="layui-form-label"><?=L('tpl_ze_37')?></label> <div style="overflow: hidden;">
+		            <div class="layui-input-inline">
+		                <input name="sys[51]" lay-skin="primary" title="<?=L('tpl_ze_38')?>" type="checkbox" title="" value="collect/index|collect/add|collect/edit|collect/del|collect/daochu|collect/caiji"<?php if(getqx('collect/index|collect/add|collect/edit|collect/del|collect/daochu|collect/caiji',$sys)=='ok')  echo ' checked="checked"';?>/>
+		            </div>
+		            <div class="layui-input-inline">
+		                <input name="sys[52]" lay-skin="primary" title="<?=L('tpl_ze_39')?>" type="checkbox" value="collect/lists"<?php if(getqx('collect/lists',$sys)=='ok') echo ' checked="checked"';?>/>
+		            </div>
+		            <div class="layui-input-inline">
+		                <input name="sys[53]" lay-skin="primary" title="<?=L('tpl_ze_40')?>" type="checkbox" value="collect/ruku"<?php if(getqx('collect/ruku',$sys)=='ok') echo ' checked="checked"';?>/>
+		            </div>
+		            <div class="layui-input-inline">
+		                <input name="xuan" lay-skin="primary" title="<?=L('tpl_ze_04')?>" type="checkbox" lay-filter="selall" value="5"/>
+		            </div>
+		        </div>
+		        </div><div class="layui-form-item" id="sys_6">
+		            <label class="layui-form-label"><?=L('tpl_ze_41')?></label> <div style="overflow: hidden;">
+		            <div class="layui-input-inline">
+		                <input name="sys[61]" lay-skin="primary" title="<?=L('tpl_ze_42')?>" type="checkbox" title="" value="user/index|user/edit|user/del|user/init"<?php if(getqx('user/index|user/edit|user/del|user/init',$sys)=='ok')  echo ' checked="checked"';?>/>
+		            </div>
+		            <div class="layui-input-inline">
+		                <input name="sys[62]" lay-skin="primary" title="<?=L('tpl_ze_43')?>" type="checkbox" value="user/verify"<?php if(getqx('user/verify',$sys)=='ok') echo ' checked="checked"';?>/>
+		            </div>
+		            <div class="layui-input-inline">
+		                <input name="sys[63]" lay-skin="primary" title="<?=L('tpl_ze_44')?>" type="checkbox" value="user/log"<?php if(getqx('user/log',$sys)=='ok') echo ' checked="checked"';?>/>
+		            </div>
+		            <div class="layui-input-inline">
+		                <input name="sys[64]" lay-skin="primary" title="<?=L('tpl_ze_45')?>" type="checkbox" title="" value="user/setting"<?php if(getqx('user/setting',$sys)=='ok')  echo ' checked="checked"';?>/>
+		            </div>
+		            <div class="layui-input-inline">
+		                <input name="sys[65]" lay-skin="primary" title="<?=L('tpl_ze_46')?>" type="checkbox" value="user/zu"<?php if(getqx('user/zu',$sys)=='ok') echo ' checked="checked"';?>/>
+		            </div>
+		            <div class="layui-input-inline">
+		                <input name="sys[66]" lay-skin="primary" title="<?=L('tpl_ze_47')?>" type="checkbox" value="user/level"<?php if(getqx('user/level',$sys)=='ok') echo ' checked="checked"';?>/>
+		            </div>
+		            <div class="layui-input-inline">
+		                <input name="sys[67]" lay-skin="primary" title="<?=L('tpl_ze_48')?>" type="checkbox" value="home"<?php if(getqx('home',$sys)=='ok') echo ' checked="checked"';?>/>
+		            </div>
+		            <div class="layui-input-inline">
+		                <input name="xuan" lay-skin="primary" title="<?=L('tpl_ze_04')?>"  lay-filter="selall" type="checkbox" value="6"/>
+		            </div>
+		        </div>
+		        </div><div class="layui-form-item" id="sys_7">
+		            <label class="layui-form-label"><?=L('tpl_ze_49')?></label> <div style="overflow: hidden;">
+		            <div class="layui-input-inline">
+		                <input name="sys[71]" lay-skin="primary" title="<?=L('tpl_ze_50')?>" type="checkbox" title="" value="pay/lists"<?php if(getqx('pay/lists',$sys)=='ok')  echo ' checked="checked"';?>/>
+		            </div>
+		            <div class="layui-input-inline">
+		                <input name="sys[72]" lay-skin="primary" title="<?=L('tpl_ze_51')?>" type="checkbox" value="pay/spend"<?php if(getqx('pay/spend',$sys)=='ok') echo ' checked="checked"';?>/>
+		            </div>
+		            <div class="layui-input-inline">
+		                <input name="sys[73]" lay-skin="primary" title="<?=L('tpl_ze_52')?>" type="checkbox" value="pay/income"<?php if(getqx('pay/income',$sys)=='ok') echo ' checked="checked"';?>/>
+		            </div>
+		            <div class="layui-input-inline">
+		                <input name="sys[74]" lay-skin="primary" title="<?=L('tpl_ze_53')?>" type="checkbox" value="pay/card"<?php if(getqx('pay/card',$sys)=='ok') echo ' checked="checked"';?>/>
+		            </div>
+		            <div class="layui-input-inline">
+		                <input name="xuan" lay-skin="primary" title="<?=L('tpl_ze_04')?>" type="checkbox"  lay-filter="selall" value="7"/>
+		            </div>
+		        </div>
+		        </div><div class="layui-form-item" id="sys_8">
+		            <label class="layui-form-label"><?=L('tpl_ze_54')?></label> <div style="overflow: hidden;">
+		            <div class="layui-input-inline">
+		                <input name="sys[81]" lay-skin="primary" title="<?=L('tpl_ze_55')?>" type="checkbox" title="" value="html/"<?php if(getqx('html/',$sys)=='ok')  echo ' checked="checked"';?>/>
+		            </div>
+		            <div class="layui-input-inline">
+		                <input name="sys[82]" lay-skin="primary" title="<?=L('tpl_ze_56')?>" type="checkbox" value="links/"<?php if(getqx('links/',$sys)=='ok') echo ' checked="checked"';?>/>
+		            </div>
+		            <div class="layui-input-inline">
+		                <input name="sys[83]" lay-skin="primary" title="<?=L('tpl_ze_57')?>" type="checkbox" value="opt/del_cache|opt/upd_cache"<?php if(getqx('opt/del_cache|opt/upd_cache',$sys)=='ok') echo ' checked="checked"';?>/>
+		            </div>
+
+		            <div class="layui-input-inline">
+		                <input name="sys[84]" lay-skin="primary" title="<?=L('tpl_ze_58')?>" type="checkbox" title="" value="pl/"<?php if(getqx('pl/',$sys)=='ok')  echo ' checked="checked"';?>/>
+		            </div>
+		            <div class="layui-input-inline">
+		                <input name="sys[85]" lay-skin="primary" title="<?=L('tpl_ze_59')?>" type="checkbox" value="gbook/"<?php if(getqx('gbook/',$sys)=='ok') echo ' checked="checked"';?>/>
+		            </div>
+		            <div class="layui-input-inline">
+		                <input name="sys[86]" lay-skin="primary" title="<?=L('tpl_ze_60')?>" type="checkbox" value="blog/"<?php if(getqx('blog/',$sys)=='ok') echo ' checked="checked"';?>/>
+		            </div>
+		            <div class="layui-input-inline">
+		                <input name="sys[87]" lay-skin="primary" title="<?=L('tpl_ze_61')?>" type="checkbox" value="msg/"<?php if(getqx('msg/',$sys)=='ok') echo ' checked="checked"';?>/>
+		            </div>
+		            <div class="layui-input-inline">
+		                <input name="sys[88]" lay-skin="primary" title="<?=L('tpl_ze_62')?>" type="checkbox" value="share/"<?php if(getqx('share/',$sys)=='ok') echo ' checked="checked"';?>/>
+		            </div>
+		            <div class="layui-input-inline">
+		                <input name="sys[89]" lay-skin="primary" title="<?=L('tpl_ze_63')?>" type="checkbox" value="tags/"<?php if(getqx('tags/',$sys)=='ok') echo ' checked="checked"';?>/>
+		            </div>
+		            <div class="layui-input-inline">
+		                <input name="xuan" lay-skin="primary" title="<?=L('tpl_ze_04')?>" type="checkbox"  lay-filter="selall" value="8"/>
+		            </div>
+		        </div></div>
+			</div>
+		</fieldset>
+        <input name="id" type="hidden" value="<?=$id?>">
+        <div class="layui-form-item" <?php if($id<2){echo 'style="display:none"';}?>>
+            <div class="layui-input-block noborder">
+                <button class="layui-btn" lay-submit lay-filter="setting"><?=L('tpl_ze_64')?></button>
+                <button type="reset" class="layui-btn layui-btn-primary"><?=L('tpl_ze_65')?></button>
+            </div>
+        </div>
+    </form>
+    <script type="text/javascript">
+        cscms.init();
+    </script>
+</body>
+</html>

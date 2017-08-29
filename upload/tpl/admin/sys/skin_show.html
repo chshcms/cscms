@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset=utf-8>
+    <title></title>
+    <meta name="robots" content="noindex,nofollow">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/layui/css/layui.css">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/admin/css/font.css">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/admin/css/style.css">
+    <script src="<?=Web_Path?>packs/js/jquery.min.js"></script>
+    <script src="<?=Web_Path?>packs/layui/layui.js"></script>
+    <script src="<?=Web_Path?>packs/admin/js/cscms.js"></script>
+</head>
+<body>
+    <span class="layui-breadcrumb" >
+        <a ><cite><i class="fa fa-map-marker"></i><?=L('tpl_ss_01')?></cite></a>
+        <a href="javascript:;"><?=L('tpl_ss_02')?></a>
+        <a href="<?=site_url('skin')?>"><?=L('tpl_ss_03')?></a>
+        <a href="javascript:;"><?=L('tpl_ss_04')?></a>
+    </span>
+<table class="layui-table">
+        <colgroup>
+            <col>
+        </colgroup>
+        <thead>
+            <tr><th><?=L('tpl_ss_05')?><font class="phide" style="font-weight: normal;"><?=$path?></font></th>
+                <th><?=L('tpl_ss_06')?></th>
+                <th><?=L('tpl_ss_07')?></th>
+                <th><?=L('tpl_ss_08')?></th>
+                <th><?=L('tpl_ss_09')?></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td colspan="4"><a href="javascript:history.back();"><i class="fa fa-mail-reply-all"></i>&nbsp;<?=L('tpl_ss_10')?></a></td><td class="basedb-more" colspan="1"><a href="javascript:cscms.get_open('<?=$addlink?>','<?=L('tpl_ss_11')?>','450px','250px')" class="layui-btn layui-btn-mini layui-btn-normal"><?=L('tpl_ss_12')?></a></td>
+            </tr>
+            <?php
+                $i=0;
+                for ($i=0; $i<count($dirs); $i++) {
+                      echo '<tr id="row_'.$i.'">
+                        <td><img align="absmiddle" src="'.$dirs[$i]['icon'].'">&nbsp;<a href="'.$dirs[$i]['link'].'">'.$dirs[$i]['name'].'</a></td>
+                        <td>'.$dirs[$i]['title'].'</td>
+                        <td>'.$dirs[$i]['date'].'</td>
+                        <td>--</td>
+                        <td class="basedb-more">
+                            <a class="layui-btn layui-btn-mini" href="'.$dirs[$i]['link'].'">'.L('tpl_ss_13').'</a>
+                            <a class="layui-btn layui-btn-mini layui-btn-danger" href="javascript:cscms.del_one(\''.$dirs[$i]['dellink'].'\',\''.$i.'\');">'.L('tpl_ss_14').'</a>
+                        </td></tr>';
+                }
+                for ($j=0; $j<count($show); $j++) {
+                      $pic=($show[$j]['ext']=='jpg' || $show[$j]['ext']=='bmp' || $show[$j]['ext']=='gif' || $show[$j]['ext']=='png')?' Cstip="<DIV align=\'center\'><img src=\''.$show[$j]['link'].'\' onload=\'ResizeImages(this,200,200);\'></DIV>"':'';
+                      echo '<tr id="row_'.($i+$j+1).'">
+                        <td><img align="absmiddle" src="'.$show[$j]['icon'].'">&nbsp;<a'.$pic.' href="'.$show[$j]['link'].'">'.$show[$j]['name'].'</a></td>
+						<td>'.$show[$j]['title'].'</td>
+                        <td>'.$show[$j]['date'].'</td>
+						<td class="tdlast">'.$show[$j]['size'].'</td>
+                        <td class="basedb-more">
+                            <a class="layui-btn layui-btn-mini" href="'.$show[$j]['link'].'">'.L('tpl_ss_15').'</a>
+                            <a class="layui-btn layui-btn-mini layui-btn-normal" href="javascript:cscms.go_url(\''.$show[$j]['blink'].'\')">'.L('tpl_ss_16').'</a>
+                            <a class="layui-btn layui-btn-mini layui-btn-danger" href="javascript:javascript:cscms.del_one(\''.$show[$j]['dellink'].'\',\''.($i+$j+1).'\');">'.L('tpl_ss_17').'</a></td></tr>';
+                } 
+            ?>
+        </tbody>
+    </table>
+<script type="text/javascript">
+    cscms.init()
+</script>
+</body>
+</html>
+

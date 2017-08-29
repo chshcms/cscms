@@ -1,0 +1,188 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset=utf-8>
+    <title></title>
+    <meta name="robots" content="noindex,nofollow">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/layui/css/layui.css">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/admin/css/font.css">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/admin/css/style.css">
+    <script src="<?=Web_Path?>packs/js/jquery.min.js"></script>
+    <script src="<?=Web_Path?>packs/layui/layui.js"></script>
+    <script src="<?=Web_Path?>packs/admin/js/cscms.js"></script>
+</head>
+<body id="index_setting">
+    <span class="layui-breadcrumb" >
+        <a ><cite><i class="fa fa-map-marker"></i><?=L('tpl_01')?></cite></a>
+        <a href="<?=site_url('user')?>"><?=L('tpl_set_01')?></a>
+        <a href="<?=site_url('user/setting')?>"><?=L('tpl_set_02')?></a>
+    </span>
+    <form class="layui-form layui-form-pane" action="<?=site_url('plugins/setting_save')?>" method="post">
+        <div class="layui-tab layui-tab-brief" style="padding-bottom: 50px;">
+            <ul class="layui-tab-title">
+                <li class="layui-this"><?=L('tpl_set_03')?></li>
+                <li><?=L('tpl_set_04')?></li>
+                <li><?=L('tpl_set_05')?></li>
+                <li><?=L('tpl_set_06')?></li>
+                <li><?=L('tpl_set_07')?></li>
+            </ul>
+            <div class="layui-tab-content">
+                <div class="layui-tab-item layui-show">
+                    <input type="hidden" name="dir" value="<?=$dir?>" class="layui-input">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><?=L('tpl_set_08')?></label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="name" value="<?=$model['name']?>" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><?=L('tpl_set_09')?></label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="key" placeholder="<?=L('tpl_set_10')?>" value="<?=$key?>" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><?=L('tpl_set_11')?></label>
+                        <div class="layui-input-inline" onclick="cscms.show_hide('cache','Cache_Is')">
+                            <input type="radio" name="Cache_Is" value="1" title="<?=L('tpl_set_12')?>" <?php if($SITE['Cache_Is']==1) echo ' checked="checked"';?> >
+                            <input type="radio" name="Cache_Is" value="0" title="<?=L('tpl_set_13')?>" <?php if($SITE['Cache_Is']==0) echo ' checked="checked"';?> >
+                        </div>
+                    </div>
+                    <div class="layui-form-item cache cache1" <?php if($SITE['Cache_Is']==0){echo 'style="display:none"';}?>>
+                        <label class="layui-form-label"><?=L('tpl_set_14')?></label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="Cache_Time" placeholder="<?=L('tpl_set_15')?>"  value="<?=$SITE['Cache_Time']?>" class="layui-input">
+                        </div>
+                        <div class="layui-form-mid layui-word-aux"><?=L('tpl_set_16')?></div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><?=L('tpl_set_17')?></label>
+                        <div class="layui-input-inline" onclick="cscms.show_hide('ym','Ym_Mode')">
+                            <input type="radio" name="Ym_Mode" value="1" title="<?=L('tpl_set_12')?>" <?php if($SITE['Ym_Mode']==1){echo 'checked';}?> >
+                            <input type="radio" name="Ym_Mode" value="0" title="<?=L('tpl_set_13')?>" <?php if($SITE['Ym_Mode']==0){echo 'checked';}?> >
+                        </div>
+                    </div>
+                    <div class="layui-form-item ym ym1" <?php if($SITE['Ym_Mode']==0){echo 'style="display:none"';}?>>
+                        <label class="layui-form-label"><?=L('tpl_set_18')?></label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="Ym_Url" placeholder="<?=L('tpl_set_19')?>"  value="<?=$SITE['Ym_Url']?>" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><?=L('tpl_set_20')?></label>
+                        <div class="layui-input-inline" onclick="cscms.show_hide('mob','Mobile_Is')">
+                            <input type="radio" name="Mobile_Is" value="1" title="<?=L('tpl_set_12')?>" <?php if($SITE['Mobile_Is']==1){echo 'checked';}?> >
+                            <input type="radio" name="Mobile_Is" value="0" title="<?=L('tpl_set_13')?>" <?php if($SITE['Mobile_Is']==0){echo 'checked';}?> >
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-tab-item">
+                    <?php
+                        $query = $this->db->query("SELECT id,name FROM ".CS_SqlPrefix."adminzu where id>1 order by id asc");
+                        foreach ($query->result() as $row) {
+                            echo '<div class="layui-form-item"><label class="layui-form-label">'.$row->name.'</label><div class="layui-input-inline"><a class="layui-btn layui-btn-small layui-btn-danger" style="margin: 4px 0px 4px 15px;" href="javascript:cscms.get_open(\''.site_url('plugins/role').'?id='.$row->id.'&dir='.$dir.'\',\''.$row->name.''.L('tpl_set_21').'\',\'500px\',\'430px\');">'.L('tpl_set_22').'</a></div></div>';
+                        }
+                    ?>
+                </div>
+                <div class="layui-tab-item">
+                    <blockquote class="layui-elem-quote"><?=L('tpl_set_23')?></blockquote>
+                <?php
+                    echo '<fieldset class="layui-elem-field"><legend>'.L('tpl_set_24').'</legend><div class="layui-field-box">';
+                    $check=(getqx(0,$SITE['User_Qx'])=='ok')?' checked':'';
+                    $userzu=$this->db->query("SELECT id,name FROM ".CS_SqlPrefix."userzu order by xid asc")->result();
+                    foreach ($userzu as $row) {
+                            $check=(getqx($row->id,$SITE['User_Qx'])=='ok')?' checked':'';
+                            echo '<div class="layui-form-item"><label class="layui-form-label">'.$row->name.'</label><div class="layui-input-inline"><input name="user['.$row->id.']" value="'.$row->id.'" title="'.L('tpl_set_25').'" type="checkbox" '.$check.'/></div></div>';
+                    }
+                    echo '</div></fieldset><fieldset class="layui-elem-field"><legend>'.L('tpl_set_26').'</legend><div class="layui-field-box">';
+                    $query = $this->db->query("SELECT id,name FROM ".CS_SqlPrefix."userlevel order by id asc");
+                    foreach ($query->result() as $row) {
+                             $check=(getqx($row->id,$SITE['User_Dj_Qx'])=='ok')?' checked':'';
+                             echo '<div class="layui-form-item"><label class="layui-form-label">'.$row->name.'</label><div class="layui-input-inline"><input name="user_dj['.$row->id.']" value="'.$row->id.'" title="'.L('tpl_set_25').'" type="checkbox" '.$check.'/></div></div>';
+                    }
+                    echo '</div></fieldset>';
+                ?>
+                </div>
+                <div class="layui-tab-item">
+                    <div class="layui-form-item layui-form-text" >
+                        <label class="layui-form-label">Title<span><?=L('tpl_set_27')?></span></label>
+                        <div class="layui-input-block">
+                            <textarea name="seo[title]" class="layui-textarea"><?=$SITE['Seo']['title']?></textarea>
+                        </div>
+                    </div>
+                    <div class="layui-form-item layui-form-text" >
+                        <label class="layui-form-label">Keywords<span><?=L('tpl_set_28')?></span></label>
+                        <div class="layui-input-block">
+                            <textarea name="seo[keywords]" class="layui-textarea"><?=$SITE['Seo']['keywords']?></textarea>
+                        </div>
+                    </div>
+                    <div class="layui-form-item layui-form-text" >
+                        <label class="layui-form-label">Description<span><?=L('tpl_set_29')?></span></label>
+                        <div class="layui-input-block">
+                            <textarea name="seo[description]" class="layui-textarea"><?=$SITE['Seo']['description']?></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-tab-item">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><?=L('tpl_set_30')?></label>
+                        <div class="layui-input-inline" onclick="cscms.show_hide('web','Web_Mode')">
+                            <input type="radio" name="Web_Mode" value="1" title="<?=L('tpl_set_31')?>" <?php if($SITE['Web_Mode']==1){echo 'checked';}?> >
+                            <input type="radio" name="Web_Mode" value="2" title="<?=L('tpl_set_32')?>" <?php if($SITE['Web_Mode']==2){echo 'checked';}?> >
+                            <input type="radio" name="Web_Mode" value="3" title="<?=L('tpl_set_33')?>" <?php if($SITE['Web_Mode']==3){echo 'checked';}?> >
+                        </div>
+                    </div>
+                    <fieldset class="layui-elem-field web web2" <?php if($SITE['Web_Mode']!=2){echo 'style="display:none"';}?>>
+                        <legend><?=L('tpl_set_34')?></legend>
+                        <div class="layui-field-box">
+                            <div class="layui-form-item">
+                                <label class="layui-form-label"><?=L('tpl_set_35')?></label>
+                                <div class="layui-input-inline">
+                                    <a class="apply-link colorl" href="javascript:cscms.get_open('<?=site_url('plugins/rule')?>?g=r','<?=L('tpl_set_36')?>','500px','350px');"><?=L('tpl_set_37')?></a>
+                                </div>
+                            </div>
+                            <?php
+                                foreach ($SITE['Rewrite_Uri'] as $key=>$value) {
+                                    if(empty($value['title'])) $value['title']=$key;
+                                    $title= ($key=='index')?'title="'.L('tpl_set_43').'"':'';
+                                    echo '<div class="layui-form-item"><label class="layui-form-label" style=""><input style="border: 0px;width: 100%;line-height: 20px;text-align: center;" name="rewrite['.$key.'][title]" type="text"  value="'.$value['title'].'"/></label><div class="layui-input-inline" style="width: 25%"><input name="rewrite['.$key.'][uri]" type="text" class="layui-input" value="'.$value['uri'].'" style="cursor:not-allowed;" readonly/></div><div class="layui-form-mid">=></div><div class="layui-input-inline" style="width: 25%"><input name="rewrite['.$key.'][url]" type="text" class="layui-input" value="'.$value['url'].'" '.$title.'/></div></div>';
+                                }
+                            ?>
+                        </div>
+                    </fieldset>
+                    <fieldset class="layui-elem-field web web3" <?php if($SITE['Web_Mode']!=3){echo 'style="display:none"';}?>>
+                        <legend><?=L('tpl_set_38')?></legend>
+                        <div class="layui-field-box">
+                            <div class="layui-form-item">
+                                <label class="layui-form-label"><?=L('tpl_set_35')?></label>
+                                <div class="layui-input-inline">
+                                    <a class="apply-link colorl" href="javascript:cscms.get_open('<?=site_url('plugins/rule')?>','<?=L('tpl_set_36')?>','500px','350px');"><?=L('tpl_set_37')?></a>
+                                </div>
+                            </div>
+                            <?php
+                            foreach ($SITE['Html_Uri'] as $key=>$value) {
+                                if(empty($value['title'])) $value['title']=$key;
+                                $check0 = ($value['check']==0)?'selected':'';
+                                $check1 = ($value['check']==1)?'selected':'';
+                                echo '<div class="layui-form-item"><label class="layui-form-label" style=""><input name="html['.$key.'][title]" type="text" class="plu-label" value="'.$value['title'].'"/></label><div class="layui-input-inline"><input name="html['.$key.'][url]" type="text" class="layui-input" value="'.$value['url'].'"/></div><div class="layui-input-inline plu-sel"><select name="html['.$key.'][check]"><option name="" value="0" '.$check0.'>'.L('tpl_set_39').'</option><option  name="" value="1" '.$check1.'>'.L('tpl_set_40').'</option></select></div></div>';
+                            }
+                            ?>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+            <div class="layui-form-item">
+            <div class="layui-input-block layui-input-common noborder">
+                <button class="layui-btn" lay-submit lay-filter="setting"><?=L('tpl_set_41')?></button>
+                <button type="reset" class="layui-btn layui-btn-primary"><?=L('tpl_set_42')?></button>
+            </div>
+        </div>
+        </div>
+    </form>
+    <script type="text/javascript">
+        cscms.init();
+    </script>
+</body>
+</html>

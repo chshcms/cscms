@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset=utf-8>
+    <meta http-equiv="X-UA-Compatible" content="IE=9">
+    <title>{cscms:title}</title>
+    <meta name="Keywords" content="{cscms:keywords}" />
+    <meta name="Description" content="{cscms:description}" />
+    <link rel="shortcut icon" href="{cscms:webpath}favicon.ico" />
+    <link rel="stylesheet" href="{cscms:webpath}packs/font/font.css">
+    <link rel="stylesheet" type="text/css" href="{cscms:tempurl}css/user.css" />
+    <script type='text/javascript' src='{cscms:tempurl}js/user.js'></script>
+    <script type='text/javascript' src='{cscms:webpath}packs/js/jquery.zclip.min.js'></script>
+</head>
+<body style="background: #f5f5f5">
+    {cscms:head}
+    {cscms:right}
+        {cscms:left}
+            <div class="sp-cont-r">
+                <div class="layui-tab layui-tab-card" lay-filter="dt1" style="margin-top: 0px;margin-bottom: 0px">
+                    <ul class="layui-tab-title" style="height: 41px">
+                        <li class="layui-this"><a href="[user:url userlink=share]">宣传分享</a></li>
+                        <li><a href="[user:url userlink=share,lists]">宣传记录</a></li>
+                    </ul>
+                    <div class="layui-tab-content" style="padding:10px;background-color: #fff">
+                        <div class="layui-tab-item layui-show">
+                            <blockquote class="layui-elem-quote layui-quote-nm" style="padding-left: 20px">
+                            	<font class="colorl">方式： </font>复制宣传代码发给QQ好友或QQ群，被好友或则其他用户通过链接访问；<br>
+								<font class="colorn">奖励： </font>每个用户访问一次可获得 <font color=red>[user:sharecion]</font> 个金币，
+								每个用户访问一次可获得 <font color=red>[user:sharejinyan]</font> 个经验值；<br>
+								<font class="colord">限制： </font>每天最多获得 <font color=red>[user:sharenums]</font> 次金币和经验的宣传分享奖励。
+                            </blockquote>
+                            <form class="layui-form layui-form-pane">
+                            	<div class="layui-form-item">
+									<label class="layui-form-label">宣传地址</label>
+									<div class="layui-input-inline" style="width: 440px">
+										<input type="text" id="shareUrl" name="title" class="layui-input" value="[user:sharelink]　{cscms:webname}，真心觉得不错，您快去看看吧！" onmouseover="this.select();" readonly="readonly">
+									</div>
+									<div class="layui-form-mid layui-word-aux" style="padding: 0px!important"><a id="shareBtn" class="layui-btn layui-btn-primary" href="javascript:;">点击复制链接</a></div>
+								</div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mar10"></div>
+    <div class="mar10"></div>
+{cscms:bottom}
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#left_share').addClass('on');
+        $('#left_first').removeClass('layui-nav-itemed');
+        $('#left_share').parent().parent().addClass('layui-nav-itemed');
+        $('#shareBtn').zclip({
+    		path: '{cscms:webpath}packs/swf/ZeroClipboard.swf',
+    		copy: function(){
+    			return $('#shareUrl').val();
+    		}, 
+    		afterCopy: function(){
+    			cscms.layer.msg('复制成功~！',{icon:1});
+    		}
+    	}); 
+    });
+</script>
+</body>
+</html>

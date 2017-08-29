@@ -1,0 +1,190 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset=utf-8>
+    <title></title>
+    <meta name="robots" content="noindex,nofollow">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/layui/css/layui.css">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/admin/css/font.css">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/admin/css/style.css">
+    <script src="<?=Web_Path?>packs/js/jquery.min.js"></script>
+    <script src="<?=Web_Path?>packs/layui/layui.js"></script>
+    <script src="<?=Web_Path?>packs/admin/js/cscms.js"></script>
+</head>
+<body>
+	<span class="layui-breadcrumb" >
+        <a ><cite><i class="fa fa-map-marker"></i>位置</cite></a>
+        <a href="<?=site_url('vod/admin/vod')?>">视频</a>
+        <a href="<?=site_url('vod/admin/vod')?>">视频管理</a>
+        <a href="<?=site_url('vod/admin/apiku')?>">视频资源库</a>
+    </span>
+	<!--背景灰色变暗-->
+	<div id="showbg" style="position:absolute;left:0px;top:0px;filter:Alpha(Opacity=20);opacity:0.2;background-color:#fff;z-index:8;"></div>
+
+	<div id="loading" style="display:none;position: fixed;left:40%;top: 45%;z-index:10;"><span style="width:100px;height:40px;line-height:40px;background-color:#eee;font-size: 20px;padding: 15px;">&nbsp;&nbsp;<i class="fa fa-spin fa-spinner colorl" style="font-size: 26px;"></i>&nbsp;数据加载中...</span></div>
+<!--绑定分类表单框-->
+	<div id="setbind" style="position:absolute;display:none;background: #85BFDC;padding:4px 5px 5px 5px;z-index:9;"></div>
+	<div class="formbody">
+		<table class="layui-table">
+	  		<thead>
+				<tr>
+					<th align="center" colspan="7">分类绑定&nbsp;&nbsp;(点击<font color="#ff0033">×</font>可绑定分类)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<a class="layui-btn layui-btn-mini layui-btn-danger logs" href="<?=site_url('vod/admin/apiku/jie_bind').$api_url?>" style="font-weight: normal;">解除全部绑定分类</a>
+					<span style="float:right"><a class="logs" href="?">&laquo;&nbsp;返回资源站列表&nbsp;&nbsp;</a></span>
+				</th>
+			</tr>
+	 	</thead>
+		<tr>
+	<?php
+	 $count=count($vod_list)>76?76:count($vod_list);
+	 for ($i=0; $i<$count; $i++) {
+	     $val=arr_key_value($LIST,$ac.'_'.$vod_list[$i]['id']);
+		 if($val){
+	             $zt="&nbsp;&nbsp;√";
+	     }else{
+	             $zt="&nbsp;&nbsp;<font color='#ff0033'>×</font>";
+	     }
+		 echo '<td height="25" align="center"><a class="logs" href="'.$api_url_list.'&cid='.$vod_list[$i]['id'].'">'.$vod_list[$i]['name'].'</a><a href="javascript:void(0)" onClick="setbind(event,\''.$ac.'\',\''.$vod_list[$i]['id'].'\');" id="bind_'.$vod_list[$i]['id'].'">'.$zt.'</a></td>';
+	     if($i==6||$i==13||$i==20||$i==27||$i==34||$i==41||$i==48||$i==55||$i==62||$i==69||$i==76) echo '</tr><tr>';
+	 }
+	?>
+	            <td align="center"><a class="logs" href="<?=$api_url?>"><font color=red>全部视频</font></a></td>
+		</tr>
+	</table>
+
+<table class="layui-table">
+	<tr><td colspan='5'>
+	    <span style="float:right;">
+			<input style="height: 25px;" id="key" type="text" value="<?=$key?>">
+			<input name="button" type="button" class="layui-btn layui-btn-small" value="搜索" onClick="so('<?=$api_url?>')">
+			&nbsp;&nbsp;&nbsp;&nbsp;
+		</span>
+		&nbsp;&nbsp;
+        <input class="layui-btn layui-btn-small" name="button" type="button" class="button" onClick="xuan('all');" value="全选">
+		<input class="layui-btn layui-btn-small" name="button1" type="button" class="button" value="采集所选" onClick="xuan('?api=<?=$api?>&ac=<?=$ac?>&rid=<?=$rid?>&cid=<?=$cid?>&op=all&do=caiji');">
+		<input class="layui-btn layui-btn-small" name="button2" type="button" class="button logs" value="采集今日更新" onclick="javascript:location.href='?api=<?=$api?>&ac=<?=$ac?>&rid=<?=$rid?>&cid=<?=$cid?>&op=day&do=caiji';">
+		<input class="layui-btn layui-btn-small" name="button3" type="button" class="button logs" value="采集当前分类" onclick="javascript:location.href='?api=<?=$api?>&ac=<?=$ac?>&rid=<?=$rid?>&cid=<?=$cid?>&op=all&do=caiji';">
+        </td>
+	</tr>
+			<tr>
+				<td style="width: 80px;" align="center"><label>选</label></td>
+				<td align="center">名称</td>
+				<td align="center"><span>来源</span></td>
+				<td align="center"><span>分类</span></td>
+				<td align="center"><span>更新时间</span></td>
+			</tr>
+			<?php
+			if(empty($vod) || count($vod)==0){
+			    echo " <tr><td colspan='5' align='center'>暂无记录！</td></tr>";
+			}else{
+		       for ($j=0; $j<count($vod); $j++) {
+					$times=(date('Y-m-d',strtotime($vod[$j]['addtime']))==date('Y-m-d'))?'<font color=red>'.$vod[$j]['addtime'].'</font>':$vod[$j]['addtime'];
+					echo '
+				        <tr>
+						<td height="25">&nbsp;&nbsp;<input type="checkbox" class="J_check" name="check" value="'.$vod[$j]['id'].'"/>&nbsp;'.$vod[$j]['id'].'</td>
+						<td>&nbsp;&nbsp;'.$vod[$j]['name'].'</td>
+						<td align="center">'.$vod[$j]['laiy'].'</td>
+						<td align="center">'.$vod[$j]['cname'].'</td>
+						<td align="center">'.$times.'</td>
+					</tr>';
+				}
+			}
+			?>
+	<tr><td colspan='5'>&nbsp;&nbsp;
+        <input class="layui-btn layui-btn-small" name="button" type="button" class="button" onClick="xuan('all');" value="全选">
+		<input class="layui-btn layui-btn-small" name="button1" type="button" class="button" value="采集所选" onClick="xuan('?api=<?=$api?>&ac=<?=$ac?>&rid=<?=$rid?>&cid=<?=$cid?>&op=all&do=caiji');">
+		<input class="layui-btn layui-btn-small" name="button2" type="button" class="button logs" value="采集今日更新" onclick="javascript:location.href='?api=<?=$api?>&ac=<?=$ac?>&rid=<?=$rid?>&cid=<?=$cid?>&op=day&do=caiji';">
+		<input class="layui-btn layui-btn-small" name="button3" type="button" class="button logs" value="采集当前分类" onclick="javascript:location.href='?api=<?=$api?>&ac=<?=$ac?>&rid=<?=$rid?>&cid=<?=$cid?>&op=all&do=caiji';">
+        </td>
+	</tr>
+</table>
+    <div id="page">
+        <div class="data_nums phide"><?=$page_data?></div>
+        <div class="data_page"><?=$page_list?></div>
+    </div>
+<script type="text/javascript">
+	cscms.init();
+$(document).ready(function(e) {
+    $('.logs').click(function () {
+          $('#loading').show();
+	});
+    $('.paginList a').click(function () {
+	      $('#loading').css('top','80%');
+          $('#loading').show();
+	});
+});
+//全选
+function xuan(_act)
+{
+    var v = [];
+　　var a=$("input[name='check']");  
+    for (var i = 0; i < a.length; i++) {
+		if(_act=='all'){
+            if(a[i].checked==true){ a[i].checked="";}else{ a[i].checked="checked";}
+		}
+        if(a[i].checked) { v.push(a[i].value); }
+    }
+
+    if(_act!='all'){
+        if (1 > v.length){ 
+			alert('至少选择一条记录！');
+			return; 
+	    }else{
+            $('#loading').show();
+		    location.href=_act+'&ids=' + v.join(',');
+		}
+	}
+    
+}
+//绑定分类
+function setbind(event,ac,csid){
+	$('#showbg').css({width:$(window).width(),height:$(window).height()});	
+	var left = event.clientX+document.body.scrollLeft-100;
+	var top = event.clientY+document.body.scrollTop+5;
+	$.ajax({
+		url: '<?=site_url('vod/admin/apiku/bind')?>?ac='+ac+'&csid='+csid+'&random='+Math.random(),
+		cache: false,
+		async: false,
+		success: function(res){
+				$("#setbind").css({left:left,top:top,display:""});			
+				$("#setbind").html(res);
+	            $(".select").uedSelect({width : 160,clas:'uew-select2'});
+		}
+	});
+}
+//取消绑定
+function hidebind(){
+	$('#showbg').css({width:0,height:0});
+	$('#setbind').hide();
+}
+//提交绑定分类
+function submitbind(ac,csid){
+	var cid=$('#cid').val();
+	//alert(ac+csid+cid);
+	$.ajax({
+		url: '<?=site_url('vod/admin/apiku/bind_save')?>?ac='+ac+'&cid='+cid+'&csid='+csid+'&random='+Math.random(),
+		success: function(res){
+			if(res=='ok'){
+			    $("#bind_"+csid).html("&nbsp;&nbsp;√");
+			}else{
+			    $("#bind_"+csid).html("&nbsp;&nbsp;<font color='#ff0033'>×</font>");
+			    cscms.layer.msg('请选择分类!',{icon:2});
+			}
+			hidebind();
+		}
+	});	
+}
+//搜索
+	function so(link){
+	    var key=$('#key').val();
+		if(key){
+	        location.href=link+'&key='+key;
+		}else{
+	        cscms.layer.msg('请输入关键词~!',{icon:2});
+		}
+	}
+</script>
+</body>
+</html>

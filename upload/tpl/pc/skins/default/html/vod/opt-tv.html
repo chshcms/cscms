@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head> 
+<meta charset=utf-8>
+<meta http-equiv="X-UA-Compatible" content="IE=9">
+<title>{cscms:title}</title>
+<meta name="Keywords" content="{cscms:keywords}" />
+<meta name="Description" content="{cscms:description}" />
+<link rel="shortcut icon" href="{cscms:webpath}favicon.ico" />
+<link rel="stylesheet" href="{cscms:webpath}packs/font/font.css">
+<link rel="stylesheet" type="text/css" href="{cscms:tempurl}css/vod.css"/>
+<script type='text/javascript' src='{cscms:tempurl}js/vod.js'></script>
+</head>
+<body>
+    {cscms:head}
+    <div class="w960 bcolor">
+        <div class="mar10" style="margin-top: 60px;"></div>
+        <div class="vod-ptitle">&nbsp;电视直播</div>
+        <script>
+            var w = '100%'; //宽度
+            var h = '600'; //高度
+            var s = 'no'; //是否显示滚动条，yes显示，no不显示
+            document.write('<iframe class="tvKuang" src="http://tv.bingdou.net/live.html" width="'+w+'" height="'+h+'" scrolling="'+s+'" frameborder="0" marginwidth="0" marginheight="0" border="0"></iframe>');
+        </script>
+    </div>
+    <div class="mar10"></div>
+    {cscms:bottom}
+    <script type="text/javascript">
+        $('.layui-nav-item').removeClass('layui-this');
+        $('#zhw-dianshi').addClass('layui-this');
+    </script>
+</body>
+</html>

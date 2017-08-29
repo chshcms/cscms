@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset=utf-8>
+    <title></title>
+    <meta name="robots" content="noindex,nofollow">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/layui/css/layui.css">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/admin/css/font.css">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/admin/css/style.css">
+    <script src="<?=Web_Path?>packs/js/jquery.min.js"></script>
+    <script src="<?=Web_Path?>packs/layui/layui.js"></script>
+    <script src="<?=Web_Path?>packs/admin/js/cscms.js"></script>
+</head>
+<body>
+    <span class="layui-breadcrumb" >
+        <a ><cite><i class="fa fa-map-marker"></i><?=L('tpl_00')?></cite></a>
+        <a href="<?=site_url('user')?>"><?=L('tpl_01')?></a>
+        <a href="<?=site_url('user')?>"><?=L('tpl_02')?></a>
+    </span>
+    <div class="layui-tab layui-tab-brief" >
+        <ul class="layui-tab-title">
+            <li><a class="tablink" href="<?=site_url('user')?>"><?=L('tpl_02')?></a></li>
+            <li><a class="tablink" href="<?=site_url('user/verify')?>"><?=L('tpl_03')?></a></li>
+            <li class="layui-this"><a class="tablink" href="<?=site_url('user/log')?>"><?=L('tpl_04')?></a></li>
+        </ul>
+    </div>
+    <div class="layui-tab-content" style="min-height: 260px;">
+        <blockquote class="layui-elem-quote"><?=L('tpl_ulg_01')?></blockquote>
+        <table class="layui-table" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th><?=L('tpl_ulg_02')?></th>
+                    <th><?=L('tpl_ulg_03')?></th>
+                    <th><?=L('tpl_ulg_04')?></th>
+                    <th class="phide"><?=L('tpl_ulg_05')?></th>
+                    <th class="phide"><?=L('tpl_ulg_06')?></th>
+                    <th class="phide"><?=L('tpl_ulg_07')?></th>
+                </tr>
+            </thead>
+            <tbody>
+        <?php
+            if(empty($log)) echo '<tr><td align="center" height="50" colspan="6">'.L('tpl_ulg_08').'</td></tr>';
+            foreach ($log as $row) {
+                echo '<tr>
+                    <td>'.$row->id.'</td>
+                    <td>'.getzd('user','name',$row->uid).'</td>
+                    <td>'.date('Y-m-d H:i:s',$row->logintime).'</td>
+                    <td class="phide">'.$row->loginip.'</td>
+                    <td class="phide">'.$this->ip->address($row->loginip).'</td>
+                    <td class="phide">'.$row->useragent.'</td>
+                </tr> ';
+            }
+        ?>
+            </tbody>
+        </table>
+        <div id="page">
+            <div class="data_nums phide"><?=$page_data?></div>
+            <div class="data_page"><?=$page_list?></div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        cscms.init();
+    </script>
+</body>
+</html>

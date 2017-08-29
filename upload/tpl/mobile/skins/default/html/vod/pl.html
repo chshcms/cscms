@@ -1,0 +1,85 @@
+<div class="plBox" id="dotPl">
+    <div class="n-cmt" id="comment-box" data-count="0">
+        <div id="pl-id">
+            <div class="u-title u-title-1">
+                <h3><span class="f-ff2">评论</span></h3>
+            </div>
+            <div class="m-cmmt">
+                <div class="iptarea" id="plKuang" <?php if(Pl_Youke==0 && empty($_SESSION['cscms__id'])) echo ' style="display:none;"';?>>
+                    <div class="j-flag">
+                        <div>
+                            <div class="m-cmmtipt f-cb f-pr">
+                                <div class="u-txtwrap holder-parent f-pr" style="display: block;">
+                                    <textarea style="text-indent: 5px;line-height: 25px;" class="u-txt area j-flag" placeholder="评论" id="cscms_pl_content"></textarea>
+                                </div>
+                                <a href="javascript:cscms.plAdd()" class="btn u-btn u-btn-1 j-flag" style="float: right;" id="pl_btn">我要评论</a>
+                                <a href="javascript:face_onoff()"><i style="font-size: 17px;float: right;margin-right: 5px;line-height: 22px" class="fa fa-smile-o"></i></a>
+                                <div class="pl-face"><div id="cscms_faces">[pl:faces]</div></div>
+                                <input type='hidden' id='pl_token' value='[pl:token]'/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="plLogin" <?php if(Pl_Youke==1 || !empty($_SESSION['cscms__id'])) echo ' style="display:none;"';?>>
+                    <div class="pl-tips">需要登录后才能参与评论或回复</div>
+                    <div class="new_msg_tips"><a class="layui-btn layui-btn-small" href="{cscms:loginlink}">立即登录</a><a style="margin-left: 10px" href="{cscms:reglink}" class="layui-btn layui-btn-small layui-btn-danger" target="_blank">马上注册</a></div>
+                </div>
+                <div class="cmmts j-flag" id="auto-id-DDERq5w8PSV3a1Tg">
+                    <h3 class="u-hd4">精彩评论</h3>
+                    {cscms:pl table="pl" did="auto" pagesize="10" sort="id" order="desc"}
+                    <div class="itm">
+                        <div class="head">
+                            <a href="[pl:url ulink=index]">
+                                <img src="[pl:user zd=logo]?size=50*50">
+                            </a>
+                        </div>
+                        <div class="cntwrap">
+                            <div class="cntmore">
+                                <div class="cntsup"><a href="[pl:url ulink=index]" class="s-fc7">[pl:user zd=nichen]</a><sup class="u-icn u-icn-1"></sup>：[pl:content]
+                                </div>
+                            
+	                            {cscmstype:pl2 table="pl" field="*" id="[pl:fid]" sort="id"}
+	                            <div class="pl-hf">
+	                                <a class="s-fc7" href="[pl2:url ulink=index]">[pl2:user zd=nichen]</a>：[pl2:content]
+	                            </div>
+	                            {/cscmstype:pl2}
+                            </div>
+                            <div class="pl-more-box">
+                                <div class="time s-fc4">20[pl:addtime style=y-m-d]</div>
+                                    <a href="javascript:pl_hf1([pl:id],'回复@[pl:user]@:')" class="pl-more"><i class="fa fa-commenting-o"></i>&nbsp;回复</a>
+                                    {if:[pl:uid]=={cscms:uid}}<a style="margin-right: 10px" class="pl-more" href="javascript:cscms.plDel('[pl:id]');"><i class="fa fa-trash-o"></i>&nbsp;删除</a>{end if}
+                            </div>
+                        </div>
+                    </div>
+                    {/cscms:pl}
+                    <div style="line-height: 60px;text-align: center;{if:{cscms:pagedata}>0}display:none{end if}">没有相关评论~！</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page" {if:{cscms:pagecout}<2}style="display:none;"{end if}>
+        <div class="layui-box layui-laypage layui-laypage-default" id="layui-laypage-0" style="text-align: center;width: 100%">
+            <a href="{cscms:pageup}" class="layui-laypage-last" title="上一页">上一页</a>
+            {cscms:pagenum len=3}
+            <a href="{cscms:pagedown}" class="layui-laypage-next">下一页</a>
+        </div>
+    </div>
+    <script>
+        function face_onoff(){
+            $('#cscms_faces').toggle();
+        }
+		function pl_qx(){
+			$('#pl_btn').html('我要评论');
+			$('#pl_qx').remove();
+			$('#pl_btn').attr('href', 'javascript:cscms.plAdd();');
+			$('#cscms_pl_content').html('');
+		}
+		function pl_hf1(id,text){
+			document.getElementById('dotPl').scrollIntoView();
+			$('#cscms_pl_content').html(text);
+			$('#pl_btn').html('我要回复&nbsp;&nbsp;');
+			$('#pl_btn').before('<a id="pl_qx" class="btn u-btn u-btn-1 j-flag" href="javascript:pl_qx();">取消</a>');
+			$('#pl_btn').attr('href', 'javascript:cscms.plhfAdd('+id+',\''+text+'\');');
+		}
+    </script>
+</div>

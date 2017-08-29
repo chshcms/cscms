@@ -1,0 +1,17 @@
+<document>
+	<webSite>{cscms:path}</webSite>
+	<webMaster>{cscms:webname}</webMaster>
+	<updatePeri>1800</updatePeri>
+	{cscms:dance table="dance" loop="500" sort="addtime"}
+	<item>
+			<title>{cscmsphp}xml_string('[dance:name]');{/cscmsphp}</title>
+			<link>[dance:url zdy=dance,id,play,id]</link>
+			<text>{cscmsphp}xml_string('[dance:text len=200]');{/cscmsphp}</text>
+			<keywords>{cscmsphp}xml_string('[dance:tags]');{/cscmsphp}</keywords>
+			<author>{cscmsphp}xml_string('[dance:singer zd=name]');{/cscmsphp}</author>
+			<source>{cscmsphp}xml_string('[dance:user zd=nichen]');{/cscmsphp}</source>
+			<pubDate>[dance:addtime]</pubDate>
+	</item>
+	{/cscms:dance}
+</document>
+

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset=utf-8>
+    <meta http-equiv="X-UA-Compatible" content="IE=9">
+    <title>{cscms:title}</title>
+    <meta name="Keywords" content="{cscms:keywords}" />
+    <meta name="Description" content="{cscms:description}" />
+    <link rel="shortcut icon" href="{cscms:webpath}favicon.ico" />
+    <link rel="stylesheet" href="{cscms:webpath}packs/font/font.css">
+    <link rel="stylesheet" type="text/css" href="{cscms:tempurl}css/user.css" />
+    <script type='text/javascript' src='{cscms:tempurl}js/user.js'></script>
+</head>
+<body style="background: #f5f5f5">
+    {cscms:head}
+    {cscms:right}
+        {cscms:left}
+            <div class="sp-cont-r">
+                <div class="layui-tab layui-tab-card" lay-filter="dt1" style="margin-top: 0px;margin-bottom: 0px">
+                    <ul class="layui-tab-title" style="height: 41px">
+                        <li><a href="[user:url userlink=pay]">在线充值</a></li>
+                        <li><a href="[user:url userlink=pay,card]">充值卡充值</a></li>
+                        <li><a href="[user:url userlink=pay,group]">在线升级</a></li>
+                        <li class="layui-this"><a href="[user:url userlink=pay,change]">金币兑换</a></li>
+                    </ul>
+                    <div class="layui-tab-content" style="padding:30px 15px;background-color: #fff">
+                        <div class="layui-tab-item layui-show">
+                            <form class="layui-form layui-form-pane" method="post" action="[user:changesave]">
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">剩余金额</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" class="layui-input" value="[user:rmb] 元" disabled>
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">剩余金币</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" class="layui-input" value="[user:cion] 个" disabled>
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">兑换金额</label>
+                                    <div class="layui-input-inline" style="width: 430px">
+                                        <input type="text" name="rmb" required lay-required="number" class="layui-input" value="">
+                                    </div>
+                                    <div class="layui-form-mid layui-word-aux"><span style="color: #333;font-size: 14px;margin-right: 15px">元</span>(1金钱=<?=User_RmbToCion?>金币)</div>
+                                </div>
+                                
+                                <input type="hidden" name="token" value="[user:token]"/>
+                                <div class="layui-form-item">
+                                    <div class="layui-input-block" style="text-align: center;margin-left: 0px">
+                                        <button class="layui-btn" lay-submit lay-filter="">兑换</button>
+                                        <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mar10"></div>
+    <div class="mar10"></div>
+{cscms:bottom}
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#left_pay').addClass('on');
+        $('#left_first').removeClass('layui-nav-itemed');
+        $('#left_pay').parent().parent().addClass('layui-nav-itemed');
+    });
+</script>
+</body>
+</html>

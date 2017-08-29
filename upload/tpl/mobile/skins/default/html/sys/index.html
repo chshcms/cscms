@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <title>{cscms:title}</title>
+    <meta name="Keywords" content="{cscms:keywords}" />
+    <meta name="Description" content="{cscms:description}" />
+    <link rel="shortcut icon" href="{cscms:path}favicon.ico" />
+    <link rel="stylesheet" href="{cscms:webpath}packs/font/font.css">
+    <link rel="stylesheet" type="text/css" href="{cscms:tempurl}css/style.css"/>
+	<script type='text/javascript' src='{cscms:tempurl}js/wap.js'></script>
+</head>
+<body>
+    {cscms:head}
+    <div class="layui-tab layui-tab-brief" style="margin: 0px">
+        <ul class="layui-tab-title">
+            <li class="layui-this" style="float: left;">音乐推荐</li>
+            {cscms:class table="dance_list" fid="0" loop="3" sort="xid" order="asc"}
+                <a {if:[class:i]==1}style="border-left:0px"{end if} class="min-cls" href="{cscmsphp}linkurl('lists','id',[class:id],1,'dance');{/cscmsphp}">[class:name]</a>
+            {/cscms:class}
+        </ul>
+        <div class="layui-tab-content" style="padding: 10px 15px">
+            {cscms:dance table="dance" loop="8" field="id,name,singerid,shits,hits,shits,cid" reco="1,2,3,4,5" sort="rhits"}
+                <li class="dance-one">
+                    <div class="dance-one-left">
+                        <a class="id-title" title="[dance:name]" href="[dance:url zdy=dance,id,play,id]"><span class="dance-jx">荐</span>[dance:name]</a>
+                        <div class="dance-one-more"><span><i class="fa fa-eye"></i>&nbsp;<i title="人气">[dance:hits]</i></span><span><i class="fa fa-star-o"></i>&nbsp;<i title="收藏">[dance:shits]</i></span><span><a href="[dance:url zdy=dance,cid,lists,hits]">[dance:zdy zd=dance_list,name,cid]</a></span></div>
+                    </div>
+                    <a class="dance-singer" href="[dance:url zdy=singer,singerid,show]">[dance:singer zd=name]</a>
+                </li>
+            {/cscms:dance}
+        </div>
+    </div>
+    <div class="layui-tab layui-tab-brief" style="margin: 0px">
+        <ul class="layui-tab-title">
+            <li class="layui-this" style="float: left;">视频推荐</li>
+            {cscms:class table="vod_list" fid="0" loop="3" sort="xid" order="asc"}
+                <a {if:[class:i]==1}style="border-left:0px"{end if} class="min-cls" href="{cscmsphp}linkurl('lists','id',[class:id],1,'vod');{/cscmsphp}">[class:name]</a>
+            {/cscms:class}
+        </ul>
+        <div class="layui-tab-content" style="overflow: hidden;text-align: center;padding: 10px 0px;" id="ivod-list">
+        <ul class="mv-ul">
+            {cscms:vod table="vod" loop="12" field="id,name,addtime,pic,hits,shits,remark" reco="1,2,3,4,5" sort="hits"}
+            <li class="mv-li">
+                <a title="[vod:name]" href="[vod:url zdy=vod,id,show,id]" >
+                    <img src="[vod:pic dir=vod]" alt="[vod:name]">
+                    <p>[vod:name]</p>
+                    <span>[vod:remark]</span>
+                </a>
+            </li>
+            {/cscms:vod}
+        </ul>
+        </div>
+    </div>
+    <div class="layui-tab layui-tab-brief" style="margin: 0px">
+        <ul class="layui-tab-title">
+            <li class="layui-this" style="float: left;">歌手推荐</li>
+            {cscms:class table="singer_list" loop="3" sort="xid" order="asc"}
+                <a {if:[class:i]==1}style="border-left:0px"{end if} class="min-cls" href="{cscmsphp}linkurl('lists','id',[class:id],1,'singer');{/cscmsphp}">[class:name]</a>
+            {/cscms:class}
+        </ul>
+        <div class="layui-tab-content" style="overflow: hidden;text-align: center;padding: 10px 0px;" id="ivod-list">
+            <ul class="ms-ul">
+                {cscms:singer table="singer" field="id,name,pic" loop="12" start="1" reco="1,2,3,4,5" sort="hits"}
+                   <li class="ms-li"><a title="[singer:name]" href="[singer:url zdy=singer,id,show]" ><img src="[singer:pic dir=singer]" alt="[singer:name]"><p>[singer:name]</p></a></li>
+               {/cscms:singer}
+            </ul>
+        </div>
+    </div>
+    <div class="layui-tab layui-tab-brief" style="margin: 0px">
+        <ul class="layui-tab-title">
+            <li class="layui-this" style="float: left;">图集推荐</li>
+            {cscms:class table="pic_list" loop="3" sort="xid" order="asc"}
+                <a {if:[class:i]==1}style="border-left:0px"{end if} class="min-cls" href="{cscmsphp}linkurl('lists','id',[class:id],1,'pic');{/cscmsphp}">[class:name]</a>
+            {/cscms:class}
+        </ul>
+        <div class="layui-tab-content" style="overflow: hidden;padding: 8px 0px 5px 8px;" id="ivod-list">
+            <table class="md-zj">
+                <tbody>
+                {cscms:pictype table="pic_type" field="id,name,cid,pic,uid,singerid,hits,dhits,chits,addtime" sort="addtime" loop="15"}
+                    <tr>
+                        <td><a href="[pictype:url zdy=pic,id,show,id]"><img style="width: 60px;height: 60px;" src="[pictype:pic dir=pic]" alt="[pictype:name]"></a></td>
+                        <td class="md-zj-info">
+                            <a href="[pictype:url zdy=pic,id,show,id]"><i class="{if:[pictype:i]<4}colord{else}{end if}">[pictype:i]</i>.[pictype:name]</a>
+                            
+                            <div class="mp-more" style="margin-bottom: 3px;">
+                                <span><i class="fa fa-eye"></i>&nbsp;浏览([pictype:hits])</span>
+                                <span><i class="fa fa-thumbs-o-up"></i>&nbsp;顶([pictype:dhits])</span>
+                                <span><i class="fa fa-thumbs-o-down"></i>&nbsp;踩([pictype:chits])</span>
+                            </div>
+                            <div class="mp-more">
+                                <span>分类：[pictype:zdy zd=pic_list,name,cid]</span>
+                                <span>歌手：{if:'[pictype:zdy zd=singer,name,singerid]'!=''}[pictype:zdy zd=singer,name,singerid]{else}佚名{end if}</span>
+                                <span>会员：{if:'[pictype:zdy zd=user,name,cid]'!=''}[pictype:zdy zd=user,name,cid]{else}暂无{end if}</span>
+                            </div>
+                        </td>
+                    </tr>
+                {/cscms:pictype}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="layui-tab layui-tab-brief" style="margin: 0px">
+        <ul class="layui-tab-title">
+            <li class="layui-this" style="float: left;">最新资讯</li>
+            {cscms:class table="news_list" fid="0" loop="3" sort="xid" order="asc"}
+                <a {if:[class:i]==1}style="border-left:0px"{end if} class="min-cls" href="{cscmsphp}linkurl('lists','id',[class:id],1,'news');{/cscmsphp}">[class:name]</a>
+            {/cscms:class}
+        </ul>
+        <div class="layui-tab-content" style="padding: 10px 15px">
+            {cscms:news table="news" loop="8" field="id,name,hits,cid,addtime" reco="1,2,3,4,5" sort="rhits"}
+                <li class="dance-one">
+                    <div class="news-one-left">
+                        <a class="id-title" title="[news:name]" href="[news:url zdy=news,id,show,id]"><span class="news-jx">荐</span>[news:name]</a>
+                        <div class="dance-one-more">
+                            <span><i class="fa fa-eye"></i>&nbsp;<i title="人气">[news:hits]</i></span>
+                            <span><a href="[news:url zdy=dance,cid,lists,hits]">[news:zdy zd=news_list,name,cid]</a></span>
+                            <span>
+                                <a href="javascript:;">[news:addtime style=Y-m-d]</a>
+                            </span>
+                        </div>
+                    </div>
+                </li>
+            {/cscms:news}
+        </div>
+    </div>
+    <div class="layui-tab layui-tab-brief" style="margin: 0px;margin-bottom: 15px">
+        <ul class="layui-tab-title">
+            <li class="layui-this" style="float: left;">友情链接</li>
+        </ul>
+        <div class="layui-tab-content" style="padding: 10px 5px">
+            {cscms:link table="link" sid="1" sort="xid"}
+            <a class="yqlink" href="[link:url]">[link:name]</a>
+            {/cscms:link}
+        </div>
+    </div>
+    {cscms:bottom}
+</div>
+</body>
+<script type="text/javascript">
+    cscms.init();
+</script>
+</html>

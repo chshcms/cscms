@@ -1,0 +1,60 @@
+<a class="word" href="javascript:login_sh();">登录</a><a class="word" target="_blank" href="{cscms:reglink}">注册</a>
+<div id="loginkuang" style="display: none;">
+	<div class="title">会员登录<i class="layui-icon" style="float: right;font-size: 16px;color: #999;margin-right: 10px;cursor: pointer;" onclick="login_sh();">&#x1006;</i></div>
+	<form class="layui-form layui-form-pane" id="loginForm" action="javascript:;" method="post" style="padding: 25px;margin-top: 15px;">
+        <div class="layui-form-item">
+            <label class="layui-form-label">账号</label>
+            <div class="layui-input-block">
+                <input type="text" id="cscms_name" name="username" required lay-verify="required" placeholder="请输入会员账号" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">密码</label>
+            <div class="layui-input-block">
+                <input type="password" id="cscms_pass" name="userpass" required lay-verify="required" placeholder="请输入相应密码" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item" style="margin-top: 20px;">
+            <div class="layui-input-block layui-input-center">
+                <button class="layui-btn" onclick="cscms.loginAdd();">提交登录</button>
+                <a class="layui-btn layui-btn-primary" href="javascript:form_sh()">第三方登录</a>
+                <a href="{cscms:reglink}" target="_blank" class="layui-btn layui-btn-danger">注册账号</a>
+            </div>
+        </div>
+    </form>
+    <div id="loginOpen" style="display: none;margin-top: 20px;">
+        <fieldset class="layui-elem-field layui-field-title">
+            <legend style="font-size: 14px;">使用其他账号直接登录</legend>
+            <div class="layui-field-box">
+                <div class="openlog">
+                    <div class="openline">
+                        <a href="{cscms:qqlink}" target="_blank" class="layui-btn layui-btn-primary">腾讯账号登录</a>
+                        <a href="{cscms:weibolink}" target="_blank" class="layui-btn layui-btn-primary">新浪微博登录</a>
+                        <a href="{cscms:baidulink}" target="_blank" class="layui-btn layui-btn-primary">百度账号登录</a>
+                    </div>
+                    <div class="openline">
+                        <a href="{cscms:renrenlink}" target="_blank" class="layui-btn layui-btn-primary">人人账号登录</a>
+                        <a href="{cscms:kaixinlink}" target="_blank" class="layui-btn layui-btn-primary">开心账号登录</a>
+                        <a href="{cscms:doubanlink}" target="_blank" class="layui-btn layui-btn-primary">豆瓣账号登录</a>
+                    </div>
+                    <div class="openline" style="margin-top: 5px;">
+                        <a class="layui-btn" href="javascript:form_sh();">账号登录</a>
+                        <a class="layui-btn layui-btn-danger" target="_blank" href="{cscms:reglink}">注册账号</a>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+        <script type="text/javascript">
+            function login_sh(){
+                $('#loginmask').toggle();
+                $('#loginkuang').animate({
+                    height: 'toggle'
+                },"fast");
+            }
+            function form_sh(){
+                $('#loginForm').toggle();
+                $('#loginOpen').toggle();
+            }
+        </script>
+    </div>
+</div>

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset=utf-8>
+    <meta http-equiv="X-UA-Compatible" content="IE=9">
+    <title>{cscms:title}</title>
+    <meta name="Keywords" content="{cscms:keywords}" />
+    <meta name="Description" content="{cscms:description}" />
+    <link rel="shortcut icon" href="{cscms:webpath}favicon.ico" />
+    <link rel="stylesheet" href="{cscms:webpath}packs/font/font.css">
+    <link rel="stylesheet" type="text/css" href="{cscms:indextempurl}css/user.css" />
+    <script type='text/javascript' src='{cscms:indextempurl}js/user.js'></script>
+</head>
+<body style="background: #f5f5f5">
+    {cscms:indexhead}
+    {cscms:indexright}
+        {cscms:indexleft}
+            <div class="sp-cont-r" style="overflow: visible;">
+                <div class="layui-tab layui-tab-card" lay-filter="dt1" style="margin-top: 0px;margin-bottom: 0px">
+                    <ul class="layui-tab-title" style="height: 41px">
+                        <li class="layui-this"><a href="javascript:;">歌曲上传</a></li>
+                        <li><a href="[user:url userlink=dance]">我分享的</a></li>
+                        <li><a href="[user:url userlink=dance,verify]">审核中的</a></li>
+                        <li><a href="[user:url userlink=fav]">我收藏的</a></li>
+                        <li><a href="[user:url userlink=down]">我下载的</a></li>
+                        <a style="float: right;margin-right: 15px;margin-top: 5px" href="[user:url userlink=dance,add]" class="layui-btn layui-btn-small layui-btn-danger">上传歌曲</a>
+                    </ul>
+                    <div class="layui-tab-content" style="background-color: #fff;padding: 0px">
+                        <div class="layui-tab-item layui-show">
+                            <form action="[user:dancesave]" class="layui-form layui-form-pane" method="post">
+                            <div class="layui-tab layui-tab-brief" style="margin: 0px">
+                                <ul class="layui-tab-title">
+                                    <li class="layui-this">主要参数</li>
+                                    <li>可选参数</li>
+                                    <li>其他参数</li>
+                                </ul>
+                                <div class="layui-tab-content">
+                                    <div class="layui-tab-item layui-show">
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">所属分类</label>
+                                            <div class="layui-input-inline" style="width: 235px">
+                                                <select name="cid">
+                                                {cscms:class table="dance_list" fid="0" sort="xid" order="asc"}
+                                                    <option value="[class:id]">&nbsp;|—[class:name]</option>
+                                                    {cscmstype:class2 table="dance_list" fid="auto" sort="xid" order="asc"}
+                                                    <option value="[class2:id]">&nbsp;|&nbsp;&nbsp;&nbsp;|—[class2:name]</option>
+                                                    {/cscmstype:class2}
+                                                {/cscms:class}
+                                                </select>
+                                            </div>
+                                            <label class="layui-form-label">所属专辑</label>
+                                            <div class="layui-input-inline" style="width: 235px;margin-right: 0px">
+                                                <select class="select_normal" name="tid">
+                                                    <option value="0">&nbsp;默认单曲</option>
+                                                    {cscms:topic table="dance_topic" uid="auto" sort="id" order="desc"}
+                                                        <option value="[topic:id]">&nbsp;[topic:name]</option>
+                                                    {/cscms:topic}
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">歌曲名称</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" name="name" lay-verify="required" placeholder="歌曲名称为2-20个字以内" class="layui-input">
+                                            </div>
+                                        </div>
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">歌手</label>
+                                            <div class="layui-input-inline" style="width: 235px;">
+                                                <input type="text" id="singer" onclick="cscms.get_open('[user:url userlink=dance,singer]','选择歌手','658px','520px');" placeholder="请输入歌手名称" name="singer" class="layui-input">
+                                            </div>
+                                            <label class="layui-form-label">金币</label>
+                                            <div class="layui-input-inline" style="width: 235px;margin-right: 0px">
+                                                <input type="number" placeholder="请输入下载所需金币数量" name="cion" value="0"  class="layui-input">
+                                            </div>
+                                        </div>
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">歌曲图片</label>
+                                            <div class="layui-input-inline" style="width: 485px">
+                                                <input id="pic" placeholder="请点击右侧按钮上传图片" type="text" name="pic" class="layui-input">
+                                            </div>
+                                            <a href="javascript:cscms.get_upurl('dance','pic','*.jpg;*.png;*.gif','up_msg');" class="layui-btn layui-btn-primary">上传图片</a>
+                                        </div>
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">歌曲路径</label>
+                                            <div class="layui-input-inline" style="width: 485px">
+                                                <input id="purl" type="text" name="purl" required  lay-verify="required" placeholder="请输入歌曲路径地址" class="layui-input">
+                                            </div>
+                                            <a href="javascript:cscms.get_upurl('music','purl','*.mp3;*.m4a;*.mp4;*.wma','up_msg');" class="layui-btn layui-btn-primary">上传歌曲</a>
+                                        </div>
+                                    </div>
+                                    <div class="layui-tab-item">
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">作词</label>
+                                            <div class="layui-input-inline" style="width: 235px;">
+                                                 <input type="text" placeholder="请输入作词人" name="zc" class="layui-input">
+                                            </div>
+                                            <label class="layui-form-label">作曲</label>
+                                            <div class="layui-input-inline" style="width: 235px;margin-right: 0px">
+                                                 <input placeholder="请输入作曲人" type="text" name="zq" class="layui-input">
+                                            </div>
+                                        </div>
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">编曲</label>
+                                            <div class="layui-input-inline" style="width: 235px;">
+                                                 <input placeholder="请输入编曲人" type="text" name="bq" class="layui-input">
+                                            </div>
+                                            <label class="layui-form-label">混缩</label>
+                                            <div class="layui-input-inline" style="width: 235px;margin-right: 0px">
+                                                <input type="text" placeholder="请输入混缩人" name="hy"  class="layui-input">
+                                            </div>
+                                        </div>
+                                         <div class="layui-form-item">
+                                            <label class="layui-form-label">标签</label>
+                                            <div class="layui-input-inline" style="width: 485px">
+                                                <input id="tags" type="text" name="tags" placeholder="多个用逗号隔开" class="layui-input">
+                                            </div><a class="layui-btn layui-btn-primary" href="javascript:cscms.get_open('{cscms:webpath}index.php/tags?fid=tags','快速选择标签','700px','475px');">快速选择</a>
+                                        </div>
+                                        <div class="layui-form-item layui-form-text">
+                                            <label class="layui-form-label">LRC歌词</label>
+                                            <div class="layui-input-block">
+                                                <textarea name="lrc" placeholder="请输入LRC格式的歌词" class="layui-textarea"></textarea > 
+                                            </div>
+                                        </div>
+                                        <div class="layui-form-item layui-form-text">
+                                            <label class="layui-form-label">歌曲描述</label>
+                                            <div class="layui-input-block">
+                                                <textarea name="text" placeholder="请输入歌曲的描述信息" class="layui-textarea"></textarea > 
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="layui-tab-item">
+                                    {cscms:opt_field_dance}
+                                    </div>
+                                    <input type="hidden" name="token" value="[user:token]"/>
+                                    <div class="layui-form-item">
+                                        <div class="layui-input-block" style="text-align: center;margin-left: 0px">
+                                            <button class="layui-btn" lay-submit lay-filter="">提交</button>
+                                            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                                
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mar10"></div>
+    <div class="mar10"></div>
+{cscms:indexbottom}
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#left_dance_2').addClass('on');
+        $('#left_first').removeClass('layui-nav-itemed');
+        $('#left_dance_2').parent().parent().addClass('layui-nav-itemed');
+    });
+</script>
+</body>
+</html>

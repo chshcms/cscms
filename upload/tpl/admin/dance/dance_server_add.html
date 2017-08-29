@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset=utf-8>
+    <title></title>
+    <meta name="robots" content="noindex,nofollow">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/layui/css/layui.css">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/admin/css/font.css">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/admin/css/style.css">
+    <?=$opt_gc?>
+    <script src="<?=Web_Path?>packs/js/jquery.min.js"></script>
+    <script src="<?=Web_Path?>packs/layui/layui.js"></script>
+    <script src="<?=Web_Path?>packs/admin/js/cscms.js"></script>
+</head>
+<body id="common">
+    <form class="layui-form layui-form-pane" action="<?=site_url('dance/admin/server/save')?>" method="post">
+        <div class="layui-form-item">
+            <label class="layui-form-label"><span class="colorr">* </span>名称</label>
+            <div class="layui-input-block">
+                <input type="text" name="name" lay-verify="required" value="<?=$name?>" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">试听组</label>
+            <div class="layui-input-block">
+                <input type="text" name="purl" value="<?=$purl?>" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">下载组</label>
+            <div class="layui-input-block">
+                <input type="text" name="durl" value="<?=$durl?>" class="layui-input">
+            </div>
+        </div>
+        <?=$opt_field?>
+        <input type="hidden" name="id" value="<?=$id?>">
+        <div class="layui-form-item">
+            <div class="layui-input-block center">
+                <button class="layui-btn" lay-submit lay-filter="setting">提交</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </form>
+    <script type="text/javascript">
+        cscms.init();
+    </script>
+</body>
+</html>

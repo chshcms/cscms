@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head> 
+<meta charset=utf-8>
+<meta http-equiv="X-UA-Compatible" content="IE=9">
+<title>{cscms:title}</title>
+<meta name="Keywords" content="{cscms:keywords}" />
+<meta name="Description" content="{cscms:description}" />
+<link rel="shortcut icon" href="{cscms:webpath}favicon.ico" />
+<link rel="stylesheet" href="{cscms:webpath}packs/font/font.css">
+<link rel="stylesheet" type="text/css" href="{cscms:tempurl}css/vod.css"/>
+<script type='text/javascript' src='{cscms:tempurl}js/vod.js'></script>
+</head>
+<body>
+    {cscms:head}
+    <div class="w960 bcolor">
+        <div class="mar10" style="margin-top: 60px;"></div>
+        <div class="mar10"></div>
+        <div class="vod-xuan">
+            <ul>
+                <li class="vod-option" id="vodoption1">
+                    <b class="left">频道：</b>
+                    <div class="vod-cls">
+                        {cscms:class table="vod_list" field="id,name" fid="0" loop="10" sort="xid" order="asc"}
+                            <a  href="[class:url link=lists,id]"><span{if:'[vod:id]'=='[class:id]' || '[vod:fid]'=='[class:id]'} class="vodon"{end if}>[class:name]</span></a>
+                        {/cscms:class}
+                        <a href="{cscms:opt-new}">今日更新</a>
+                        <a href="{cscms:opt-hot}">播放排行</a>
+                        <a href="{cscms:opt-tv}">电视直播</a>
+                        <a href="{cscmsphp}linkurl('topic/lists','id',1,1,'vod');{/cscmsphp}">视频专题</a>
+                    </div>
+                </li>
+                <li class="vod-option" id="vodoption2">
+                    <b class="left">类型：</b>
+                    <div class="vod-cls" id="type">
+						{if:'[vod:fid]'=='0'}<a href="javascript:;"><span class="vodon">全部</span></a>{end if}
+                        {cscms:class table="vod_list" field="id,name" fid="auto" sort="xid" order="asc"}
+                           <a class="h" href="[class:url link=lists,id]"><span {if:'[vod:id]'=='[class:id]'}class="vodon"{end if}>[class:name]</span></a>
+						   {if:'[class:i]'=='15'}<i id="arr2" onclick="vod.show_list(2)" class="arr layui-icon">&#xe61a;</i>{end if}
+                        {/cscms:class}
+                    </div>
+                </li>
+                <li class="vod-option" id="vodoption3">
+                    <b class="left">剧情：</b>
+                    <div class="vod-cls" id="juqing">
+                        <a href="{cscmsphp}linkurl('search','type','[type:name]',1);{/cscmsphp}"><span class="vodon">全部</span></a>
+                        {cscms:type table="vod_type" field="name" cid="auto,sid" sort="xid" order="asc"}
+                        <a class="h" href="{cscmsphp}linkurl('search','type','[type:name]',1);{/cscmsphp}&cid=[vod:id]">[type:name]</a>
+                        {if:'[type:i]'=='15'}<i id="arr3" onclick="vod.show_list(3)" class="arr layui-icon">&#xe61a;</i>{end if}
+                    {/cscms:type}
+                    </div>
+                </li>
+				<script>
+				if($('#type .h').length == 0) $('#vodoption2').hide();
+				if($('#juqing .h').length == 0) $('#vodoption3').hide();
+				</script>
+                <li class="vod-option">
+                    <b class="left">地区：</b>
+                    <div class="vod-cls">
+                        <a><span class="vodon">全部</span></a>
+                        <a href="{cscmsphp}linkurl('search','diqu','内地',1);{/cscmsphp}&cid=[vod:id]" target="_self">内地</a>
+                        <a href="{cscmsphp}linkurl('search','diqu','香港',1);{/cscmsphp}&cid=[vod:id]" target="_self">香港</a>
+                        <a href="{cscmsphp}linkurl('search','diqu','台湾',1);{/cscmsphp}&cid=[vod:id]" target="_self">台湾</a>
+                        <a href="{cscmsphp}linkurl('search','diqu','韩国',1);{/cscmsphp}&cid=[vod:id]" target="_self">韩国</a>
+                        <a href="{cscmsphp}linkurl('search','diqu','泰国',1);{/cscmsphp}&cid=[vod:id]" target="_self">泰国</a>
+                        <a href="{cscmsphp}linkurl('search','diqu','日本',1);{/cscmsphp}&cid=[vod:id]" target="_self">日本</a>
+                        <a href="{cscmsphp}linkurl('search','diqu','美国',1);{/cscmsphp}&cid=[vod:id]" target="_self">美国</a>
+                        <a href="{cscmsphp}linkurl('search','diqu','英国',1);{/cscmsphp}&cid=[vod:id]" target="_self">英国</a>
+                        <a href="{cscmsphp}linkurl('search','diqu','新加坡',1);{/cscmsphp}&cid=[vod:id]" target="_self">新加坡</a>
+                    </div>
+                </li>
+                <li class="vod-option">
+                    <b class="left">年代：</b>
+                    <div class="vod-cls">
+                       <a><span class="vodon">全部</span></a>
+                        <a href="{cscmsphp}linkurl('search','year','2015',1);{/cscmsphp}&cid=[vod:id]" target="_self">2015</a>
+                        <a href="{cscmsphp}linkurl('search','year','2014',1);{/cscmsphp}&cid=[vod:id]" target="_self">2014</a>
+                        <a href="{cscmsphp}linkurl('search','year','2013',1);{/cscmsphp}&cid=[vod:id]" target="_self">2013</a>
+                        <a href="{cscmsphp}linkurl('search','year','2012',1);{/cscmsphp}&cid=[vod:id]" target="_self">2012</a>
+                        <a href="{cscmsphp}linkurl('search','year','2011',1);{/cscmsphp}&cid=[vod:id]" target="_self">2011</a>
+                        <a href="{cscmsphp}linkurl('search','year','2010',1);{/cscmsphp}&cid=[vod:id]" target="_self">2010</a>
+                        <a href="{cscmsphp}linkurl('search','year','2009',1);{/cscmsphp}&cid=[vod:id]" target="_self">2009</a>
+                        <a href="{cscmsphp}linkurl('search','year','2008',1);{/cscmsphp}&cid=[vod:id]" target="_self">2008</a>
+                        <a href="{cscmsphp}linkurl('search','year','2007',1);{/cscmsphp}&cid=[vod:id]" target="_self">2007</a>
+                        <a href="{cscmsphp}linkurl('search','year','2006',1);{/cscmsphp}&cid=[vod:id]" target="_self">2006</a>
+                        <a href="{cscmsphp}linkurl('search','year','2005',1);{/cscmsphp}&cid=[vod:id]" target="_self">2005</a>
+                    </div>
+                </li>
+                <li class="vod-option" id="vodoption6">
+                    <b class="left">字母：</b>
+                    <div class="vod-cls">
+                        <a><span class="vodon">全部</span></a>
+                        {cscmszm:27}
+                            <a style="min-width: 25px;" href="{cscmsphp}linkurl('search','zm','[zm:name]',1);{/cscmsphp}&cid=[vod:id]">[zm:name]</a>
+                            {if:'[zm:name]'=='V'}<i id="arr6" onclick="vod.show_list(6)" class="arr layui-icon">&#xe61a;</i>{end if}
+                        {/cscmszm}
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="layui-tab layui-tab-brief">
+            <ul class="layui-tab-title">
+                <li class="layui-this">最新视频</li>
+                <span class="right vcount">共有&nbsp;<em style="color: red">{cscms:pagedata}</em>&nbsp;个视频</span>
+            </ul>
+            <div class="layui-tab-content" style="padding-top: 0px">
+                <div class="layui-tab-item layui-show" style="overflow: hidden;zoom: 1;">
+                {cscms:vod table="vod" field="id,color,name,addtime,pic,remark" cid="auto" pagesize="24" sort="addtime" order="desc"}
+                   <div class="vod-one">
+                       <a title="[vod:name]" href="[vod:url link=show,id]"><img width="145" height="200" src="[vod:pic dir=vod]?size=145*200" alt="[vod:name]"></a>
+                       <a title="[vod:name]" href="[vod:url link=show,id]"><p>[vod:name len=9]</p></a>
+                       <span class="layui-btn layui-btn-mini layui-btn-danger">[vod:remark]</span>
+                   </div>
+                {/cscms:vod}
+                {if:'{cscms:pagedata}'=='0'}<div style="text-align: center;height: 60px;line-height: 60px;">暂无相关记录~！</div>{end if}
+                </div>
+                <div class="mar10"></div>
+                <div class="page" style="text-align: center; {if:'{cscms:pagedata}'==='0'}display:none{end if}">
+                    <div class="layui-box layui-laypage layui-laypage-default" id="layui-laypage-0">
+                        <a href="{cscms:pagefirst}" class="layui-laypage-last" title="首页">首页</a>
+                        <a href="{cscms:pageup}" class="layui-laypage-last" title="上一页">上一页</a>
+                        {cscms:pagenum len=5}
+                        <a href="{cscms:pagedown}" class="layui-laypage-next">下一页</a>
+                        <a href="{cscms:pagelast}" class="layui-laypage-last" title="尾页">末页</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {cscms:bottom}
+    <script type="text/javascript">
+        $('.layui-nav-item').removeClass('layui-this');
+        $('#zhw-lists').addClass('layui-this');
+    </script>
+</body>
+</html>

@@ -1,0 +1,7 @@
+<div id="uinfoKuang">{if:[user:count zdy=msg,uida,id,did,0]>0}<a id="new_msg" href="[user:url userlink=msg]" title="您有[user:count zdy=msg,uida,id,did,0]条消息"></a>{end if}<a class="user_img" target="_blank" href="[user:url userlink=space]" title="[user:nichen]"><img alt="[user:nichen]的头像" src="[user:logo dir=logo]"></a>
+    <div id="userInfo">
+        <nobr><a target="_blank" href="[user:url userlink=space]" class="colord">[user:nichen]</a>&nbsp;{if:[user:vip]==0}<span class="color9">普通会员</span>{else}<span class="colord">VIP</span>{end if}</nobr>
+        <nobr><a target="_blank" class="layui-btn layui-btn-primary layui-btn-small" href="[user:url ulink=index]">我的主页</a><a target="_blank" class="layui-btn layui-btn-primary layui-btn-small" href="[user:url userlink=space]">会员中心</a></nobr>
+        <nobr><a target="_blank" class="layui-btn layui-btn-primary layui-btn-small" href="[user:url userlink=pay]">在线充值</a><a class="layui-btn layui-btn-primary layui-btn-small" href="javascript:{cscms:logout};">退出登录</a></nobr>
+    </div>
+</div>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head> 
+<meta charset=utf-8>
+<meta http-equiv="X-UA-Compatible" content="IE=9">
+<title>搜索：{cscms:key} - {cscms:title}</title>
+<meta name="Keywords" content="{cscms:keywords}" />
+<meta name="Description" content="{cscms:description}" />
+<link rel="shortcut icon" href="{cscms:webpath}favicon.ico" />
+<link rel="stylesheet" href="{cscms:webpath}packs/font/font.css">
+<link rel="stylesheet" type="text/css" href="{cscms:tempurl}css/dance.css"/>
+<script type='text/javascript' src='{cscms:tempurl}js/dance.js'></script>
+</head>
+<body>
+    {cscms:head}
+    <div class="w960 bcolor">
+		<div class="mar10" style="margin-top: 60px;"></div> 
+        <div class="play-show">
+            <div class="play-intro box-left">
+                <div class="layui-collapse">
+                    <div class="layui-colla-item">
+                        <h2 class="layui-colla-title" align="left">&nbsp;&nbsp;按字母查找</h2> 
+                        <div class="layui-colla-content layui-show"  align="left">
+                        	<a class="layui-btn layui-btn-mini {if:''=='{cscms:zm}'}layui-btn-danger{else}layui-btn-primary{end if} zm" href="{cscmsphp}linkurl('search','zm','',1);{/cscmsphp}">全部</a>
+						{cscmszm:27}
+				            <a class="layui-btn layui-btn-mini {if:'[zm:name]'=='{cscms:zm}'}layui-btn-danger{else}layui-btn-primary{end if} zm" href="{cscmsphp}linkurl('search','zm','[zm:name]',1);{/cscmsphp}">[zm:name]</a>
+				            {if:'[zm:name]'=='E'}<div class="mar10"></div>{else}{end if}
+				            {if:'[zm:name]'=='K'}<div class="mar10"></div>{else}{end if}
+				            {if:'[zm:name]'=='Q'}<div class="mar10"></div>{else}{end if}
+				            {if:'[zm:name]'=='W'}<div class="mar10"></div>{else}{end if}
+						{/cscmszm}
+                        </div>
+                    </div>
+                    <div class="layui-colla-item">
+                        <h2 class="layui-colla-title" align="left">&nbsp;&nbsp;站长推荐</h2> 
+                        <div class="layui-colla-content layui-show" style="padding: 0px">
+                            <table class="layui-table" lay-even lay-skin="nob">
+                                <tbody>
+                                    {cscms:dance table="dance" field="id,name,pic,uid,hits" sort="hits" reco="1,2,3,4,5" loop="10"}
+                                        <tr align="left">
+                                            <td><a target="_blank" class="listLeft" href="[dance:url zdy=dance,id,play,id]"><i class="layui-btn layui-btn-mini {if:[dance:i]<4}{else}layui-btn-primary{end if} iwidth">[dance:i]</i>[dance:name]</a></td>
+                                        </tr>
+                                    {/cscms:dance}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="mar10"></div>
+            </div>
+            <div class="play-list box-left">
+                <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+                    <ul class="layui-tab-title">
+                        <li class="layui-this">
+                            搜索{if:'{cscms:zm}'==''}关键字{else}字母{end if}：&nbsp;{if:'{cscms:zm}'==''}{cscms:key}{else}{cscms:zm}{end if}
+                        </li>
+                    </ul>
+                    <div class="layui-tab-content">
+                    <table class="layui-table" lay-even lay-skin="nob">
+                        <colgroup>
+                            <col>
+                            <col>
+                            <col>
+                            <col width="60">
+                            <col width="60">
+                            <col width="60">
+                         </colgroup>
+                        <thead><tr>
+                            <th>歌曲名称</th>
+                            <th class="mini" colspan="3" style="text-align: right;font-weight: normal;">共有&nbsp;<i class="colord">{cscms:pagedata}</i>&nbsp;首歌曲</th>
+                            </tr></thead>
+                        <tbody id="res_so">
+                        {cscms:dance table="dance" field="id,name,uid,addtime,singerid" pagesize="20" cid="auto" sort="addtime" order="desc"}
+                        <tr>
+                            <td><a  title="[dance:name]" target="_blank" class="listLeft2" href="[dance:url zdy=dance,id,play,id]"><i class="layui-btn layui-btn-mini {if:[dance:i]<4}layui-btn-danger{else}layui-btn-primary{end if} iwidth">[dance:i]</i>[dance:name]</a></td>
+                            <td>{if:'[dance:zdy zd=singer,name,singerid]'==''}佚名{else}[dance:zdy zd=singer,name,singerid]{end if}</td>
+                            <td><a target="_blank" href="[dance:url ulink=index]">{if:'[dance:zdy zd=user,name,uid]'==''}未知{else}[dance:zdy zd=user,name,uid]{end if}</a></td>
+                            <td><a href="[dance:url zdy=dance,id,play,id]"><i class="layui-icon">&#xe6fc;</i></a></td>
+                        </tr>
+                        {/cscms:dance}
+                        </tbody>
+                    </table>
+                        <div class="mar10"></div>
+                        <div class="page">
+                            <div class="layui-box layui-laypage layui-laypage-default" id="layui-laypage-0">
+                                <a href="{cscms:pageup}" class="layui-laypage-last" title="上一页">上一页</a>
+                                {cscms:pagenum len=3}
+                                <a href="{cscms:pagedown}" class="layui-laypage-next">下一页</a>
+                            </div>
+                       </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mar10"></div>
+    </div>
+    {cscms:bottom}
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var len = $('#res_so').children('tr').children('td').length;
+            if(len<1){
+                $('#res_so').prepend('<tr><td colspan="4" height="60" align="center">暂无相关记录~!</td></tr>');
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset=utf-8>
+    <title></title>
+    <meta name="robots" content="noindex,nofollow">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/layui/css/layui.css">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/admin/css/font.css">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/admin/css/style.css">
+    <script src="<?=Web_Path?>packs/js/jquery.min.js"></script>
+    <script src="<?=Web_Path?>packs/layui/layui.js"></script>
+    <script src="<?=Web_Path?>packs/admin/js/cscms.js"></script>
+</head>
+<body>
+    <span class="layui-breadcrumb" >
+        <a ><cite><i class="fa fa-map-marker"></i><?=L('tpl_00')?></cite></a>
+        <a href="<?=site_url('tags')?>"><?=L('tpl_01')?></a>
+    </span>
+    <form class="layui-form" action="<?=site_url('tags/save')?>" method="post">
+        <table class="layui-table">
+            <colgroup>
+                <col width="40">
+                <col width="60">
+                <col width="60">
+                <col>
+            </colgroup>
+            <thead>
+            <tr>
+                <th class="phide"><?=L('tpl_02')?></th>
+                <th class="phide"><?=L('tpl_03')?></th>
+                <th class="phide">ID</th>
+                <th><?=L('tpl_04')?></th>
+                <th><a class="colorl" href="javascript:clsAdd(0);"><?=L('tpl_05')?></a></th>
+                <th class="phide"><?=L('tpl_06')?></th>
+                <th><?=L('tpl_07')?></th>
+            </tr>
+            </thead>
+            <tbody>
+<?php
+    echo '<tr id="tags_0" style="display: none;">
+            <td  class="phide">&nbsp;</td>
+            <td class="phide"><input id="add_xid_0"  value="0" style="width:35px;height:20px;line-height:20px;text-align: center;"/></td>
+            <td class="phide">&nbsp;</td>
+            <td><input id="add_name_0"  value="" style="width:145px;height:20px;line-height:20px;"/></td>
+            <td><a class="layui-btn layui-btn-mini layui-btn-normal" href="javascript:cscms.tagsSave(0,\''.site_url('tags/add_save').'\');">'.L('tpl_08').'</a></td>
+            <td class="phide">&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>';
+    foreach ($tags as $row) {
+        echo '<tr id="#row_'.$row->id.'">
+                <td class="phide"><input name="id['.$row->id.']" type="checkbox" class="xuan" value="'.$row->id.'"/></td>
+                <td class="phide"><input name="xid_'.$row->id.'"  value="'.$row->xid.'" style="width:35px;height:20px;line-height:20px;text-align: center;"/></td>
+                <td align="center" class="phide">'.$row->id.'</td>
+                <td><input name="name_'.$row->id.'"  value="'.$row->name.'" style="width:145px;height:20px;line-height:20px;"/></td>
+                <td><a href="###" class="colord" onclick="clsAdd('.$row->id.');">'.L('tpl_09').'</a></td>
+                <td class="phide">&nbsp;</td>
+                <td class="basedb-more"><a href="javascript:cscms.del_one(\''.site_url('tags/del').'?id='.$row->id.'&fid=1\','.$row->id.');" class="layui-btn layui-btn-mini layui-btn-danger">'.L('tpl_10').'</a></td>
+            </tr>';
+        echo '<tr id="tags_'.$row->id.'" style="display:none;">
+                <td class="phide">&nbsp;</td>
+                <td class="phide"><input id="add_xid_'.$row->id.'"  value="0" style="width:35px;height:20px;line-height:20px;text-align: center;"/></td>
+                <td class="phide">&nbsp;</td>
+                <td>├─<input id="add_name_'.$row->id.'"  value="" style="width:100px;height:20px;line-height:20px;"/></td>
+                <td><a class="layui-btn layui-btn-mini layui-btn-normal" href="javascript:cscms.tagsSave('.$row->id.',\''.site_url('tags/add_save').'\');">'.L('tpl_08').'</a></td>
+                <td class="phide">&nbsp;</td>
+                <td>&nbsp;</td>
+            </tr>';
+        $sql_string = "SELECT * FROM ".CS_SqlPrefix."tags where fid=".$row->id." order by xid asc";
+        $query = $this->db->query($sql_string); 
+        foreach ($query->result() as $rows) {
+            echo '<tr id="row_'.$rows->id.'">
+                    <td class="phide"><input name="id['.$rows->id.']" class="xuan" type="checkbox" value="'.$rows->id.'"/></td>
+                    <td class="phide"><input name="xid_'.$rows->id.'" value="'.$rows->xid.'" style="width:35px;height:20px;line-height:20px;text-align: center;"/></td>
+                    <td align="center" class="phide">'.$rows->id.'</td>
+                    <td>├─<input name="name_'.$rows->id.'"  value="'.$rows->name.'" style="width:100px;height:20px;line-height:20px;"/></td>
+                    <td>&nbsp;</td>
+                    <td class="phide">'.$rows->hits.'</td>
+                    <td class="basedb-more"><a href="javascript:cscms.del_one(\''.site_url('tags/del').'?id='.$rows->id.'\','.$rows->id.');" class="layui-btn layui-btn-mini layui-btn-danger">'.L('tpl_10').'</a></td>
+                </tr>';
+        }
+    }
+?>
+            </tbody>
+        </table>
+        <a class="layui-btn layui-btn-primary layui-btn-small phide" href="javascript:cscms.select_all();"><i class="fa fa-check colorl" ></i><?=L('tpl_11')?></a>
+        <a class="layui-btn layui-btn-primary layui-btn-small phide" lay-submit lay-filter="setting"><i class="fa fa-pencil" style="color:green"></i>&nbsp;<?=L('tpl_12')?></a>
+    </form>
+    <script type="text/javascript">
+        cscms.init();
+        function clsAdd(id){
+            $('#tags_'+id).toggle();
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset=utf-8>
+    <title></title>
+    <meta name="robots" content="noindex,nofollow">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/layui/css/layui.css">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/admin/css/font.css">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/admin/css/style.css">
+    <script src="<?=Web_Path?>packs/js/jquery.min.js"></script>
+    <script src="<?=Web_Path?>packs/layui/layui.js"></script>
+    <script src="<?=Web_Path?>packs/admin/js/cscms.js"></script>
+</head>
+<body id="common">
+    <blockquote class="layui-elem-quote"><?=L('tpl_role_0')?></blockquote>
+    <form class="layui-form" action="<?=site_url('plugins/role_save')?>" method="post">
+            <?php 
+                for($j=0;$j<count($link['admin']);$j++){
+                    echo '<div class="layui-form-item" id="sys_'.$j.'">';
+                    for($k=0;$k<count($link['admin'][$j]['menu']);$k++){
+                         $links=$link['admin'][$j]['menu'][$k]['link'];
+                         $name=$link['admin'][$j]['menu'][$k]['name'];
+                         $num = $j*10+$k;
+                         $check=(getqx($dir.'/'.$links,$app)=='ok')?' checked="checked"':'';
+                         echo '<div class="layui-input-inline" style="width:145px;display:inline-block;margin-left:0px;"><input name="sys['.$num.']" type="checkbox" lay-skin="primary" title="'.$name.'" value="'.$dir.'/'.$links.'"'.$check.'/></div>';
+                    }
+                    echo '<div class="layui-input-inline" style="width:145px;display:inline-block;margin-left:0px;"><input lay-skin="primary" type="checkbox" lay-filter="selall" title="'.L('tpl_role_1').'" value="'.$j.'"/></div></div><hr>';
+                }
+            ?>
+        <input name="id" type="hidden" value="<?=$id?>">
+        <input name="dir" type="hidden" value="<?=$dir?>">
+        <div class="layui-form-item">
+            <div class="layui-input-block layui-input-center noborder">
+                <button class="layui-btn" lay-submit lay-filter="setting"><?=L('tpl_role_2')?></button>
+                <button type="reset" class="layui-btn layui-btn-primary"><?=L('tpl_role_3')?></button>
+            </div>
+        </div>
+    </form>
+    <script type="text/javascript">
+        cscms.init();
+    </script>
+</body>
+</html>

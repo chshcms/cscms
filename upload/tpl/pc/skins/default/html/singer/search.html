@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head> 
+<meta charset=utf-8>
+<meta http-equiv="X-UA-Compatible" content="IE=9">
+<title>{cscms:title}</title>
+<meta name="Keywords" content="{cscms:keywords}" />
+<meta name="Description" content="{cscms:description}" />
+<link rel="shortcut icon" href="{cscms:webpath}favicon.ico" />
+<link rel="stylesheet" href="{cscms:webpath}packs/font/font.css">
+<link rel="stylesheet" type="text/css" href="{cscms:tempurl}css/singer.css"/>
+<script type='text/javascript' src='{cscms:tempurl}js/singer.js'></script>
+</head>
+<body>
+	{cscms:head}
+	<div class="w960 bcolor">
+		<div class="mar10" style="margin-top: 60px;"></div>
+        <div class="mar10"></div>
+        <div class="play-show">
+            <div class="play-intro left">
+            	<ul class="title-tags">
+            		<li class="li_list"><div class="plistIcon icon"><i class="layui-icon">&#xe649;</i></div><a href="{cscmsphp}cscmslink('singer');{/cscmsphp}">热门推荐歌手</a></li>
+            	</ul>
+                <div class="layui-collapse">
+                	{cscms:class table="singer_list" field="id,name" fid="0" sort="xid" order="asc"}
+                    <div class="layui-colla-item">
+                        <h2 class="layui-colla-title " align="left"> &nbsp;&nbsp;[class:name]<a href="[class:url link=lists,id]" class="left-more">更多<i class="fa fa-angle-double-right"></i></a></h2>
+                        <div class="layui-colla-content layui-show" style="padding:10px 0px;text-align: left;text-align: center;padding-bottom: 0px">
+                        {cscmstype:style2 table="singer_list" field="id,name" fid="[class:id]" sort="xid" order="asc"}
+                            <a title="[style2:name]" style="width: 89px;overflow: hidden;text-overflow: ellipsis;margin-left: 0px;margin-bottom: 10px" class="layui-btn layui-btn-small layui-btn-primary" href="[style2:url  link=lists,id]">[style2:name]</a>
+                        {/cscmstype:style2}
+                        </div>
+                    </div>
+                   	{/cscms:class}
+                </div>
+                <div class="mar10"></div>
+            </div>
+            <div class="play-list left">
+                <div class="layui-collapse">
+                    <div class="layui-colla-item">
+                        <h2 class="layui-colla-title" align="left">&nbsp;&nbsp;按字母查找</h2>
+                        <div class="layui-colla-content {if:'{cscms:zm}'!=''}layui-show{else}{end if}" align="left" style="padding-left: 30px">
+                            <a class="layui-btn layui-btn-mini {if:''=='{cscms:zm}'}{else}layui-btn-primary{end if} zm" href="{cscmsphp}linkurl('search','zm','',1);{/cscmsphp}">全部</a>
+						{cscmszm:27}
+				            <a class="layui-btn layui-btn-mini {if:'[zm:name]'=='{cscms:zm}'}{else}layui-btn-primary{end if} zm" href="{cscmsphp}linkurl('search','zm','[zm:name]',1);{/cscmsphp}">[zm:name]</a>
+				            {if:'[zm:name]'=='L'}<div class="mar10"></div>{else}{end if}
+				            {if:'[zm:name]'=='Y'}<div class="mar10"></div>{else}{end if}
+						{/cscmszm}
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+                    <ul class="layui-tab-title">
+                        <li class="layui-this">
+                            {if:'{cscms:zm}'!=''}搜索字母：{cscms:zm}{else}搜索关键字：{cscms:key}{end if}
+                        </li>
+                    </ul>
+                    <div class="layui-tab-content" style="padding: 0px;overflow: hidden;">
+                    	<ul id="gs-pic" class="gs-list" style="padding: 11px">
+		                   	{cscms:singer table="singer" field="id,name,pic" pagesize="40" sort="addtime"}
+						       <li><a title="[singer:name]" href="[singer:url link=show]" target="_blank"><img src="[singer:pic dir=singer]?size=110*110" alt="[singer:name]"><p>[singer:name]</p></a></li>
+		                   	{/cscms:singer}
+			       		</ul>
+                        <div class="mar10"></div>
+                        <div class="page right" style="margin-right: 10px">
+                            <div class="layui-box layui-laypage layui-laypage-default" id="layui-laypage-0">
+                                <a href="{cscms:pagefirst}" class="layui-laypage-last" title="首页">首页</a>
+                                <a href="{cscms:pageup}" class="layui-laypage-last" title="上一页">上一页</a>
+                                {cscms:pagenum len=6}
+                                <a href="{cscms:pagedown}" class="layui-laypage-next">下一页</a>
+                                <a href="{cscms:pagelast}" class="layui-laypage-last" title="尾页">末页</a>
+                            </div>
+                       </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+	</div>
+	<div class="mar10"></div>
+	{cscms:bottom}
+	<script type="text/javascript">
+		$(document).ready(function() {
+			if($('#gs-pic').children('li').length<1){
+				$('#gs-pic').append('<div style="width:100%;height:50px;text-align:center;line-height:50px;">暂无相关记录~!</div>');
+				$('.page').hide();
+			}
+		});
+	</script>
+</body>
+</html>

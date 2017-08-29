@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{cscms:title}</title>
+<meta name="keywords" content="{cscms:keywords}"/>
+<meta name="description" content="{cscms:description}"/>
+<link href="{cscms:indextempurl}css/public.css" rel="stylesheet" type="text/css" />
+<link href="{cscms:indextempurl}css/space.css" rel="stylesheet" type="text/css" />
+<link href="{cscms:indextempurl}css/song.css" rel="stylesheet" type="text/css" />
+<link href="{cscms:indextempurl}css/more.css" rel="stylesheet" type="text/css" />
+<link href="{cscms:indextempurl}css/manage.css" rel="stylesheet" type="text/css" />
+<script type='text/javascript' src='{cscms:indextempurl}js/common.js'></script>
+</head>
+<body>
+{cscms:indexhead}     
+<div class="m_content c_wap p_album no_flush_content">
+            <div class="fans_nav c_wap show_visitor_panel">
+                <a href="[user:url ulink=dance]" class="lt f14 a_btn" >{if:{cscms:uid}==[user:id]}我{else}TA{end if}的歌曲</a>
+				<a href="[user:url ulink=dance,album]" class="lt f14 a_btn coll" >{if:{cscms:uid}==[user:id]}我{else}TA{end if}的专辑</a>
+	        </div>
+            <div class="main_tit" style="margin-top:20px;">
+                <h2 class="main_tit_album" style="width:260px;">{if:{cscms:uid}==[user:id]}我{else}TA{end if}的专辑</h2>
+                {if:{cscms:uid}==[user:id]}
+				<div class="k_main_tit_btn show_owner_panel">
+                    <a href="{cscmsphp}spacelink('album,add','dance');{/cscmsphp}" class="f_green lt space_add_album"><b></b>新建专辑</a>
+                </div>
+				{end if}
+            </div>
+            <ul class="al_lists c_wap">
+			{cscms:album table="dance_topic" field="id,pic,name,tags,addtime" pagesize="10" uid="auto"}
+			       <li class="lt c_wap">
+                        <div class="lt al_head"><a target="_blank" href="[album:url link=topic/show]" class="noFlush_load_link"><img src="[album:pic dir=dancetopic]" width="160" height="160" /></a></div>
+                        <div class="lt al_con">
+                            <h4><a target="_blank" href="[album:url link=topic/show]" class="noFlush_load_link" >[album:name]</a></h4>
+                            <p>标签：<span>[album:tags]</span></p>
+                            <p>歌曲：<span>[album:count zdy=dance,tid,id]&nbsp;首</span></p>
+                            <p>创建：<span>[album:addtime style=Y-m-d]</span></p>
+                        </div>
+                    </li>
+			{/cscms:album}
+			</ul>
+			{if:{cscms:pagedata}==0}<div class="null_box show_visitor_panel" style=""><b class="null_icon"></b><p>暂无专辑</p></div>{end if}
+	 <div class="msg_page f14 tc fa_g6 g6 mt20 msg_page_green" style="display:{if:{cscms:pagecout}==1}none{end if};">
+			<span class="msg_page_list">
+				<a href="{cscms:pageup}" class="commentsPrevPage">上一页</a>
+				{cscms:pagenum len=10}
+				<a href="{cscms:pagedown}" class="commentsNextPage">下一页</a>
+			</span>
+			<span class="msg_page_jump ml10"> 到<input type="text" id="home_page" class="tc commentsJumpPageTxt" size="4" maxlength="4">页<a href="javascript:window.location.href='[user:url ulink=dance,album]/{cscms:fid}/'+$('#home_page').val();" class="tdn commentsJumpPageBtn">确 定</a></span>
+	 </div>
+</div>
+{cscms:indexbottom}
+<script>$('#nav_dance').addClass('sel');home.fav();</script>
+</body>
+</html>

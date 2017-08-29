@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset=utf-8>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <title>{cscms:title}</title>
+    <meta name="Keywords" content="{cscms:keywords}" />
+    <meta name="Description" content="{cscms:description}" />
+    <link rel="shortcut icon" href="{cscms:path}favicon.ico" />
+    <link rel="stylesheet" href="{cscms:webpath}packs/font/font.css">
+    <link rel="stylesheet" type="text/css" href="{cscms:tempurl}css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="{cscms:tempurl}css/dance.css"/>
+    <script type='text/javascript' src='{cscms:tempurl}js/wap.js'></script>
+    <script type='text/javascript' src='{cscms:tempurl}js/dance.js'></script>
+</head>
+<body>
+    {cscms:head}
+    <div class="layui-tab layui-tab-brief">
+        <ul class="layui-tab-title">
+            <li class="layui-this">专辑歌曲</li>
+            <li class="">专辑介绍</li>
+            <li class="">猜你喜欢</li>
+        </ul>
+        <div class="layui-tab-content">
+            <div class="layui-tab-item layui-show" style="">
+                <table class="md-zj" style="border-bottom: 1px dashed #f2f2f2;margin-bottom: 5px;">
+                    <tbody>
+                        <tr>
+                            <td><a href="javascript:;"><img style="width: 60px;height: 60px;" src="[topic:pic dir=dancetopic]" alt="[topic:name]"></a></td>
+                            <td class="md-zj-info">
+                                <a href="javascript:;" class="colord">[topic:name]</a>
+                                <div>
+                                    简介：[topic:neir len=100]
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <ul class="dance_list">
+                {cscms:dance table="dance" field="id,name,hits,cid,shits,singerid,addtime" pagesize="15" tid="auto" sort="addtime" order="desc"}
+                    <li class="dance-one">
+                        <div class="dance-one-left2">
+                            <input type="checkbox" class="xuan" checked name="check" value="[dance:id]" style="position: relative;top:2px" checked="checked">
+                            <a class="id-title" title="[dance:name]" href="[dance:url zdy=dance,id,play,id]">&nbsp;&nbsp;[dance:name]</a>
+                            <div class="dance-one-more"><span><i class="fa fa-eye"></i>&nbsp;<i title="人气">[dance:hits]</i></span><span><i class="fa fa-star-o"></i>&nbsp;<i title="收藏">[dance:shits]</i></span><span><a href="[dance:url zdy=dance,cid,lists,hits]">[dance:zdy zd=dance_list,name,cid]</a></span></div>
+                        </div>
+                        <a class="dance-singer2" style="text-align: center;" href="[dance:url link=down,id]" title="[dance:name]下载"><i class="fa fa-download"></i></a>
+                    </li>
+                {/cscms:dance}
+                    <li style="margin-top: 5px">
+                        <a href="javascript:dance.select_all();" class="layui-btn layui-btn-small layui-btn-primary"><i class="fa fa-check colorl"></i>&nbsp;全选/取消</a>
+                        <a href="javascript:dance.playsongs(1);" class="layui-btn layui-btn-small layui-btn-primary"><i class="fa fa-play-circle-o colord" style="font-size:17px!important"></i>&nbsp;&nbsp;播放选中</a>
+                    </li>
+                </ul>
+                <div class="zanwu" {if:{cscms:pagedata}>0}style="display: none"{end if}>暂无相关记录！</div>
+                <div class="page" {if:{cscms:pagecout}<2}style="display:none"{end if}>
+		    		<div class="layui-box layui-laypage layui-laypage-default" id="layui-laypage-0" style="width: 100%;text-align: center;">
+		    			<a href="{cscms:pageup}" class="layui-laypage-last" title="上一页">上一页</a>
+					  	{cscms:pagenum len=3}
+					    <a href="{cscms:pagedown}" class="layui-laypage-next">下一页</a>
+					</div>
+	           </div>
+            </div>
+            <div class="layui-tab-item">
+                <table class="md-zj">
+                    <tbody>
+                        <tr>
+                            <td><a href="javascript:;"><img style="width: 60px;height: 60px;" src="[topic:pic dir=dancetopic]" alt="[topic:name]"></a></td>
+                            <td class="md-zj-info">
+                                <a href="javascript:;" class="">[topic:name]</a>
+                                <div>
+                                    简介：[topic:neir len=100]
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <style type="text/css">
+                    .layui-table td{font-size: 12px;}
+                </style>
+                <table class="layui-table" lay-even style="margin: 0px;">
+                    <colgroup>
+                        <col width="70">
+                        <col>
+                        <col width="70">
+                    </colgroup>
+                    <tbody>
+                        <tr>
+                            <td align="center">名称</td>
+                            <td colspan="3">[topic:name]</td>
+                        </tr>
+                        <tr>
+                            <td align="center">会员</td>
+                            <td>{if:'[topic:zdy zd=user,name,uid]'}[topic:zdy zd=user,name,uid]{else}未知{end if}</td>
+                            <td align="center">歌手</td>
+                            <td>{if:'[topic:singer zd=name]'=='null'}佚名{else}[topic:singer zd=name]{end if}</td>
+                        </tr>
+                        <tr>
+                            <td align="center">语言</td>
+                            <td>[topic:yuyan]</td>
+                            <td align="center">地区</td>
+                            <td>[topic:diqu]</td>
+                        </tr>
+                        <tr>
+                            <td align="center">年份</td>
+                            <td>[topic:year]</td>
+                            <td align="center">人气</td>
+                            <td>[topic:hits]</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="layui-collapse" style="border-top: 0px">
+                    <div class="layui-colla-item">
+                        <h2 class="layui-colla-title">专辑介绍</h2> 
+                        <div class="layui-colla-content layui-show">[topic:neir]</div>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-tab-item">
+	            <table class="md-zj" id="cailike">
+		            <tbody>
+	                {cscms:topic table="dance_topic" field="id,name,pic,uid,hits,neir"  singerid="auto" loop="10" sort="hits" order="desc"}
+	                    <tr>
+	                        <td><a href="[topic:url link=topic/show]"><img style="width: 60px;height: 60px;" src="[topic:pic dir=dancetopic]" alt="[topic:name]"></a></td>
+	                        <td class="md-zj-info">
+	                            <a href="[topic:url link=topic/show]"><i class="{if:[topic:i]<4}colord{else}{end if}">[topic:i]</i>.[topic:name]</a>
+	                            <div>
+	                                简介：[topic:neir len=100]
+	                            </div>
+	                        </td>
+	                    </tr>
+	                {/cscms:topic}
+	                </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+{cscms:bottom}
+<script>
+    cscms.mode('dance.init()');
+    $(document).ready(function() {
+        var len = parseInt($('.dance_list').children('li').length);
+        if(len==1) $('.dance_list').html('<div class="zanwu">该专辑暂无歌曲</div>');
+        var len = parseInt($('#cailike').children('tbody').children('tr').length);
+        if(len==0) $('#cailike').html('<div class="zanwu">暂无相关专辑</div>');
+    });
+</script>
+</body>
+</html>

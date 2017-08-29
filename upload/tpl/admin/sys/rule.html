@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title><?=L('login_title')?></title>
+<meta name="robots" content="noindex,nofollow">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<link rel="stylesheet" href="<?=Web_Path?>packs/layui/css/layui.css">
+<script type="text/javascript" src="<?=Web_Path?>packs/admin/js/jquery-min.js"></script>
+</head>
+<body>
+<table class="layui-table" style="margin:0;">
+	<thead>
+	<tr>
+		<th><?=L('tpl_vr_0')?></th>
+		<th></th>
+	</tr>
+	</thead>
+	<tbody>
+<?php 
+if($this->input->get('g')=='r'){
+	echo '<tr><td colspan="2"><font color=red><b>'.L('tpl_vr_1').'</b></font></td></td>';
+	echo '<tr><td colspan="2"><font color=red><b>'.L('tpl_vr_9').'</b></font></td></td>';
+}
+?>
+	<tr><td colspan="2"><font color=red><?=L('tpl_vr_2')?></font></td></td>
+<?php if($this->input->get('g')!='r'){ ?>
+	<tr><td>{md5id}</td><td><?=L('tpl_vr_3')?></td>
+	<tr><td>{pinyinid}</td><td><?=L('tpl_vr_4')?></td>
+	<tr><td>{sname}</td><td><?=L('tpl_vr_5')?></td>
+<?php } ?>
+	<tr><td>{sort}</td><td><?=L('tpl_vr_6')?></td>
+	<tr><td>{id}</td><td><?=L('tpl_vr_7')?></td>
+	<tr><td>{page}</td><td><?=L('tpl_vr_8')?></td>
+	</tr>
+	</tbody>
+</table>
+<script type="text/javascript">
+	$('.stablelist tbody tr:odd').addClass('odd');
+</script>
+</body>
+</html>

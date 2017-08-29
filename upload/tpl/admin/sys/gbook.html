@@ -1,0 +1,117 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset=utf-8>
+    <title></title>
+    <meta name="robots" content="noindex,nofollow">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/layui/css/layui.css">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/admin/css/font.css">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/admin/css/style.css">
+    <script src="<?=Web_Path?>packs/js/jquery.min.js"></script>
+    <script src="<?=Web_Path?>packs/layui/layui.js"></script>
+    <script src="<?=Web_Path?>packs/admin/js/cscms.js"></script>
+</head>
+<body>
+    <span class="layui-breadcrumb" >
+        <a ><cite><i class="fa fa-map-marker"></i><?=L('tpl_01')?></cite></a>
+        <a href="javascript:;"><?=L('tpl_02')?></a>
+        <a href="<?=site_url('gbook')?>"><?=L('tpl_03')?></a>
+    </span>
+    <form class="layui-form layui-form-so" action="<?=site_url('gbook')?>" method="post">
+        <div class="layui-form-item">
+            <div class="layui-input-inline">
+                <select name="zd">
+                    <option value="name" <?php if($zd=='name') echo ' selected';?>><?=L('tpl_04')?></option>
+                    <option value="id" <?php if($zd=='id') echo ' selected';?>><?=L('tpl_05')?></option>
+                </select>
+            </div>
+            <div class="layui-input-inline">
+                <input type="text" name="key" value="<?=$key?>" class="layui-input">
+            </div>
+            <div class="layui-input-inline">
+                <select name="op">
+                   <option value=""<?php if($op=='') echo ' selected';?>><?=L('tpl_06')?></option>
+                   <option value="web"<?php if($op=='web') echo ' selected';?>><?=L('tpl_07')?></option>
+                   <option value="user"<?php if($op=='user') echo ' selected';?>><?=L('tpl_08')?></option>
+                </select>
+            </div>
+             <div class="layui-input-inline">
+                <button class="layui-btn" type="submit"><?=L('tpl_09')?></button>
+            </div>
+        </div>
+    </form>
+    <form class="layui-form" action="<?=site_url('gbook/del')?>" method="post">
+        <table class="layui-table">
+            <thead>
+                <tr>
+                    <th><?=L('tpl_10')?></th>
+                    <th><?=L('tpl_11')?></th>
+                    <th><?=L('tpl_12')?></th>
+                    <th class="phide"><?=L('tpl_13')?></th>
+                    <th><?=L('tpl_14')?></th>
+                    <th class="phide"><?=L('tpl_15')?></th>
+                    <th class="phide"><?=L('tpl_16')?></th>
+                </tr>
+            </thead>
+            <tbody>
+            <?php
+                if(empty($gbook)) echo '<tr><td align="center" height="50" colspan="8">'.L('tpl_17').'</td></tr>';
+                foreach ($gbook as $row) {
+                    $hf='';
+                    if($row->cid==1){ //网站留言
+                        //会员
+                        $unamea=$namea=L('tpl_18');
+                        $unameb=$nameb=L('tpl_19');
+                        if($row->uidb>0){
+                            $rowb=$this->db->query("SELECT name FROM ".CS_SqlPrefix."user where id=".$row->uidb."")->row();
+                            $unameb=$nameb=($rowb)?$rowb->name:'未知'.'UID:'.$row->uidb;
+                        }
+                        if($row->fid>0){
+                            $unamea=$nameb;
+                            $unameb=$namea;
+                            $hf='<font class="colorn">'.L('tpl_20',array($row->fid)).'</font>';
+                            $cmd='<a class="layui-btn layui-btn-mini layui-btn-danger" href="javascript:javascript:cscms.del_one(\''.site_url('gbook/del').'\','.$row->id.');">'.L('tpl_21').'</a>';
+                        }else{
+                            $cmd='<a class="layui-btn layui-btn-mini" href="javascript:cscms.get_open(\''.site_url('gbook/hf').'?id='.$row->id.'\',\''.L('tpl_22').'\',\'500px\',\'300px\');">'.L('tpl_23').'</a><a class="layui-btn layui-btn-mini layui-btn-danger" href="javascript:javascript:cscms.del_one(\''.site_url('gbook/del').'\','.$row->id.');">'.L('tpl_21').'</a>';
+                        }
+                    }else{
+                         //会员A
+                         $rowa=$this->db->query("SELECT name FROM ".CS_SqlPrefix."user where id=".$row->uida."")->row();
+                         $unamea=($rowa)?$rowa->name:L('tpl_24').'UID：'.$row->uida;
+                         //会员B
+                         $rowb=$this->db->query("SELECT name FROM ".CS_SqlPrefix."user where id=".$row->uidb."")->row();
+                         $unameb=($rowb)?$rowb->name:L('tpl_24').'UID：'.$row->uidb;
+                         $cmd='<a class="layui-btn layui-btn-mini layui-btn-danger" href="javascript:cscms.del_one(\''.site_url('gbook/del').'\','.$row->id.');">'.L('tpl_21').'</a>';
+                    }
+                    $lx=($row->cid==0)?'<a href="'.site_url('gbook').'?op=user"><font class="colorl">'.L('tpl_25').'</font></a>':'<a href="'.site_url('gbook').'?op=web"><font class="colord">'.L('tpl_26').'</font></a>';
+                    echo '
+                    <tr id="row_'.$row->id.'">
+                    <td><input name="id['.$row->id.']" class="xuan" type="checkbox" value="'.$row->id.'" /></td>
+                    <td><a href="'.site_url('gbook').'?zd=id&key='.$row->uida.'">'.$unamea.'</a></td>
+                    <td><a href="'.site_url('gbook').'?zd=id&key='.$row->uidb.'">'.$unameb.'</a></td>
+                    <td  class="phide">'.$lx.'</td>
+                    <td>'.facehtml($row->neir).$hf.'</td>   
+                    <!-- <td>'.$row->ip.'</td> -->
+                    <td class="phide">'.date('Y-m-d',$row->addtime).'</td>
+                    <td class="phide">'.$cmd.'</td>
+                    </tr> ';
+                }
+            ?>
+            </tbody>
+        </table>
+        <div class="more_func">
+            <a class="layui-btn layui-btn-primary layui-btn-small" href="javascript:cscms.select_all();"><i class="fa fa-check colorl" ></i><?=L('tpl_27')?></a>
+            <a class="layui-btn layui-btn-primary layui-btn-small" lay-submit lay-filter="del_pl"><i class="fa fa-close " style="color: red" ></i><?=L('tpl_28')?></a>
+        </div>
+    </form>
+    <div id="page">
+        <div class="data_nums phide"><?=$page_data?></div>
+        <div class="data_page"><?=$page_list?></div>
+    </div>
+    <script type="text/javascript">
+        cscms.init();
+    </script>
+</body>
+</html>

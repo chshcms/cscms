@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset=utf-8>
+    <title></title>
+    <meta name="robots" content="noindex,nofollow">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/layui/css/layui.css">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/admin/css/font.css">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/admin/css/style.css">
+    <script src="<?=Web_Path?>packs/js/jquery.min.js"></script>
+    <script src="<?=Web_Path?>packs/layui/layui.js"></script>
+    <script src="<?=Web_Path?>packs/admin/js/cscms.js"></script>
+</head>
+<body>
+    <table class="layui-table" style="margin-top: 0px;width: 100%">
+        <thead></thead>
+        <tbody>
+            <?php
+                if(!empty($row->pic)){
+                    echo '<tr><td>'.L('tpl_ce_77').'</td><td>'.str_encode($row->pic).'</td></tr>';
+                }
+                if(!empty($row->zdy)){
+                    $zdy=unarraystring($row->zdy);
+                    for ($i=0; $i < count($zdy['name']); $i++) {
+                         echo '<tr><td>'.$zdy['name'][$i].'</td><td>'.str_encode($zdy['text'][$i]).'</td></tr>';
+                    } 
+                }
+            ?>
+        </tbody>
+    </table>
+
+    <script type="text/javascript">
+        cscms.init();
+    </script>
+</body>
+</html>

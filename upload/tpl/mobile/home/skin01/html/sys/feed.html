@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <title>{cscms:title}</title>
+    <meta name="Keywords" content="{cscms:keywords}" />
+    <meta name="Description" content="{cscms:description}" />
+    <link rel="shortcut icon" href="{cscms:path}favicon.ico" />
+    <link rel="stylesheet" href="{cscms:webpath}packs/font/font.css">
+    <link rel="stylesheet" type="text/css" href="{cscms:tempurl}css/style.css"/>
+    <script type='text/javascript' src='{cscms:tempurl}js/wap.js'></script>
+    <script type='text/javascript' src='{cscms:tempurl}js/common.js'></script>
+</head>
+<body>
+    {cscms:head}
+    <div class="layui-tab layui-tab-card" style="box-shadow: none;margin-top: 0px">
+        <ul class="layui-tab-title">
+            <li class="layui-this"><a href="[user:url ulink=index]">主页</a></li>
+            <li><a href="[user:url ulink=info]">资料</a></li>
+            {cscms:model table="plugins" field="dir,name" loop="10" order="asc"}
+            {if:'[model:dir]'!='singer'}
+                <li id="nav_[model:dir]"><a class="noFlush_load_link" href="[user:url ulink=[model:dir]]">[model:name]</a></li>
+                {end if}
+            {/cscms:model}
+            <li><a href="[user:url ulink=friend]">关系</a></li>
+            <li><a href="[user:url ulink=gbook]">留言</a></li>
+        </ul>
+        <div class="layui-tab-content" style="padding: 5px 0px">
+            <div class="layui-tab layui-tab-brief" style="margin-top: 0px">
+                <ul class="layui-tab-title">
+                <li{if:'{cscms:fid}'=='all'} class="layui-this"{end if}><a href="[user:url ulink=feed]">全部</a></li>
+                <li{if:'{cscms:fid}'=='blog'} class="layui-this"{end if}><a href="[user:url ulink=feed,blog]">说说</a></li>
+                {cscms:model table="plugins" field="dir,name" order="asc"}
+                       {if:'[model:dir]'!='singer'}
+                    <li {toif:'{cscms:fid}'=='[model:dir]'}class="layui-this"{end toif}><a href="[user:url ulink=feed,[model:dir]]">[model:name]</a></li>
+                {/cscms:model}
+                </ul>
+                <div class="layui-tab-content">
+                    {cscms:dt table="dt" pagesize="10" uid="auto" sort="addtime" order="desc"}
+                        <li class="dt-one dt-one-uc">
+                            <a target="_blank" class="dt-img" href="[dt:url ulink=index]"><img src="[dt:user zd=logo]?size=60*60"></a>
+                            <div class="dt-neir uc-neir">
+                                <div class="dt-time">[dt:addtime style=time]</div>
+                                <div class="dt-title"><a target="_blank" href="[dt:url ulink=index]">[dt:user zd=nichen]</a></div>
+                                <div class="dt-nl" style="white-space: normal;">
+                                    [dt:title]<a class="uc-dtlink" target="_blank" href="[dt:link]">《[dt:name]》</a>&nbsp;<a style="color: #1E9FFF" href="[dt:link]">查看</a>
+                                </div>
+                            </div>
+                        </li>
+                    {/cscms:dt}
+                </div>
+            </div>
+        </div>
+    </div>
+    {cscms:bottom}
+</body>
+</html>

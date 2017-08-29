@@ -1,0 +1,35 @@
+        <ul class="top_nav_join">
+			   <li>
+					  <a class="userinfoshow" href="[user:url userlink=space]"><span class="headpic_s"><img width="36" height="36" alt="[user:nichen]" src="[user:logo dir=logo]"></span>[user:nichen]</a>
+					  <ul class="head_box" style="display: none;">
+						    <li class="head_box_top"><dl><dt class="head_pic_wrap"><span class="headpic_s"><a href="[user:url userlink=space]" style="display:inline;"><img width="43" height="43" alt="[user:nichen]" src="[user:logo dir=logo]"></a></span></dt><dd class="head_nk_wrap"><a class="nickname" href="[user:url userlink=space]">[user:nichen]</a><a href="[user:url userlink=pay,vip]" target="_blank" title="VIP会员"><img src="{cscms:indextempurl}images/icon/{if:[user:vip]==0}u{end if}vip.gif" border="0"></a></dd><dd class="head_sign_wrap"><span class="sign"><i class="icon icon_date"></i>已连续签到<em>[user:qdts]</em>天</span><span><i class="icon icon_jindou"></i>金币<em>[user:cion]</em>个</span></dd></dl></li> 
+				    	    <li class="flx whitebg">
+				        	    <ul>
+					        	    <li><a href="[user:url userlink=space]" class="grzx"><i class="icon_grzx"></i>个人中心</a></li>
+						   	        <li><a href="[user:url ulink=index]" class="home"><i class="icon_wdzy"></i>我的主页</a></li>
+						    	    <li><a href="{cscmsphp}spacelink('dance','dance');{/cscmsphp}" class="gqgl"><i class="icon_gqgl"></i>歌曲管理</a></li>
+						    	    <li><a href="[user:url userlink=pay,group]" class="wdhy"><i class="icon_wdhy"></i>我的会员</a></li>
+						    	    <li><a href="[user:url userlink=pay]" class="wdcf"><i class="icon_wdcf"></i>我的财富</a></li>
+						    	    <li><a href="[user:url userlink=edit]" class="zhsz"><i class="icon_zhsz"></i>账号设置</a></li>
+					    	    </ul>
+				    	    </li> 
+				    	    <li><a href="#none" onclick="{cscms:logout}" class="logout">退出登录</a></li>
+					  </ul>
+				</li>
+        </ul>
+        <ul class="top_nav_join">
+				<li><a class="nav_msg_til" href="[user:url userlink=msg]"><i class="icon icon_msg"></i>消息{if:[user:count zdy=msg,uida,id,did,0]>0}<img src="{cscms:indextempurl}images/msg.gif" style="position:absolute;">{end if}</a></li>
+        </ul>
+        <ul>
+                <li>
+                        <a class="nav_up" href="{cscmsphp}spacelink('dance,add','dance');{/cscmsphp}"><i class="icon icon_upload"></i>上传</a>
+                        <ul class="upload_box">
+                            <li><a href="{cscmsphp}spacelink('dance,add','dance');{/cscmsphp}">上传歌曲</a></li>
+                            <li><a href="{cscmsphp}spacelink('vod,add','vod');{/cscmsphp}">分享视频</a></li>
+                            <li><a href="{cscmsphp}spacelink('news,add','news');{/cscmsphp}">分享文章</a></li>
+                            <li><a href="{cscmsphp}spacelink('pic,add','pic');{/cscmsphp}">上传图片</a></li>
+                        </ul>
+                </li>
+        </ul>
+<script>home.init();</script>
+

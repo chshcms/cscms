@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <title>{cscms:title}</title>
+    <meta name="Keywords" content="{cscms:keywords}" />
+    <meta name="Description" content="{cscms:description}" />
+    <link rel="shortcut icon" href="{cscms:path}favicon.ico" />
+    <link rel="stylesheet" href="{cscms:webpath}packs/font/font.css">
+    <link rel="stylesheet" type="text/css" href="{cscms:tempurl}css/user.css"/>
+    <script type="text/javascript" src="{cscms:tempurl}js/user.js"></script>
+</head>
+<body>
+    {cscms:head}
+    {cscms:right}
+    <div class="layui-tab layui-tab-card layui-tab-min" lay-filter="dt1" style="margin-top: 0px;margin-bottom: 0px">
+        <ul class="layui-tab-title">
+            <li><a href="[user:url userlink=pay]">在线充值</a></li>
+            <li><a href="[user:url userlink=pay,card]">充值卡充值</a></li>
+            <li><a href="[user:url userlink=pay,group]">在线升级</a></li>
+            <li class="layui-this"><a href="[user:url userlink=pay,change]">金币兑换</a></li>
+        </ul>
+        <div class="layui-tab-content">
+            <div class="layui-tab-item layui-show">
+                <blockquote class="layui-elem-quote layui-quote-nm">
+                    友情提示：1金钱=<?=User_RmbToCion?>金币，兑换金额单位：元
+                </blockquote>
+                <form class="layui-form layui-form-pane" method="post" action="[user:changesave]">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">剩余金额</label>
+                        <div class="layui-input-block">
+                            <input type="text" class="layui-input" value="[user:rmb] 元" disabled>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">剩余金币</label>
+                        <div class="layui-input-block">
+                            <input type="text" class="layui-input" value="[user:cion] 个" disabled>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">兑换金额</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="rmb" required lay-required="number" class="layui-input" value="">
+                        </div>
+                    </div>
+                    <input type="hidden" name="token" value="[user:token]"/>
+                    <div class="layui-form-item">
+                        <div class="layui-input-block" style="text-align: center;margin-left: 0px">
+                            <button class="layui-btn" lay-submit lay-filter="">兑换</button>
+                            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{cscms:bottom}
+</body>
+</html>

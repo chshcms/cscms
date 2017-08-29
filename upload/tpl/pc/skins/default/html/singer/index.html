@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head> 
+<meta charset=utf-8>
+<meta http-equiv="X-UA-Compatible" content="IE=9">
+<title>{cscms:title}</title>
+<meta name="Keywords" content="{cscms:keywords}" />
+<meta name="Description" content="{cscms:description}" />
+<link rel="shortcut icon" href="{cscms:webpath}favicon.ico" />
+<link rel="stylesheet" href="{cscms:webpath}packs/font/font.css">
+<link rel="stylesheet" type="text/css" href="{cscms:tempurl}css/singer.css"/>
+<script type='text/javascript' src='{cscms:tempurl}js/singer.js'></script>
+</head>
+<body>
+	{cscms:head}
+	<div class="w960 bcolor">
+		<div class="mar10" style="margin-top: 60px;"></div>
+        <div class="mar10"></div>
+        <div class="play-show">
+        <div class="play-intro left">
+            	<ul class="title-tags">
+                    <li style="border-bottom: 1px solid #e2e2e2;" class="li_list"><div class="plistIcon icon"><i class="layui-icon colorl">&#xe649;</i></div><a class="colorl" href="{cscmsphp}cscmslink('singer');{/cscmsphp}">热门推荐歌手</a></li>
+                    {cscms:class table="singer_list" field="id,name" fid="0" sort="xid" order="asc"}
+                    <li class="li_list"><div class="plistIcon icon"><i class="layui-icon">&#xe61a;</i></div><span>&nbsp;&nbsp;[class:name]</span> <a href="[class:url link=lists,id]" class="left-more">更多<i class="fa fa-angle-double-right"></i></a></li>
+                        <div class="singer-nlist">
+                        {cscmstype:style2 table="singer_list" field="id,name" fid="[class:id]" sort="xid" order="asc"}
+                            <a title="[style2:name]" style="width: 87px;overflow: hidden;margin-left: 0px" class="layui-btn layui-btn-small layui-btn-primary" href="[style2:url  link=lists,id]">[style2:name]</a>
+                        {/cscmstype:style2}
+                        </div>
+                    {/cscms:class}
+            	</ul>
+                <div class="mar10"></div>
+            </div>
+            <div class="play-list left">
+                <div class="layui-collapse">
+                    <div class="layui-colla-item">
+                        <h2 class="layui-colla-title" align="left">&nbsp;&nbsp;按字母查找</h2>
+                        <div class="layui-colla-content" align="left" style="padding-bottom: 0px">
+						{cscmszm:27}
+				            <a style="margin-bottom: 10px;margin-left: 6px" class="layui-btn layui-btn-mini layui-btn-primary zm" href="{cscmsphp}linkurl('search','zm','[zm:name]',1);{/cscmsphp}">[zm:name]</a>
+						{/cscmszm}
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+                    <ul class="layui-tab-title">
+                        <li class="layui-this">
+                            热门推荐歌手
+                        </li>
+                    </ul>
+                    <div class="layui-tab-content" style="padding: 5px 0px;padding-left: 5px;">
+                    	<ul id="gs-pic" class="gs-list">
+		                   {cscms:singer table="singer" field="id,name,pic" loop="20" start="1" reco="1,2,3,4,5" sort="hits"}
+						       <li><a title="[singer:name]" href="[singer:url link=show]" target="_blank"><img src="[singer:pic dir=singer]?size=110*110" alt="[singer:name]"><p>[singer:name]</p></a></li>
+		                   {/cscms:singer}
+			       		</ul>
+			       		<hr>
+			       		<ul class="gs-list2">
+		                   {cscms:singer table="singer" field="id,name,pic" start="21" reco="1,2,3,4,5" sort="hits"}
+					           <li style="text-indent: 1em;" ><a title="[singer:name]" href="[singer:url link=show]" target="_blank">[singer:name]</a></li>
+		                   {/cscms:singer}
+					    </ul>
+                        <div class="mar10"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+	</div>
+	<div class="mar10"></div>
+	{cscms:bottom}
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset=utf-8>
+    <title></title>
+    <meta name="robots" content="noindex,nofollow">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/layui/css/layui.css">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/admin/css/font.css">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/admin/css/style.css">
+    <script src="<?=Web_Path?>packs/js/jquery.min.js"></script>
+    <script src="<?=Web_Path?>packs/layui/layui.js"></script>
+    <script src="<?=Web_Path?>packs/admin/js/cscms.js"></script>
+</head>
+<body id="index_setting">
+    <span class="layui-breadcrumb" >
+        <a ><cite><i class="fa fa-map-marker"></i>位置</cite></a>
+        <a href="<?=site_url('dance/admin/dance')?>">音乐</a>
+        <a href="<?=site_url('dance/admin/saomiao')?>">歌曲扫描</a>
+    </span>
+    <form class="layui-form" action="<?=site_url('dance/admin/saomiao/ruku')?>" method="post" style="margin-bottom: 10px;">
+        <table class="layui-table">
+            <colgroup>
+                <col width="40">
+            </colgroup>
+            <thead>
+            	<tr>
+                <th>选</th>
+                <th>目录 <?=$paths?></th>
+                <th class="phide">日期</th>
+                <th>大小</th>
+                <th>操作</th>
+                </tr>    	
+            </thead>
+            <tbody>
+                <?php 
+                echo '<tr><td colspan="5"><img src="'.Web_Path.'packs/admin/images/ext/dir.gif">&nbsp;<a href="javascript:history.back();">返回上一级</a></td></tr>';
+                for ($i=0; $i<count($dirs); $i++) {
+                    echo '<tr><td><input class="xuan" name="id['.$i.']" type="checkbox" value="'.$dirs[$i]['name'].'" /></td><td><img src="'.$dirs[$i]['icon'].'">&nbsp;<a href="'.$dirs[$i]['link'].'">'.$dirs[$i]['name'].'</a></td><td  class="phide">'.$dirs[$i]['date'].'</td><td>--</td><td class="basedb-more"><a class="layui-btn layui-btn-mini" href="'.$dirs[$i]['link'].'">打开</a><a class="layui-btn layui-btn-mini layui-btn-danger" href="'.$dirs[$i]['rklink'].'">入库</a></td></tr>';
+                } 
+                for ($j=0; $j<count($show); $j++) {
+                    echo '<tr><td><input class="xuan" name="id['.$j.']" type="checkbox" value="'.$show[$j]['name'].'" checked/></td><td><img src="'.$show[$j]['icon'].'"><a href="'.$show[$j]['rklink'].'">'.$show[$j]['name'].'</a></td><td  class="phide">'.$show[$j]['date'].'</td><td>'.$show[$j]['size'].'</td><td class="basedb-more"><a class="layui-btn layui-btn-mini layui-btn-danger" href="'.$show[$j]['rklink'].'">入库</a></td></tr>';
+                } 
+                ?>
+            </tbody>
+        </table>
+        <input name="path" type="hidden" value="<?=$path?>">
+        <input name="dir" type="hidden" value="<?=$dir?>">
+        <input name="hz" type="hidden" value="<?=$hz?>">
+        <a class="layui-btn layui-btn-primary layui-btn-small" href="javascript:cscms.select_all();"><i class="fa fa-check colorl" ></i>全选/反选</a>
+        <button class="layui-btn layui-btn-primary layui-btn-small" lay-submit lay-filter=""><i class="fa fa-cloud-upload colord" ></i> 批量入库</button>
+    </form>
+    <script type="text/javascript">
+        cscms.init();
+    </script>
+</body>
+</html>
+

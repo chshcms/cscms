@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset=utf-8>
+    <meta http-equiv="X-UA-Compatible" content="IE=9">
+    <title>{cscms:title}</title>
+    <meta name="Keywords" content="{cscms:keywords}" />
+    <meta name="Description" content="{cscms:description}" />
+    <link rel="shortcut icon" href="{cscms:webpath}favicon.ico" />
+    <link rel="stylesheet" href="{cscms:webpath}packs/font/font.css">
+    <link rel="stylesheet" type="text/css" href="{cscms:tempurl}css/user.css" />
+    <script type='text/javascript' src='{cscms:tempurl}js/user.js'></script>
+</head>
+<body style="background: #f5f5f5">
+    {cscms:head}
+    {cscms:right}
+        {cscms:left}
+            <div class="sp-cont-r">
+                <div class="layui-tab layui-tab-card" lay-filter="dt1" style="margin-top: 0px;margin-bottom: 0px">
+                    <ul class="layui-tab-title" style="height: 41px">
+                        <li class="layui-this"><a href="[user:url userlink=msg]">编辑消息</a></li>
+                        <li><a href="[user:url userlink=msg]">全部消息</a></li>
+                        <li><a href="[user:url userlink=msg,index,xt]">系统消息</a></li>
+                        <li><a href="[user:url userlink=msg,index,wd]">未读消息</a></li>
+                        <a style="float: right;margin-right: 15px;margin-top: 5px" href="[user:url userlink=msg,add]" class="layui-btn layui-btn-small layui-btn-danger">发送消息</a>
+                    </ul>
+                    <div class="layui-tab-content" style="padding:30px 15px;background-color: #fff">
+                        <div class="layui-tab-item layui-show">
+                            <form class="layui-form layui-form-pane" method="post" action="[user:msgsave]">
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">接收会员</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="user" required lay-verify="required" placeholder="请输入接收消息的会员" autocomplete="off" class="layui-input" value="[msg:user]">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">消息标题</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="name" required lay-verify="required" placeholder="请输入消息的标题" autocomplete="off" class="layui-input" value="[msg:name]">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item layui-form-text">
+                                    <label class="layui-form-label">消息内容</label>
+                                    <div class="layui-input-block">
+                                        <textarea style="height: 150px" name="neir" placeholder="请输入内容" class="layui-textarea"></textarea>
+                                    </div>
+                                </div>
+                                <input type="hidden" name="token" value="[user:token]"/>
+                                <div class="layui-form-item">
+                                    <div class="layui-input-block" style="text-align: center;margin-left: 0px">
+                                        <button class="layui-btn" lay-submit lay-filter="">发送</button>
+                                        <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mar10"></div>
+    <div class="mar10"></div>
+{cscms:bottom}
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#left_msg').addClass('on');
+    });
+</script>
+</body>
+</html>

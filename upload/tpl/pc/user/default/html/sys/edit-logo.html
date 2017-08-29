@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset=utf-8>
+    <meta http-equiv="X-UA-Compatible" content="IE=9">
+    <title>{cscms:title}</title>
+    <meta name="Keywords" content="{cscms:keywords}" />
+    <meta name="Description" content="{cscms:description}" />
+    <link rel="shortcut icon" href="{cscms:webpath}favicon.ico" />
+    <link rel="stylesheet" href="{cscms:webpath}packs/font/font.css">
+    <link rel="stylesheet" type="text/css" href="{cscms:tempurl}css/user.css" />
+    <script type='text/javascript' src='{cscms:tempurl}js/user.js'></script>
+</head>
+<body style="background: #f5f5f5">
+    {cscms:head}
+    {cscms:right}
+        {cscms:left}
+            <div class="sp-cont-r">
+                <div class="layui-tab layui-tab-card" lay-filter="dt1" style="margin-top: 0px;margin-bottom: 0px">
+                    <ul class="layui-tab-title" style="height: 41px">
+                        <li><a href="[user:url userlink=edit]">基本资料</a></li>
+                        <li class="layui-this"><a href="[user:url userlink=edit,logo]">修改头像</a></li>
+                        <li><a href="[user:url userlink=edit,pass]">修改密码</a></li>
+                        <li><a href="[user:url userlink=edit,open]">绑定同步</a></li>
+                    </ul>
+                    <div class="layui-tab-content" style="padding:30px 15px;background-color: #fff">
+                        <div class="layui-tab-item layui-show" style="overflow: hidden;">
+                            <div class="myAvatar" style="width: 161px;height: 161px;border: 1px solid #e2e2e2;float: left;margin: 10px 30px">
+                            	<img id="my-avatar" width="160" height="160" src="[user:logo dir=logo]?<?=time()?>"/>
+                            	<div style="color: #666;text-align: center;line-height: 30px">当前头像</div>
+                            </div>
+							<div class="myAvatarUpload" style="float: left;">
+								<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=10,0,0,0" width="432" height="316" id="tmp" align="middle">
+									<param name="allowScriptAccess" value="always" />
+									<param name="allowFullScreen" value="false" />
+									<param name="wmode" value="opaque" />
+									<param name="movie" value="{cscms:webpath}packs/swf/avatar.swf"/>
+									<param name="quality" value="high" />
+									<param name="bgcolor" value="#ffffff" />
+									<embed src="{cscms:webpath}packs/swf/avatar.swf" quality="high" wmode="opaque" bgcolor="#ffffff" width="432" height="316" name="browse" align="middle" allowScriptAccess="always" allowFullScreen="false" type="application/x-shockwave-flash" pluginspage="http://www.adobe.com/go/getflashplayer_cn"/>
+								</object>
+							</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mar10"></div>
+    <div class="mar10"></div>
+{cscms:bottom}
+<script type="text/javascript">
+$(document).ready(function() {
+	$('#left_edit').addClass('on');
+	$('#left_first').removeClass('layui-nav-itemed');
+	$('#left_edit').parent().parent().addClass('layui-nav-itemed');
+});
+//会员上传头像成功返回
+function UploadPicSucceed(data) {
+    cscms.layer.msg('恭喜您，保存头像成功！',{icon:1});
+    setTimeout('location.replace(location);', 2000);
+}
+</script>
+</body>
+</html>

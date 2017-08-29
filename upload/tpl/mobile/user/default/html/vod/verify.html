@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <title>{cscms:title}</title>
+    <meta name="Keywords" content="{cscms:keywords}" />
+    <meta name="Description" content="{cscms:description}" />
+    <link rel="shortcut icon" href="{cscms:path}favicon.ico" />
+    <link rel="stylesheet" href="{cscms:webpath}packs/font/font.css">
+    <link rel="stylesheet" type="text/css" href="{cscms:tempurl}css/vod.css"/>    
+    <script type="text/javascript" src="{cscms:tempurl}js/user.js"></script>
+</head>
+<body>
+    {cscms:head}
+    {cscms:right}
+    <div class="layui-tab layui-tab-card layui-tab-min" lay-filter="dt1" style="margin-top: 0px;margin-bottom: 0px">
+        <ul class="layui-tab-title">
+            <li><a href="[user:url userlink=vod]">我分享的</a></li>
+            <li class="layui-this"><a href="[user:url userlink=vod,verify]">审核中的</a></li>
+            <li><a href="[user:url userlink=fav]">我收藏的</a></li>
+            <li><a href="[user:url userlink=look]">我观看的</a></li>
+        </ul>
+        <div class="layui-tab-content" style="padding:0px;background-color: #fff">
+            <div class="layui-tab-item layui-show">
+                <div class="layui-tab layui-tab-brief">
+				    <ul class="layui-tab-title">
+				        <li{if:[vod:cid]==0} class="layui-this"{end if}><a href="[user:url userlink=vod,verify]">全部类型</a></li>
+                        {cscms:class table="vod_list" fid="0" loop="10" order="asc"}
+						<li{if:[vod:cid]==[class:id]} class="layui-this"{end if}><a href="[user:url userlink=vod,verify]/[class:id]">[class:name]</a></li>
+                        {/cscms:class}
+				    </ul>
+				    <div class="layui-tab-content" style="padding: 0px;padding-top: 10px;overflow: hidden;zoom: 1;">
+                        <ul class="mv-ul">
+                            {cscms:vod table="vod_verify" field="id,pic,uid,name" yid="1" pagesize="12" uid="auto" sort="addtime" order="desc"}
+                            <li class="mv-li">
+                                <a title="[vod:name]" href="javascript:cscms.layer.msg('审核中...');" >
+                                    <img src="[vod:pic dir=vod]" alt="[vod:name]">
+                                    <p>[vod:name]</p>
+                                    <span>[vod:remark]</span>
+                                </a>
+                            </li>
+                            {/cscms:vod}
+                        </ul>
+						{if:{cscms:pagedata}==0}<div class="zanwu">暂无数据！</div>{end if}
+						<div class="page" style="text-align: center;clear: both;{if:{cscms:pagecout}<2}display: none;{end if}">
+                            <div class="layui-box layui-laypage layui-laypage-default" id="layui-laypage-0">
+                                <a href="{cscms:pageup}" class="layui-laypage-last" title="上一页">上一页</a>
+                                {cscms:pagenum len=3}
+                                <a href="{cscms:pagedown}" class="layui-laypage-next">下一页</a>
+                            </div>
+                       </div>
+				    </div>
+				</div>
+            </div>
+        </div>
+    </div>
+{cscms:bottom}
+</body>
+</html>

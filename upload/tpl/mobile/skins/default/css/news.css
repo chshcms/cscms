@@ -1,0 +1,14 @@
+.md-head-more{display: none;background-color: #393D49;border-top: 1px solid #666;margin-top: -1px;padding-top: 5px}
+.mclass{padding: 5px;text-align: center;}
+.mclass a{color: #eee;padding: 3px 5px;display: inline-block;margin-bottom: 5px;}
+.md-head-search{padding:5px 10px 10px;position: relative;border: 0px}
+.md-head-search button{position: absolute;top: 4.3px;right: 10px;height: 31px}
+.md-head-search input{height: 30px;line-height: 30px}
+/*news--show--新闻展示页*/
+.mn-show{padding: 10px}
+.mn-name{text-align: center;display: block;font-size: 16px;color: #333;line-height: 25px;margin-bottom: 10px}
+.mn-time{color: #666;font-size: 12px;text-align: center;width: 100%;display: block;}
+.mn-neir{color: #444;font-size: 14px;}
+.mn-neir img{max-width: 100%;margin: 5px auto;display: block;}
+.mn-updown a{color: #666;font-size: 12px;}
+.mn-pl{clear: both;padding: 10px}

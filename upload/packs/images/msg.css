@@ -1,0 +1,39 @@
+/**
+ * @Cscms management system
+ * @copyright 2008-2015 chshcms.com. All rights reserved.
+ * @Author:烟雨江南
+ * @Dtime:2015-02-26
+ */
+ 
+.msg_tip {font:normal 14px "microsoft yahei";color:#333333;padding:0;margin:0 auto; background:url("msg_bg.gif");}
+.msg_tip a {text-decoration:none;color:#333333;}
+.msg_tip a:hover {text-decoration:underline;color:#333333;}
+.tip_page {width:600px;height:300px;margin:130px auto 30px;}
+.tip_title {width:100%;height:59px;background:url("tip.png") 0px 0px no-repeat;}
+.tip_title .time{width:580px;height:50px;line-height:55px;font-size:12px;color:#FFFFFF;text-align:right;}
+.tip_title .time span{font-weight:bold;}
+.tip_jiange {height:20px;border:1px solid #c8c8c8; border-top:none;border-bottom:none;top:-1px;position:relative;background:#efeded;}
+.tip_msg {width:598px;overflow:hidden;border:1px solid #c8c8c8; border-top:none;border-bottom:none;top:-1px;position:relative;background:#efeded;}
+.tip_msg_content_wai {border:1px solid #FFFFFF;margin:0px 20px;}
+.tip_msg_content {padding:20px;margin:0px 0px; border:1px solid #e3e1e1; background:#f8f6f6; font-weight:bold; color:#FF0000;}
+.tip_input {width:528px;height:25px;padding:25px 35px;font-size:12px;}
+.tip_input span a{float:right;background:#424242;padding:6px;color:#FFFFFF;}
+.tip_input span a:hover {text-decoration:none;background:#ff9000;}
+.tip_back {cursor:pointer;float:left;height:30px;line-height:30px;background:url("tip_back.png") right 4px no-repeat;padding-right:30px;}
+.tip_back:hover{background-position:right -26px;}
+.tip_bot {width:100%;height:33px;background:url("tip.png") 0px -87px no-repeat;top:-1px;position:relative;}
+.ts_msg a{COLOR: #1f376d;}
+
+/*  text msg */
+::selection{ background-color: #E13300; color: white; }
+::moz-selection{ background-color: #E13300; color: white; }
+::webkit-selection{ background-color: #E13300; color: white; }
+.msg_txt {width:60%;margin:0 auto;background-color: #fff;font: 13px/20px normal Helvetica, Arial, sans-serif;color: #4F5155;}
+.msg_txt a{color:#0488db;text-decoration: none;}
+.msg_txt h1 {background-color: transparent;border-bottom: 1px solid #D0D0D0;font-size: 36px;color:#FF0000;font-weight: bold;margin: 0px 0px 14px 0px;padding: 25px 0px 25px 75px;background:url(warning.png) 15px 10px no-repeat;}
+.code {font-size: 12px;background-color: #f9f9f9;border: 1px solid #D0D0D0;display: block;margin: 5px 0 10px 0;padding: 5px 0px 5px 15px;}
+.code font {color: #666;}
+.msg_txt #container {margin: 30px 10px 10px 10px;border: 1px solid #D0D0D0;-webkit-box-shadow: 0 0 8px #D0D0D0;}
+.box {margin: 12px 15px 12px 15px;line-height:25px;}
+.box p{line-height:12px;color:#222;}
+.f14{color:#000000;font-size:14px;}

@@ -1,0 +1,117 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset=utf-8>
+    <title></title>
+    <meta name="robots" content="noindex,nofollow">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/layui/css/layui.css">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/admin/css/font.css">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/admin/css/style.css">
+    <script src="<?=Web_Path?>packs/js/jquery.min.js"></script>
+    <script src="<?=Web_Path?>packs/layui/layui.js"></script>
+    <script src="<?=Web_Path?>packs/admin/js/cscms.js"></script>
+</head>
+<body>
+    <span class="layui-breadcrumb" >
+        <a ><cite><i class="fa fa-map-marker"></i><?=L('tpl_01')?></cite></a>
+        <a href="javascript:;"><?=L('tpl_02')?></a>
+        <a href="<?=site_url('pl')?>"><?=L('tpl_03')?></a>
+    </span>
+    <form class="layui-form layui-form-so" action="<?=site_url('pl')?>" method="post">
+        <div class="layui-form-item">
+            <div class="layui-input-inline">
+                <select name="zd">
+                    <option value="name" <?php if($zd=='name') echo ' selected';?>><?=L('tpl_04')?></option>
+                    <option value="id" <?php if($zd=='id') echo ' selected';?>><?=L('tpl_05')?></option>
+                    <option value="did" <?php if($zd=='did') echo ' selected';?>><?=L('tpl_06')?></option>
+                </select>
+            </div>
+            <div class="layui-input-inline">
+                <input type="text" name="key" value="<?=$key?>" class="layui-input">
+            </div>
+            <div class="layui-input-inline">
+                <select name="dir">
+                    <option value=""<?php if($dir=='') echo ' selected';?>><?=L('tpl_07')?></option>
+                    <option value="blog"<?php if($dir=='blog') echo ' selected';?>><?=L('tpl_08')?></option>
+                    <?php
+                        $query = $this->db->query("SELECT name,dir FROM ".CS_SqlPrefix."plugins order by id asc"); 
+                        foreach ($query->result() as $row) {
+                            $clas=($row->dir==$dir)?' selected="selected"':'';
+                            echo '<option value="'.$row->dir.'"'.$clas.'>'.$row->name.'</option>';
+                        }
+                    ?>
+                </select>
+            </div>
+             <div class="layui-input-inline">
+                <button class="layui-btn" type="submit"><?=L('tpl_09')?></button>
+            </div>
+        </div>
+    </form>
+    <form class="layui-form" action="<?=site_url('pl/del')?>" method="post">
+        <table class="layui-table">
+            <thead>
+                <tr>
+                    <th><?=L('tpl_10')?></th>
+                    <th><?=L('tpl_11')?></th>
+                    <th><?=L('tpl_12')?></th>
+                    <th class="phide"><?=L('tpl_13')?></th>
+                    <th class="phide"><?=L('tpl_14')?></th>
+                    <th class="phide">IP</th>
+                    <th class="phide"><?=L('tpl_15')?></th>
+                    <th class="phide"><?=L('tpl_16')?></th>
+                </tr>
+            </thead>
+            <tbody>
+            <?php
+                if(empty($pl)) echo '<tr><td align="center" height="50" colspan="8">'.L('tpl_17').'</td></tr>';
+                foreach ($pl as $row) {
+                    //会员
+                    if($row->uid==0){
+                       $uname = L('tpl_18');
+                    }else{
+                       $rowu=$this->db->query("SELECT name FROM ".CS_SqlPrefix."user where id=".$row->uid."")->row();
+                       $uname=($rowu)?$rowu->name:L('tpl_19').$row->uid;
+                    }
+                    //数据标题
+                    $dname='数据ID:'.$row->did;
+                    if ($this->db->table_exists(CS_SqlPrefix.$row->dir)){//判断板块数据表是否存在
+                        //判断名称字段
+                        if($this->db->field_exists('name', CS_SqlPrefix.$row->dir)){
+                           $rowd=$this->db->query("SELECT name FROM ".CS_SqlPrefix.$row->dir." where id=".$row->did."")->row();
+                           $dname=($rowd)?$rowd->name:L('tpl_19').$row->did;
+                        }elseif($this->db->field_exists('neir', CS_SqlPrefix.$row->dir)){ //说说
+                           $rowd=$this->db->query("SELECT neir FROM ".CS_SqlPrefix.$row->dir." where id=".$row->did."")->row();
+                           $dname=($rowd)?$rowd->neir:L('tpl_19').$row->did;
+                        }
+                    }
+                    echo '
+                    <tr id="row_'.$row->id.'">
+                    <td><input name="id['.$row->id.']" class="xuan" type="checkbox" value="'.$row->id.'" /></td>
+                    <td><a href="'.site_url('pl').'?zd=id&key='.$row->uid.'">'.$uname.'</a></td>
+                    <td>'.facehtml($row->content).'</td>
+                    <td>'.$row->dir.'</td>
+                    <td><a href="'.site_url('pl').'?zd=did&key='.$row->did.'&dir='.$row->dir.'">'.$dname.'</a></td> 
+                    <td>'.$row->ip.'</td>
+                    <td>'.date('Y-m-d H:i:s',$row->addtime).'</td>
+                    <td><a class="layui-btn layui-btn-mini layui-btn-danger" href="javascript:cscms.del_one(\''.site_url('pl/del').'?id='.$row->id.'\','.$row->id.');">'.L('tpl_20').'</a></td>
+                    </tr> ';
+                }
+            ?>
+            </tbody>
+        </table>
+        <div class="more_func">
+            <a class="layui-btn layui-btn-primary layui-btn-small" href="javascript:cscms.select_all();"><i class="fa fa-check colorl" ></i><?=L('tpl_21')?></a>
+            <a class="layui-btn layui-btn-primary layui-btn-small" lay-submit lay-filter="del_pl"><i class="fa fa-close " style="color: red" ></i><?=L('tpl_22')?></a>
+        </div>
+    </form>
+    <div id="page">
+        <div class="data_nums phide"><?=$page_data?></div>
+        <div class="data_page"><?=$page_list?></div>
+    </div>
+    <script type="text/javascript">
+        cscms.init();
+    </script>
+</body>
+</html>

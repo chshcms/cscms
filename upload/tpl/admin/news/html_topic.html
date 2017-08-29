@@ -1,0 +1,131 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset=utf-8>
+    <title></title>
+    <meta name="robots" content="noindex,nofollow">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/layui/css/layui.css">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/admin/css/font.css">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/admin/css/style.css">
+    <script src="<?=Web_Path?>packs/js/jquery.min.js"></script>
+    <script src="<?=Web_Path?>packs/admin/js/setcolor.js"></script>
+    <script src="<?=Web_Path?>packs/layui/layui.js"></script>
+    <script src="<?=Web_Path?>packs/admin/js/cscms.js"></script>
+</head>
+<body id="index_setting">
+    <span class="layui-breadcrumb" >
+        <a ><cite><i class="fa fa-map-marker"></i>位置</cite></a>
+        <a href="<?=site_url('news/admin/news')?>">文章</a>
+        <a href="">专题页生成</a>
+    </span>
+    <blockquote style="margin-top: 10px" class="layui-elem-quote">友情提示：如果您的模板没有多个排序方式，一般只需要生成按ID排序即可</blockquote>
+    <fieldset class="layui-elem-field">
+        <legend>生成专题列表页</legend>
+        <div class="layui-field-box">
+            <form class="layui-form layui-form-pane layui-form-nosel" action="<?=site_url('news/admin/html/topic_save')?>" method="post">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">排序方式</label>
+                    <div class="layui-input-inline layui-input-inlinew3">
+                        <select multiple name="fid[]">
+                            <option value="id" selected="selected">&nbsp;按数据ID排序</option>
+                            <option value="hits">&nbsp;按总人气排序</option>
+                            <option value="yue">&nbsp;按本月人气排序</option>
+                            <option value="zhou">&nbsp;按本周人气排序</option>
+                            <option value="ri">&nbsp;按今日人气排序</option>
+                        </select>
+                    </div>
+                    <div class="fl layui-input-inlinew4" style="text-align: center;border:0px;">
+						<input type="radio" name="ac" value="pc" title="生成电脑版" checked>
+						<input type="radio" name="ac" value="wap" title="生成手机版">
+                        <button class="layui-btn layui-btn-small" style="margin-top:10px;margin-bottom: 4px;" lay-submit lay-filter="">一键生成专题列表</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </fieldset>
+
+    <fieldset class="layui-elem-field">
+        <legend>按专题生成内容页</legend>
+        <div class="layui-field-box">
+            <form class="layui-form layui-form-pane layui-form-nosel" action="<?=site_url('news/admin/html/topicshow_save')?>" method="post">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">请选择专题</label>
+                    <div class="layui-input-inline">
+                        <select name="tid[]" multiple lay-verify="required">
+                            <?php
+                            $query = $this->db->query("SELECT id,name FROM ".CS_SqlPrefix."news_topic where yid=0 order by id desc limit 1000"); 
+                            foreach ($query->result() as $row) { 
+                                foreach ($query->result() as $row) {
+                                    echo '<option value="'.$row->id.'">&nbsp;|—'.$row->name.'</option>';
+                                }
+                            }
+                            ?>
+							<option value=""></option>
+                        </select>
+                    </div>
+                    <div class="layui-input-inline layui-input-inlinew4" style="text-align: center;border:0px;">
+						<input type="radio" name="ac" value="pc" title="生成电脑版" checked>
+						<input type="radio" name="ac" value="wap" title="生成手机版">
+                        <button class="layui-btn layui-btn-small" style="margin-top: 4px;margin-bottom: 4px;" lay-submit lay-filter="">开始生成选中</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </fieldset>
+
+    <fieldset class="layui-elem-field">
+        <legend>其他方式生成内容页</legend>
+        <div class="layui-field-box">
+            <form class="layui-form layui-form-pane" action="<?=site_url('news/admin/html/topicshow_save')?>" method="post">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">按时间生成</label>
+                    <div class="layui-input-inline layui-input-inlinew4">
+                        <input placeholder="点击选择起始日期" name="kstime" id="kstime" value="" type="text" class="layui-input" />
+                    </div>
+                    <div class="layui-form-mid">-</div>
+                    <div class="layui-input-inline layui-input-inlinew4">
+                        <input placeholder="点击选择结束日期" name="jstime" id="jstime" value="" type="text" class="layui-input" />
+                    </div>
+					<div class="fl layui-input-inlinew4 wml5">
+                        <select name="ac">
+							<option value="pc">生成电脑版</option>
+							<option value="wap">生成手机版</option>
+                        </select>
+                    </div>
+                    <div class="layui-input-inline layui-input-inlinew" style="text-align: center;border:0px;">
+                        <button class="layui-btn layui-btn-small layui-input-center" style="margin-top: 4px;margin-bottom: 4px;" lay-submit lay-filter="">开始生成</button>
+                    </div>
+                </div>
+            </form>
+            <form class="layui-form layui-form-pane" action="<?=site_url('news/admin/html/topicshow_save')?>" method="post">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">按ID生成</label>
+                    <div class="layui-input-inline layui-input-inlinew4">
+                        <input name="ksid" type="text" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" value="1" class="layui-input" /> 
+                    </div>
+                    <div class="layui-form-mid">-</div>
+                    <div class="layui-input-inline layui-input-inlinew4">
+                        <input name="jsid" type="text" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" value="10" class="layui-input" /> 
+                    </div>
+					<div class="fl layui-input-inlinew4 wml5">
+                        <select name="ac">
+							<option value="pc">生成电脑版</option>
+							<option value="wap">生成手机版</option>
+                        </select>
+                    </div>
+                    <div class="layui-input-inline layui-input-inlinew" style="text-align: center;border:0px;">
+                        <button class="layui-btn layui-btn-small" style="margin-top: 4px;margin-bottom: 4px;" lay-submit lay-filter="">开始生成</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </fieldset>
+    <script type="text/javascript">
+        cscms.init();
+        cscms.mode('cscms.getTime(\'kstime\',\'date\')');
+        cscms.mode('cscms.getTime(\'jstime\',\'date\')');
+    </script>
+</body>
+</html>

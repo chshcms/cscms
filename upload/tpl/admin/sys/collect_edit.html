@@ -1,0 +1,132 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset=utf-8>
+    <title></title>
+    <meta name="robots" content="noindex,nofollow">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/layui/css/layui.css">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/admin/css/font.css">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/admin/css/style.css">
+    <script src="<?=Web_Path?>packs/js/jquery.min.js"></script>
+    <script src="<?=Web_Path?>packs/layui/layui.js"></script>
+    <script src="<?=Web_Path?>packs/admin/js/cscms.js"></script>
+    <script type="text/javascript">
+        <?php
+            $vod_pc = $vod_dc = '';
+			if(file_exists(CSCMS.'vod'.FGF.'player.php')){
+				require_once CSCMS.'vod'.FGF.'player.php';
+				for ($i=0; $i<count($player_config); $i++) {
+					$vod_pc.='<option value="'.$player_config[$i]['form'].'">'.$player_config[$i]['des'].'</option>';
+				}
+			}
+			if(file_exists(CSCMS.'vod'.FGF.'down.php')){
+				require_once CSCMS.'vod'.FGF.'down.php';
+				for ($i=0; $i<count($down_config); $i++) {
+					$vod_dc.='<option value="'.$down_config[$i]['form'].'">'.$down_config[$i]['des'].'</option>';
+				}
+			}
+        ?>
+        var vod_p_lauy='<?=$vod_pc?>';
+        var vod_d_lauy='<?=$vod_dc?>';
+    </script>
+</head>
+<body id="index_setting">
+    <span class="layui-breadcrumb">
+        <a ><cite><i class="fa fa-map-marker"></i><?=L('tpl_ce_01')?></cite></a>
+        <a href="<?=site_url('opt/main')?>"><?=L('tpl_ce_02')?></a>
+        <a href="<?=site_url('collect/add')?>"><?=L('tpl_ce_03')?></a>
+    </span>
+    <form class="layui-form layui-form-pane" action="<?=$savelink?>&page=2" method="post" <?php if($page>1){echo 'style="display:none"';}?>>
+        <fieldset class="layui-elem-field" style="margin-top: 15px;">
+            <legend><?=L('tpl_ce_04')?></legend>
+            <div class="layui-field-box">
+                <div class="layui-form-item">
+                    <label class="layui-form-label"><?=L('tpl_ce_05')?></label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="name" placeholder="<?=L('tpl_ce_06')?>"  value="<?=$name?>" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label"><?=L('tpl_ce_07')?></label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="url" placeholder="<?=L('tpl_ce_08')?>"  value="<?=$url?>" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label"><?=L('tpl_ce_09')?></label>
+                    <div class="layui-input-inline">
+                        <select name="code" >
+                            <option value="utf-8"<?php if($code=='utf-8') echo ' selected';?>>utf-8</option>
+                            <option value="gbk"<?php if($code=='gbk') echo ' selected';?>>gbk</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label"><?=L('tpl_ce_10')?></label>
+                    <div class="layui-input-inline">
+                        <select name="dir" >
+                        <?php
+                            $query = $this->db->query("SELECT name,dir FROM ".CS_SqlPrefix."plugins order by id asc"); 
+                            foreach ($query->result() as $row) {
+                                if($row->dir=='pic') $row->dir='pic_type';
+                                $clas=($row->dir==$dir)?' selected="elected"':'';
+                                echo '<option value="'.$row->dir.'"'.$clas.'>'.$row->name.'</option>';
+                            }
+                        ?>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label"><?=L('tpl_ce_11')?></label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="cjurl" placeholder="<?=L('tpl_ce_12')?>"  value="<?=$cjurl?>" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label"><?=L('tpl_ce_13')?></label>
+                    <div class="layui-input-inline line_2">
+                        <input type="text" name="ksid" placeholder="<?=L('tpl_ce_14')?>"  value="<?=$ksid?>" class="layui-input">
+                    </div>
+                    <div class="layui-form-mid">-</div>
+                    <div class="layui-input-inline line_2">
+                        <input type="text" name="jsid" placeholder="<?=L('tpl_ce_15')?>"  value="<?=$jsid?>" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label"><?=L('tpl_ce_16')?></label>
+                    <div class="layui-input-inline">
+                        <input type="radio" name="cfid" title="<?=L('tpl_ce_17')?>" value="0" <?php if($cfid==0){echo 'checked';}?> >
+                        <input type="radio" name="cfid" title="<?=L('tpl_ce_18')?>" value="1" <?php if($cfid==1){echo 'checked';}?> >
+                        <input type="radio" name="cfid" title="<?=L('tpl_ce_19')?>" value="2" <?php if($cfid==2){echo 'checked';}?> >
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label"><?=L('tpl_ce_20')?></label>
+                    <div class="layui-input-inline">
+                        <input type="checkbox" name="picid" lay-skin="primary" title="<?=L('tpl_ce_21')?>" value="1" <?php if($picid==1){echo 'checked';}?> >
+                        <input type="checkbox" name="dxid" lay-skin="primary" title="<?=L('tpl_ce_22')?>" value="1" <?php if($dxid==1){echo 'checked';}?>>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label"><?=L('tpl_ce_23')?></label>
+                    <div class="layui-input-inline">
+                        <input type="radio" name="rkid" title="<?=L('tpl_ce_24')?>" value="0" <?php if($rkid==0){echo 'checked';}?> >
+                        <input type="radio" name="rkid" title="<?=L('tpl_ce_25')?>" value="1" <?php if($rkid==1){echo 'checked';}?>>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block noborder">
+                    <button style="margin-left: 20%;" class="layui-btn" lay-submit lay-filter="setting"><?=L('tpl_ce_26')?></button>
+                    <button type="reset" class="layui-btn layui-btn-primary"><?=L('tpl_ce_27')?></button>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+<script type="text/javascript">
+    cscms.init();
+</script>
+</body>
+</html>

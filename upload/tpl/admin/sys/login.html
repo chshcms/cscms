@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+<head>
+<meta charset=utf-8>
+<title><?=L('login_title')?></title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<link type="text/css" rel="stylesheet" href="<?=Web_Path?>packs/admin/css/style.css" />
+<link rel="stylesheet" href="<?=Web_Path?>packs/admin/css/font.css">
+<link rel="stylesheet" href="<?=Web_Path?>packs/layui/css/layui.css">
+<link rel="stylesheet" href="<?=Web_Path?>packs/admin/css/style.css">
+<link type="text/css" rel="stylesheet" href="<?=Web_Path?>packs/admin/css/login.css" />
+<script src="<?=Web_Path?>packs/layui/layui.js"></script>
+<script src="<?=Web_Path?>packs/js/jquery.min.js"></script>
+<script src="<?=Web_Path?>packs/admin/js/cscms.js"></script>
+</head>
+<body>
+<div class="bg ">
+	<div class="logkuang">
+		<div class="login_title"><?=Web_Name?></div>
+		<form class="layui-form" backurl="<?=$this->input->get('backurl')?>" action="<?=site_url('login/log')?>" method="post">
+			<div class="layui-form-item">
+			    <div  class="layui-input-inline"><i class="fa fa-user"></i>
+			        <input type="text" name="adminname" required lay-verify="required" placeholder="<?=L('login_01')?>" autocomplete="off" class="layui-input">
+			    </div>
+			</div>
+			<div class="layui-form-item">
+			    <div  class="layui-input-inline"><i class="fa fa-lock"></i>
+			        <input type="password" name="adminpass" required lay-verify="required" placeholder="<?=L('login_02')?>" autocomplete="off" class="layui-input">
+			    </div>
+			</div>
+			<div class="layui-form-item">
+			    <div  class="layui-input-inline"><i class="fa fa-filter"></i>
+			        <input type="password" name="admincode" required lay-verify="required" placeholder="<?=L('login_03')?>" autocomplete="off" class="layui-input">
+			    </div>
+			</div>
+			<div class="layui-form-item">
+			    <div class="layui-input-block">
+			        <button class="layui-btn" lay-submit lay-filter="formDemo" ><?=L('login_04')?></button>
+			        <button type="reset" class="layui-btn layui-btn-primary"><?=L('login_05')?></button>
+			    </div>
+			</div>
+		</form>
+	</div>
+</div>
+<script>
+	cscms.init();
+</script>
+</body>
+</html>

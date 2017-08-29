@@ -1,0 +1,214 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset=utf-8>
+    <title></title>
+    <meta name="robots" content="noindex,nofollow">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/layui/css/layui.css">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/admin/css/font.css">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/admin/css/style.css">
+    <?=$opt_gc?>
+    <script src="<?=Web_Path?>packs/js/jquery.min.js"></script>
+    <script src="<?=Web_Path?>packs/layui/layui.js"></script>
+    <script src="<?=Web_Path?>packs/admin/js/cscms.js"></script>
+</head>
+<body id="index_setting">
+    <span class="layui-breadcrumb" >
+        <a ><cite><i class="fa fa-map-marker"></i><?=L('tpl_ue_01')?></cite></a>
+        <a href="<?=site_url('user')?>"><?=L('tpl_ue_02')?></a>
+        <a href="<?=site_url('user')?>"><?=L('tpl_ue_03')?></a>
+        <a href=""><?=$nav_name.L('tpl_ue_02')?></a>
+    </span>
+    <fieldset class="layui-elem-field" style="margin-top: 10px;">
+        <legend><?=$nav_name.L('tpl_ue_02')?></legend>
+        <div class="layui-field-box">
+            <form class="layui-form layui-form-pane" action="<?=site_url('user/save')?>" method="post">
+            <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+                <ul class="layui-tab-title">
+                    <li class="layui-this"><?=L('tpl_ue_04')?></li>
+                    <li><?=L('tpl_ue_05')?></li>
+                    <li><?=L('tpl_ue_06')?></li>
+                </ul>
+                <div class="layui-tab-content">
+                    <div class="layui-tab-item layui-show">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label"><span class="colorr">* </span><?=L('tpl_ue_07')?></label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="name" placeholder="<?=L('tpl_ue_08')?>" value="<?=$name?>" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label"><span class="colorr">* </span><?=L('tpl_ue_09')?></label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="pass" value="" placeholder="<?=L('tpl_ue_10')?>" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label"><span class="colorr">* </span><?=L('tpl_ue_11')?></label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="email" value="<?=$email?>" placeholder="<?=L('tpl_ue_12')?>" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item" >
+                            <label class="layui-form-label"><?=L('tpl_ue_13')?></label>
+                            <div class="layui-input-inline">
+                                <select name="zid">
+                                <?php
+                                    $query = $this->db->query("SELECT id,name FROM ".CS_SqlPrefix."userzu order by id asc"); 
+                                    foreach ($query->result() as $row) {
+                                        $clas=($row->id==$zid)?' selected="selected"':'';
+                                        echo '<option value="'.$row->id.'"'.$clas.'>'.$row->name.'</option>';
+                                    }
+                                ?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label"><?=L('tpl_ue_14')?></label>
+                            <div class="layui-input-inline">
+                                <input name="zutime" id="zutime" class="layui-input datetime" value="<?=date('Y-m-d H:i:s',$zutime)?>"/>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label"><?=L('tpl_ue_15')?></label>
+                            <div class="layui-input-inline" >
+                                <input type="checkbox" name="yid" lay-skin="primary" value="1" title="<?=L('tpl_ue_16')?>" <?php if($yid==0){echo 'checked';}?> >
+                                <input type="checkbox" name="sid" lay-skin="primary" value="1" title="<?=L('tpl_ue_17')?>" <?php if($sid==1){echo 'checked';}?> >
+                                <input type="checkbox" name="tid" lay-skin="primary" value="1" title="<?=L('tpl_ue_18')?>" <?php if($tid==1){echo 'checked';}?> >
+                                <input type="checkbox" name="rzid" lay-skin="primary" value="1" title="<?=L('tpl_ue_19')?>" <?php if($rzid==1){echo 'checked';}?> >
+                                <input type="checkbox" name="vip" lay-skin="primary" value="1"  lay-filter="uservip" title="VIP" <?php if($vip>0){echo 'checked';}?> >
+                            </div>
+                        </div>
+                        <div class="layui-form-item" id="uservip" <?php if($vip==0){ echo 'style="display:none"';}?>>
+                            <label class="layui-form-label"><?=L('tpl_ue_20')?></label>
+                            <div class="layui-input-inline">
+                                <input name="viptime" class="layui-input datetime" value="<?=date('Y-m-d H:i:s',$viptime)?>"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-tab-item">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label"><?=L('tpl_ue_21')?></label>
+                            <div class="layui-input-inline" >
+                                <input type="radio" name="sex" value="0" title="<?=L('tpl_ue_22')?>" <?php if($sex==0){echo 'checked';}?> >
+                                <input type="radio" name="sex" value="1" title="<?=L('tpl_ue_23')?>" <?php if($sex==1){echo 'checked';}?> >
+                                <input type="radio" name="sex" value="2" title="<?=L('tpl_ue_24')?>" <?php if($sex==2){echo 'checked';}?> >
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label"><?=L('tpl_ue_25')?></label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="qq" value="<?=$qq?>" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label"><?=L('tpl_ue_26')?></label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="tel" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" value="<?=$tel?>" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label"><?=L('tpl_ue_27')?></label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="nichen" value="<?=$nichen?>" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label"><?=L('tpl_ue_28')?></label>
+                            <div class="layui-input-inline">
+                                <input type="text" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" name="cion" value="<?=$cion?>" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label"><?=L('tpl_ue_29')?></label>
+                            <div class="layui-input-inline">
+                                <input type="text" onkeyup="this.value=this.value.replace(/[^0-9\.]/g,'')" name="rmb" value="<?=$rmb?>" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label"><?=L('tpl_ue_30')?></label>
+                            <div class="layui-input-inline">
+                                <input type="text" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" name="jinyan" value="<?=$jinyan?>" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label"><?=L('tpl_ue_31')?></label>
+                            <div class="layui-input-inline">
+                                <input type="text" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" name="level" value="<?=$level?>" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label"><?=L('tpl_ue_32')?></label>
+                            <div class="layui-input-inline">
+                                <input type="text" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" name="qdts" value="<?=$qdts?>" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item phide">
+                            <label class="layui-form-label"><?=L('tpl_ue_33')?></label>
+                            <label class="layui-form-label" style="margin-left: 10px;width: 45px;"><?=L('tpl_ue_34')?></label>
+                            <div class="layui-input-inline" style="width: 50px;">
+                                <input type="text" name="rhits" value="<?=$rhits?>" class="layui-input">
+                            </div>
+                            <label class="layui-form-label" style="margin-left: 10px;width: 45px;"><?=L('tpl_ue_35')?></label>
+                            <div class="layui-input-inline" style="width: 50px;">
+                                <input type="text" name="zhits" value="<?=$zhits?>" class="layui-input">
+                            </div>
+                            <label class="layui-form-label" style="margin-left: 10px;width: 45px;"><?=L('tpl_ue_36')?></label>
+                            <div class="layui-input-inline" style="width: 50px;">
+                                <input type="text" name="yhits" value="<?=$yhits?>" class="layui-input">
+                            </div>
+                            <label class="layui-form-label" style="margin-left: 10px;width: 45px;"><?=L('tpl_ue_37')?></label>
+                            <div class="layui-input-inline" style="width: 50px;">
+                                <input type="text" name="hits" value="<?=$hits?>" class="layui-input">
+                            </div>
+                            <label class="layui-form-label" style="margin-left: 10px;width: 45px;"><?=L('tpl_ue_38')?></label>
+                            <div class="layui-input-inline" style="width: 50px;">
+                                <input type="text" name="zanhits" value="<?=$zanhits?>" class="layui-input">
+                            </div>
+                        </div>
+                        
+                        <div class="layui-form-item" >
+                            <label class="layui-form-label"><?=L('tpl_ue_39')?></label>
+                            <div class="layui-input-inline">
+                                <select name="skins">
+                                    <option value=""><?=L('tpl_ue_40')?></option>
+                                <?php
+                                    foreach ($skin as $t) {
+                                        $clas=($skins==$t['path'])?' selected':'';
+                                        echo '<optgroup label="'.$t['name'].'"><option value="'.$t['path'].'"'.$clas.'>'.$t['path'].'</option></optgroup>';
+                                    }
+                                ?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="layui-form-item layui-form-text">
+                            <label class="layui-form-label"><?=L('tpl_ue_41')?></label>
+                            <div class="layui-input-block">
+                                <textarea name="qianm" class="layui-textarea"><?=$qianm?></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-tab-item"><?=$opt_field?></div>
+                </div>
+                <input name="id" type="hidden" value="<?=$id?>">
+                <input name="code" type="hidden" value="<?=$code?>">
+                <div class="layui-form-item">
+                    <div class="layui-input-block noborder">
+                        <button style="margin-left: 20%;" class="layui-btn" lay-submit lay-filter="setting"><?=L('tpl_ue_42')?></button>
+                        <button type="reset" class="layui-btn layui-btn-primary"><?=L('tpl_ue_43')?></button>
+                    </div>
+                </div>
+            </div>
+            </form>
+        </div>
+    </fieldset>
+            
+    <script type="text/javascript">
+        cscms.init();
+        cscms.mode("cscms.getTime('zutime','datetime')");
+    </script>
+</body>
+</html>
+

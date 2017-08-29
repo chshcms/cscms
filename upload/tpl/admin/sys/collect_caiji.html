@@ -1,0 +1,130 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset=utf-8>
+    <title></title>
+    <meta name="robots" content="noindex,nofollow">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/layui/css/layui.css">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/admin/css/font.css">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/admin/css/style.css">
+    <script src="<?=Web_Path?>packs/js/jquery.min.js"></script>
+    <script src="<?=Web_Path?>packs/layui/layui.js"></script>
+    <script src="<?=Web_Path?>packs/admin/js/cscms.js"></script>
+</head>
+<body>
+    <span class="layui-breadcrumb" >
+        <a ><cite><i class="fa fa-map-marker"></i>位置</cite></a>
+        <a href="javascript:;">首页</a>
+        <a href="<?=site_url('collect')?>">采集项目管理</a>
+    </span>
+    <blockquote style="position: fixed;width: 96%;top: 0px;" class="layui-elem-quote">正在采集 <span class="colorl"><?=$names?></span>，第<span class="colord" id="zhw-page"><?=$page?></span>页列表，共<span class="colord" id="pagejs"><?=$pagejs?></span>页，当前页共有<span class="colord" id="linkcount"><?=$linkcount?></span>条数据，已采集<span class="colorn" id="oknum"><?=$oknum?></span>条，成功<span class="colorl" id="success">0</span>条，失败<span class="colord" id="fail">0</span>条&nbsp;&nbsp;&nbsp;&nbsp;<a id="zhw-pause" class="layui-btn layui-btn-mini layui-btn-danger" href="javascript:play_pause();">紧急停止</a></blockquote>
+    <div id="zhw-lists" style="margin-top: 50px;"></div>
+    <div id="footer"></div>
+<script type="text/javascript">
+    cscms.init();
+    var pause = 0;
+    var id = '';
+    var ac = '';
+    var okid = '';
+    var xid = '';
+    var page = '';
+    var insid = '';
+    $(document).ready(function() {
+        get_data('<?=$id?>','<?=$ac?>',0,0,'<?=$ids?>',0);
+    });
+    function play_pause(){
+        if(pause==0){
+            pause = 1;
+            $('#zhw-pause').html('继续采集').removeClass('layui-btn-danger');
+        }else{
+            pause = 0;
+            $('#zhw-pause').html('紧急停止').addClass('layui-btn-danger');
+            get_data(id,ac,okid,page,xid,insid);
+        }
+    }
+    function modify(info,page1,okid1){
+        id = info.id;
+        ac = info.ac;
+        okid = okid1;
+        xid = info.xid;
+        page = page1;
+        insid = info.insid;
+    }
+    function get_data(id,ac,okid,page,xid,insid){
+        $.get('<?=site_url('collect/caiji')?>?id='+id+'&ac='+ac+'&okid='+okid+'&page='+page+'&xid='+xid+'&insid='+insid, function(data){
+            if(data.info.title=='over'){
+                cscms.layer.msg('恭喜你，采集完毕！3秒后返回',{icon:1});
+                setTimeout(function(){
+                    location.href = data.info.url;
+                },3000);
+                return false;
+            }
+            if(data.info.page==1 && data.info.oknum==1){
+                cscms.layer.msg('第1页采集开始~',{icon:6,time:1000});
+            }
+            $('#zhw-page').html(data.info.page);
+            $('#pagejs').html(data.info.pagejs);
+            $('#linkcount').html(data.info.linkcount);
+            $('#oknum').html(data.info.oknum);
+            $('#success').html(data.info.insid);
+            var fail = data.info.oknum - data.info.insid;
+            $('#fail').html(fail);
+            var html = '<table class="layui-table" style="width: 99.7%"><colgroup><col width="120"></colgroup><thead></thead><tbody>';
+            var len = data.info.zdy['zd'].length;
+            for (var i = len-1; i >= 0; i--) {
+                html += '<tr><td>'+data.info.zdy['name'][i]+'</td><td>'+delHtmlTag(data.info.zdy['text'][i])+'</td></tr>';
+            }
+            html += '<tr><td class="colorr">注意</td><td>'+data.info.title+'</td></tr></tbody></table>';
+            $('#zhw-lists').append(html);
+            $('html,body').animate({scrollTop: $('#footer').offset().top},0);
+            //切换页面
+            if(data.info.oknum==data.info.linkcount){
+                var page_temp = data.info.page + 1;
+                if(pause==1){
+                    modify(data.info,page_temp,'');
+                }else{
+                    if(data.info.err.length>1){
+                        cscms.layer.msg(data.info.err,{icon:2});
+                        setTimeout(function(){
+                            $('#zhw-lists').html('');
+                            cscms.layer.msg('第'+page_temp+'页采集开始~',{icon:6,time:1000});
+                            get_data(data.info.id,data.info.ac,'',page_temp,data.info.xid,0);
+                        },3000);
+                    }else{
+                        $('#zhw-lists').html('');
+                        cscms.layer.msg('第'+page_temp+'页采集开始~',{icon:6,time:1000});
+                        get_data(data.info.id,data.info.ac,'',page_temp,data.info.xid,0);
+                    } 
+                }
+            }else{
+                var okid_temp = data.info.okid + 1;
+                if(pause==1){
+                    modify(data.info,data.info.page,okid_temp);
+                }else{
+                    if(data.info.err.length>1){
+                        cscms.layer.msg(data.info.err,{icon:2});
+                        setTimeout(function(){
+                            get_data(data.info.id,data.info.ac,okid_temp,data.info.page,data.info.xid,data.info.insid);
+                        },3000);
+                    }else{
+                        get_data(data.info.id,data.info.ac,okid_temp,data.info.page,data.info.xid,data.info.insid);
+                    }
+                }
+                
+            }
+            
+        },"json");
+    }
+	//去掉所有的html标记
+	function delHtmlTag(str){
+		if(str.length > 1){
+			return str.replace(/<[^>]+>/g,""); 
+		}else{
+			return str;
+		}
+	}
+</script>
+</body>
+</html>

@@ -1,0 +1,258 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset=utf-8>
+    <title></title>
+    <meta name="robots" content="noindex,nofollow">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/layui/css/layui.css">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/admin/css/font.css">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/admin/css/style.css">
+    <script src="<?=Web_Path?>packs/js/jquery.min.js"></script>
+    <script src="<?=Web_Path?>packs/layui/layui.js"></script>
+    <script src="<?=Web_Path?>packs/admin/js/cscms.js"></script>
+</head>
+<body id="mypledit">
+    <form method="post" action="<?=site_url('dance/admin/dance/pl_save')?>" class="layui-form layui-form-pane">
+        <div class="layui-form-item">
+            <label class="layui-form-label">操作类别</label>
+            <div class="layui-input-block" onclick="cscms.show_hide('xid','xid')">
+                <input type="radio" name="xid" value="1" title="按ID操作" checked>
+                <input type="radio" name="xid" value="2" title="按类别操作">
+            </div>
+        </div>
+        <div class="layui-form-item xid xid1" <?php if(empty($id)){echo 'style="display:none"';}?>>
+            <label class="layui-form-label">歌曲ID</label>
+            <div class="layui-input-block">
+                <input type="text" name="id" value="<?=$id?>" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item xid xid2" style="display: none;">
+            <label class="layui-form-label">歌曲分类</label>
+            <div class="layui-input-block">
+                <select name='cids'>
+                <option value=0>请选择要操作的分类</option>
+                    <?php
+                    $sstrss="";
+                    $query = $this->db->query("SELECT id,name FROM ".CS_SqlPrefix."dance_list where fid=0 order by xid asc"); 
+                    foreach ($query->result() as $row) {
+                        $sstrss.='<option value="'.$row->id.'">'.$row->name.'</option>';
+                        $query2 = $this->db->query("SELECT id,name FROM ".CS_SqlPrefix."dance_list where fid=".$row->id." order by xid asc"); 
+                        foreach ($query2->result() as $row2) {
+                            $sstrss.='<option value="'.$row2->id.'">'.$row2->name.'</option>';
+                        }
+                    }
+                    echo $sstrss;
+                    ?>
+                </select>
+            </div>
+        </div>
+        <table>
+            <thead></thead>
+            <tbody>
+                <tr>
+                    <td class="pl" style="padding-left: 20px;">
+                        <div class="layui-form-item">
+                            <div class="layui-input-inline" style="width:120px;margin-right: 0px;">
+                                <input type="checkbox" lay-filter="pledit" lay-filter="pledit" name="csid[1]" value="hits" title="年度人气">
+                            </div>
+                            <div class="layui-input-inline">
+                                <input type="text" name="hits" value="0" class="layui-input" disabled>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-input-inline" style="width:120px;margin-right: 0px;">
+                                <input type="checkbox" lay-filter="pledit" name="csid[2]" value="rhits" title="每日人气">
+                            </div>
+                            <div class="layui-input-inline">
+                                <input type="text" name="rhits" value="0" class="layui-input" disabled>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-input-inline" style="width:120px;margin-right: 0px;">
+                                <input type="checkbox" lay-filter="pledit" name="csid[3]" value="zhits" title="每周人气">
+                            </div>
+                            <div class="layui-input-inline">
+                                <input type="text" name="zhits" value="0" class="layui-input" disabled>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-input-inline" style="width:120px;margin-right: 0px;">
+                                <input type="checkbox" lay-filter="pledit" name="csid[4]" value="yhits" title="每月人气">
+                            </div>
+                            <div class="layui-input-inline">
+                                <input type="text" name="yhits" value="0" class="layui-input" disabled>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-input-inline" style="width:120px;margin-right: 0px;">
+                                <input type="checkbox" lay-filter="pledit" name="csid[5]" value="xhits" title="下载人气">
+                            </div>
+                            <div class="layui-input-inline">
+                                <input type="text" name="xhits" value="0" class="layui-input" disabled>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-input-inline" style="width:120px;margin-right: 0px;">
+                                <input type="checkbox" lay-filter="pledit" name="csid[6]" value="shits" title="收藏人气">
+                            </div>
+                            <div class="layui-input-inline">
+                                <input type="text" name="shits" value="0" class="layui-input" disabled>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-input-inline" style="width:120px;margin-right: 0px;">
+                                <input type="checkbox" lay-filter="pledit" name="csid[19]" value="cion" title="下载金币" >
+                            </div>
+                            <div class="layui-input-inline">
+                                <input type="text" name="cion" value="1" class="layui-input" disabled>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-input-inline" style="width:120px;margin-right: 0px;">
+                                <input type="checkbox" lay-filter="pledit" name="csid[14]" value="yid" title="歌曲审核">
+                            </div>
+                            <div class="layui-input-inline">
+                                <input type="radio" name="yid" value="0" title="通过" checked disabled>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-input-inline" style="width:120px;margin-right: 0px;min-height: 20px">
+                                
+                            </div>
+                            <div class="layui-input-inline">
+                                <input type="radio" name="yid" value="1" title="取消" disabled>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="pl">
+                        <div class="layui-form-item">
+                            <div class="layui-input-inline" style="width:120px;margin-right: 0px;">
+                                <input type="checkbox" lay-filter="pledit" name="csid[7]" value="user" title="所属会员">
+                            </div>
+                            <div class="layui-input-inline">
+                                <input type="text" name="user" value="" class="layui-input" disabled>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-input-inline" style="width:120px;margin-right: 0px;">
+                                <input type="checkbox" lay-filter="pledit" name="csid[8]" value="singer" title="所属歌手">
+                            </div>
+                            <div class="layui-input-inline">
+                                <input type="text" name="singer" value="" class="layui-input" disabled>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-input-inline" style="width:120px;margin-right: 0px;">
+                                <input type="checkbox" lay-filter="pledit" name="csid[10]" value="vip" title="会员权限">
+                            </div>
+                            <div class="layui-input-inline">
+                                <select name='vip' disabled>
+                                    <option value="0">会员组权限</option>
+                                    <?php
+                                    $query = $this->db->query("SELECT id,name FROM ".CS_SqlPrefix."userzu order by id asc"); 
+                                    foreach ($query->result() as $row) {
+                                        $clas=($row->id==$vip)?' selected="selected"':'';
+                                        echo '<option value="'.$row->id.'"'.$clas.'>'.$row->name.'</option>';
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-input-inline" style="width:120px;margin-right: 0px;">
+                                <input type="checkbox" lay-filter="pledit" name="csid[13]" value="reco" title="推荐星级">
+                            </div>
+                            <div class="layui-input-inline">
+                                <select name='reco' disabled>
+                                    <option value='0'>☆☆☆☆☆</option>
+                                    <option value='1'>★☆☆☆☆</option>
+                                    <option value='2'>★★☆☆☆</option>
+                                    <option value='3'>★★★☆☆</option>
+                                    <option value='4'>★★★★☆</option>
+                                    <option value='5'>★★★★★</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-input-inline" style="width:120px;margin-right: 0px;">
+                                <input type="checkbox" lay-filter="pledit" name="csid[16]" value="cid" title="转移分类">
+                            </div>
+                            <div class="layui-input-inline">
+                                <select name='cid' disabled>
+                                    <?php
+                                        echo $sstrss;
+                                    ?>
+                               </select>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-input-inline" style="width:120px;margin-right: 0px;">
+                                <input type="checkbox" lay-filter="pledit" name="csid[17]" value="tid" title="批量专辑">
+                            </div>
+                            <div class="layui-input-inline">
+                                <select name='tid' disabled>
+                                <?php
+                                    echo '<option value=0>取消</option>';
+                                    $sqlstr="select id,name from ".CS_SqlPrefix."dance_topic order by id desc";
+                                    $result=$this->db->query($sqlstr);
+                                    foreach ($result->result() as $row){
+                                        echo '<option value='.$row->id.'>'.$row->name.'</option>';
+                                    }
+                                ?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-input-inline" style="width:120px;margin-right: 0px;">
+                                <input type="checkbox" lay-filter="pledit" name="csid[20]" value="fid" title="服务器组">
+                            </div>
+                            <div class="layui-input-inline">
+                                <select name='fid' disabled>
+                                <?php
+                                    echo '<option value=0>取消</option>';
+                                    $sqlstr="select id,name from ".CS_SqlPrefix."dance_server order by id desc";
+                                    $result=$this->db->query($sqlstr);
+                                    foreach ($result->result() as $row) {
+                                        echo '<option value='.$row->id.'>'.$row->name.'</option>';
+                                    }
+                                ?>
+                                </select>
+                            </div>
+                        </div><div class="layui-form-item">
+                            <div class="layui-input-inline" style="width:120px;margin-right: 0px;">
+                                <input type="checkbox" lay-filter="pledit" name="csid[18]" value="hid" title="批量删除">
+                            </div>
+                            <div class="layui-input-inline">
+                                <select name='hid' disabled>]
+                                    <option value=1>移进回收站</option>
+                                    <option value=2>直接删除</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-input-inline" style="width:120px;margin-right: 0px;">
+                                <input type="checkbox" lay-filter="pledit" name="csid[21]" value="skins" title="播放模板" >
+                            </div>
+                            <div class="layui-input-inline">
+                                <input type="text" name="skins" value="play.html" class="layui-input" disabled>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="layui-form-item" style="margin-top: 10px;">
+            <div class="layui-input-block layui-input-center">
+				  <input type="hidden" name="sid" value="<?=$sid?>">
+                  <button class="layui-btn" lay-submit lay-filter="setting">提交</button>
+                  <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </form>
+</body>
+    <script type="text/javascript">
+        cscms.init();
+    </script>
+</html>

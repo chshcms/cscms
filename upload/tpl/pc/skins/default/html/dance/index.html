@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head> 
+<meta charset=utf-8>
+<meta http-equiv="X-UA-Compatible" content="IE=9">
+<title>{cscms:title}</title>
+<meta name="Keywords" content="{cscms:keywords}" />
+<meta name="Description" content="{cscms:description}" />
+<link rel="shortcut icon" href="{cscms:webpath}favicon.ico" />
+<link rel="stylesheet" href="{cscms:webpath}packs/font/font.css">
+<link rel="stylesheet" type="text/css" href="{cscms:tempurl}css/dance.css"/>
+<script type='text/javascript' src='{cscms:tempurl}js/dance.js'></script>
+</head>
+<body>
+	{cscms:head}
+	<div class="w960 bcolor">
+		<div class="mar10" style="margin-top: 60px;"></div>
+		<div class="play-show">
+            <div class="play-intro box-left">
+                <div class="layui-collapse">
+			    <div class="layui-colla-item">
+                    <h2 class="layui-colla-title" align="left">&nbsp;&nbsp;歌曲推荐榜</h2> 
+                    <div class="layui-colla-content layui-show" style="padding: 0px">
+                        <table class="layui-table" lay-even lay-skin="nob">
+                            <tbody>
+                                {cscms:dance table="dance" field="id,name,pic,uid,hits" sort="hits" reco="1,2,3,4,5" loop="10"}
+                                    <tr align="left">
+                                        <td><a target="_blank" class="listLeft" href="[dance:url zdy=dance,id,play,id]"><i class="layui-btn layui-btn-mini {if:[dance:i]<4}{else}layui-btn-primary{end if} iwidth">[dance:i]</i>[dance:name]</a></td>
+                                    </tr>
+                                {/cscms:dance}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="layui-colla-item">
+                    <h2 class="layui-colla-title" align="left">&nbsp;&nbsp;专辑推荐榜<a href="{cscmsphp}linkurl('topic','id',1,1,'dance');{/cscmsphp}" style="font-size: 12px;float: right;">更多<i class="fa fa-angle-double-right"></i></a></h2> 
+                    <div class="layui-colla-content layui-show" style="padding: 0px">
+                        <table class="layui-table" lay-even lay-skin="nob">
+                            <tbody>
+                                {cscms:topic table="dance_topic" field="id,name,pic,uid,hits" sort="hits" loop="10"}
+									<tr align="left">
+										<td><a target="_blank" href="[topic:url link=topic/show]"><img style="width: 30px;height: 30px;" src="[topic:pic dir=dancetopic]?size=30*30" alt="[topic:name]">&nbsp;&nbsp;<i class="{if:[topic:i]<4}colord{else}{end if}">[topic:i]</i>.[topic:name]</a></td>
+									</tr>
+								{/cscms:topic}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+			</div>
+            </div>
+            <div class="play-list box-left">
+                <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+				    <ul class="layui-tab-title">
+				        <li class="layui-this">最新发布歌曲</li>
+				        <li>人气最热歌曲</li>
+				        <li>飙升最快歌曲</li>
+				    </ul>
+				    <div class="layui-tab-content">
+				    	<div class="layui-tab-item layui-show">
+				    		<table class="layui-table" lay-even lay-skin="nob">
+								<colgroup>
+								    <col>
+								    <col>
+								    <col width="10">
+								 </colgroup>
+								<thead></thead>
+								<tbody>
+								{cscms:dance table="dance" sort="addtime" loop="20"}
+									<tr><td><a title="[dance:name]" class="dance_nobr" target="_blank" href="[dance:url zdy=dance,id,play,id]"><i class="layui-btn layui-btn-mini {if:[dance:i]<4}layui-btn-danger{else}layui-btn-primary{end if} iwidth">[dance:i]</i>[dance:name]</a></td>
+									<td><a href="[dance:url zdy=singer,singerid,show]" style="color: #999">{if:'[dance:zdy zd=singer,name,singerid]'==''}佚名{else}[dance:zdy zd=singer,name,singerid]{end if}</a></td>
+									<td><a href="[dance:url zdy=dance,id,play,id]"><i class="layui-icon">&#xe6fc;</i></a></td></tr>
+								{/cscms:dance}
+								</tbody>
+							</table>
+				    	</div>
+				    	<div class="layui-tab-item">
+				    		<table class="layui-table" lay-even lay-skin="nob">
+							<colgroup>
+							    <col>
+							    <col>
+							    <col width="10">
+							 </colgroup>
+							<thead></thead>
+							<tbody>
+							{cscms:dance table="dance" sort="hits" loop="20"}
+								<tr>
+									<td><a title="[dance:name]" class="dance_nobr" target="_blank" href="[dance:url zdy=dance,id,play,id]"><i class="layui-btn layui-btn-mini {if:[dance:i]<4}{else}layui-btn-primary{end if} iwidth">[dance:i]</i>[dance:name]</a></td>
+									<td>{if:'[dance:zdy zd=singer,name,singerid]'==''}佚名{else}[dance:zdy zd=singer,name,singerid]{end if}</td>
+									<td><a href="[dance:url zdy=dance,id,play,id]"><i class="layui-icon">&#xe6fc;</i></a></td>
+								</tr>
+							{/cscms:dance}
+							</tbody>
+						</table>
+				    	</div>
+				    	<div class="layui-tab-item">
+				    		<table class="layui-table" lay-even lay-skin="nob">
+								<colgroup>
+								    <col>
+								    <col>
+								    <col width="10">
+								 </colgroup>
+								<thead></thead>
+								<tbody>
+								{cscms:dance table="dance" sort="zhits" loop="20"}
+									<tr><td><a title="[dance:name]" class="dance_nobr" target="_blank" href="[dance:url zdy=dance,id,play,id]"><i class="layui-btn layui-btn-mini {if:[dance:i]<4}layui-btn-normal{else}layui-btn-primary{end if} iwidth">[dance:i]</i>[dance:name]</a></td><td>{if:'[dance:zdy zd=singer,name,singerid]'==''}佚名{else}[dance:zdy zd=singer,name,singerid]{end if}</td><td><a href="[dance:url zdy=dance,id,play,id]"><i class="layui-icon">&#xe6fc;</i></a></td></tr>
+								{/cscms:dance}
+								</tbody>
+							</table>
+				    	</div>
+				    </div>
+				</div>
+            </div>
+        </div>
+        <div class="mar10"></div>
+	</div>
+	<div class="mar10"></div>
+	{cscms:bottom}
+</body>
+</html>

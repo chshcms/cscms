@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>Cscms 后台管理系统</title>
+  <link rel="stylesheet" href="./layui/css/layui.css">
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+<!-- 头部导航 -->
+<div class="layui-layout layui-layout-admin">
+	<div class="layui-header header">
+		<div class="l">
+			<span class="logo">Cscms 后台管理</span>
+		</div>
+		<div class="l">
+			<ul class="layui-nav">
+			  <li dir="index" class="layui-nav-item layui-this"><a href="/">首页</a></li>
+			  <li dir="sys" class="layui-nav-item"><a href="/">系统</a></li>
+			  <li dir="tools" class="layui-nav-item"><a href="/">工具</a></li>
+			  <li dir="user" class="layui-nav-item"><a href="/">会员</a></li>
+			  <li dir="" class="layui-nav-item"><a href="/">音乐</a></li>
+			  <li dir="" class="layui-nav-item"><a href="/">新闻</a></li>
+			  <li dir="" class="layui-nav-item"><a href="/">视频</a></li>
+			  <li dir="" class="layui-nav-item"><a href="/">歌手</a></li>
+			  <li dir="more" class="layui-nav-item">
+				<a href="javascript:;">更多</a>
+				<dl class="layui-nav-child">
+					<dd><a dir="" href="/">商城</a></dd>
+					<dd><a dir="" href="/">小说</a></dd>
+					<dd><a dir="" href="/">团购</a></dd>
+					<dd><a dir="" href="/">微信</a></dd>
+				</dl>
+			  </li>
+			</ul>
+		</div>
+		<div class="r">
+			<a href="/">退出</a>
+		</div>
+	</div>
+	<!-- 侧边导航 -->
+	<div class="layui-side left">
+		<ul class="layui-nav layui-nav-tree" lay-filter="test" id="left-menu">
+		</ul>
+	</div>
+	<!-- 中间部分 -->
+	<div class="layui-body" id="body-main">
+
+	</div>
+	<!-- 底部部分 -->
+	<div class="layui-footer">
+	    <div class="layui-main">
+	        <p>2016 © <a href="http://www.chshcms.comn/" target="_blank">Cscms V4.1.0</a></p>
+	    </div>
+	</div>
+</div>
+<script src="./layui/layui.js"></script>
+<script src="./js/admin.js"></script>
+<script>
+var menu_json = {
+	"index":[
+		{
+			"title":"常用管理",
+			"on":1,
+			"menu":[
+				{"name":"选项1","link":"http:///"},
+				{"name":"选项2","link":"http:///"},
+				{"name":"选项3","link":"http:///"},
+				{"name":"选项4","link":"http:///"},
+			]
+		},
+		{
+			"title":"解决方案",
+			"on":0,
+			"menu":[
+				{"name":"选项1","link":"http:///"},
+				{"name":"选项2","link":"http:///"},
+				{"name":"选项3","link":"http:///"},
+				{"name":"选项4","link":"http:///"},
+			]
+		}
+	]
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset=utf-8>
+    <title></title>
+    <meta name="robots" content="noindex,nofollow">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/layui/css/layui.css">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/admin/css/font.css">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/admin/css/style.css">
+    <script src="<?=Web_Path?>packs/js/jquery.min.js"></script>
+    <script src="<?=Web_Path?>packs/layui/layui.js"></script>
+    <script src="<?=Web_Path?>packs/admin/js/cscms.js"></script>
+</head>
+<body id="index_setting">
+    <span class="layui-breadcrumb">
+        <a ><cite><i class="fa fa-map-marker"></i><?=L('tpl_stt_01')?></cite></a>
+        <a href="javascript:;"><?=L('tpl_stt_02')?></a>
+        <a href="<?=site_url('skin/tags')?>"><?=L('tpl_stt_03')?></a>
+    </span>
+    <form class="layui-form layui-form-pane" action="javascript:;" method="get">
+        <fieldset class="layui-elem-field" style="margin-top: 15px">
+            <legend><?=L('tpl_stt_03')?></legend>
+            <div class="layui-field-box">
+                <div class="layui-form-item">
+                    <label class="layui-form-label"><?=L('tpl_stt_04')?></label>
+                    <div class="layui-input-inline">
+                        <select id="table" lay-filter="table">
+                            <option value="sys"><?=L('tpl_stt_05')?></option>
+                        <?php
+						 $plub =$this->db->query("SELECT name,dir FROM ".CS_SqlPrefix."plugins")->result();
+						 foreach($plub as $row){
+							echo '<option value="'.$row->dir.'">'.$row->name.'</option>';
+						 }
+                        ?>
+                        </select>
+                    </div>
+                </div>
+                <div id="tab-sys" class="layui-form-item tab-mx">
+                    <label class="layui-form-label"><?=L('tpl_stt_06')?></label>
+                    <div class="layui-input-inline">
+                        <select id="mx-sys">
+                            <option value=""><?=L('tpl_stt_07')?></option>
+
+                            <option value="plugins"><?=L('tpl_stt_08')?></option>
+                            <option value="link"><?=L('tpl_stt_09')?></option>
+                            <option value="user"><?=L('tpl_stt_10')?></option>
+                            <option value="userzu"><?=L('tpl_stt_11')?></option>
+                            <option value="userlevel"><?=L('tpl_stt_12')?></option>
+                            <option value="user_log"><?=L('tpl_stt_13')?></option>
+                            <option value="blog"><?=L('tpl_stt_14')?></option>
+                            <option value="funco"><?=L('tpl_stt_15')?></option>
+                            <option value="fans"><?=L('tpl_stt_16')?></option>
+                            <option value="friend"><?=L('tpl_stt_17')?></option>
+                            <option value="gbook"><?=L('tpl_stt_18')?></option>
+                            <option value="dt"><?=L('tpl_stt_19')?></option>
+                            <option value="msg"><?=L('tpl_stt_20')?></option>
+                            <option value="pay"><?=L('tpl_stt_21')?></option>
+                            <option value="spend"><?=L('tpl_stt_22')?></option>
+                            <option value="paycard"><?=L('tpl_stt_23')?></option>
+                            <option value="tags"><?=L('tpl_stt_24')?></option>
+                            <option value="pl"><?=L('tpl_stt_25')?></option>
+                        </select>
+                    </div>
+                </div>
+		<?php
+		 $plub =$this->db->query("SELECT name,dir FROM ".CS_SqlPrefix."plugins")->result();
+		 foreach($plub as $row){
+	    ?>
+                <div id="tab-<?=$row->dir?>" class="layui-form-item tab-mx" style="display:none;">
+                    <label class="layui-form-label"><?=L('tpl_stt_06')?></label>
+                    <div class="layui-input-inline">
+                        <select id="mx-<?=$row->dir?>">
+						<option value=""></option>
+                        <?php
+							$inssfile = CSCMS.$row->dir.FGF.'install.php';
+                            if(file_exists($inssfile)){
+                                $SQLDB = require_once($inssfile);
+                                //判断数据库
+                                if(is_array($SQLDB)){
+                                    foreach ($SQLDB as $sql) {
+                                          preg_match('/CREATE TABLE IF NOT EXISTS `{prefix}([\s\S]+?)`([\s\S]+?)COMMENT=\'([\s\S]+?)\';/',$sql,$tarr);
+                                          if(!empty($tarr[1]) && $this->db->table_exists(CS_SqlPrefix.$tarr[1])){
+                                                  $tname=!empty($tarr[3])?$tarr[3]:$tarr[1];
+                                                  echo '<option value="'.$tarr[1].'">'.$tname.'</option>';
+                                          }
+                                    }
+                                }else{
+                                    preg_match('/CREATE TABLE IF NOT EXISTS `{prefix}([\s\S]+?)`([\s\S]+?)COMMENT=\'([\s\S]+?)\';/',$SQLDB,$tarr);
+                                    if(!empty($tarr[1]) && $this->db->table_exists(CS_SqlPrefix.$tarr[1])){
+                                           $tname=!empty($tarr[3])?$tarr[3]:$tarr[1];
+                                           echo '<option value="'.$tarr[1].'">'.$tname.'</option>';
+                                    }
+                                }
+                            }
+                        ?>
+                        </select>
+                    </div>
+                </div>
+	<?php } ?>
+                <div class="layui-form-item">
+                    <label class="layui-form-label"><?=L('tpl_stt_26')?></label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="loop" name="loop" value="" class="layui-input" placeholder="<?=L('tpl_stt_27')?>">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label"><?=L('tpl_stt_28')?></label>
+                    <div class="layui-input-inline">
+                        <input type="radio" name="order" title="<?=L('tpl_stt_29')?>" value="desc" class="layui-input" checked>
+                        <input type="radio" name="order" title="<?=L('tpl_stt_30')?>" value="asc" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label"><?=L('tpl_stt_31')?></label>
+                    <div class="layui-input-inline">
+                        <a target="_blank" class="apply-link colorl" href="http://www.chshcms.com/help/show/1688.html"><?=L('tpl_stt_32')?></a>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block noborder submit-block1">
+                        <button class="layui-btn" onclick="cscms.tags_save();"><?=L('tpl_stt_33')?></button>
+                        <button type="reset" class="layui-btn layui-btn-primary"><?=L('tpl_stt_34')?></button>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+            
+    </form>
+<script type="text/javascript">
+    cscms.init();
+</script>
+</body>
+</html>

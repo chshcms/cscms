@@ -1,0 +1,45 @@
+<div class="mc-menu">
+	<ul >
+	    <li> <a href="javascript:user.mcShow(100);">综合管理<i class="fa fa-angle-right"></i></a>
+			<dl class="mc-dl mcdl_100">
+			<div class="mcli mcli_100"></div>
+	            <dd id="left_space"><a href="[user:url userlink=space]">最新动态</a></dd>
+	            <dd id="left_blog"><a href="[user:url userlink=blog]">我的说说</a></dd>
+	            <dd id="left_msg"><a href="[user:url userlink=msg]">我的消息</a></dd>
+	            <dd id="left_gbook"><a href="[user:url userlink=gbook]">我的留言</a></dd>
+	            <dd id="left_fans"><a href="[user:url userlink=fans]">粉丝关注</a></dd>
+	        </dl>
+	    </li>
+	    <li> <a href="javascript:user.mcShow(101);">账号管理<i class="fa fa-angle-right"></i></a>
+			<dl class="mc-dl mcdl_101">
+				<div class="mcli mcli_101"></div>
+	            <dd id="left_edit"><a href="[user:url userlink=edit]">账号设置</a></dd>
+	            <dd id="left_web"><a href="[user:url userlink=web]">主页模板</a></dd>
+	            <dd id="left_pay"><a href="[user:url userlink=pay]">充值升级</a></dd>
+	            <dd id="left_paylist"><a href="[user:url userlink=pay,lists]">财务记录</a></dd>
+	            <dd id="left_journal"><a href="[user:url userlink=journal]">登陆日志</a></dd>
+	            <dd id="left_share"><a href="[user:url userlink=share]">宣传分享</a></dd>
+	        </dl>
+	    </li>
+	    {cscmsmenu:user}
+	    <li><a href="javascript:user.mcShow([menu:k]);">[menu:name]<i class="fa fa-angle-right"></i></a>
+			<dl class="mc-dl mcdl_[menu:k]">
+				<div class="mcli mcli_[menu:k]"></div>
+      			{cscmsmenu:auto}
+      				<dd id="left_[menu:dir]_[menu:i]"><a id="left_[menu:dir]_[menu:i]" href="[menu:link]">[menu:name]</a></dd>
+      			{/cscmsmenu:auto}
+      		</dl>
+		</li>
+		{/cscmsmenu}
+		<li> <a href="javascript:user.mcShow(102);">板块链接<i class="fa fa-angle-right"></i></a>
+			<dl class="mc-dl mcdl_102">
+				<div class="mcli mcli_102"></div>
+	            <dd id="left_edit"><a href="{cscms:webpath}">网站主页</a></dd>
+	            {cscms:plu table="plugins" field="dir,name" order="asc"}
+	            <dd id="left_edit"><a href="{cscmsphp}cscmslink('[plu:dir]');{/cscmsphp}">[plu:name]板块</a></dd>
+            	{/cscms:plu}
+	        </dl>
+	    </li>
+	</ul>
+</div>
+	

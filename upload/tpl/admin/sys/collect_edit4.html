@@ -1,0 +1,200 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset=utf-8>
+    <title></title>
+    <meta name="robots" content="noindex,nofollow">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/layui/css/layui.css">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/admin/css/font.css">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/admin/css/style.css">
+    <script src="<?=Web_Path?>packs/js/jquery.min.js"></script>
+    <script src="<?=Web_Path?>packs/layui/layui.js"></script>
+    <script src="<?=Web_Path?>packs/admin/js/cscms.js"></script>
+</head>
+<body id="index_setting">
+    <span class="layui-breadcrumb">
+        <a ><cite><i class="fa fa-map-marker"></i><?=L('tpl_ce_01')?></cite></a>
+        <a href="<?=site_url('opt/main')?>"><?=L('tpl_ce_02')?></a>
+        <a href="<?=site_url('collect/add')?>"><?=L('tpl_ce_03')?></a>
+    </span>
+    <form class="layui-form layui-form-pane" action="<?=$savelink?>&page=5" method="post">
+        <fieldset class="layui-elem-field" style="margin-top: 15px;">
+            <legend><?=L('tpl_ce_47')?></legend>
+            <div class="layui-field-box">
+                <div class="layui-form-item" >
+                    <label class="layui-form-label"><?=L('tpl_ce_48')?></label>
+                    <div class="layui-input-inline">
+                        <select name="urls" >
+                        <?php
+                            foreach ($links as $url) {
+                                echo '<option value="'.$url.'">'.$url.'</option>';
+                            }
+                        ?>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label"><?=L('tpl_ce_30')?></label>
+                    <div class="layui-input-inline" onclick="cscms.show_hide('html','htmlid')">
+                        <input type="radio" name="htmlid" title="<?=L('tpl_ce_31')?>" value="0" checked >
+                        <input type="radio" name="htmlid" title="<?=L('tpl_ce_32')?>" value="1">
+                    </div>
+                </div>
+                <div class="layui-form-item layui-form-text html html1" style="display: none;">
+                    <label class="layui-form-label"><?=L('tpl_ce_49')?></label>
+                    <div class="layui-input-block">
+                      <textarea name="html" style="min-height: 300px;" class="layui-textarea"><?=str_replace('<form','&lt;form',str_replace('</textarea>','&lt;/textarea&gt;',$html))?></textarea>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label"><?=L('tpl_ce_73')?></label>
+                    <div class="layui-input-inline">
+                        <a class="layui-btn layui-btn-small app-btn" href="javascript:addlist();"><i class="fa fa-plus"></i>&nbsp;<?=L('tpl_ce_50')?></a><a class="layui-btn layui-btn-small layui-btn-danger app-btn" href="javascript:delall();"><i class="fa fa-trash"></i>&nbsp;<?=L('tpl_ce_51')?></a>
+                    </div>
+                </div>
+                <?php if($dir=='pic_type'){ 
+                    //获取自定义相册专用
+                    $rowp=$this->db->query("SELECT * FROM ".CS_SqlPrefix."cjannex where cid=".$id." and zd='cscms_pic_url'")->row();
+                    ?>
+                    <fieldset class="layui-elem-field">
+                        <legend><?=L('tpl_ce_52')?></legend>
+                        <div class="layui-field-box">
+                            <input name="zdy[name][0]" value="<?=L('tpl_ce_53')?>" style="display:none;">
+                            <input name="zdy[htmlid][0]" value="1" style="display:none;">
+                            <input name="zdy[fid][0]" value="0" style="display:none;">
+                            <input name="zdy[fname][0]" value="" style="display:none;">
+                            <input name="zdy[zd][0]" value="cscms_pic_url" style="display:none;">
+                            <input name="zdy[id][0]" value="<?=$rowp->id?>" style="display:none;">
+                        </div>
+                        <div class="layui-form-item layui-form-text">
+                            <label class="layui-form-label"><?=L('tpl_ce_54')?></label>
+                            <div class="layui-input-block">
+                                <textarea class="layui-textarea" name="zdy[ks][0]">'.$rowp->ks.'</textarea>
+                            </div>
+                        </div>
+                        <div class="layui-form-item layui-form-text">
+                            <label class="layui-form-label"><?=L('tpl_ce_55')?></label>
+                            <div class="layui-input-block">
+                                <textarea class="layui-textarea" name="zdy[js][0]">'.$rowp->js.'</textarea>
+                            </div>
+                        </div> 
+                    </fieldset>
+                <?php } ?>
+                <div id="addlist">
+                <?php
+                    $nums = 1;
+                    $ziduan='';
+                    if ($this->db->table_exists(CS_SqlPrefix.$dir)){
+                         $query = $this->db->query("SHOW FULL FIELDS FROM ".CS_SqlPrefix.$dir."");
+                         $fieldarray = $query->result_array();
+                         foreach ($fieldarray as $row){
+                              if($row['Field']!='id'){
+                                  $ziduan.='<option value="'.$row['Field'].'">'.$row['Comment'].'</option>';
+                              }
+                         }
+                    }
+                    $query=$this->db->query("SELECT * FROM ".CS_SqlPrefix."cjannex where cid=".$id." and zd!='cscms_pic_url' order by id asc"); 
+                    foreach ($query->result() as $row) {
+                        $ziduan='';
+                        foreach ($fieldarray as $rowf){
+                          if($rowf['Field']!='id'){
+                              if($row->zd==$rowf['Field']){
+                                  $ziduan.='<option value="'.$rowf['Field'].'" selected="selected">'.$rowf['Comment'].'</option>';
+                              }else{
+                                  $ziduan.='<option value="'.$rowf['Field'].'">'.$rowf['Comment'].'</option>';
+                              }
+                          }
+                        }
+                        if($row->fid==1){
+                            $fs = '<input type="radio" name="zdy[fid]['.$nums.']" sign="zdy'.$nums.'" title="'.L('tpl_ce_56').'" value="0" ><input type="radio" name="zdy[fid]['.$nums.']" sign="zdy'.$nums.'" title="'.L('tpl_ce_57').'" value="1" checked>';
+                            $style0 = 'display:none';
+                            $style1 = '';
+                        }else{
+                            $fs = '<input type="radio" name="zdy[fid]['.$nums.']" sign="zdy'.$nums.'" title="'.L('tpl_ce_56').'" value="0" checked ><input type="radio" name="zdy[fid]['.$nums.']" sign="zdy'.$nums.'" title="'.L('tpl_ce_57').'" value="1">';
+                            $style0 = '';
+                            $style1 = 'display:none';
+                        }
+                        $checkid = ($row->htmlid==1)?' checked="checked"':'';
+                        $html = '<fieldset class="layui-elem-field" id="zdy'.$nums.'"><legend>'.L('tpl_ce_58').' <a style="margin-left: 10px;" href="javascript:$(\'#zdy'.$nums.'\').remove();" title="'.L('tpl_ce_59').'"><i class="fa fa-trash colord" style="font-size: 16px;"></i></a></legend><div class="layui-field-box" >';
+                        $html .= '<input name="zdy[id]['.$nums.']" type="hidden" value="'.$row->id.'">';
+                        $html .= '<div class="layui-form-item"><label class="layui-form-label">'.L('tpl_ce_60').'</label><div class="layui-input-inline"><input class="layui-input" name="zdy[name]['.$nums.']" value="'.$row->name.'"></div></div>';
+                        $html .= '<div class="layui-form-item"><label class="layui-form-label">'.L('tpl_ce_61').'</label><div class="layui-input-inline"><select name="zdy[zd]['.$nums.']">'.$ziduan.'</select></div></div>';
+                        $html .= '<div class="layui-form-item"><label class="layui-form-label">'.L('tpl_ce_62').'</label><div class="layui-input-inline" onclick="cscms.show_hide(\'zdyfid'.$nums.'_\',\'zdy'.$nums.'\',1)">'.$fs.'</div></div>';
+                        $html .= '<div class="zdyfid'.$nums.'_ zdyfid'.$nums.'_0" style="'.$style0.'"><div class="layui-form-item"><label class="layui-form-label">'.L('tpl_ce_63').'</label><div class="layui-input-inline"><input type="text" class="layui-input" name="zdy[fname]['.$nums.']" value="'.$row->fname.'"></div></div></div>';
+                        $html .= '<div class="zdyfid'.$nums.'_ zdyfid'.$nums.'_1" style="'.$style1.'" ><div class="layui-form-item"><label class="layui-form-label">'.L('tpl_ce_64').'</label><div class="layui-input-inline"><input type="checkbox" title="'.L('tpl_ce_65').'" name="zdy[htmlid]['.$nums.']" lay-skin="primary" value="1" '.$checkid.'></div></div>';
+                        $html .= '<div class="layui-form-item layui-form-text"><label class="layui-form-label">'.L('tpl_ce_66').'</label><div class="layui-input-block"><textarea class="layui-textarea" name="zdy[ks]['.$nums.']">'.$row->ks.'</textarea></div></div>';
+                        $html .= '<div class="layui-form-item layui-form-text"><label class="layui-form-label">'.L('tpl_ce_67').'</label><div class="layui-input-block"><textarea class="layui-textarea" name="zdy[js]['.$nums.']">'.$row->js.'</textarea></div></div></div>';
+                        $html .= '</div></fieldset>';
+                        echo $html;
+                        $nums++;
+                    }
+                ?>
+                </div>
+                <div class="layui-form-item layui-form-text">
+                    <label class="layui-form-label"><?=L('tpl_ce_68')?></label>
+                    <div class="layui-input-block">
+                        <textarea name="strth" placeholder="<?=L('tpl_ce_69')?>" class="layui-textarea"><?=$strth?></textarea>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block noborder">
+                        <button style="margin-left: 20%;" class="layui-btn" lay-submit lay-filter="setting"><?=L('tpl_ce_26')?></button>
+                        <button type="reset" class="layui-btn layui-btn-primary"><?=L('tpl_ce_27')?></button>
+                    </div>
+                </div>
+                
+            </div>
+        </fieldset>
+    </form>
+    <?php
+        $ziduan='';
+        if ($this->db->table_exists(CS_SqlPrefix.$dir)){
+            $query = $this->db->query("SHOW FULL FIELDS FROM ".CS_SqlPrefix.$dir."");
+            $fieldarray = $query->result_array();
+            foreach ($fieldarray as $row){
+                if($row['Field']!='id'){
+                    $ziduan.='<option value="'.$row['Field'].'">'.$row['Comment'].'</option>';
+                }
+            }
+        }
+    ?>
+    <script type="text/javascript">
+        cscms.init();
+        var ziduan = '<?=$ziduan?>';
+        var nums = <?=$nums?>;
+        
+        function addlist(){
+            var html = '<fieldset class="layui-elem-field" id="zdy'+nums+'"><legend><?=L('tpl_ce_58')?> <a style="margin-left: 10px;" href="javascript:$(\'#zdy'+nums+'\').remove();" title="<?=L('tpl_ce_59')?>"><i class="fa fa-trash colord" style="font-size: 16px;"></i></a></legend><div class="layui-field-box" >';
+            html += '<input name="zdy[id]['+nums+']" type="hidden" value="0">';
+            html += '<div class="layui-form-item"><label class="layui-form-label"><?=L('tpl_ce_60')?></label><div class="layui-input-inline"><input class="layui-input" name="zdy[name]['+nums+']" value=""></div></div>';
+            html += '<div class="layui-form-item"><label class="layui-form-label"><?=L('tpl_ce_61')?></label><div class="layui-input-inline"><select name="zdy[zd]['+nums+']">'+ziduan+'</select></div></div>';
+            html += '<div class="layui-form-item"><label class="layui-form-label"><?=L('tpl_ce_62')?></label><div class="layui-input-inline" onclick="cscms.show_hide(\'zdyfid'+nums+'_\',\'zdy'+nums+'\',1)"><input type="radio" name="zdy[fid]['+nums+']" sign="zdy'+nums+'" title="<?=L('tpl_ce_56')?>" value="0" checked ><input type="radio" name="zdy[fid]['+nums+']" sign="zdy'+nums+'" title="<?=L('tpl_ce_57')?>" value="1"></div></div>';
+            html += '<div class="zdyfid'+nums+'_ zdyfid'+nums+'_0"><div class="layui-form-item"><label class="layui-form-label"><?=L('tpl_ce_63')?></label><div class="layui-input-inline"><input type="text" class="layui-input" name="zdy[fname]['+nums+']"></div></div></div>';
+            html += '<div class="zdyfid'+nums+'_ zdyfid'+nums+'_1" style="display: none;" ><div class="layui-form-item"><label class="layui-form-label"><?=L('tpl_ce_64')?></label><div class="layui-input-inline"><input type="checkbox" lay-skin="primary" title="<?=L('tpl_ce_65')?>" name="zdy[htmlid]['+nums+']" value="1" ></div></div>';
+            html += '<div class="layui-form-item layui-form-text"><label class="layui-form-label"><?=L('tpl_ce_66')?></label><div class="layui-input-block"><textarea class="layui-textarea" name="zdy[ks]['+nums+']"></textarea></div></div>';
+            html += '<div class="layui-form-item layui-form-text"><label class="layui-form-label"><?=L('tpl_ce_67')?></label><div class="layui-input-block"><textarea class="layui-textarea" name="zdy[js]['+nums+']"></textarea></div></div></div>';
+            html += '</div></fieldset>';
+            $('#addlist').prepend(html);
+            nums = nums + 1;
+            layui.use('form', function(){
+                var form = layui.form();
+                form.render();
+            });
+        }
+    </script>
+</body>
+</html>
+<script type="text/javascript">
+    function delall(){
+        cscms.layer.confirm('<?=L('tpl_ce_70')?>', {
+            btn: ['<?=L('tpl_ce_71')?>','<?=L('tpl_ce_72')?>'] //按钮
+        }, function(index){
+            $('#addlist').html('');
+            cscms.layer.close(index);
+        }, function(index){
+            cscms.layer.close(index);
+        });
+    }
+</script>

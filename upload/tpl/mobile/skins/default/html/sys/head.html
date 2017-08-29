@@ -1,0 +1,12 @@
+    <div class="header">
+        <a class="logo left" href="{cscms:path}"><img src="{cscms:tempurl}images/logo.png" alt=""></a>
+        <a href="javascript:wap.plutog();" class="more right"><i class="fa fa-chevron-down"></i></a>
+        <div class="plugins">
+            <a href="/">主站</a>
+            {cscms:plu table="plugins" field="dir,name" order="asc"}
+                <a href="{cscmsphp}cscmslink('[plu:dir]');{/cscmsphp}">[plu:name]</a>
+            {/cscms:plu}
+            <a href="{cscms:userlink}">会员</a>
+        </div>
+        {cscms:logkuang}
+    </div>

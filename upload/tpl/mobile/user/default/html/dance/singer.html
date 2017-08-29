@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <title>选择相册</title>
+    <meta name="Keywords" content="{cscms:keywords}" />
+    <meta name="Description" content="{cscms:description}" />
+    <link rel="shortcut icon" href="{cscms:path}favicon.ico" />
+    <link rel="stylesheet" href="{cscms:webpath}packs/font/font.css">
+    <link rel="stylesheet" type="text/css" href="{cscms:tempurl}css/dance.css"/>
+    <link rel="stylesheet" type="text/css" href="{cscms:path}packs/font/font.css" />
+    <script type='text/javascript' src='{cscms:indextempurl}js/user.js'></script>
+</head>
+<body>
+<div class="rightinfo">
+    <form action="[singer:searchlink]" id="searchForm" class="layui-form layui-form-pane" style="margin-top: 10px;">
+        <div class="layui-form-item" style="margin-bottom: 10px;">
+            <div class="layui-input-block" style="margin-left: 10px">
+                <input id="key" type="text" name="key" placeholder="输入歌手名称" autocomplete="off" class="layui-input" style="height: 30px;line-height: 30px">
+                <a href="javascript:sosinger()" style="position: absolute;right: 0px;top: 0px" class="layui-btn layui-btn-small"><i class="fa fa-search"></i></i></a>
+            </div>
+        </div>
+    </form>
+    <ul style="padding: 10px;overflow: hidden;">
+    {cscms:singer table="singer" pagesize="10" sort="addtime" order="desc"}
+        <li class="picXc_x2" onclick="pic_go('[singer:name]');" title="选中[singer:name]">
+        <img src="[singer:pic dir=singer]" />
+        <div class="picXc_xm2">[singer:name]</div>
+    </li>
+    {/cscms:singer}
+    </ul>
+    {if:{cscms:pagedata}==0}<div class="zanwu">[singer:no]</div>{end if}
+    <div class="page" style="text-align: right;margin-right: 10px;{if:{cscms:pagedata}==0}display: none;{end if}">
+        <div class="layui-box layui-laypage layui-laypage-default" id="layui-laypage-0">
+            <a href="{cscms:pageup}" class="layui-laypage-last" title="上一页">上一页</a>
+            {cscms:pagenum len=3}
+            <a href="{cscms:pagedown}" class="layui-laypage-next">下一页</a>
+        </div>
+   </div>
+</div> 
+<script type="text/javascript"> 
+function pic_go(_name) { 
+	parent.$('#singer').val(_name);
+	parent.cscms.layer.closeAll();
+}
+function sosinger(){
+    var key = $('#key').val();
+    if(key==''){
+        cscms.layer.msg('歌手名称不能为空',{icon:2});return;
+    }
+    $('#searchForm').submit();
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,115 @@
+@import url(style.css);
+/*index----------------index*/
+.layui-tab-title .site-cls{font-size: 12px;min-width: 25px;vertical-align: baseline;padding: 0 5px;border-left: 1px solid #999;line-height: 12px}
+.w960 .layui-tab .layui-tab-title .layui-this{border: 0px}
+.layui-tab-title .site-cls a{color: #999;}
+.layui-tab-title .site-cls a:hover{color: #1E9FFF;}
+.site-more{color: #999;float: right;font-size: 12px;margin-top: 15px;margin-right: 10px}
+@-moz-document url-prefix() {.site-more { margin-top:-25px;} }
+.site-more:hover{color:#5FB878}
+.site-l{float: left;width: 650px;min-height: 100px;}
+.site-r{float: right;width: 291px;min-height: 100px;}
+/*index-------------gbook-----------index*/
+.index-gbook{display: block;border:1px solid #e2e2e2;overflow: hidden;margin-bottom: 10px;padding-bottom: 10px}
+.ig-title{height: 40px;background: #f5f5f5;line-height: 40px;text-indent: 1em;}
+.ig-time{float: right;color: #666;font-size: 12px;margin-right: 1em;}
+.ig-name{font-size: 15px;color: #333;margin-right: 10px;}
+.ig-ip{font-size: 12px;color: #666;}
+.ig-neir{padding:10px 20px;word-wrap: break-word}
+.ig-hf{background-color: #f5f5f5;line-height: 30px;width: 95%;margin-left: 20px;margin-bottom: 10px;border:1px solid #e2e2e2;border-radius: 10px;text-indent: 10px;color: #666;}
+.page .on{background-color: #009688;color: white;border-radius: 2px;}
+/*index------------dance--------------index*/
+#dance-left{float: left;width: 315px;}
+#dance-left li{overflow: hidden;zoom: 1;width: 100%;margin-bottom: 10px;display: block;padding-left: 5px}
+#dance-left li:hover{background-color: #fbfbfb;box-shadow: 0px 0px 10px #eee;}
+.dance-one-left{width: 270px;overflow: hidden;height: 50px;float: left;}
+.dance-one-left a.title{display: block;height: 30px;line-height: 30px;white-space:nowrap;overflow:hidden; text-overflow:ellipsis;}
+.dance-one-left .dance-jx{float: left;display: block;width: 17px;height: 17px;line-height: 17px;background-color: #5FB878;margin-top: 6.5px;text-align: center;font-size: 12px;color: white;margin-right: 5px}
+.dance-one-left .jx-d{background-color: #FF5722}
+.dance-one-left a.title:hover{color: #1E9FFF;text-decoration: underline;}
+.dance-one-left a:hover{color: #5FB878}
+.dance-one-more{height: 20px;line-height: 20px;}
+.dance-one-more span{margin-right: 10px;font-size: 12px;}
+.dance-one-more i{margin-right: 5px;font-size: 13px;color: #333;}
+.dance-one-more i.layui-icon{color: #666;}
+.dance-one-more a{color: #999;font-size: 12px}
+.dance-singer{width: 45px;height: 50px;float: left;line-height: 30px;text-indent: 3px;font-size: 12px;color: #999;}
+.dance-singer:hover{color: #5FB878}
+.index-zj{float: left;margin: 6px}
+.index-zj:hover .zj-hover-bg{display: block;}
+.index-zj:hover .zj-hover{display: block;}
+.index-zj:hover .zj-hits{display: none;}
+.index-zj:hover .zj-hits-bg{display: none;}
+.zj-link{border-radius: 8px;width: 83px;height: 83px;overflow: hidden;display: block;border: 1px solid #eee;position: relative;}
+.zj-link img {width: 83px;height: 83px}
+.zj-hits-bg{background-color: #000;opacity: 0.5;position: absolute;bottom: 0px;width: 100%;border-bottom-right-radius: 8px;border-bottom-left-radius: 8px;height: 20px}
+.zj-hits{position: absolute;bottom: 0px;width: 100%;border-bottom-right-radius: 8px;border-bottom-left-radius: 8px;height: 20px;text-align: center;color: #fff;line-height: 20px;font-size: 12px;}
+.zj-hits i{font-size: 12px;margin-right:3px}
+.zj-name{white-space:nowrap;overflow:hidden; text-overflow:ellipsis;width: 85px;display: block;height: 24px;line-height: 24px;text-align: center;font-size: 13px}
+.zj-name:hover{color: #1E9FFF}
+.zj-hover-bg{display: none;background-color: #000;opacity: 0.3;position: absolute;width: 83px;height: 83px;position: absolute;top: 0px;left: 0px}
+.zj-hover{display: none;line-height: 83px;text-align: center;height: 83px;font-size: 12px;position: absolute;top: 0px;left: 0px;color: #eee;width: 100%;}
+/*index--------------vod-------------index*/
+.index-vod{float: left;margin:5px;width: 118px;margin-bottom: 5px}
+.index-vod:hover{box-shadow: 0px 0px 15px #5FB878;}
+.index-vod:hover .ivod-name{overflow: visible;height: auto;color: #1E9FFF}
+.ivod-link{border-radius: 7px;overflow: hidden;display: block;border: 1px solid #eee;position: relative;overflow: hidden;}
+.ivod-link img{width: 116px;height: 170px}
+.ivod-info{position: absolute;bottom: 0px;right: 0px}
+.ivod-title{height: 40px;overflow: hidden;padding:0px 5px 5px;font-size: 13px;line-height: 20px}
+.ivod-name{height: 20px;overflow: hidden;display: block;}
+.ivod-more{height: 20px;width: 100%;line-height: 20px}
+.ivod-more i{color: #999;}
+.ivod-more .layui-icon{font-size: 12px;margin-right: 3px}
+.ivod-more span{min-width: 40px;display: inline-block;float: left;}
+
+.index-rlist{overflow: hidden;margin-bottom: 12px}
+.ir-name{float: left;display: block;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;width: 220px}
+.ir-name:hover{color: #1E9FFF}
+.ir-yan{float: right;width: 40px;display: block;white-space: nowrap;overflow: hidden;cursor: default;color: #999;font-size: 12px;letter-spacing: 1px}
+.ir-info{clear: both;overflow: hidden;line-height: 22px}
+.ir-info-a{display: block;float: left;border: 1px solid #eee;width: 70px;height: 105px;overflow: hidden;margin-right: 5px}
+.ir-info-a img{width: 70px;height: 105px;}
+.ir-right{float: left;width: 204px;overflow: hidden;}
+.ir-info-name{display: block;white-space: nowrap;color: #333;font-size: 14px}
+.ir-info-name:hover{color: #1E9FFF}
+.ir-info-yan{white-space: nowrap;}
+.ir-info div{color: #666;font-size: 12px!important}
+.ir-info div.ir-intro{height: 65px;overflow: hidden;text-overflow: ellipsis;}
+.index-rlist .ir-info{display: none;}
+.on .ir-name{display: none;}
+.on .ir-yan{display: none;}
+.on .ir-info{display: block;}
+/*index------------------singer--------------------index*/
+.index-sing{float: left;width: 118px;margin-right: 10px;}
+.is-link{width: 116px;border: 1px solid #eee;height: 116px;display: block;overflow: hidden;position: relative;}
+.is-link img{width: 116px;height: 116px;}
+.is-name{height: 30px;line-height: 30px;text-align: center;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;display: block;}
+.index-sing:hover .is-link img{width: 126px;height: 126px;margin-top: -5px;margin-left: -5px;}
+.index-sing:hover a{color: #1E9FFF}
+.is-hits{margin-right: 4px;margin-bottom: 10px;display: block;float: left;border: 1px solid #ccc;border-radius: 15px;padding: 3px 9px;font-size: 12px;width: 43px;text-align: center;overflow: hidden;height: 19px;line-height: 19px;}
+.is-hits:hover{color: #5FB878;border-color: #5FB878}
+/*index-----------------pic-----------------------index*/
+.ip-num{width: 100%;height: 20px;font-size: 12px;color: #fff;text-align: center;line-height: 20px;position: absolute;bottom: 0px;z-index: 2;}
+.ip-num-bg{position: absolute;bottom: 0px;background-color: #000;opacity: 0.5;height: 20px;width: 100%;z-index: 1}
+/*index----------------news--------------------index*/
+.index-news{display: block;overflow: hidden;margin-bottom: 5px}
+.in-link{width: 284px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;float: left;line-height: 30px;}
+.in-dot{float: left;width: 20px;margin-top: 6px}
+.in-dot span{display: block;color: #5FB878;font-size: 12px;border: 1px solid #5FB878;width: 14px;height: 14px;border-radius: 7px;line-height: 14px;text-align: center;}
+.in-dot2 span{color: #FF5722;border-color: #FF5722}
+.in-link-a:hover{color: #1E9FFF;text-decoration: underline;}
+.index-nl{float: left;width: 304px;margin-right: 10px;}
+.in-more{display: block;clear: both;height: 20px;line-height: 20px;}
+.in-more span{margin-right: 10px;font-size: 12px;color: #999}
+.in-more i{margin-right: 5px;font-size: 12px;color: #999;}
+.in-hits{float: left;display: block;min-width:50px}
+
+.index-user{float: left;display: block;margin-right: 10px;margin-bottom: 10px}
+.iu-link{display: block;overflow: hidden;border:1px solid #e2e2e2;border-radius: 30px;width: 55px;height: 55px;overflow: hidden;position: relative;}
+.iu-link img{width: 55px;height: 55px;}
+.index-user:hover img{width: 65px;height: 65px;margin-left: -5px;margin-top: -5px;}
+.index-user:hover .iu-name-bg{display: block;}
+.index-user:hover .iu-name{display: block;}
+.iu-name-bg{display:none;width: 100%;height: 100%;position: absolute;top: 0px;left: 0px;background-color: rgba(0,0,0,0.3);z-index: 1}
+.iu-name{display:none;width: 100%;height: 100%;position: absolute;top: 0px;left: 0px;color: #fff;text-align: center;line-height: 55px;font-size: 12px;z-index: 2}

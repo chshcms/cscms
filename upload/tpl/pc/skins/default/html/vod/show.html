@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head> 
+<meta charset=utf-8>
+<meta http-equiv="X-UA-Compatible" content="IE=9">
+<title>{cscms:title}</title>
+<meta name="Keywords" content="{cscms:keywords}" />
+<meta name="Description" content="{cscms:description}" />
+<link rel="shortcut icon" href="{cscms:webpath}favicon.ico" />
+<link rel="stylesheet" href="{cscms:webpath}packs/font/font.css">
+<link rel="stylesheet" href="{cscms:webpath}packs/layui/css/layui.css">
+<link rel="stylesheet" type="text/css" href="{cscms:tempurl}css/vod.css"/>
+<script type='text/javascript' src='{cscms:webpath}packs/layui/layui.js'></script>
+<script type='text/javascript' src='{cscms:tempurl}js/vod.js'></script>
+</head>
+<body>
+    {cscms:head}
+    <div class="w960 bcolor">
+        <div class="mar10" style="margin-top: 60px;"></div>
+        <div class="mar10"></div>
+        <div class="play-show">
+            <div class="play-intro left">
+                <div class="gs-imgBox" style="overflow: hidden;zoom: 1;">
+                    <img class="play-img" id="gs-img" src="[vod:pic dir=vod]?size=290*360" width="290" height="360">
+                </div>
+                <div class="mar10"></div>
+                <div class="layui-collapse">
+                    <div class="layui-colla-item">
+                        <h2 class="layui-colla-title " align="left">同类影片<span style="float:right;font-size: 12px;color:#666;">人气</span></h2>
+                        <div class="layui-colla-content layui-show" style="overflow: hidden;zoom:1;padding: 0px">
+                            <table class="layui-table" lay-even lay-skin="nob">
+                            <tbody>
+                                {cscms:vod table="vod" loop="12" cid="auto" sort="hits"}
+                                    <tr align="left">
+                                        <td><a target="_blank" title="[vod:name]" class="listLeft4" href="[vod:url zdy=vod,id,show,id]"><i class="layui-btn layui-btn-mini {if:[vod:i]<4}{else}layui-btn-primary{end if} iwidth">[vod:i]</i>[vod:name]</a></td><td>[vod:hits]</td>
+                                    </tr>
+                                {/cscms:vod}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="mar10"></div>
+            </div>
+            <div class="play-list left">
+                <div class="layui-tab layui-tab-brief">
+                    <ul class="layui-tab-title">
+                        <li class="layui-this">[vod:name]</li>
+                        <li >剧情简介</li>
+                    </ul>
+                    <div class="layui-tab-content">
+                        <div class="layui-tab-item layui-show">
+                            <table class="layui-table" lay-even>
+                                <colgroup>
+                                </colgroup>
+                                <thead><tr><th colspan="4">基本信息</th></tr></thead>
+                                <tbody>
+                                    <tr>
+                                        <td width="60" align="center">视频名称</td><td >[vod:name]</td>
+                                        <td width="60" align="center">视频类型</td><td><a href='[vod:classlink]'>[vod:classname]</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td width="60" align="center">影片主演</td><td>{if:'[vod:zhuyan]'==''}暂无{else}[vod:zhuyan]{end if}</td>
+                                        <td width="60" align="center">视频导演</td><td>[vod:daoyan]</td>
+                                        
+                                    </tr>
+                                    <tr>
+                                        <td width="60" align="center">视频地区</td><td>[vod:diqu]</td>
+                                        <td width="60" align="center">视频语言</td><td>[vod:yuyan]</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="60" align="center">更新时间</td><td>[vod:addtime style=Y-m-d H:s:i]</td>
+                                        <td width="60" align="center">上映年份</td><td>[vod:year]</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="60" align="center">本周人气</td><td>[vod:zhits]&nbsp;次</td>
+                                        <td width="60" align="center">年度人气</td><td>[vod:hits]&nbsp;次</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="layui-tab layui-tab-brief">
+                                <ul class="layui-tab-title">
+                                    {vod:play}
+                                        <li {if:[play:i]==1}class="layui-this"{end if}>[play:name]</li>
+                                    {/vod:play}
+                                </ul>
+                                <div class="layui-tab-content" style="max-height: 300px;overflow-y:auto">
+                                {vod:play}
+                                    <div class="layui-tab-item {if:[play:i]==1}layui-show{end if}">
+                                    {vod:url order=desc}
+                                        <a style="margin: 5px;" class="layui-btn layui-btn-small" title="[url:name]" href="[url:link]" target="_blank">[url:name]</a>
+                                    {/vod:url}
+                                    </div>
+                                {/vod:play}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-tab-item">
+                            {if:'[vod:text]'==''}<div style="width: 100%;height: 50px;line-height: 50px;text-align: center;">暂无剧情介绍~！</div>{else}[vod:text]{end if}
+                        </div>
+                    </div>
+                </div>
+                [vod:pl]
+            </div>
+        </div>
+    </div>
+    <div class="mar10"></div>
+    {cscms:bottom}
+    <script type="text/javascript">
+        cscms.init();
+    </script>
+</body>
+</html>

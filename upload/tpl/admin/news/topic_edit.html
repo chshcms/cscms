@@ -1,0 +1,175 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset=utf-8>
+    <title></title>
+    <meta name="robots" content="noindex,nofollow">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/layui/css/layui.css">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/admin/css/font.css">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/admin/css/style.css">
+    <?=$opt_gc?>
+    <script src="<?=Web_Path?>packs/js/jquery.min.js"></script>
+    <script src="<?=Web_Path?>packs/admin/js/setcolor.js"></script>
+    <script src="<?=Web_Path?>packs/layui/layui.js"></script>
+    <script src="<?=Web_Path?>packs/admin/js/cscms.js"></script>
+</head>
+<body id="index_setting">
+    <span class="layui-breadcrumb" >
+        <a ><cite><i class="fa fa-map-marker"></i>位置</cite></a>
+        <a href="<?=site_url('news/admin/news')?>">新闻</a>
+        <a href="<?=site_url('news/admin/topic')?>">新闻专题管理</a>
+        <a href=""><?=$title2?></a>
+    </span>
+    <div class="layui-tab layui-tab-brief" >
+        <ul class="layui-tab-title">
+            <li><a class="tablink" href="<?=site_url('news/admin/topic')?>">新闻专题列表</a></li>
+            <li class="layui-this"><a class="tablink" href="<?=site_url('news/admin/topic/edit')?>?id=<?=$id?>"><?=$title2?></a></li>
+        </ul>
+        <div class="layui-tab-content" style="min-height: 360px;">
+            <form class="layui-form layui-form-pane" action="<?=site_url('news/admin/topic/save')?>" method="post">
+            <div class="layui-tab">
+                <ul class="layui-tab-title">
+                    <li class="layui-this">基本参数</li>
+                    <li>其他参数</li>
+                    <li>介绍/SEO</li>
+                    <li>自定义字段</li>
+                </ul>
+                <div class="layui-tab-content">
+                    <div class="layui-tab-item layui-show">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">专题名称</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="name" placeholder="请输入专题名称" value="<?=$name?>" class="layui-input">
+                            </div>
+                            <div class="layui-input-inline layui-input-inlinew">
+                                <select class="select" name="tid">
+                                    <option value="0"<?php if($tid==0) echo ' selected';?>>不推荐</option>
+                                    <option value="1"<?php if($tid==1) echo ' selected';?>>推荐</option>
+                                </select>
+                            </div>
+                            <div class="layui-input-inline layui-input-inlinew" >
+                                <select class="select" name="yid">
+                                    <option value="0"<?php if($yid==0) echo ' selected';?>>显示</option>
+                                    <option value="1"<?php if($yid==1) echo ' selected';?>>隐藏</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">专题别名</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="bname" placeholder="" value="<?=$bname?>" class="layui-input">
+                            </div>
+                            <div class="layui-input-inline">
+                                <input type="checkbox" name="addtime"  lay-skin="primary" value="ok" title="更新时间" checked>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">专题图片</label>
+                            <div class="layui-input-inline" >
+                                <input id="pic" type="text" name="pic" value="<?=$pic?>" class="layui-input">
+                            </div>
+                            <?php 
+                                if(preg_match("/(iPhone|iPad|iPod|Android)/i", strtoupper($_SERVER['HTTP_USER_AGENT']))){
+                                    echo '<button type="button" class="layui-btn layui-btn-primary" id="pics"><i class="layui-icon colorb">&#xe608;</i>上传图片</button>';
+                                }else{
+                                    echo '<div class="layui-input-inline" style="width: auto;"><a href="javascript:cscms.get_open(\''.site_url('upload/up').'?dir=newstopic\',\'上传图片\',\'500px\',\'360px\')" class="layui-btn layui-btn-primary"><i class="layui-icon" style="color:green">&#xe608;</i>上传图片</a></div>';
+                                }
+                            ?>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">头部图片</label>
+                            <div class="layui-input-inline" >
+                                <input id="pic2" type="text" name="toppic" value="<?=$toppic?>" class="layui-input">
+                            </div>
+                            <?php 
+                                if(preg_match("/(iPhone|iPad|iPod|Android)/i", strtoupper($_SERVER['HTTP_USER_AGENT']))){
+                                    echo '<button type="button" class="layui-btn layui-btn-primary" id="headpic"><i class="layui-icon colorb">&#xe608;</i>上传图片</button>';
+                                }else{
+                                    echo '<div class="layui-input-inline" style="width: auto;"><a href="javascript:cscms.get_open(\''.site_url('upload/up').'?dir=newstopic&fid=2\',\'上传图片\',\'500px\',\'360px\')" class="layui-btn layui-btn-primary"><i class="layui-icon" style="color:green">&#xe608;</i>上传图片</a></div>';
+                                }
+                            ?>
+                        </div>
+                    </div>
+                    <div class="layui-tab-item">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">专题人气</label>
+                            <label class="layui-form-label label2 marg10">总</label>
+                            <div class="layui-input-inline layui-input-inlinehot">
+                                <input type="text" name="hits" value="<?=$hits?>" class="layui-input">
+                            </div>
+                            <label class="layui-form-label label2 marg10">月</label>
+                            <div class="layui-input-inline layui-input-inlinehot">
+                                <input type="text" name="yhits" value="<?=$yhits?>" class="layui-input">
+                            </div>
+                            <label class="layui-form-label label2 marg10">周</label>
+                            <div class="layui-input-inline layui-input-inlinehot">
+                                <input type="text" name="zhits" value="<?=$zhits?>" class="layui-input">
+                            </div>
+                            <label class="layui-form-label label2 marg10">日</label>
+                            <div class="layui-input-inline layui-input-inlinehot">
+                                <input type="text" name="rhits" value="<?=$rhits?>" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">模版文件</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="skins" value="<?=$skins?>" class="layui-input">
+                            </div>
+                            <div class="layui-form-mid layui-word-aux">默认为topic-show.html</div>
+                        </div>
+                    </div>
+                    <div class="layui-tab-item">
+                        <div class="layui-form-item layui-form-text" >
+                            <label class="layui-form-label">专题介绍</label>
+                            <div class="layui-input-block">
+                                <textarea id="text" lay-verify="content" name="neir" placeholder="" style="display: none;" class="layui-textarea"><?=$neir?></textarea>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">SEO设置</label>
+                            <div class="layui-input-inline">
+                                <a class="layui-btn layui-btn-small" style="margin: 4px 10px;" href="javascript:$('#seo').toggle();">点击展开/合并SEO设置</a>
+                            </div>
+                        </div>
+                        <div id="seo" style="display: none;">
+                        <div class="layui-form-item layui-form-text">
+                            <label class="layui-form-label">SEO标题</label>
+                            <div class="layui-input-block">
+                                <textarea name="title" style="height: 100px" class="layui-textarea"><?=$title?></textarea>
+                            </div>
+                        </div>
+                        <div class="layui-form-item layui-form-text">
+                            <label class="layui-form-label">SEO关键字</label>
+                            <div class="layui-input-block">
+                                <textarea name="keywords" style="height: 100px" class="layui-textarea"><?=$keywords?></textarea>
+                            </div>
+                        </div>
+                        <div class="layui-form-item layui-form-text">
+                            <label class="layui-form-label">SEO介绍</label>
+                            <div class="layui-input-block">
+                                <textarea name="description" style="height: 100px" class="layui-textarea"><?=$description?></textarea>
+                            </div>
+                        </div></div>
+                    </div>
+                    <div class="layui-tab-item"><?=$opt_field?></div>
+                </div>
+            </div>
+                <input type="hidden" name="id" value="<?=$id?>">
+                <div class="layui-form-item">
+                    <div class="layui-input-block layui-input-common noborder">
+                        <button class="layui-btn" lay-submit lay-filter="setting">提交</button>
+                        <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script type="text/javascript">
+        cscms.init(5);
+        cscms.mode('cscms.getUpload(\'<?=Web_Path.SELF?>/upload/up_save_json?dir=newstopic\')');
+        cscms.mode('cscms.getUpload(\'<?=Web_Path.SELF?>/upload/up_save_json?dir=newstopic&fid=2\',\'pic2\',\'headpic\')');
+    </script>
+</body>
+</html>

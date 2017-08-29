@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <title>{cscms:title}</title>
+    <meta name="Keywords" content="{cscms:keywords}" />
+    <meta name="Description" content="{cscms:description}" />
+    <link rel="shortcut icon" href="{cscms:path}favicon.ico" />
+    <link rel="stylesheet" href="{cscms:webpath}packs/font/font.css">
+    <link rel="stylesheet" type="text/css" href="{cscms:tempurl}css/style.css"/>
+    <script type='text/javascript' src='{cscms:tempurl}js/wap.js'></script>
+    <script type='text/javascript' src='{cscms:tempurl}js/common.js'></script>
+</head>
+<body>
+    {cscms:head}
+    <div class="layui-tab layui-tab-card" style="box-shadow: none;margin-top: 0px">
+        <ul class="layui-tab-title">
+            <li class="layui-this"><a href="[user:url ulink=index]">主页</a></li>
+            <li><a href="[user:url ulink=info]">资料</a></li>
+            {cscms:model table="plugins" field="dir,name" loop="10" order="asc"}
+            {if:'[model:dir]'!='singer'}
+                <li id="nav_[model:dir]"><a class="noFlush_load_link" href="[user:url ulink=[model:dir]]">[model:name]</a></li>
+                {end if}
+            {/cscms:model}
+            <li><a href="[user:url ulink=friend]">关系</a></li>
+            <li><a href="[user:url ulink=gbook]">留言</a></li>
+        </ul>
+        <div class="layui-tab-content" style="padding: 5px 0px">
+            <div class="layui-tab layui-tab-brief" style="box-shadow: none;margin: 0px">
+                <ul class="layui-tab-title">
+                    <li class="layui-this">最新歌曲</li>
+                    <li>最新视频</li>
+                    <li><a href="[user:url ulink=feed]">近况</a></li>
+                </ul>
+                <div class="layui-tab-content" style="overflow: hidden;text-align: center;padding: 10px 0px;">
+                    <div class="layui-tab-item layui-show" style="padding: 0px 10px;text-align: left;">
+                        {cscms:dance table="dance" field="id,name,hits,shits,cid" loop="9" uid="auto"}
+                            <li class="dance-one">
+                                <div class="dance-one-left">
+                                    <a class="id-title" title="[dance:name]" href="[dance:url zdy=dance,id,play,id]"><span class="layui-btn layui-btn-mini {if:[dance:i]<4}layui-btn-danger{else}layui-btn-primary{end if}" style="text-align: center;width:18px;">[dance:i]</span>&nbsp;[dance:name]</a>
+                                    <div class="dance-one-more"><span><i class="layui-icon">&#xe6fc;</i><i title="人气">[dance:hits]</i></span><span><i class="layui-icon">&#xe600;</i><i title="收藏">[dance:shits]</i></span><span><a href="[dance:url zdy=dance,cid,lists,hits]">[dance:zdy zd=dance_list,name,cid]</a></span></div>
+                                </div>
+                            </li>
+                        {/cscms:dance}
+                    </div>
+                    <div class="layui-tab-item">
+                        <ul class="mv-ul">
+                            {cscms:vod table="vod" field="id,name,pic,remark" loop="12" uid="auto"}
+                            <li class="mv-li">
+                                <a title="[vod:name]" href="[vod:url zdy=vod,id,show,id]" >
+                                    <img src="[vod:pic dir=vod]" alt="[vod:name]">
+                                    <p>[vod:name]</p>
+                                    <span>[vod:remark]</span>
+                                </a>
+                            </li>
+                            {/cscms:vod}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-tab layui-tab-brief" style="box-shadow: none;margin: 0px">
+                <ul class="layui-tab-title">
+                    <li class="layui-this">{if:'[user:id]'=='{cscms:uid}'}我{else}TA{end if}的关注</li>
+                    <li>{if:'[user:id]'=='{cscms:uid}'}我{else}TA{end if}的粉丝</li>
+                    <li>最近访客</li>
+                </ul>
+                <div class="layui-tab-content">
+                    <div class="layui-tab-item layui-show">
+                    {cscms:fans table="friend" field="uidb,addtime" uida="auto" loop="5"}
+                        <li class="dt-one2" id="del[fans:id]" >
+                            <a target="_blank" class="dt-img" href="[fans:url ulink=index]"><img src="[fans:user zd=logo]"></a>
+                            <div class="dt-neir">
+                                <div class="dt-time" style="width: 20px"><div title="关注" style="font-size: 14px;cursor: pointer;" onclick="home.fansadd('[fans:uidb]',1);"  class="follow_btn gz[friend:uidb]"><i class="fa fa-plus"></i></div></div>
+                                <div class="dt-title">
+                                    <a style="font-weight: normal;" href="[fans:url ulink=index]">[fans:user zd=nichen]</a>
+                                </div>
+                                <div class="fans3"><span>关注</span><font>[fans:count zdy=friend,uida,uidb]</font><span></span><span>|<span></span>粉丝</span><font>[fans:count zdy=fans,uida,uidb]</font><span></span><span>|<span></span>人气</span><font>[fans:user zd=hits]</font></div>
+                                <div class="dt-nl">
+                                    个性签名：[fans:user zd=qianm]
+                                </div>
+                            </div>
+                            <hr style="margin-bottom: 4px">
+                            <div class="fans-more">
+                                <a href="[user:url userlink=msg,add]?user=[fans:user zd=name]">给Ta私信</a><a target="_blank" href="[fans:url ulink=index]">访问空间</a>
+                            </div>
+                        </li>
+                    {/cscms:fans}
+                        <div style="width: 100%;text-align: center;"><a style="padding: 0px 15px" class="layui-btn layui-btn-small layui-btn-primary layui-btn-radius" href="[user:url ulink=friend]">浏览更多<b></b></a></div>
+                    </div>
+                    <div class="layui-tab-item">
+                    {cscms:fans table="fans" field="uidb,addtime" uida="auto" loop="5"}
+                        <li class="dt-one2" id="del[fans:id]" >
+                            <a target="_blank" class="dt-img" href="[fans:url ulink=index]"><img src="[fans:user zd=logo]"></a>
+                            <div class="dt-neir">
+                                <div class="dt-time" style="width: 20px"><div title="关注" style="font-size: 14px;cursor: pointer;" onclick="home.fansadd('[fans:uidb]',1);"  class="follow_btn gz[friend:uidb]"><i class="fa fa-plus"></i></div></div>
+                                <div class="dt-title">
+                                    <a style="font-weight: normal;" href="[fans:url ulink=index]">[fans:user zd=nichen]</a>
+                                </div>
+                                <div class="fans3"><span>关注</span><font>[fans:count zdy=friend,uida,uidb]</font><span></span><span>|<span></span>粉丝</span><font>[fans:count zdy=fans,uida,uidb]</font><span></span><span>|<span></span>人气</span><font>[fans:user zd=hits]</font></div>
+                                <div class="dt-nl">
+                                    个性签名：[fans:user zd=qianm]
+                                </div>
+                            </div>
+                            <hr style="margin-bottom: 4px">
+                            <div class="fans-more">
+                                <a href="[user:url userlink=msg,add]?user=[fans:user zd=name]">给Ta私信</a><a target="_blank" href="[fans:url ulink=index]">访问空间</a>
+                            </div>
+                        </li>
+                    {/cscms:fans}
+                        <div style="width: 100%;text-align: center;"><a style="padding: 0px 15px" class="layui-btn layui-btn-small layui-btn-primary layui-btn-radius" href="[user:url ulink=fans]">浏览更多<b></b></a></div>
+                    </div>
+                    <div class="layui-tab-item">
+                    {cscms:fans table="funco" field="uidb,addtime" uida="auto" loop="8"}
+                        <li class="dt-one2" id="del[fans:id]" >
+                            <a target="_blank" class="dt-img" href="[fans:url ulink=index]"><img src="[fans:user zd=logo]"></a>
+                            <div class="dt-neir">
+                                <div class="dt-time" style="width: 20px"><div title="关注" style="font-size: 14px;cursor: pointer;" onclick="home.fansadd('[fans:uidb]',1);"  class="follow_btn gz[friend:uidb]"><i class="fa fa-plus"></i></div></div>
+                                <div class="dt-title">
+                                    <a style="font-weight: normal;" href="[fans:url ulink=index]">[fans:user zd=nichen]</a>
+                                </div>
+                                <div class="fans3"><span>关注</span><font>[fans:count zdy=friend,uida,uidb]</font><span></span><span>|<span></span>粉丝</span><font>[fans:count zdy=fans,uida,uidb]</font><span></span><span>|<span></span>人气</span><font>[fans:user zd=hits]</font></div>
+                                <div class="dt-nl">
+                                    个性签名：[fans:user zd=qianm]
+                                </div>
+                            </div>
+                            <hr style="margin-bottom: 4px">
+                            <div class="fans-more">
+                                <a href="[user:url userlink=msg,add]?user=[fans:user zd=name]">给Ta私信</a><a target="_blank" href="[fans:url ulink=index]">访问空间</a>
+                            </div>
+                        </li>
+                    {/cscms:fans}
+                        <div style="width: 100%;text-align: center;"><a style="padding: 0px 15px" class="layui-btn layui-btn-small layui-btn-primary layui-btn-radius" href="[user:url ulink=funco]">浏览更多<b></b></a></div>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-tab layui-tab-brief" style="margin-top: 0px">
+                <ul class="layui-tab-title">
+                    <li class="layui-this">留言板</li>
+                </ul>
+                <div class="layui-tab-content">
+                    {cscmsphp}get_gbook('[user:id]');{/cscmsphp}
+                </div>
+            </div>
+        </div>
+    </div>
+    {cscms:bottom}
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <title>{cscms:title}</title>
+    <meta name="Keywords" content="{cscms:keywords}" />
+    <meta name="Description" content="{cscms:description}" />
+    <link rel="shortcut icon" href="{cscms:path}favicon.ico" />
+    <link rel="stylesheet" href="{cscms:webpath}packs/font/font.css">
+    <link rel="stylesheet" type="text/css" href="{cscms:tempurl}css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="{cscms:tempurl}css/singer.css"/>
+    <script type='text/javascript' src='{cscms:tempurl}js/wap.js'></script>
+    <script type='text/javascript' src='{cscms:tempurl}js/singer.js'></script>
+</head>
+<body>
+    {cscms:head}
+    <div class="layui-collapse" style="margin-top: 10px;">
+        <div class="layui-colla-item">
+            <h2 class="layui-colla-title" align="left">&nbsp;{if:[singer:fid]==0}[singer:name]{else}[singer:zdy zd=singer_list,name,fid]{end if}</h2> 
+            <div class="layui-colla-content layui-show" style="text-align: center;padding: 10px 10px 0px 0px">
+                {cscms:class table="singer_list" field="id,name" fid="auto" sort="xid" order="asc"}
+                	<a style="margin-bottom: 10px;margin-left: 6px" class="layui-btn layui-btn-small {if:[class:id]==[singer:id]}layui-btn-danger{else}layui-btn-primary{end if}" href="[class:url  link=lists,id]">[class:name]</a>
+                	{cscmstype:style2 table="singer_list" field="id,name" fid="[class:id]" sort="xid" order="asc"}
+                    	<a style="margin-bottom: 10px;margin-left: 6px" class="layui-btn layui-btn-mini {if:[style2:id]==[singer:id]}layui-btn-danger{else}layui-btn-primary{end if}" href="[style2:url  link=lists,id]">[style2:name]</a>
+                	{/cscmstype:style2}
+                {/cscms:class}
+            </div>
+        </div>
+    </div>
+    <div class="layui-collapse ms-zm" style="margin-top: 0px;border-top: 0px;display: none;">
+        <div class="layui-colla-item">
+            <h2 class="layui-colla-title" align="left">&nbsp;&nbsp;按字母查找</h2> 
+            <div class="layui-colla-content" style="text-align: center;padding: 10px 10px 10px 0px">
+                {cscmszm:27}
+                    <a style="width: 34px;margin-bottom: 10px;margin-left: 6px" class="layui-btn layui-btn-mini layui-btn-primary zm" href="{cscmsphp}linkurl('search','zm','[zm:name]',1);{/cscmsphp}">[zm:name]</a>
+                {/cscmszm}
+            </div>
+        </div>
+    </div>
+    <div class="layui-tab layui-tab-brief" style="margin: 0px">
+        <ul class="layui-tab-title">
+            <li class="layui-this">[singer:name]</li>
+            <a href="javascript:zmShow()" class="layui-btn layui-btn-mini" style="float: right;margin-top:12px;margin-right: 8px;background-color:#5FB878">字母查找</a>
+        </ul>
+        <div class="layui-tab-content" style="padding: 10px 0px;background-color: #f6f6f6">
+            <div class="layui-tab-item layui-show" style="overflow: hidden;text-align: center;">
+                <ul class="ms-ul">
+                    {cscms:singer table="singer" field="id,name,pic" pagesize="24" start="1" cid="auto" sort="hits"}
+                       <li class="ms-li"><a title="[singer:name]" href="[singer:url link=show]" ><img src="[singer:pic dir=singer]" alt="[singer:name]"><p>[singer:name]</p></a></li>
+                   {/cscms:singer}
+                </ul>
+                <div class="zanwu" {if:{cscms:pagedata}>0}style="display: none"{end if}>暂无相关记录！</div>
+                <div class="page" style="margin-top: 10px" {if:{cscms:pagecout}<2}style="display:none"{end if}>
+                    <div class="layui-box layui-laypage layui-laypage-default" id="layui-laypage-0" style="width: 100%;text-align: center;">
+                        <a href="{cscms:pageup}" class="layui-laypage-last" title="上一页">上一页</a>
+                        {cscms:pagenum len=3}
+                        <a href="{cscms:pagedown}" class="layui-laypage-next">下一页</a>
+                    </div>
+               </div>
+            </div>
+        </div>
+    </div>
+</body>
+{cscms:bottom}
+<script type="text/javascript">
+    function zmShow(){
+        $('.ms-zm').toggle();
+    }
+</script>
+</body>
+</html>

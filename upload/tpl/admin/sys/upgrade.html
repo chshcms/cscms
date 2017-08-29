@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset=utf-8>
+    <title></title>
+    <meta name="robots" content="noindex,nofollow">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/layui/css/layui.css">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/admin/css/font.css">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/admin/css/style.css">
+    <script src="<?=Web_Path?>packs/js/jquery.min.js"></script>
+    <script src="<?=Web_Path?>packs/layui/layui.js"></script>
+    <script src="<?=Web_Path?>packs/admin/js/cscms.js"></script>
+</head>
+<body>
+    <span class="layui-breadcrumb" >
+        <a ><cite><i class="fa fa-map-marker"></i><?=L('tpl__0')?></cite></a>
+        <a href="javascript:;"><?=L('tpl_00')?></a>
+        <a href="<?=site_url('upgrade')?>"><?=L('tpl_01')?></a>
+    </span>
+    <table class="layui-table" style="width: 99.7%">
+        <colgroup>
+        </colgroup>
+        <thead>
+            <tr>
+                <th><?=L('tpl_02')?></th>
+                <th><?=L('tpl_03')?></th>
+                <th><?=L('tpl_04')?></th>
+                <th class="phide"><?=L('tpl_05')?></th>
+                <th ><?=L('tpl_06')?></th>
+                <th class="phide"><?=L('tpl_07')?></th>
+                <th class="phide"><?=L('tpl_08')?></th>
+            </tr>
+        </thead>
+        <tbody>
+		<style>.hide{display:none;}</style>
+        <?php 
+            if(empty($cscms_update)){
+                echo '<tr><td align="center" height="50" colspan="7">'.L('tpl_09').'</td></tr>';
+            }else{
+			   $sign = 0;
+               for ($i=0; $i<count($cscms_update); $i++) {
+                    $update = date('Ymd',strtotime($cscms_update[$i]['date']));
+                    $v = (CS_Version == $cscms_update[$i]['v'] && CS_Uptime==$update)?'<b><font class="colorl">'.L('tpl_10').'</font></b>':'';
+
+                    $uplink = ((CS_Version < $cscms_update[$i]['v']) ||  (CS_Version == $cscms_update[$i]['v'] && CS_Uptime<$update))?'<a href="javascript:cscms.confirm_url(\''.site_url('upgrade/init').'?id='.$cscms_update[$i]['id'].'\',\''.L('tpl_11').'\');"><i class="fa fa-send colord" style="font-size:16px;"></i></a>':'--';
+                    $downlink=((CS_Version < $cscms_update[$i]['v']) ||  (CS_Version == $cscms_update[$i]['v'] && CS_Uptime<$update))?'<a href="http://www.chshcms.com/down/xia/utf8/'.$cscms_update[$i]['id'].'.html"><i class="fa fa-download colorn" style="font-size:16px;"></i></a>':'--';
+                    if((CS_Version < $cscms_update[$i]['v']) ||  (CS_Version == $cscms_update[$i]['v'] && CS_Uptime<$update)){
+                        $sign++;
+                        $cls = 'hide upgrade'.$sign;
+                    }else{
+                        $cls = '';
+                    }
+                    echo '<tr class="'.$cls.'">
+                        <td>'.get_bm($cscms_update[$i]['name']).$v.'</td>
+                        <td>'.$cscms_update[$i]['v'].'</td>
+                        <td >'.$cscms_update[$i]['date'].'</td>
+                        <td class="phide">'.formatsize($cscms_update[$i]['size']).'</td>
+                        <td align="center">'.$uplink.'</td>
+                        <td class="phide" align="center">'.$downlink.'</td>
+                        <td class="phide" align="center"><a class="layui-btn layui-btn-mini" href="http://www.chshcms.com/down/show/'.$cscms_update[$i]['id'].'.html" target="_blank" title="'.L('tpl_12').'">'.L('tpl_13').'</a></td></tr>';
+               }
+            } 
+            ?>
+        </tbody>
+    </table>
+    <script type="text/javascript">
+        cscms.init();
+        $('.upgrade<?=$sign?>').show();
+    </script>
+</body>
+</html>

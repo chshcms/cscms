@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{cscms:title}</title>
+<meta name="keywords" content="{cscms:keywords}"/>
+<meta name="description" content="{cscms:description}"/>
+<link href="{cscms:indextempurl}css/public.css" rel="stylesheet" type="text/css" />
+<link href="{cscms:indextempurl}css/space.css" rel="stylesheet" type="text/css" />
+<link href="{cscms:indextempurl}css/song.css" rel="stylesheet" type="text/css" />
+<link href="{cscms:indextempurl}css/more.css" rel="stylesheet" type="text/css" />
+<link href="{cscms:indextempurl}css/manage.css" rel="stylesheet" type="text/css" />
+<script type='text/javascript' src='{cscms:indextempurl}js/common.js'></script>
+</head>
+<body>
+{cscms:indexhead}     
+<div class="k_content s_content no_flush_content">
+     <div class="main_tit">
+           <h2 class="main_tit_album" style="width:260px;">{if:{cscms:uid}==[user:id]}我{else}TA{end if}的文章</h2>
+           {if:{cscms:uid}==[user:id]}
+			<div class="k_main_tit_btn show_owner_panel">
+                    <a href="{cscmsphp}spacelink('news,add','news');{/cscmsphp}" class="f_green lt space_add_album"><b></b>分享文章</a>
+            </div>
+		  {end if}
+     </div>
+     <div class="yc_song" style="margin-top:20px;">
+	        <div class="dj_lists">
+                <h2 class="dj_title c_wap">
+                    <a href="[user:url ulink=dance]" class="lt a_btn f16 {if:{cscms:fid}==0}song_coll coll_pull{else}list_coll{end if} noFlush_load_link">全部文章</a>
+					{cscms:class table="news_list" loop="8" fid="0" order="asc"}
+                    <a href="[user:url ulink=news]/[class:id]" class="lt a_btn f16 {if:{cscms:fid}==[class:id]}song_coll coll_pull{else}list_coll{end if} noFlush_load_link">[class:name]</a>
+					{/cscms:class}
+                </h2>
+            </div>
+            <div class="news_list"{if:{cscms:pagedata}==0} style="display:none;"{end if}>
+                <ul>
+				{cscms:news table="news" field="id,reco,name,addtime" pagesize="30" uid="auto"}
+                <li id="song-1" did="[news:id]"><strong class="lt list_name"><a target="_blank" href="[news:url link=show,id]" title="[news:name]">[news:name len=20]</a>{if:[news:reco]>2}<b class="icon_rec" title="推荐"></b>{end if}</strong><span class="tips_gray">[news:addtime style=Y-m-d]</span></li>
+				{/cscms:news}
+                </ul>
+            </div>
+			{if:{cscms:pagedata}==0}<div class="null_box show_visitor_panel" style=""><b class="null_icon"></b><p>暂无文章</p></div>{end if}
+     </div>
+	 <div class="msg_page f14 tc fa_g6 g6 mt20 msg_page_green" style="display:{if:{cscms:pagecout}==1}none{end if};">
+			<span class="msg_page_list">
+				<a href="{cscms:pageup}" class="commentsPrevPage">上一页</a>
+				{cscms:pagenum len=10}
+				<a href="{cscms:pagedown}" class="commentsNextPage">下一页</a>
+			</span>
+			<span class="msg_page_jump ml10"> 到<input type="text" id="home_page" class="tc commentsJumpPageTxt" size="4" maxlength="4">页<a href="javascript:window.location.href='[user:url ulink=news]/{cscms:fid}/'+$('#home_page').val();" class="tdn commentsJumpPageBtn">确 定</a></span>
+	 </div>
+</div>
+{cscms:indexbottom}
+<script>$('#nav_news').addClass('sel');</script>
+</body>
+</html>

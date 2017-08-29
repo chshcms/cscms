@@ -1,0 +1,79 @@
+				<div class="box_msg" id="comments_container_anchor">
+				    <div class="main_tit"><h2 class="main_tit_msg">我要留言({cscms:pagedata})</h2></div>
+					<div class="msg_release">
+					    <div class="release_login" style="display:{if:'{cscms:login}'=='ok'}none{else}block{end if};">
+						    <p class="release_login_tips">如要发言，请先 <a href="{cscms:loginlink}" class="f_yel">登录</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="{cscms:reglink}" class="f_yel">快速注册</a></p>
+						</div>
+						<div class="release_cont">
+						    <input type='hidden' id='gbook_token' value='[gbook:token]'/>
+						    <textarea cols="50" id="cscms_gbook_content" class="release_cont_txt release_cont_big" rows="4" style="resize: none; overflow-y: hidden;"></textarea>
+						</div>
+						<div class="msg_action">
+						    <span class="face"><a href="###" onclick="faces(0);" id="faces0" class="face_btn comments_face_btn"><b class="face_icon"></b>添加表情</a></span>
+							<span class="msg_action_btn"><input onclick="cscms.home_gbookadd();" type="button" value="发表留言"></span>
+						</div>
+						<div class="comments_face_list face_list" id="cscms_faces" style="display:none;">[gbook:faces]</div>
+					</div>
+					<div class="msg_list">
+{cscms:gbook table="gbook" uida="auto" cid="0" fid="0" pagesize="10" sort="id" order="desc"}
+					    <dl id="comment_[gbook:id]">
+						    <dt><a target="_blank" href="[gbook:url ulink=index]" class="show_userCard_link"><img src="[gbook:user zd=logo]" width="60" height="60" ></a></dt>
+							<dd>
+							    <div class="msg_list_name">
+								    <a target="_blank" href="[gbook:url ulink=index]" class="show_userCard_link f14 lt">[gbook:user zd=nichen]</a>
+									<em class="lt">
+                                        {if:[gbook:user zd=vip]>0}<img width="17" src="{cscms:tempurl}images/icon/vip.gif" border="0" title="VIP会员">{end if}{if:[gbook:user zd=rzid]>0}<img width="17" src="{cscms:tempurl}images/icon/realname.gif" border="0" title="实名认证">{end if}{if:[gbook:user zd=tid]>0}<img width="17" src="{cscms:tempurl}images/icon/recommend.gif" border="0" title="推荐歌手">{end if}{if:[gbook:user zd=hits]>2000}<img width="17" src="{cscms:tempurl}images/icon/star.gif" border="0" title="明星会员">{end if}
+									</em>
+								</div>
+								<div class="msg_list_txt">[gbook:neir]</div>
+								<div class="msg_list_from">
+								    <span class="lt tips_gray">[gbook:addtime style=time]</span>
+									<em class="msg_list_btn rt">
+									   <a href="###" onclick="cscms_hf('[gbook:id]');" class="msg_list_return" title="回复"><b>回复</b>([gbook:count zdy=gbook,fid,id])</a>
+									   {if:[gbook:uidb]=={cscms:uid} || [gbook:uida]=={cscms:uid}}<a href="###" onclick="cscms.home_gbookdel('[gbook:id]');" class="msg_list_del" title="删除"><b>删除</b></a>{end if}
+									</em>
+								</div>
+								<div class="msg_list_reply" id="cscms_hf_[gbook:id]" style="display: none;">
+								    <span class="msg_list_reply_arrow arrow_box"></span>
+									<div class="msg_release">
+									    <div class="release_cont"><textarea cols="50" id="cscms_gbook_hf_[gbook:id]" class="release_cont_txt" rows="4">回复@[gbook:user zd=name]@:</textarea></div>
+										<div class="msg_action"><span class="msg_action_btn"><input type="button" onclick="cscms.home_gbookhf('[gbook:id]','回复@[gbook:user zd=name]@:');" value="回复"></span></div>
+									</div>
+									{cscmstype:gbook2 table="gbook" fid="auto" sort="id" order="desc"}
+									<dl><dt><a target="_blank" href="[gbook2:url ulink=index]" class="show_userCard_link"><img src="[gbook2:user zd=logo]" width="40" height="40" alt=""></a></dt><dd><div class="msg_list_name"><a target="_blank" href="[gbook2:url ulink=index]" class="show_userCard_link f14 lt">[gbook2:user zd=nichen]</a></div><div class="msg_list_txt">[gbook2:neir]</div><div class="msg_list_from"><span class="lt tips_gray">[gbook2:addtime style=time]</span><em class="msg_list_btn rt">
+									<a href="###" onclick="$('#cscms_gbook_hf_[gbook2:fid]').val('回复@[gbook2:user zd=name]@:');" class="msg_list_return" title="回复"><b>回复</b></a>
+                                    {if:[gbook2:uidb]=={cscms:uid} || [gbook2:uida]=={cscms:uid}}<a href="###" onclick="cscms.home_gbookdel('[gbook2:id]');" class="msg_list_del" title="删除"><b>删除</b></a>{end if}
+									</em></div></dd></dl>
+									{/cscmstype:gbook2}
+							   </div>
+							</dd>
+						</dl>
+{/cscms:gbook}
+						<div class="msg_page f14 tc fa_g6 g6 mt20 msg_page_green" style="display:{if:{cscms:pagecout}==1}none{end if};">
+						<span class="msg_page_list">
+						<a href="{cscms:pageup}" class="commentsPrevPage">上一页</a>
+						{cscms:pagenum len=6}
+						<a href="{cscms:pagedown}" class="commentsNextPage">下一页</a></span>
+						<span class="msg_page_jump ml10"> 到<input type="text" id="gbook_page" class="tc commentsJumpPageTxt" size="4" maxlength="4">页<a href="javascript:cscms.home_gbook($('#gbook_page').val());" class="tdn commentsJumpPageBtn">确 定</a></span></div>
+					</div>
+				</div>
+<script type='text/javascript'>
+function cscms_hf(_id){
+     var none=$('#cscms_hf_'+_id).css('display');
+	 if(none=='none'){
+         $('#cscms_hf_'+_id).show();
+	 }else{
+         $('#cscms_hf_'+_id).hide();
+	 }
+}
+function faces(){
+     var none=$('#cscms_faces').css('display');
+	 if(none=='none'){
+         $('#cscms_faces').show();
+	 }else{
+         $('#cscms_faces').hide();
+	 }
+}
+home.init();
+</script>
+

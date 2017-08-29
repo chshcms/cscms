@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset=utf-8>
+    <meta http-equiv="X-UA-Compatible" content="IE=9">
+    <title>{cscms:title}</title>
+    <meta name="Keywords" content="{cscms:keywords}" />
+    <meta name="Description" content="{cscms:description}" />
+    <link rel="stylesheet" href="{cscms:webpath}packs/font/font.css">
+    <link rel="stylesheet" type="text/css" href="{cscms:indextempurl}css/user.css" />
+    <script type='text/javascript' src='{cscms:indextempurl}js/user.js'></script>
+    <style type="text/css">
+    .layui-form-checkbox[lay-skin=primary]{margin-top: 0px}
+    .layui-form-checkbox span{padding: 0px}
+    </style>
+</head>
+<body style="background: #f5f5f5">
+    {cscms:indexhead}
+    {cscms:indexright}
+        {cscms:indexleft}
+            <div class="sp-cont-r">
+                <div class="layui-tab layui-tab-card" lay-filter="dt1" style="margin-top: 0px;margin-bottom: 0px">
+                    <ul class="layui-tab-title" style="height: 41px">
+                        <li class="layui-this"><a href="javascript:;">制作相册</a></li>
+                        <li><a href="[user:url userlink=pic,type]">已通过相册</a></li>
+                        <li><a href="[user:url userlink=pic,verify]">审核中相册</a></li>
+                        <li><a href="[user:url userlink=pic]">我的图片</a></li>
+                        <a style="float: right;margin-right: 15px;margin-top: 5px" href="[user:url userlink=pic,add]" class="layui-btn layui-btn-small layui-btn-danger">上传图片</a>
+                        <a style="float: right;margin-right: 15px;margin-top: 5px" href="[user:url userlink=pic,addtype]" class="layui-btn layui-btn-small layui-btn-danger">制作相册</a>
+                    </ul>
+                    <div class="layui-tab-content" style="padding:10px;background-color: #fff">
+                        <div class="layui-tab-item layui-show">
+                        <form class="layui-form layui-form-pane" action="[user:pictypesave]" method="post">
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">所属分类</label>
+                                <div class="layui-input-block">
+                                    <select name="cid">
+                                    {cscms:class table="pic_list" fid="0" sort="xid" order="asc"}
+                                        <option value="[class:id]">&nbsp;|—[class:name]</option>
+                                        {cscmstype:class table="pic_list" fid="auto" sort="xid" order="asc"}
+                                        <option value="[class:id]">&nbsp;|&nbsp;&nbsp;&nbsp;|—[class:name]</option>
+                                        {/cscmstype:class}
+                                    {/cscms:class}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">相册标题</label>
+                                <div class="layui-input-inline" style="width: 235px">
+                                    <input type="text" name="name" required lay-verify="required" class="layui-input">
+                                </div>
+                                <label class="layui-form-label">歌手</label>
+                                <div class="layui-input-inline" style="width: 235px;margin-right: 0px">
+                                    <input type="text" name="singer" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">标签</label>
+                                <div class="layui-input-inline" style="width: 485px">
+                                    <input id="tags" type="text" name="tags" placeholder="多个用逗号隔开" class="layui-input">
+                                </div><a class="layui-btn layui-btn-primary" href="javascript:cscms.get_open('{cscms:webpath}index.php/tags?fid=tags','快速选择标签','700px','475px');">快速选择</a>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">相册封面</label>
+                                <div class="layui-input-inline" style="width: 485px">
+                                    <input id="pic" type="text" name="pic" class="layui-input">
+                                </div>
+                                <a href="javascript:cscms.get_upurl('pic','pic','*.jpg;*.png;*.gif','up_msg');" class="layui-btn layui-btn-primary">上传图片</a>
+                            </div>
+                            {cscms:opt_field_pic_type}
+                            <input type="hidden" name="token" value="[user:token]"/>
+                            <div class="layui-form-item">
+                                <div class="layui-input-block" style="text-align: center;margin-left: 0px">
+                                    <button class="layui-btn" lay-submit lay-filter="">提交</button>
+                                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                                </div>
+                            </div>
+                        </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mar10"></div>
+    <div class="mar10"></div>
+{cscms:indexbottom}
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#left_pic_3').addClass('on');
+        $('#left_first').removeClass('layui-nav-itemed');
+        $('#left_pic_3').parent().parent().addClass('layui-nav-itemed');
+    });
+</script>
+</body>
+</html>

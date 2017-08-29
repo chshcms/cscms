@@ -1,0 +1,169 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset=utf-8>
+    <title></title>
+    <meta name="robots" content="noindex,nofollow">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/layui/css/layui.css">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/admin/css/font.css">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/admin/css/style.css">
+    <script src="<?=Web_Path?>packs/js/jquery.min.js"></script>
+    <script src="<?=Web_Path?>packs/layui/layui.js"></script>
+    <script src="<?=Web_Path?>packs/admin/js/cscms.js"></script>
+</head>
+
+<body>
+    <span class="layui-breadcrumb" >
+        <a href="javascript:;"><cite><i class="fa fa-map-marker"></i><?=L('main-0-0')?></cite></a>
+        <a href="#"><?=L('main-0-1')?></a>
+    </span>
+    <div class="mainindex">
+        <div class="mainleft">
+            <table class="layui-table">
+                <colgroup>
+                    <col width="140">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th colspan="2"><?=L('main-0-2')?></th>
+                    </tr>
+                </thead>
+                <tbody id="cscms_team">
+                    <tr>
+                        <td><?=L('main-0-3')?></td>
+                        <td>&nbsp;<a href="http://www.chshcms.com/" target="_blank"><?=L('main-0-4')?></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><?=L('main-0-5')?></td>
+                        <td>&nbsp;<?=L('main-0-6')?></td>
+                    </tr>
+                    <tr>
+                        <td><?=L('main-0-7')?></td>
+                        <td>&nbsp;<?=L('main-0-8')?></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="mainright">
+            <table class="layui-table">
+                <colgroup>
+                    <col width="140">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th colspan="4"><?=L('main-1-0')?></th>
+                    </tr>
+                </thead>
+                <tbody id="cscms_support">
+                    <tr>
+                        <td><?=L('main-0-1')?></td>
+                        <td>&nbsp;<a href="http://www.chshcms.com/buy.html" target="_blank" style="color:red"><?=L('main-0-2')?></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><?=L('main-0-3')?></td>
+                        <td>&nbsp;<a href="http://www.chshcms.com/" target="_blank">http://www.chshcms.com</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><?=L('main-0-4')?></td>
+                        <td>&nbsp;<a href="http://bbs.chshcms.com/" target="_blank">http://bbs.chshcms.com</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="mainleft">
+            
+        <table class="layui-table">
+            <colgroup>
+                <col width="140">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th colspan="2"><?=L('main-2-0')?></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><?=L('main-2-1')?></td>
+                    <td><?=L('main-2-2')?></td>
+                </tr>
+                <tr>
+                    <td><?=L('main-2-3')?></td>
+                    <td><?php echo PHP_VERSION;?>&nbsp;&nbsp;<?php if(!is_php('5.3')){ echo '<i class="fa fa-close" style="color: red;"></i>';}else{ echo '<i class="fa fa-check colorl" ></i>';}?>&nbsp;&nbsp;php-version > 5.2</td>
+                </tr>
+                <tr>
+                    <td><?=L('main-2-4')?></td>
+                    <td><?php echo mydb(); ?>&nbsp;&nbsp;mysql-version > 5.0</td>
+                </tr>
+                <tr>
+                    <td><?=L('main-2-5')?></td>
+                    <td><?=show("upload_max_filesize")?>&nbsp;&nbsp;<a href="http://bbs.chshcms.com/show/1.html" class="colorl" target="_blank"><?=L('main-2-6')?></a></td>
+                </tr>
+                <tr>
+                    <td><?=L('main-2-7')?></td>
+                    <td><?=show("post_max_size")?>&nbsp;&nbsp;<a href="http://bbs.chshcms.com/show/1.html" class="colorl" target="_blank"><?=L('main-2-6')?></a></td>
+                </tr>
+                <tr>
+                    <td><?=L('main-2-8')?></td>
+                    <td>
+                        <?php $os = explode(" ", php_uname()); echo $os[0];?> &nbsp;<?php if('/'==DIRECTORY_SEPARATOR){echo $os[2];}else{echo $os[1];} ?></td>
+                </tr>
+                <tr>
+                    <td><?=L('main-2-9')?></td>
+                    <td><?php echo current(explode(' ',$_SERVER['SERVER_SOFTWARE']));?></td>
+                </tr>
+                <tr>
+                    <td><?=L('main-2-10')?></td>
+                    <td>
+                      <?php if('/'==DIRECTORY_SEPARATOR){echo $_SERVER['SERVER_ADDR'];}else{echo gethostbyname($_SERVER['SERVER_NAME']);} ?></td>
+                </tr>
+                <tr>
+                    <td><?=L('main-2-11')?></td>
+                    <td>
+                      <?=Web_Url?></td>
+                </tr>
+                <tr>
+                    <td><?=L('main-2-12')?></td>
+                    <td><?=show("max_execution_time")?><?=L('main-2-13')?>&nbsp;&nbsp;<a href="http://bbs.chshcms.com/show/1.html" class="colorl" target="_blank"><?=L('main-2-6')?></a></td>
+                </tr>
+            </tbody>
+        </table>
+        </div>
+        <div class="mainright">
+        <table class="layui-table">
+            <colgroup>
+                <col width="140">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th colspan="2"><?=L('main-3-0')?></th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td id="news_td">
+                <div id="cscms_news">
+                    <div class="load">
+                        <i class="fa fa-spin fa-spinner colorl" style="font-size: 30px;margin-top: 50px;"></i>
+                        <div class="loading"><?=L('main-3-1')?></div>
+                    </div>
+                </div>
+                </td>
+            </tr>
+            
+            </tbody>
+        </table>
+            
+        </div>
+        
+    </div>
+</body>
+<script>
+    cscms.init(2);
+</script>
+</html>

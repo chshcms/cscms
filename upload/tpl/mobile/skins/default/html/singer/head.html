@@ -1,0 +1,30 @@
+    <div class="header">
+        <a class="logo left" href="{cscms:path}"><img src="{cscms:tempurl}images/logo.png" alt=""></a>
+        <a href="javascript:wap.plutog();" style="height: 50px" class="more right"><i class="fa fa-chevron-down"></i></a>
+        <a class="user right" href="javascript:singer.mclass();"><i class="fa fa-sliders"></i></a>
+        <div class="plugins">
+            <a href="/">主站</a>
+            {cscms:plu table="plugins" field="dir,name" order="asc"}
+                <a href="{cscmsphp}cscmslink('[plu:dir]');{/cscmsphp}">[plu:name]</a>
+            {/cscms:plu}
+            <a href="{cscms:userlink}">会员</a>
+        </div>
+        {cscms:logkuang}
+    </div>
+    <div class="md-head-more">
+        <div class="mclass">
+            {cscms:class table="singer_list" field="id,name" fid="0" loop="10" sort="xid" order="asc"}
+                <a href="[class:url link=lists,id]">[class:name]</a>
+                <!-- {cscmstype:style2 table="singer_list" field="id,name" fid="[class:id]" loop="10" sort="xid" order="asc"}
+                    <a href="[style2:url link=lists,id]">[style2:name]</a>
+                {/cscmstype:style2} -->
+            {/cscms:class}
+        </div>
+        <div class="md-head-search">
+            <form action="{cscms:solink}" class="layui-form">
+                <button title="搜索" style="float: right;" class="layui-btn layui-btn-small search-btn" lay-submit lay-filter="search"><i class="fa fa-search"></i></button>
+                <input type="text" name="key" id="key" class="layui-input" placeholder="请输入关键字" value="">
+            </form>
+        </div>
+    </div>
+    

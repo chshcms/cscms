@@ -1,0 +1,24 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html;charset=utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1" /> 
+<title>微信扫码支付 - <?=Web_Name?></title>
+<script type="text/javascript" src="<?=Web_Path?>packs/js/jquery.min.js"></script>
+</head>
+<body style="width:100%;margin:0 auto;margin-top:10px;text-align:center;">
+<h2>微信扫码支付</h2>
+<p style="color:#556B2F;">订单号：<?=$dingdan?></p>
+<p style="color:#556B2F;">金额：<?=$rmb?>元</p>
+<img alt="扫码支付" src="'.$url.'" style="width:150px;height:150px;"/>
+<script type="text/javascript">
+setInterval("wxpay();",2000);
+function wxpay(){
+	$.getJSON("<?=$yblink?>?random="+Math.random()+"&callback=?",function(data) {
+		if(data['msg']=="ok"){ 
+			top.location.href = data['url']; 
+		}
+	});
+}
+</script>
+</body>
+</html>

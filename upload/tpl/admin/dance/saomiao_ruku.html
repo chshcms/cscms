@@ -1,0 +1,172 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset=utf-8>
+    <title></title>
+    <meta name="robots" content="noindex,nofollow">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/layui/css/layui.css">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/admin/css/font.css">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/admin/css/style.css">
+    <script src="<?=Web_Path?>packs/js/jquery.min.js"></script>
+    <script src="<?=Web_Path?>packs/layui/layui.js"></script>
+    <script src="<?=Web_Path?>packs/admin/js/cscms.js"></script>
+</head>
+<body id="index_setting">
+    <span class="layui-breadcrumb" >
+        <a ><cite><i class="fa fa-map-marker"></i>位置</cite></a>
+        <a href="<?=site_url('dance/admin/dance')?>">音乐</a>
+        <a href="<?=site_url('dance/admin/saomiao')?>">歌曲扫描</a>
+    </span>
+    <form class="layui-form layui-form-pane" action="<?=site_url('dance/admin/saomiao/save')?>" method="post">
+    <fieldset class="layui-elem-field" style="margin-top: 15px;text-align: left;">
+        <legend>歌曲入库设置</legend>
+        <div class="layui-field-box">
+            <div class="layui-form-item">
+                <label class="layui-form-label">歌曲参数</label>
+                <div class="layui-input-inline layui-input-inlinew marg10">
+                    <select name="cid" lay-verify="required">
+                        <option value="">请选分类</option>
+                        <?php
+                        $query = $this->db->query("SELECT id,name FROM ".CS_SqlPrefix."dance_list where fid=0 order by xid asc"); 
+                        foreach ($query->result() as $row) {
+                            echo '<option value="'.$row->id.'">'.$row->name.'</option>';
+                            $query2 = $this->db->query("SELECT id,name FROM ".CS_SqlPrefix."dance_list where fid=".$row->id." order by xid asc"); 
+                            foreach ($query2->result() as $row2) {
+                                echo '<option value="'.$row2->id.'">'.$row2->name.'</option>';
+                            }
+                        }
+                        ?>
+                    </select>
+                </div>
+                <div class="layui-input-inline layui-input-inlinew">
+                    <select name="tid">
+                        <option value="0">歌曲专辑</option>
+                        <?php
+                        $query = $this->db->query("SELECT id,name FROM ".CS_SqlPrefix."dance_topic order by id asc"); 
+                        foreach ($query->result() as $row) {
+                            echo '<option value="'.$row->id.'">'.$row->name.'</option>';
+                        }
+                        ?>
+                    </select>
+                </div>
+                <div class="layui-input-inline layui-input-inlinew" >
+                    <select name="fid">
+                        <option value="0">服务器组</option>
+                        <?php
+                        $query = $this->db->query("SELECT id,name FROM ".CS_SqlPrefix."dance_server order by id asc"); 
+                        foreach ($query->result() as $row) {
+                            echo '<option value="'.$row->id.'">'.$row->name.'</option>';
+                        }
+                        ?>
+                    </select>
+                </div>
+                <div class="layui-input-inline layui-input-inlinew" >
+                    <select name="reco">
+                        <option value="0">歌曲推荐</option>
+                        <option value="1">★☆☆☆☆</option>
+                        <option value="2">★★☆☆☆</option>
+                        <option value="3">★★★☆☆</option>
+                        <option value="4">★★★★☆</option>
+                        <option value="5">★★★★★</option>
+                    </select>
+                </div>
+                <div class="layui-input-inline layui-input-inlinew" >
+                    <select name="yid">
+                        <option value="0">显示</option>
+                        <option value="1">隐藏</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">作者参数</label>
+                <div class="layui-input-inline layui-input-inlinew marg10">
+                    <input type="text" name="zc" placeholder="作词人" value="" class="layui-input">
+                </div>
+                <div class="layui-input-inline layui-input-inlinew">
+                    <input type="text" name="zq" placeholder="作曲人" value="" class="layui-input">
+                </div>
+                <div class="layui-input-inline layui-input-inlinew">
+                    <input type="text" name="bq" placeholder="编曲人" value="" class="layui-input">
+                </div>
+                <div class="layui-input-inline layui-input-inlinew">
+                    <input type="text" name="hy" placeholder="混缩人" value="" class="layui-input">
+                </div>
+                <div class="layui-input-inline layui-input-inlinew">
+                    <input type="text" name="singer" placeholder="歌手名称" value="" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">TAGS标签</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="tags" placeholder="多个逗号隔开" value="" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">会员参数</label>
+                <div class="layui-input-inline layui-input-inlinew marg10">
+                    <input type="text" name="user" placeholder="会员名称" value="" class="layui-input">
+                </div>
+                <div class="layui-input-inline layui-input-inlinew" >
+                    <input type="text" name="cion" value="" placeholder="下载所需金币" class="layui-input">
+                </div>
+                <div class="layui-input-inline layui-input-inlinew">
+                    <select name="vip">
+                        <option value="0">会员组</option>
+                        <?php
+                        $query = $this->db->query("SELECT id,name FROM ".CS_SqlPrefix."userzu order by id asc"); 
+                        foreach ($query->result() as $row) {
+                            echo '<option value="'.$row->id.'">'.$row->name.'</option>';
+                        }
+                        ?>
+                    </select>
+                </div>
+                <div class="layui-input-inline layui-input-inlinew" >
+                    <select name="level">
+                        <option value="0">会员等级</option>
+                        <?php
+                        $query = $this->db->query("SELECT id,name FROM ".CS_SqlPrefix."userlevel order by id asc"); 
+                        foreach ($query->result() as $row) {
+                            echo '<option value="'.$row->id.'">'.$row->name.'</option>';
+                        }
+                        ?>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">默认模版</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="skins" value="play.html" class="layui-input">
+                </div>
+                <div class="layui-form-mid layui-word-aux">默认为play.html</div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">视听后缀</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="playhz" placeholder="用于修改视听地址后缀,文件请自行修改,可留空" value="" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item layui-form-text">
+                <label class="layui-form-label">歌曲文件</label>
+                <div class="layui-input-block">
+                    <textarea name="files" lay-verify="required" placeholder="请输入内容" style="height: 250px" class="layui-textarea"><?=$files?></textarea>
+                </div>
+            </div>
+            <input name="dir" type="hidden" value="<?=$dir?>">
+            <input name="path" type="hidden" value="<?=$path?>">
+            <input name="hz" type="hidden" value="<?=$hz?>">
+            <div class="layui-form-item">
+                <div class="layui-input-block layui-input-common noborder">
+                    <button class="layui-btn" lay-submit lay-filter="">提交</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+    </form>
+    <script type="text/javascript">
+        cscms.init();
+    </script>
+</body>
+</html>

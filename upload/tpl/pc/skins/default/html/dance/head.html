@@ -1,0 +1,42 @@
+	<div class="header ie">
+		<div class="w960">
+			<a class="logo" href="{cscms:path}" title="{cscms:webname}"></a>
+			<ul class="layui-nav" lay-filter="">
+				<li class="layui-nav-item layui-this"><a href="{cscmsphp}cscmslink('dance');{/cscmsphp}">音乐首页</a></li>
+				<li class="layui-nav-item" id="zhw-playsong"><a href="{cscmsphp}cscmslink('dance');{/cscmsphp}/playsong">音乐盒</a></li>
+				<li class="layui-nav-item"><a href="{cscmsphp}linkurl('topic','id',0,1,'dance');{/cscmsphp}" id="zhw-topic">精品专辑</a></li>
+				<li class="layui-nav-item" id="zhw-lists">
+					<a href="javascript:;">音乐曲风</a>
+					<dl class="layui-nav-child">
+					{cscms:class table="dance_list" field="id,name" fid="0" loop="10" sort="xid" order="asc"}
+                        <dd><a href="[class:url link=lists,id]">[class:name]</a></dd>
+                        {cscmstype:style2 table="dance_list" field="id,name" fid="[class:id]" loop="10" sort="xid" order="asc"}
+	                        <dd><a href="[style2:url link=lists,id]">[style2:name]</a></dd>
+						{/cscmstype:style2}
+					{/cscms:class}
+					</dl></li>
+				<li class="layui-nav-item">
+					<a href="javascript:;">板块</a>
+					<dl class="layui-nav-child">
+					<dd><a href="{cscms:path}">主站</a></dd>
+					{cscms:model table="plugins" field="dir,name" loop="10" order="asc"}
+                        <dd><a href="{cscmsphp}cscmslink('[model:dir]');{/cscmsphp}">[model:name]</a></dd>
+					{/cscms:model}
+					</dl>
+				</li>
+			</ul>
+			<div class="user">
+				<div class="login" id="userLogin">
+					{cscms:logkuang}
+				</div>
+				<a class="word2"><span class="sokey"><i class="fa fa-search"></i></span>
+					<form action="{cscms:solink}" class="search" class="layui-form">
+					<input type="text" name="key" id="key" class="layui-input" placeholder="请输入歌曲名" value="">
+					<button title="搜索" class="layui-btn layui-btn-small search-btn" lay-submit lay-filter="search"><i class="fa fa-search"></i></button>
+					</input>
+				</form>
+				</a>
+			</div>
+		</div>
+	</div>
+    <div id="loginmask" style=""></div>

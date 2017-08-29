@@ -1,0 +1,12 @@
+<urlset xmlns="http://www.google.com/schemas/sitemap/0.84">
+	<url>
+		<loc>{cscms:path}</loc>
+	</url>
+	{cscms:dance table="dance" loop="500" sort="addtime"}
+	<url>
+			<loc>[dance:url zdy=dance,id,play,id]</loc>
+			<lastmod>[dance:addtime style=Y-m-d]</lastmod>
+	</url>
+	{/cscms:dance}
+</urlset>
+

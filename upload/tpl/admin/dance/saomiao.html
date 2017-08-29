@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset=utf-8>
+    <title></title>
+    <meta name="robots" content="noindex,nofollow">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/layui/css/layui.css">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/admin/css/font.css">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/admin/css/style.css">
+    <script src="<?=Web_Path?>packs/js/jquery.min.js"></script>
+    <script src="<?=Web_Path?>packs/layui/layui.js"></script>
+    <script src="<?=Web_Path?>packs/admin/js/cscms.js"></script>
+</head>
+<body id="index_setting">
+    <span class="layui-breadcrumb" >
+        <a ><cite><i class="fa fa-map-marker"></i>位置</cite></a>
+        <a href="<?=site_url('dance/admin/dance')?>">音乐</a>
+        <a href="<?=site_url('dance/admin/saomiao')?>">歌曲扫描</a>
+    </span>
+    <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+        <ul class="layui-tab-title">
+            <li class="layui-this"><a class="tablink" href="<?=site_url('dance/admin/saomiao')?>">服务器硬盘扫描</a></li>
+            <li><a class="tablink" href="<?=site_url('dance/admin/saomiao/ftp')?>">FTP歌曲扫描</a></li>
+            <li><a class="tablink" href="<?=site_url('dance/admin/saomiao/ftp_config')?>">FTP扫描配置</a></li>
+        </ul>
+        <div class="layui-tab-content">
+            <form class="layui-form layui-form-pane" action="<?=site_url('dance/admin/saomiao/yps')?>" method="get">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">硬盘路径</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="dir" placeholder="扫描站内可留空,( 服务器硬盘路径如F:\音乐 ),该路径不会写进数据库"  value="" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">实际路径</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="path" placeholder="歌曲文件夹路径,可为空,该路径会被写进数据库,如：/流行歌曲/"  value="" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">文件类型</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="hz" placeholder="多个用“|”来隔开。"  value="<?=$hz?>" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block layui-input-common noborder">
+                        <button class="layui-btn" lay-submit lay-filter="">提交</button>
+                        <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script type="text/javascript">
+        cscms.init();
+    </script>
+</body>
+</html>

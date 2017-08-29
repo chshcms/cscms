@@ -1,0 +1,45 @@
+	<div class="header">
+		<div class="w960">
+			<a class="logo" href="{cscms:path}" title="{cscms:webname}-网站主页"></a>
+			<ul class="layui-nav" lay-filter="">
+				<li class="layui-nav-item layui-this"><a href="{cscmsphp}cscmslink('singer');{/cscmsphp}">歌手首页</a></li>
+				{cscms:class table="singer_list" field="id,name" fid="0" sort="xid" order="asc" loop="5"}
+				<li class="layui-nav-item"><a href="[class:url link=lists,id]">[class:name]</a></li>
+				{/cscms:class}
+				<li class="layui-nav-item" id="more">
+					<a href="javascript:;">更多</a>
+					<dl class="layui-nav-child">
+					{cscms:class table="singer_list" field="id,name" fid="0" start="6" loop="30" sort="xid" order="asc"}
+                        <dd><a href="[class:url link=lists,id]">[class:name]</a></dd>
+					{/cscms:class}
+					</dl>
+				</li>
+				<li class="layui-nav-item">
+					<a href="javascript:;">板块</a>
+					<dl class="layui-nav-child">
+					<dd><a href="{cscms:path}">主站</a></dd>
+					{cscms:model table="plugins" field="dir,name" loop="10" order="asc"}
+                        <dd><a href="{cscmsphp}cscmslink('[model:dir]');{/cscmsphp}">[model:name]</a></dd>
+					{/cscms:model}
+					</dl>
+				</li>
+			</ul>
+			<div class="user">
+				<div class="login" id="userLogin">
+					{cscms:logkuang}
+				</div>
+				<a class="word2"><span class="sokey"><i class="fa fa-search"></i></span>
+					<form action="{cscms:solink}" class="search" class="layui-form">
+					<input type="text" name="key" id="key" class="layui-input" placeholder="请输入歌手名字" value="">
+					<button title="搜索" class="layui-btn layui-btn-small search-btn" lay-submit lay-filter="search"><i class="fa fa-search"></i></button>
+					</input>
+				</form>
+				</a>
+			</div>
+		</div>
+	</div>
+    <div id="loginmask" style=""></div>
+	<script>
+	var len = $('#more dd').length;
+	if(len==0) $('#more').hide();
+	</script>

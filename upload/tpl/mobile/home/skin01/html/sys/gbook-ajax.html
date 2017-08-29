@@ -1,0 +1,90 @@
+<div class="plBox" id="dotPl">
+    <div class="n-cmt" id="comment-box" data-count="0">
+        <div id="pl-id">
+            <div class="m-cmmt">
+                <div class="iptarea" id="plKuang" {if:'{cscms:login}'!='ok'}style="display:none;"{end if}>
+                    <div class="j-flag">
+                        <div>
+                            <div class="m-cmmtipt f-cb f-pr">
+                                <div class="u-txtwrap holder-parent f-pr" style="display: block;margin-bottom: 5px">
+	                                <input type='hidden' id='gbook_token' value='[gbook:token]'/>
+                                    <textarea style="text-indent: 5px;line-height: 25px;" class="u-txt area j-flag cscms_get_id" placeholder="留言" id="cscms_gbook_content"></textarea>
+                                </div>
+                                <a href="javascript:cscms.home_gbookadd()" class="btn u-btn u-btn-1 j-flag" style="float: right;" id="pl_btn">发表留言</a>
+                                <a href="javascript:face_onoff()"><i style="font-size: 17px;float: right;margin-right: 5px" class="layui-icon">&#xe650;</i></a>
+                                <div class="pl-face"><div id="cscms_faces">[gbook:faces]</div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="plLogin" style="border-bottom: 1px solid #e2e2e2;padding-bottom: 15px;{if:'{cscms:login}'=='ok'}display:none;{end if}">
+                    <div class="pl-tips">需要登录后才能参与评论或回复</div>
+                    <div class="new_msg_tips"><a class="layui-btn layui-btn-small" href="{cscms:loginlink}">立即登录</a><a style="margin-left: 10px" href="{cscms:reglink}" class="layui-btn layui-btn-small layui-btn-danger" target="_blank">马上注册</a></div>
+                </div>
+                <div class="cmmts j-flag" style="padding-top: 10px;clear: both;">
+                    {cscms:gbook table="gbook" uida="auto" cid="0" fid="0" pagesize="10" sort="id" order="desc"}
+                    <div class="itm">
+                        <div class="head">
+                            <a href="[gbook:url ulink=index]">
+                                <img src="[gbook:user zd=logo]">
+                            </a>
+                        </div>
+                        <div class="cntwrap">
+                            <div class="cntmore">
+                                <div class="cntsup"><a href="[gbook:url ulink=index]" class="s-fc7">[gbook:user zd=nichen]</a><sup class="u-icn u-icn-1"></sup>：[gbook:neir]
+                                </div>
+                            
+                                {cscmstype:gbook2 table="gbook" fid="auto" sort="id" order="desc"}
+                                <div class="pl-hf">
+                                    <a class="s-fc7" href="[gbook2:url ulink=index]">[gbook2:user zd=nichen]</a>：[gbook2:neir]
+                                </div>
+                                {/cscmstype:gbook2}
+                            </div>
+                            <div class="pl-more-box">
+                                <div class="time s-fc4">[gbook:addtime style=y-m-d]</div>
+                                    <a href="javascript:pl_hf1([gbook:id],'回复@[gbook:user zd=nichen]@:')" class="pl-more"><i class="fa fa-commenting-o"></i>&nbsp;回复</a>
+                                    {if:[gbook:uida]=={cscms:uid}}<a style="margin-right: 10px" class="pl-more" href="javascript:cscms.home_gbookdel('[gbook:id]');"><i class="fa fa-trash-o"></i>&nbsp;删除</a>{end if}
+                            </div>
+                        </div>
+                    </div>
+                    {/cscms:gbook}
+                    <div style="line-height: 60px;text-align: center;{if:{cscms:pagedata}>0}display:none{end if}">没有相关评论~！</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page" {if:{cscms:pagecout}<2}style="display:none;"{end if}>
+        <div class="layui-box layui-laypage layui-laypage-default" id="layui-laypage-0" style="text-align: center;width: 100%">
+            <a href="{cscms:pageup}" class="layui-laypage-last" title="上一页">上一页</a>
+            {cscms:pagenum len=3}
+            <a href="{cscms:pagedown}" class="layui-laypage-next">下一页</a>
+        </div>
+    </div>
+    <script>
+    	var wyhf = 0;
+        function face_onoff(){
+            $('.pl-face').toggle();
+        }
+        function pl_qx(){
+        	$('.cscms_get_id').attr('id', 'cscms_gbook_content');
+            $('#pl_btn').html('我要留言');
+            $('#pl_qx').remove();
+            $('#pl_btn').attr('href', 'javascript:cscms.plAdd();');
+            $('#cscms_gbook_content').val('');
+            wyhf =0;
+        }
+        function pl_hf1(id,text){
+        	document.getElementById('dotPl').scrollIntoView();
+        	if(wyhf==0){
+	            $('#cscms_gbook_content').val(text);
+	            $('.cscms_get_id').attr('id', 'cscms_gbook_hf_'+id);
+	            $('#pl_btn').html('我要回复&nbsp;&nbsp;');
+	            $('#pl_btn').before('<a id="pl_qx" style="float:right" class="btn u-btn u-btn-1 j-flag" href="javascript:pl_qx();">取消</a>');
+	            $('#pl_btn').attr('href', 'javascript:cscms.home_gbookhf('+id+',\''+text+'\');');
+	            wyhf = 1;
+        	}
+	            
+        }
+        home.init();
+    </script>
+</div>

@@ -1,0 +1,56 @@
+    <div class="uc-info">
+        <div class="uci-img">
+            <a href="[user:url ulink=index]"><img id="mylogo" style="margin-top: 3px" src="[user:logo dir=logo]"></a>
+            <div class="uhits">
+                <li style="border-left: 0px;padding-left: 0px"><a href="javascript:;">
+                    <strong>[user:count zdy=friend,uida,id]</strong>
+                    <span>关注</span>
+                </a></li>
+                <li><a href="javascript:;">
+                    <strong>[user:hits]</strong>
+                    <span>人气</span>
+                </a></li>
+                <li><a href="javascript:;">
+                    <strong>[user:count zdy=fans,uida,id]</strong>
+                    <span>粉丝</span>
+                </a></li>
+            </div>
+        </div>
+        <div class="uci-all">
+            <div class="uname">
+                <div class="un-left">
+                    <span>[user:name]</span>
+                    <span class="u-icon un-lv">Lv.&nbsp;[user:level]<i class="u-icon un-lvr"></i></span>
+                    <span class="u-sex un-sex[user:sex]"></span>
+                </div>
+            </div>
+            <div class="uci-other">
+                <div class="info-one">
+                    <div class="info-intro">类型：<font>{if:[user:vip]==0}普通会员{else}<font class="colorr">VIP会员</font>{end if}</font></div>
+                    <div class="info-intro">级别：<font>[user:user zd=zid]</font>&nbsp;&nbsp;&nbsp;<a class="colorn ms5" href="[user:url userlink=pay,group]">升级</a></div>
+                </div>
+                <div class="info-one">
+                    <div class="info-intro">金币：<font class="colord" style="font-weight: bold;">[user:cion]</font>&nbsp;个&nbsp;&nbsp;&nbsp;<a href="[user:url userlink=pay]" class="colorn ms5">充值</a></div>
+                    <div class="info-intro">金钱：<font class="colord" style="font-weight: bold;">[user:rmb]</font>&nbsp;元&nbsp;&nbsp;&nbsp;<a style="" href="[user:url userlink=pay,change]" class="colorn ms5">兑换</a></div>
+                </div>
+                <div class="info-one">
+                    <div class="ms-jy-n">经验：</div>
+                    <div class="ms-jy-v">[user:jinyan]/[user:user level=2]</div>
+                    <div class="layui-progress ms-jy-bar">
+                        <div class="layui-progress-bar " lay-percent="[user:user level=4]%"></div>
+                    </div>
+                </div>
+                <div class="info-one" style="margin-bottom: 5px">
+                    <div class="info-intro">
+                        <div class="ms-jy-n">空间：</div>
+                        <div class="ms-jy-bar" style="overflow: hidden;text-overflow: ellipsis;margin-right: 0px">
+                            <a href="[user:url ulink=index]" class="colorn">[user:url ulink=index]</a>
+                        </div>
+                    </div>
+                </div>
+                <a id="cscms_qd" class="ms-btn ms-qd" href="javascript:user.qiandao();">{if:date('Y-m-d','[user:qdtime]')==date('Y-m-d')}今天已签到{else}签到领金币{end if}</a>
+                <a style="margin-left: 5px" class="ms-btn ms-sj" href="[user:url userlink=pay,group]">升级</a>
+                <a style="margin-left: 5px" href="[user:url userlink=logout]" class="ms-btn ms-tc">退出</a>
+            </div>
+        </div>
+    </div>

@@ -1,0 +1,117 @@
+html,body{font-size: 14px;background-color: #fbfbfb;width: 100%;height: 100%}
+/*dance--header--begin*/
+.colorl{color:#009688;}
+.colord{color:#FF5722;}
+.colorn{color:#1E9FFF;}
+.colorw{color:#F7B824;}
+.colorr{color: red;}
+.colorg{color: #666;}
+.colorb{color:green;}
+.colore2{color: #e2e2e2;}
+.color32{color: #323232;}
+.color9{color: #999}
+.left{float: left;}
+.right{float: right;}
+.header{width: 100%;background-color: #393D49;height: 50px;position: relative;}
+.logo{width: 160px;height: 50px;display: block;margin-left: 10px}
+.logo span{display: block;float: left;padding: 7px 15px 0px;line-height: 40px;color: #eee;border-bottom: 3px solid #5FB878;font-size: 15px;}
+.logo img{width: 100px;height: 40px;margin-top: 5px}
+.user,.more{color: #eee;margin-right: 20px;line-height: 50px;font-size: 14px;}
+.user .fa{font-size: 16px;}
+.more .layui-icon{font-size: 18px;}
+.user:hover,.more:hover{color: #eee}
+.plugins{display: none;position: absolute;top: 49px;right: 5px;z-index: 1999}
+.plugins a{line-height: 25px;font-size: 14px;width: 30px;text-align: center;display: block;background-color: #393D49;color: #eee;padding: 5px 10px;border-top: 1px solid #666}
+.min-cls{font-size: 12px;color: #999;padding: 0px 5px;float: left;display: block;margin-top: 18px;border-left: 1px solid #e2e2e2;}
+.dance-one{display: block;width: 100%;overflow: hidden;}
+.dance-one-left{width: 85%;overflow: hidden;text-overflow: ellipsis;height: 45px;float:left;}
+.id-title{white-space: nowrap;overflow: hidden;line-height: 25px}
+.id-title .dance-jx{font-size: 8pt;width: 15px;height: 15px;line-height: 16px;text-align: center;color: #eee;background-color: #FF5722;display: inline-block;margin-right: 5px}
+.dance-singer{display: block;float: left;width: 15%;overflow: hidden;font-size: 12px;text-align: right;color: #999;line-height: 25px;}
+.dance-one-more{margin-left: 20px;height: 20px;line-height: 15px;font-size: 12px;color: #999;}
+.dance-one-more span{display: inline-block;min-width: 40px;color: #666;}
+.dance-one-more .layui-icon{color: #999;font-size: 12px;margin-right: 5px;}
+.dance-one-more a{color: #999;}
+
+.news-one-left{width: 100%;overflow: hidden;text-overflow: ellipsis;height: 45px;float:left;}
+.id-title .news-jx{font-size: 8pt;width: 15px;height: 15px;line-height: 16px;text-align: center;border-radius: 10px;display: inline-block;margin-right: 5px;color: #5FB878;border: 1px solid #5FB878}
+#footer{width: 100%;background-color: #393D49;position: relative;}
+#footer li.list{width: 100%;text-align: center;color: #c2c2c2;height: 45px;border-bottom:1px solid #51576B;margin-bottom: 15px;}
+#footer li a{line-height: 45px;}
+#footer p{width: 100%;text-align: center;color: #aaa;}
+#footer a{color: #eee;line-height: 25px;}
+#footer a:hover{color: #1E9FFF}
+.login-3{margin:0px 5px;}
+
+.page .on {background-color: #009688;color: white;border-radius: 2px;}
+.zanwu{width: 100%;height: 100px;line-height: 100px;text-align: center;}
+/*会员中心*/
+.uc-title{width: 100%;height: 50px;line-height: 50px;color: #eee;text-align: center;position: relative;}
+.uc-title a{color: #eee;}
+.uc-name{font-size: 16px}
+.uc-back{position: absolute;right: 14px;top: 2px}
+.uc-index{position: absolute;left: 16px;top: 2px}
+.uc-index .fa{font-size: 14px;}
+.uc-info{position: relative;}
+.uci-img{width: 110px;padding: 10px;position: absolute;top: 0px;left: 0px}
+.uci-img a{display: block;overflow: hidden;}
+.uci-img img{width: 100px;height: 100px}
+.uci-all{margin-left: 120px;padding: 10px 0px 10px 0px;}
+.uname{height: 26px;border-bottom: 1px solid #ddd;line-height: 26px;width: 100%;overflow: hidden;zoom: 1;margin-bottom: 5px}
+.uname .un-left{font-size: 16px;overflow: hidden;zoom: 1;float: left;}
+.un-left span{float: left;}
+.u-sex{background: url(../images/sex.png) no-repeat 9999px;}
+.un-lv{display:block;height: 15px;margin: 4px 0 0 6px;font-size: 12px;color: #e03a24;font-style: italic;line-height: 16px;position: relative;font-weight: bold;border-radius: 10px;border: 1px solid #e05947;padding: 0px 5px;}
+.un-sex0{width: 20px;height: 20px;background-position: -66px -18px;margin: 3px 0 0 5px;}
+.un-sex1{width: 20px;height: 20px;background-position: -66px 2px;margin: 3px 0 0 5px;}
+.un-right{float: right;width: 120px;}
+.un-right a{letter-spacing:3px}
+.uhits{overflow: hidden;zoom: 1;padding-top: 5px}
+.uhits li{float: left;padding: 0 5px 0 5px;border-left: 1px solid #ddd}
+.uhits li a{color: #666;}
+.uhits li a strong{display: block;font-size: 12px;cursor:pointer;text-align: center;}
+.uhits li a span{display: block;text-indent: 2px;font-size: 12px}
+.u-info{padding-top: 10px;color: #666;font-size: 12px}
+.info-one{overflow: hidden;zoom: 1;font-size: 12px;}
+.info-intro{float: left;font-size: 12px;margin-right: 10px;line-height: 20px}
+
+.ms-jy-n{float: left;width: 36px}
+.ms-jy-v{float: right;width: 60px;line-height: 20px}
+.ms-jy-bar{margin-left: 36px;margin-right: 63px;top: 6px}
+.ms-btn{letter-spacing: 2px;border-radius: 2px;font-size: 12px;padding: 2px 3px;}
+.ms-qd{border: 1px solid #FF5722;color: #FF5722!important}
+.ms-sj{border: 1px solid #1E9FFF;color: #1E9FFF!important}
+.ms-tc{border: 1px solid #999;color: #666!important}
+
+/*手机顶部菜单*/
+.mc-menu{width: 80px;background: #393D49;min-height: 40px;position: absolute;top: 50px;z-index: 1001;display: none;}
+.mc-menu a{line-height: 30px;font-size: 14px;display: block;color: #eee;background-color: #393D49;padding: 5px 10px;border-top: 1px solid #666;width: 60px}
+.mc-menu li{position: relative;background-color: #393D49;}
+.mc-menu dl{position: absolute;left: 85px;width: 80px;display: none;top:7px}
+.mc-menu dl a{border-top:1px solid #393D49;}
+.mc-mask{margin-top: -50px;display: none;width: 100%;height: 100%;background-color: rgba(0,0,0,0.5);position: fixed;z-index: 1000}
+.mcli{position: absolute;left: -10px;height: 25px;width: 15px;background-color: #393D49;}
+.mc-menu a i{position: absolute;right: 5px;top: 13px;color: #999}
+
+.box-left{float: left;}
+.user_dance{text-overflow: ellipsis;white-space: nowrap;overflow: hidden;display: block;float: left;margin-top: 5px;line-height: 30px;max-width: 90%;}
+
+.layui-tab-min{min-height: 300px;}
+
+@media only screen and (min-width: 300px) and (max-width: 330px) {
+    .ms5{display: none;}
+    .info-intro{margin-right: 5px}
+    .user_info .doing .blogInput{width:87%;}
+}
+@media only screen and (min-width: 330px) and (max-width: 360px) {
+     
+}
+@media only screen and (min-width: 360px) and (max-width: 380px) {
+     
+}
+@media only screen and (min-width: 381px) and (max-width: 450px) {
+     
+}
+@media only screen and (min-width: 451px){
+	
+}

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <title>{cscms:title}</title>
+    <meta name="Keywords" content="{cscms:keywords}" />
+    <meta name="Description" content="{cscms:description}" />
+    <link rel="shortcut icon" href="{cscms:path}favicon.ico" />
+    <link rel="stylesheet" href="{cscms:webpath}packs/font/font.css">
+    <link rel="stylesheet" type="text/css" href="{cscms:tempurl}css/style.css"/>
+    <script type='text/javascript' src='{cscms:tempurl}js/wap.js'></script>
+    <script type='text/javascript' src='{cscms:tempurl}js/common.js'></script>
+</head>
+<body>
+    {cscms:indexhead}
+    <div class="layui-tab layui-tab-card" style="box-shadow: none;margin-top: 0px">
+        <ul class="layui-tab-title">
+            <li><a href="[user:url ulink=index]">主页</a></li>
+            <li><a href="[user:url ulink=info]">资料</a></li>
+            {cscms:model table="plugins" field="dir,name" loop="10" order="asc"}
+            {if:'[model:dir]'!='singer'}
+                <li id="nav_[model:dir]"><a class="noFlush_load_link" href="[user:url ulink=[model:dir]]">[model:name]</a></li>
+                {end if}
+            {/cscms:model}
+            <li><a href="[user:url ulink=friend]">关系</a></li>
+            <li><a href="[user:url ulink=gbook]">留言</a></li>
+        </ul>
+        <div class="layui-tab-content" style="padding: 5px 0px">
+            <div class="layui-tab layui-tab-brief" style="box-shadow: none;margin: 0px">
+                <ul class="layui-tab-title">
+                    <li><a href="[user:url ulink=dance]">{if:{cscms:uid}==[user:id]}我{else}TA{end if}的歌曲</a></li>
+                    <li class="layui-this"><a href="[user:url ulink=dance,album]">{if:{cscms:uid}==[user:id]}我{else}TA{end if}的专辑</a></li>
+                    {if:{cscms:uid}==[user:id]}<a href="{cscmsphp}spacelink('album,add','dance');{/cscmsphp}" class="layui-btn layui-btn-small" style="float: right;margin-right: 10px;margin-top: 3px">新建专辑</a>{end if}
+                </ul>
+                <div class="layui-tab-content" style="overflow: hidden;padding: 10px;">
+                    <table class="md-zj">
+			            <tbody>
+			            {cscms:topic table="dance_topic" field="id,pic,name,tags,addtime,neir" pagesize="10" uid="auto"}
+			                <tr>
+			                    <td><a href="[topic:url link=topic/show]"><img style="width: 60px;height: 60px;" src="[topic:pic dir=dancetopic]" alt="[topic:name]"></a></td>
+			                    <td class="md-zj-info">
+			                        <a href="[topic:url link=topic/show]"><i class="{if:[topic:i]<4}colord{else}{end if}">[topic:i]</i>.[topic:name]</a>
+			                        <div style="text-align: left">
+			                            简介：[topic:neir len=100]
+			                        </div>
+			                    </td>
+			                </tr>
+			            {/cscms:topic}
+			            </tbody>
+			        </table>
+                    <div class="zanwu" {if:{cscms:pagedata}>0}style="display: none"{end if}>暂无相关记录！</div>
+                    <div class="page" {if:{cscms:pagecout}<2}style="display:none"{end if}>
+                        <div class="layui-box layui-laypage layui-laypage-default" id="layui-laypage-0" style="width: 100%;text-align: center;">
+                            <a href="{cscms:pageup}" class="layui-laypage-last" title="上一页"><i class="layui-icon">&#xe603;</i></a>
+                            {cscms:pagenum len=3}
+                            <a href="{cscms:pagedown}" class="layui-laypage-next"><i class="layui-icon">&#xe602;</i></a>
+                        </div>
+                   </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+    {cscms:indexbottom}
+    <script type="text/javascript">
+        $('#nav_dance').addClass('layui-this');
+    </script>
+</body>
+</html>

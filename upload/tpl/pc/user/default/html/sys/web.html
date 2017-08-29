@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset=utf-8>
+    <meta http-equiv="X-UA-Compatible" content="IE=9">
+    <title>{cscms:title}</title>
+    <meta name="Keywords" content="{cscms:keywords}" />
+    <meta name="Description" content="{cscms:description}" />
+    <link rel="shortcut icon" href="{cscms:webpath}favicon.ico" />
+    <link rel="stylesheet" href="{cscms:webpath}packs/font/font.css">
+    <link rel="stylesheet" type="text/css" href="{cscms:tempurl}css/user.css" />
+    <script type='text/javascript' src='{cscms:tempurl}js/user.js'></script>
+</head>
+<body style="background: #f5f5f5">
+    {cscms:head}
+    {cscms:right}
+        {cscms:left}
+            <div class="sp-cont-r">
+                <div class="layui-tab layui-tab-card" style="margin-top: 0px;margin-bottom: 0px">
+                    <ul class="layui-tab-title" style="height: 41px">
+                        <li class="layui-this"><a href="[user:url userlink=web]">主页模板</a></li>
+                        <li><a href="[user:url userlink=web,pic]">主页背景</a></li>
+                    </ul>
+                    <div class="layui-tab-content" style="padding:30px 0px;background-color: #fff">
+                        <div class="layui-tab-item layui-show" style="overflow: hidden;">
+                            {cscmsweb}
+                            <li class="home">
+                                <div {if:'[web:path]'=='[user:skins]'}class="selok"{end if}></div>
+                                <img src="[web:pic]" alt="">
+                                <div class="more-bg"></div>
+                                <div class="more"><a target="_blank" href="[user:url ulink=index]/index/[web:dir]" class="layui-btn layui-btn-mini">预览</a><a style="margin-left: 40px" class="layui-btn layui-btn-mini layui-btn-danger" href="javascript:user.web('[web:dir]','[web:cion]');">启用</a></div>
+                            </li>
+                            {/cscmsweb}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mar10"></div>
+    <div class="mar10"></div>
+{cscms:bottom}
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#left_web').addClass('on');
+        $('#left_first').removeClass('layui-nav-itemed');
+        $('#left_web').parent().parent().addClass('layui-nav-itemed');
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head> 
+<meta charset=utf-8>
+<meta http-equiv="X-UA-Compatible" content="IE=9">
+<title>{cscms:title}</title>
+<meta name="Keywords" content="{cscms:keywords}" />
+<meta name="Description" content="{cscms:description}" />
+<link rel="shortcut icon" href="{cscms:webpath}favicon.ico" />
+<link rel="stylesheet" href="{cscms:webpath}packs/font/font.css">
+<link rel="stylesheet" type="text/css" href="{cscms:tempurl}css/pic.css"/>
+<script type='text/javascript' src='{cscms:tempurl}js/pic.js'></script>
+</head>
+<body>
+    {cscms:head}
+    <div class="w960 bcolor">
+        <div class="mar10" style="margin-top: 60px;"></div>
+        <div class="mar10"></div>
+        <div class="play-show">
+            <div class="play-intro left">
+                <div class="layui-collapse">
+                    <div class="layui-colla-item">
+                        <h2 class="layui-colla-title" align="left">&nbsp;&nbsp;图库分类</h2>
+                        <div class="layui-colla-content layui-show" style="text-align: left">
+                            {cscms:class table="pic_list" field="id,name" fid="0" loop="10" sort="xid" order="asc"}
+                                <a class="layui-btn layui-btn-small {if:'[pic:id]'=='[class:id]'}layui-btn-danger{else}layui-btn-primary{end if}" href="[class:url link=lists,id]">[class:name]</a>
+                                {if:[class:i]%4==0}<div class="mar10"></div>{else}{end if}
+                            {/cscms:class}
+                        </div>
+                    </div>
+                    <div class="layui-colla-item">
+                        <h2 class="layui-colla-title" align="left">&nbsp;&nbsp;站长推荐</h2>
+                        <div class="layui-colla-content layui-show" style="padding: 5px;text-align: left;overflow: hidden;zoom: 1;">
+                            {cscms:pictype table="pic_type" loop="12" reco="1,2,3,4,5" sort="hits"}
+                            <li class="gs-same">
+                                <a href="[pictype:url zdy=pic,id,show,id]" title="[pictype:name]" class="img"><img src="[pictype:pic dir=pic]?size=83*83" width="83" height="83"></a>
+                                <a href="[pictype:url zdy=pic,id,show,id]" title="[pictype:name]" class="s_name">[pictype:name]</a>
+                            </li>
+                            {/cscms:pictype}
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="mar10"></div>
+            </div>
+            <div class="play-list left">
+                <div class="layui-tab layui-tab-brief" >
+                    <ul class="layui-tab-title">
+                        <li class="layui-this">[pic:name]</li>
+                        <span class="right" style="margin-right: 5px;width: 100px;height:40px;font-size: 12px;line-height: 50px;">共有&nbsp;<em style="color: red">{cscms:pagedata}</em>&nbsp;个相册</span>
+                    </ul>
+                    <div class="layui-tab-content">
+                        <div class="layui-tab-item layui-show">
+                            <ul class="gs-list">
+                                {cscms:pictype table="pic_type" field="id,name,pic" start="2" cid="auto" pagesize="30" sort="hits"}
+                                   <li><a title="[pictype:name]" href="[pictype:url zdy=pic,id,show,id]" ><img src="[pictype:pic dir=pic]?size=110*110" alt="[pictype:name]"><p>[pictype:name]</p></a></li>
+                               {/cscms:pictype}
+                            </ul>
+                            {if:{cscms:pagedata}==0}<div style="text-align:center;color:#333;height: 60px;line-height: 60px">没有相关记录~!</div>{end if}
+                        </div>
+                        <div class="page right" {if:{cscms:pagedata}==0}style="display:none"{else}{end if}>
+                            <div class="layui-box layui-laypage layui-laypage-default" id="layui-laypage-0">
+                                <a href="{cscms:pagefirst}" class="layui-laypage-last" title="首页">首页</a>
+                                <a href="{cscms:pageup}" class="layui-laypage-last" title="上一页">上一页</a>
+                                {cscms:pagenum len=6}
+                                <a href="{cscms:pagedown}" class="layui-laypage-next">下一页</a>
+                                <a href="{cscms:pagelast}" class="layui-laypage-last" title="尾页">末页</a>
+                            </div>
+                       </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mar10"></div>
+    {cscms:bottom}
+</body>
+</html>

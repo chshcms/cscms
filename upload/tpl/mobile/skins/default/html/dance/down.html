@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <title>{cscms:title}</title>
+    <meta name="Keywords" content="{cscms:keywords}" />
+    <meta name="Description" content="{cscms:description}" />
+    <link rel="shortcut icon" href="{cscms:path}favicon.ico" />
+    <link rel="stylesheet" href="{cscms:webpath}packs/font/font.css">
+    <link rel="stylesheet" type="text/css" href="{cscms:tempurl}css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="{cscms:tempurl}css/dance.css"/>
+    <script type='text/javascript' src='{cscms:tempurl}js/wap.js'></script>
+    <script type='text/javascript' src='{cscms:tempurl}js/dance.js'></script>
+</head>
+<body>
+    {cscms:head}
+    <div class="layui-tab layui-tab-brief">
+        <ul class="layui-tab-title">
+            <li class="layui-this">歌曲信息</li>
+            <li class="">下载排行</li>
+        </ul>
+        <div class="layui-tab-content">
+            <div class="layui-tab-item layui-show" style="">
+                <style type="text/css">
+                    .layui-table td{font-size: 12px;}
+                </style>
+                <table class="layui-table" lay-even style="margin: 0px;">
+                    <colgroup>
+                        <col width="60">
+                        <col>
+                        <col width="60">
+                    </colgroup>
+                    <tbody>
+                        <tr>
+                            <td align="center">名称</td>
+                            <td colspan="3">[dance:name]</td>
+                        </tr>
+                        <tr>
+                            <td align="center">会员</td>
+                            <td><a href="[dance:url ulink=index]">{if:'[dance:zdy zd=user,name,uid]'==''}未知{else}[dance:zdy zd=user,name,uid]{end if}</a></td>
+                            <td align="center">扣币</td>
+                            <td><span class="colord" style="font-weight: bold;">[dance:cion]</span>&nbsp;个</td>
+                        </tr>
+                        <tr>
+                                    <td align="center">演唱</td><td><a href="[dance:url zdy=singer,singerid,show,id]" target="_blank">{if:'[dance:singer zd=name]'=='null'}佚名{else}[dance:singer zd=name]{end if}</a></td>
+                                    <td align="center">下载</td><td>[dance:xhits]&nbsp;次</td>
+                                </tr>
+                                <tr>
+                                    <td align="center">大小</td><td>[dance:dx]</td>
+                                    <td align="center">音质</td><td>[dance:yz]</td>
+                                </tr>
+                                <tr>
+                                    <td align="center">时长</td><td>[dance:sc]</td>
+                                    <td align="center">分类</td><td>[dance:zdy zd=dance_list,name,cid]</td>
+                                </tr>
+                                <tr>
+                                    <td align="center">编曲</td><td><a href="{cscmsphp}linkurl('search','bq','[dance:bq]',1);{/cscmsphp}" target="_blank">{if:'[dance:bq]'==''}佚名{else}[dance:bc]{end if}</a></td>
+                                    <td align="center">试听</td><td>[dance:hits]&nbsp;次</td>
+                                    
+                                </tr>
+                                <tr>
+                                    <td align="center">作词</td><td><a href="{cscmsphp}linkurl('search','zc','[dance:zc]',1);{/cscmsphp}" target="_blank">{if:'[dance:zc]'==''}佚名{else}[dance:zc]{end if}</a></td>
+                                    <td align="center">作曲</td><td><a href="{cscmsphp}linkurl('search','zq','[dance:zq]',1);{/cscmsphp}" target="_blank">{if:'[dance:zq]'==''}佚名{else}[dance:zc]{end if}</a></td>
+                                </tr>
+                                <tr>
+                                    <td align="center">标签</td><td>[dance:tags]</td>
+                                    <td align="center">时间</td><td>[dance:addtime style=Y-m-d]</td>
+                                </tr>
+                                <tr><td colspan="4"><a href="[dance:url link=down,load]" class="layui-btn layui-btn-primary layui-btn-small"><i class="fa fa-cloud-download colorn"></i>&nbsp;立即下载</a></td></tr>
+                    </tbody>
+                </table>
+                <div class="layui-collapse" style="border-top: 0px">
+                    <div class="layui-colla-item">
+                        <h2 class="layui-colla-title">歌曲介绍</h2> 
+                        <div class="layui-colla-content {if:'[dance:text len=10]'!=''}layui-show{end if}">{if:'[dance:text len=10]'==''}<div class="zanwu">暂无歌曲介绍</div>{else}[dance:text]{end if}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-tab-item">
+                <ul class="dance_list">
+                {cscms:dance table="dance" field="id,name,hits,cid,shits,singerid,addtime" sort="xhits" loop="10"}
+                    <li class="dance-one">
+                        <div class="dance-one-left2">
+                            <a class="id-title" title="[dance:name]" href="[dance:url zdy=dance,id,play,id]"><span class="dance-jx">[dance:i]</span>&nbsp;[dance:name]</a>
+                            <div class="dance-one-more"><span><i class="fa fa-eye"></i>&nbsp;<i title="人气">[dance:hits]</i></span><span><i class="fa fa-cloud-download"></i>&nbsp;<i title="下载次数">[dance:xhits]</i></span><span><a href="[dance:url zdy=dance,cid,lists,hits]">[dance:zdy zd=dance_list,name,cid]</a></span></div>
+                        </div>
+                        <a class="dance-singer2" style="text-align: center;" href="[dance:url link=down,id]" title="[dance:name]下载"><i class="fa fa-download"></i></a>
+                    </li>
+                {/cscms:dance}
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+{cscms:bottom}
+<script>
+    cscms.mode('dance.init()');
+</script>
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head> 
+<meta charset=utf-8>
+<meta http-equiv="X-UA-Compatible" content="IE=9">
+<title>{cscms:title}</title>
+<meta name="Keywords" content="{cscms:keywords}" />
+<meta name="Description" content="{cscms:description}" />
+<link rel="shortcut icon" href="{cscms:webpath}favicon.ico" />
+<link rel="stylesheet" href="{cscms:webpath}packs/font/font.css">
+<link rel="stylesheet" type="text/css" href="{cscms:tempurl}css/dance.css"/>
+<script type='text/javascript' src='{cscms:tempurl}js/dance.js'></script>
+</head>
+<body>
+    {cscms:head}
+    <div class="w960 bcolor">
+		<div class="mar10" style="margin-top: 60px;"></div> 
+        <div class="play-show">
+            <div class="play-intro box-left">
+                <div class="layui-collapse">
+				    <div class="layui-colla-item">
+				        <h2 class="layui-colla-title" align="left">&nbsp;&nbsp;专辑分类</h2> 
+				        <div class="layui-colla-content layui-show" style="text-align: left;padding-left: 27px">
+				        	<a class="layui-btn layui-btn-small {if:{cscms:ids}==''}layui-btn-danger{else}layui-btn-primary{end if}" href="{cscmsphp}linkurl('topic','id',1,1,'dance');{/cscmsphp}">全部分类</a>
+				        {cscms:class table="dance_list" field="id,name" sort="xid" order="asc"}
+						    <a class="layui-btn layui-btn-small {if:{cscms:ids}==[class:id]}layui-btn-danger{else}layui-btn-primary{end if}" href="[class:url link=topic/lists,id]">[class:name]</a>
+						    {if:[class:i]%3==2}<div class="mar10"></div>{else}{end if}
+						{/cscms:class}
+				        </div>
+				    </div>
+				    
+				    <div class="layui-colla-item">
+				        <h2 class="layui-colla-title"align="left">&nbsp;&nbsp;精品推荐</h2> 
+				        <div class="layui-colla-content layui-show" style="padding: 0px">
+					        <table class="layui-table" lay-even lay-skin="nob">
+			                    <tbody>
+			                    	{cscms:topic table="dance_topic" field="id,name,pic,uid,hits" sort="hits" loop="10"}
+										<tr align="left">
+											<td><a target="_blank" href="[topic:url link=topic/show]"><i class="layui-btn layui-btn-mini {if:[topic:i]<4}{else}layui-btn-primary{end if} iwidth">[topic:i]</i>[topic:name]</a></td>
+											<td align="center">[topic:hits]</td>
+											<td align="center"><i class="colord" style="font-size: 12px;">[topic:count zdy=dance,tid,id]</i></td>
+										</tr>
+									{/cscms:topic}
+			                    </tbody>
+			                </table>
+		                </div>
+				    </div>
+				</div>
+				<div class="mar10"></div>
+            </div>
+            <div class="play-list box-left">
+            	<div class="layui-collapse">
+            		<div class="layui-colla-item">
+				        <h2 class="layui-colla-title" align="left">&nbsp;&nbsp;排序方式</h2>
+				        <div class="layui-colla-content">
+				        	<a class="layui-btn layui-btn-small {if:'{cscms:fid}'=='id'}layui-btn-danger{else}layui-btn-primary{end if}" href="[topic:link]">最新发布</a>
+							<a class="layui-btn layui-btn-small {if:'{cscms:fid}'=='hits'}layui-btn-danger{else}layui-btn-primary{end if}" href="[topic:hlink]">专辑人气</a>
+							<a class="layui-btn layui-btn-small {if:'{cscms:fid}'=='ri'}layui-btn-danger{else}layui-btn-primary{end if}" href="[topic:rlink]">今日人气</a>
+							<a class="layui-btn layui-btn-small {if:'{cscms:fid}'=='zhou'}layui-btn-danger{else}layui-btn-primary{end if}" href="[topic:zlink]">本周人气</a>
+							<a class="layui-btn layui-btn-small {if:'{cscms:fid}'=='yue'}layui-btn-danger{else}layui-btn-primary{end if}" href="[topic:ylink]">本月人气</a>
+							<a class="layui-btn layui-btn-small {if:'{cscms:fid}'=='fav'}layui-btn-danger{else}layui-btn-primary{end if}" href="[topic:slink]">收藏人数</a>
+				        </div>
+				    </div>
+            	</div>
+                <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+				    <ul class="layui-tab-title">
+				        <li class="layui-this">
+					        {if:'{cscms:fid}'=='id' || '{cscms:fid}'=='lists/id'}最新发布排行{end if}
+							{if:'{cscms:fid}'=='hits' || '{cscms:fid}'=='lists/hits'}总人气排行{end if}
+							{if:'{cscms:fid}'=='ri' || '{cscms:fid}'=='lists/ri'}今日人气排行{end if}
+							{if:'{cscms:fid}'=='zhou' || '{cscms:fid}'=='lists/zhou'}本周人气排行{end if}
+							{if:'{cscms:fid}'=='yue' || '{cscms:fid}'=='lists/yue'}本月人气排行{end if}
+							{if:'{cscms:fid}'=='fav' || '{cscms:fid}'=='lists/fav'}收藏人气排行{end if}
+						</li>
+				    </ul>
+				    <div class="layui-tab-content">
+				    <table class="layui-table" lay-even lay-skin="nob">
+						<colgroup>
+						    <col>
+						    <col width="80">
+						    <col width="80">
+						    <col width="70">
+						    <col width="60">
+						 </colgroup>
+						<thead><tr><th >专辑名称</th><th class="mini">歌手</th><th class="mini">人气</th><th class="mini">歌曲数</th><th class="mini">收藏</th></tr></thead>
+						<tbody id="res_so">
+				    	{cscms:topic table="dance_topic" field="id,name,pic,tags,yuyan,hits,diqu,singerid,neir,addtime,uid" pagesize="8" cid="auto" sort="addtime" order="desc"}
+						<tr>
+							<td><a target="_blank" title="[topic:name]" href="[topic:url link=topic/show]"><img style="width: 40px;height: 40px;" src="[topic:pic dir=dancetopic]?size=40*40" alt="[topic:name]"></a><a target="_blank" href="[topic:url link=topic/show]" style="margin-left: 5px;">[topic:name]</a></td>
+							<td><a target="_blank" href="[topic:url zdy=singer,singerid,show]">{if:'[topic:singer zd=name]'=='null'}佚名{else}[topic:singer zd=name]{end if}</a></td>
+							<td align="center">[topic:hits]</td>
+							<td align="center"><i class="colord" style="font-size: 12px;">[topic:count zdy=dance,tid,id]</i></td>
+							<td align="center"><a href="javascript:dance.album_fav('[topic:id]');" title="收藏专辑《[topic:name]》"><i class="layui-icon">&#xe600;</i></a></td>
+						</tr>
+				    	{/cscms:topic}
+				    	</tbody>
+					</table>
+				    	<div class="mar10"></div>
+				    	<div class="page box-right">
+				    		<div class="layui-box layui-laypage layui-laypage-default" id="layui-laypage-0">
+				    			<a href="{cscms:pagefirst}" class="layui-laypage-last" title="首页">首页</a>
+				    			<a href="{cscms:pageup}" class="layui-laypage-last" title="上一页">上一页</a>
+							  	{cscms:pagenum len=6}
+							    <a href="{cscms:pagedown}" class="layui-laypage-next">下一页</a>
+							    <a href="{cscms:pagelast}" class="layui-laypage-last" title="尾页">末页</a>
+							</div>
+			           </div>
+				    </div>
+				</div>
+            </div>
+        </div>
+        <div class="mar10"></div>
+    </div>
+    {cscms:bottom}
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var len = $('#res_so').children('tr').children('td').length;
+            if(len<1){
+                $('#res_so').prepend('<tr><td colspan="5" height="60" align="center">暂无相关记录~!</td></tr>')
+            }
+        });
+        $('.layui-nav-item').removeClass('layui-this');
+        $('#zhw-topic').addClass('layui-this');
+    </script>
+</body>
+</html>

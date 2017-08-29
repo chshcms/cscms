@@ -1,0 +1,80 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset=utf-8>
+    <title></title>
+    <meta name="robots" content="noindex,nofollow">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/layui/css/layui.css">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/admin/css/font.css">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/admin/css/style.css">
+    <script src="<?=Web_Path?>packs/js/jquery.min.js"></script>
+    <script src="<?=Web_Path?>packs/layui/layui.js"></script>
+    <script src="<?=Web_Path?>packs/admin/js/cscms.js"></script>
+</head>
+<body>
+    <span class="layui-breadcrumb" >
+        <a ><cite><i class="fa fa-map-marker"></i><?=L('tpl_01')?></cite></a>
+        <a href="javascript:;"><?=L('tpl_02')?></a>
+        <a href="<?=site_url('basedb')?>"><?=L('tpl_03')?></a>
+    </span>
+    <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+        <ul class="layui-tab-title">
+            <li class="layui-this tablink"><?=L('tpl_04')?></li>
+            <li><a class="tablink" href="<?=site_url('basedb/restore')?>"><?=L('tpl_05')?></a></li>
+        </ul>
+        <div class="layui-tab-content">
+            <form id="basedb-form" class="layui-form" action="<?=site_url('basedb/optimize')?>" method="post">
+                <table class="layui-table" style="width: 99.7%">
+                    <colgroup>
+                        <col width="40">
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th><?=L('tpl_06')?></th>
+                            <th><?=L('tpl_07')?></th>
+                            <th class="phide"><?=L('tpl_08')?></th>
+                            <th class="phide"><?=L('tpl_09')?></th>
+                            <th class="phide"><?=L('tpl_10')?></th>
+                            <th class="phide"><?=L('tpl_11')?></th>
+                            <th ><?=L('tpl_12')?></th>
+                            <th><?=L('tpl_13')?></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <?php
+                        foreach ($tables as $k => $row) {
+							if(strpos($row->Name,CS_SqlPrefix) !== FALSE){
+								$bname = empty($row->Comment)?'':' <span class="phide">（'.$row->Comment.'）</span>';
+								echo '
+									<tr>
+									<td><input class="xuan" name="id['.$k.']" type="checkbox" value="'.$row->Name.'" /></td>
+									<td>'.$row->Name.$bname.'</td>
+									<td class="phide">'.$row->Engine.'</td>
+									<td class="phide">'.$row->Collation.'</td>
+									<td class="phide">'.$row->Rows.'</td>
+									<td class="phide">'.formatsize($row->Data_length).'</td>
+									<td >'.formatsize($row->Data_free).'</td>
+									<td class="basedb-more"><a class="layui-btn layui-btn-mini" href="javascript:cscms.go_url(\''.site_url('basedb/optimize').'?table='.$row->Name.'\');">'.L('tpl_14').'</a><a class="layui-btn layui-btn-mini layui-btn-danger" href="javascript:cscms.go_url(\''.site_url('basedb/repair').'?table='.$row->Name.'\')">'.L('tpl_15').'</a><a class="layui-btn layui-btn-mini layui-btn-normal phide" href="javascript:cscms.get_open(\''.site_url('basedb/fields').'?table='.$row->Name.'\',\''.$row->Name.'表结构\',\'500px\',\'350px\');">'.L('tpl_16').'</a></td>
+									</tr> ';
+							}
+                        }
+                    ?>
+                    </tbody>
+                </table>
+                <div class="more_func">
+                    <a class="layui-btn layui-btn-primary layui-btn-small" href="javascript:cscms.select_all();"><i class="fa fa-check colorl"></i><?=L('tpl_17')?></a>
+                    <a class="layui-btn layui-btn-primary layui-btn-small" href="javascript:;" lay-submit lay-filter="setting" ><i class="fa fa-puzzle-piece" style="color: #1E9FFF" ></i><?=L('tpl_18')?></a>
+                    <a class="layui-btn layui-btn-primary layui-btn-small" href="javascript:cscms.sel_submit('<?=site_url('basedb/repair')?>');"><i class="fa fa-wrench" style="color: #FF5722" ></i><?=L('tpl_19')?></a>
+                    <div class="next-line">
+                    <a class="layui-btn layui-btn-primary layui-btn-small" href="javascript:cscms.backup('<?=site_url('basedb/backup')?>');"><i class="fa fa-paste" style="color: #5FB878"></i> <?=L('tpl_20')?></a></div>
+                </div>
+            </form>
+        </div>
+    </div> 
+<script type="text/javascript">
+    cscms.init();
+</script>
+</body>
+</html>

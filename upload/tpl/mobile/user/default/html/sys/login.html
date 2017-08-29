@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <title>{cscms:title}</title>
+    <meta name="Keywords" content="{cscms:keywords}" />
+    <meta name="Description" content="{cscms:description}" />
+    <link rel="shortcut icon" href="{cscms:path}favicon.ico" />
+    <link rel="stylesheet" href="{cscms:webpath}packs/font/font.css">
+    <link rel="stylesheet" type="text/css" href="{cscms:tempurl}css/user.css"/>
+    <script type="text/javascript" src="{cscms:tempurl}js/user.js"></script>
+</head>
+<body>
+    <div class="header">
+        <a class="logo left" href="javascript:;"><span>会员登录</span></a>
+        <a href="javascript:history.go(-1)" class="more right"><i class="fa fa-chevron-left">&nbsp;</i>返回</a>
+    </div>
+    <form class="layui-form layui-form-pane" action="[user:loginsave]" method="post" style="padding: 30px 10px 0px">
+        <div class="layui-form-item">
+            <label class="layui-form-label">账号</label>
+            <div class="layui-input-block">
+                <input type="text" name="username" required lay-verify="required" placeholder="请输入您的账号" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">密码</label>
+            <div class="layui-input-block">
+                <input type="password" name="userpass" required lay-verify="required" placeholder="请输入您的密码" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        {if:[user:codecheck]==1}
+        <div class="layui-form-item"  style="position: relative;">
+            <label class="layui-form-label">验证码</label>
+            <div class="layui-input-block">
+                <input type="text" name="usercode" required lay-verify="required" placeholder="请输入验证码" autocomplete="off" class="layui-input">
+            </div>
+            <a href="javascript:reloadCodes();" title="看不清楚？点击更换验证码" style="height: 36px;display: block;position: absolute;top: 0px;right:0px;border: 1px solid #e2e2e2;"><img src="{cscms:codes}" class="verifyimg" style="height: 100%;width: 100px"></a>
+        </div>
+        {end if}
+        <input type="hidden" name="token" value="[user:token]"/>
+        <div class="layui-form-item">
+            <div class="layui-input-block" style="margin-left: 0px;text-align: center;">
+                <button class="layui-btn layui-btn-small" lay-submit lay-filter="">立即登录</button>
+                <a class="layui-btn layui-btn-small layui-btn-primary" href="{cscms:passlink}">忘记密码</a>
+                <a class="layui-btn layui-btn-small layui-btn-danger" href="{cscms:reglink}">马上注册</a>
+            </div>
+        </div>
+        <fieldset class="layui-elem-field" style="margin-top: 20px">
+            <legend style="font-size: 14px;color: #666;">第三方账号登录</legend>
+            <div class="layui-field-box" style="text-align: center;padding: 15px 0px">
+                <a href="{cscms:qqlink}" class="login-3"><img src="{cscms:tempurl}images/qq_icon.gif"  border="0"/></a>
+                <a href="{cscms:weibolink}" class="login-3"><img src="{cscms:tempurl}images/weibo_icon.gif"  border="0"/></a>
+                <a href="{cscms:baidulink}" class="login-3"><img src="{cscms:tempurl}images/baidu_icon.gif"  border="0"/></a>
+                <a href="{cscms:renrenlink}" class="login-3"><img src="{cscms:tempurl}images/renren_icon.gif"  border="0"/></a>
+                <a href="{cscms:doubanlink}" class="login-3"><img src="{cscms:tempurl}images/douban_icon.gif"  border="0"/></a>
+                <a href="{cscms:kaixinlink}" class="login-3"><img src="{cscms:tempurl}images/kaixin_icon.gif"  border="0"/></a>
+            </div>
+        </fieldset>
+    </form>
+        
+</body>
+<script type="text/javascript">
+    function reloadCodes(){
+        $('.verifyimg').attr('src', "{cscms:codes}?" + Math.random());
+    }
+</script>
+</html>

@@ -1,0 +1,17 @@
+{cscms:dt table="dt" field="*" loop="20" sort="addtime" order="desc"}
+    <li class="dt-one">
+        <a target="_blank" class="dt-img" href="[dt:url ulink=index]"><img src="[dt:user zd=logo]?size=60*60"></a>
+        <div class="dt-neir">
+            <div class="dt-time">[dt:addtime style=time]</div>
+            <div class="dt-title"><a target="_blank" href="[dt:url ulink=index]">[dt:user zd=nichen]</a>[dt:title]</div>
+            <div class="dt-nl">
+                [dt:name]&nbsp;&nbsp;<a href="[dt:link]" class="colorn" target="_blank">
+                {if:'[dt:dir]'=='dance'}试听{end if}
+                {if:'[dt:dir]'=='vod'}观看{end if}
+                {if:'[dt:dir]'=='news'}阅读{end if}
+                {if:'[dt:dir]'=='pic' || '[dt:dir]'=='singer' || '[dt:dir]'=='blog'}查看{end if}
+                </a>
+            </div>
+        </div>
+    </li>
+{/cscms:dt}

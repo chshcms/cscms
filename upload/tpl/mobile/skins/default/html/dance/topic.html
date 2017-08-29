@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <title>{cscms:title}</title>
+    <meta name="Keywords" content="{cscms:keywords}" />
+    <meta name="Description" content="{cscms:description}" />
+    <link rel="shortcut icon" href="{cscms:path}favicon.ico" />
+    <link rel="stylesheet" href="{cscms:webpath}packs/font/font.css">
+    <link rel="stylesheet" type="text/css" href="{cscms:tempurl}css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="{cscms:tempurl}css/dance.css"/>
+    <script type='text/javascript' src='{cscms:tempurl}js/wap.js'></script>
+    <script type='text/javascript' src='{cscms:tempurl}js/dance.js'></script>
+</head>
+<body>
+    {cscms:head}
+    <div class="layui-collapse" style="margin-top: 10px;border-bottom: 0px">
+	    <div class="layui-colla-item">
+	        <h2 class="layui-colla-title" align="left">&nbsp;&nbsp;专辑分类<span style="font-size:12px;color: #ccc;float: right;">点击展开</span></h2> 
+	        <div class="layui-colla-content {if:{cscms:ids}==''}{else}layui-show{end if}" style="text-align: left;padding-left: 10px;text-align: center;">
+	        	<a class="layui-btn layui-btn-small {if:{cscms:ids}==''}layui-btn-danger{else}layui-btn-primary{end if}" href="{cscmsphp}linkurl('topic','id',1,1,'dance');{/cscmsphp}">全部分类</a>
+	        {cscms:class table="dance_list" field="id,name" sort="xid" order="asc"}
+			    <a class="layui-btn layui-btn-small laybtn {if:{cscms:ids}==[class:id]}layui-btn-danger{else}layui-btn-primary{end if}" href="[class:url link=topic/lists,id]">[class:name]</a>
+			    {if:[class:i]%4==3}<div class="mar10"></div>{else}{end if}
+			{/cscms:class}
+	        </div>
+	    </div>
+	</div>
+    <div class="layui-tab layui-tab-card" style="margin-top: 0px">
+        <ul class="layui-tab-title">
+            <li class="layui-this">最新专辑</li>
+            <li class=""><a href="{cscmsphp}cscmslink('dance');{/cscmsphp}">音乐首页</a></li>
+        </ul>
+        <div class="layui-tab-content">
+            <div class="layui-tab-item layui-show" style="text-align: center;">
+                <table class="md-zj">
+                    <tbody>
+                    {cscms:topic table="dance_topic" field="id,name,pic,uid,hits,neir" sort="addtime" cid="auto" pagesize="20"}
+                        <tr>
+                            <td><a href="[topic:url link=topic/show]"><img style="width: 60px;height: 60px;" src="[topic:pic dir=dancetopic]" alt="[topic:name]"></a></td>
+                            <td class="md-zj-info">
+                                <a href="[topic:url link=topic/show]"><i class="{if:[topic:i]<4}colord{else}{end if}">[topic:i]</i>.[topic:name]</a>
+                                <div>
+                                    简介：[topic:neir len=100]
+                                </div>
+                            </td>
+                        </tr>
+                    {/cscms:topic}
+                    </tbody>
+                </table>
+                <div class="zanwu" {if:{cscms:pagedata}>0}style="display: none"{end if}>暂无相关记录！</div>
+                <div class="page" {if:{cscms:pagecout}<2}style="display:none"{end if}>
+		    		<div class="layui-box layui-laypage layui-laypage-default" id="layui-laypage-0">
+		    			<a href="{cscms:pageup}" class="layui-laypage-last" title="上一页">上一页</a>
+					  	{cscms:pagenum len=3}
+					    <a href="{cscms:pagedown}" class="layui-laypage-next">下一页</a>
+					</div>
+	           </div>
+            </div>
+        </div>
+    </div>
+</body>
+{cscms:bottom}
+</body>
+<script>
+    
+</script>
+</html>

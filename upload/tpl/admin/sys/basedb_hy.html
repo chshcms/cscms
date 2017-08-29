@@ -1,0 +1,85 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset=utf-8>
+    <title></title>
+    <meta name="robots" content="noindex,nofollow">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/layui/css/layui.css">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/admin/css/font.css">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/admin/css/style.css">
+    <script src="<?=Web_Path?>packs/js/jquery.min.js"></script>
+    <script src="<?=Web_Path?>packs/layui/layui.js"></script>
+    <script src="<?=Web_Path?>packs/admin/js/cscms.js"></script>
+</head>
+<body>
+    <span class="layui-breadcrumb" >
+        <a ><cite><i class="fa fa-map-marker"></i><?=L('tpl_hy_01')?></cite></a>
+        <a href="javascript:;"><?=L('tpl_hy_02')?></a>
+        <a href="<?=site_url('basedb')?>"><?=L('tpl_hy_03')?></a>
+    </span>
+    <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+        <ul class="layui-tab-title">
+            <li><a class="tablink" href="<?=site_url('basedb')?>"><?=L('tpl_hy_04')?></a></li>
+            <li class="layui-this tablink"><?=L('tpl_hy_05')?></li>
+        </ul>
+        <div class="layui-tab-content">
+            <form id="basedb-form" class="layui-form" action="<?=site_url('basedb/del')?>" method="post">
+                <table class="layui-table" style="width: 99.7%">
+                    <colgroup>
+                        <col width="40">
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th><?=L('tpl_hy_06')?></th>
+                            <th><?=L('tpl_hy_07')?></th>
+                            <th class="phide"><?=L('tpl_hy_08')?></th>
+                            <th class="phide"><?=L('tpl_hy_09')?></th>
+                            <th class="phide"><?=L('tpl_hy_10')?></th>
+                            <th><?=L('tpl_hy_11')?></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <?php
+                        $num = 0;
+                        foreach ($map as $k => $dir) {
+						   $dir = str_replace("\\","",$dir);
+                           if (is_dir('./attachment/backup/'.$dir) && substr($dir,0,6)=='Cscms_') {
+                                $num++;
+                                $dirs = directory_map('./attachment/backup/'.$dir, 1);
+                                $this->load->helper('file');
+                                $fine=get_file_info('./attachment/backup/'.$dir, $file_information='date');
+                                echo '
+                                <tr id="row_'.$dir.'">
+                                <td><input class="xuan" name="id['.$k.']" type="checkbox" value="'.$dir.'" /></td>
+                                <td>'.$dir.'</td>
+                                <td class="phide">'.formatsize(getdirsize('./attachment/backup/'.$dir)).'</td>
+                                <td class="phide">'.date('Y-m-d H:i:s',$fine['date']).'</td>
+                                <td class="phide">'.count($dirs).'</td>
+                                <td class="basedb-more">
+                                    <a class="layui-btn layui-btn-mini phide" href="'.site_url('basedb/zip').'?dir='.$dir.'">'.L('tpl_hy_12').'</a>
+                                    <a class="layui-btn layui-btn-mini layui-btn-danger" href="javascript:cscms.del_one(\''.site_url('basedb/del').'\',\''.$dir.'\');">'.L('tpl_hy_13').'</a>
+                                    <a <a class="layui-btn layui-btn-mini layui-btn-normal" href="javascript:cscms.restore(\''.site_url('basedb/restore_save').'\',\''.$dir.'\');">'.L('tpl_hy_14').'</a>
+                                </td>
+                                </tr> ';
+                            }
+                        }
+                        if($num==0){
+                            echo '<tr><td align="center" height="50" colspan="6">'.L('tpl_hy_15').'</td></tr>';
+                        }
+                        ?>
+                    </tbody>
+                </table>
+                <div>
+                    <a class="layui-btn layui-btn-primary layui-btn-small" href="javascript:cscms.select_all();"><i class="fa fa-check colorl"></i><?=L('tpl_hy_16')?></a>
+                    <a class="layui-btn layui-btn-primary layui-btn-small" lay-submit lay-filter="del_pl"><i class="fa fa-close " style="color: red" ></i><?=L('tpl_hy_17')?></a>
+                </div>
+            </form>
+        </div>
+    </div>
+<script type="text/javascript">
+    cscms.init();
+</script>
+</body>
+</html>

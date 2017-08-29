@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <title>{cscms:title}</title>
+    <meta name="Keywords" content="{cscms:keywords}" />
+    <meta name="Description" content="{cscms:description}" />
+    <link rel="shortcut icon" href="{cscms:path}favicon.ico" />
+    <link rel="stylesheet" href="{cscms:webpath}packs/font/font.css">
+    <link rel="stylesheet" type="text/css" href="{cscms:tempurl}css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="{cscms:tempurl}css/news.css"/>
+    <script type='text/javascript' src='{cscms:tempurl}js/wap.js'></script>
+    <script type='text/javascript' src='{cscms:tempurl}js/news.js'></script>
+</head>
+<body>
+    {cscms:head}
+    <div class="mn-show">
+        <div class="mn-title">
+            <span class="mn-name">[news:name]</span>
+            <span class="mn-time">更新日期：[news:addtime style=Y-m-d]&nbsp;&nbsp;&nbsp;&nbsp;<em style="color:#b60c0c">[news:hits]</em>人参与了访问</span>
+        </div>
+        <hr>
+        <div class="mn-neir">
+            [news:content]
+            <hr>
+            <div class="mn-updown"><a style="float: left;" href="[news:slink]"><em>上一篇：</em>[news:sname]</a><a style="float: right;" href="[news:xlink]"><em>下一篇：</em>[news:xname]</a></div>
+        </div>
+    </div>
+    <div class="mn-pl">[news:pl]</div>
+    
+</body>
+{cscms:bottom}
+</body>
+</html>

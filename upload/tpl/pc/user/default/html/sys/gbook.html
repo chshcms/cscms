@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset=utf-8>
+    <meta http-equiv="X-UA-Compatible" content="IE=9">
+    <title>{cscms:title}</title>
+    <meta name="Keywords" content="{cscms:keywords}" />
+    <meta name="Description" content="{cscms:description}" />
+    <link rel="shortcut icon" href="{cscms:webpath}favicon.ico" />
+    <link rel="stylesheet" href="{cscms:webpath}packs/font/font.css">
+    <link rel="stylesheet" type="text/css" href="{cscms:tempurl}css/user.css" />
+    <script type='text/javascript' src='{cscms:tempurl}js/user.js'></script>
+    <script type="text/javascript" src="{cscms:tempurl}js/jquery.emot.js"></script>
+</head>
+<body style="background: #f5f5f5">
+    {cscms:head}
+    {cscms:right}
+        {cscms:left}
+            <div class="sp-cont-r">
+                <div class="layui-tab layui-tab-card" lay-filter="dt1" style="margin-top: 0px;margin-bottom: 0px">
+                    <ul class="layui-tab-title" style="height: 41px">
+                        <li class="layui-this">我的留言</li>
+                    </ul>
+                    <div class="layui-tab-content">
+                        <div class="layui-tab-item layui-show" style="overflow: hidden;zoom: 1;">
+                            {cscms:gbook table="gbook" pagesize="10" cid="0" uida="auto" fid="0" sort="addtime" order="desc"}
+							<li class="dt-one" id="gbooks_[gbook:id]" style="clear: both;">
+				        		<a target="_blank" class="dt-img" href="[gbook:url ulink=index]"><img src="[gbook:user zd=logo]?size=60*60"></a>
+				        		<div class="dt-neir">
+				        			<div class="dt-time">[gbook:addtime style=time]</div>
+				        			<div title="删除" onclick="user.gbook_del([gbook:id],0)" class="gbook-del"><i class="fa fa-trash-o"></i></div><div title="回复" onclick="user.gbook_init([gbook:id])" class="gbook-hf"><i class="fa fa-commenting-o"></i></div>
+				        			<div class="dt-title">
+				        				<a target="_blank" href="[gbook:url ulink=index]">[gbook:user zd=nichen]</a>&nbsp;留言：
+				        			</div>
+				        			<div class="dt-nl">
+				        				[gbook:neir]
+				        			</div>
+				        		</div>
+				        	</li>
+				        	<li class="dt-one" style="padding: 0px;display: none;overflow: visible;" id="gbook_[gbook:id]">
+				        		<div class="wallCommentInputBox">
+									<div class="wCI_input">
+										<div id="neir_[gbook:id]" contenteditable="true" class="wallCommentInput" name="neir"></div>
+									</div>
+									<div class="emot" id="emot_neir_[gbook:id]"></div>
+									<div id="msg_gbook_[gbook:id]" class="wCI_message"></div>
+									<div class="wCI_button"><a type="button" onclick="user.gbook_add('[gbook:id]','[gbook:uidb]');" class="layui-btn layui-btn-mini layui-btn-warm">确认</a><a href="javascript:;" class="layui-btn layui-btn-mini layui-btn-danger" onclick="user.gbook_init('[gbook:id]');">取消</a></div>
+								</div>
+				        	</li>
+				        	<div id="gtype_[gbook:id]">
+								{cscmstype:gbooks table="gbook" fid="auto" sort="addtime" order="desc"}
+								<li class="dt-one" id="gbook2_[gbooks:id]" style="width: 85%;float: right;">
+					        		<a target="_blank" class="dt-img" href="[gbooks:url ulink=index]"><img src="[gbooks:user zd=logo]?size=60*60"></a>
+					        		<div class="dt-neir" style="width: 505px;">
+					        			<div class="dt-time">[gbooks:addtime style=time]</div>
+					        			<div title="删除" onclick="user.gbook_del([gbooks:id],[gbook:id])" class="gbook-hf"><i class="fa fa-trash-o"></i></div>
+					        			<div class="dt-title">
+					        				<a target="_blank" href="[gbooks:url ulink=index]">[gbooks:user zd=nichen]</a>&nbsp;说：
+					        			</div>
+					        			<div class="dt-nl">
+					        				[gbooks:neir]
+					        			</div>
+					        		</div>
+					        	</li>
+								{/cscmstype:gbooks}
+							</div>
+                            {/cscms:gbook}
+                            {if:{cscms:pagedata}==0}<div class="zanwu">暂无相关记录~！</div>{end if}
+                            <div class="page" style="text-align: right;{if:{cscms:pagedata}==0}display: none;{end if}">
+	                            <div class="layui-box layui-laypage layui-laypage-default" id="layui-laypage-0">
+	                                <a href="{cscms:pagefirst}" class="layui-laypage-last" title="首页">首页</a>
+	                                <a href="{cscms:pageup}" class="layui-laypage-last" title="上一页">上一页</a>
+	                                {cscms:pagenum len=6}
+	                                <a href="{cscms:pagedown}" class="layui-laypage-next">下一页</a>
+	                                <a href="{cscms:pagelast}" class="layui-laypage-last" title="尾页">末页</a>
+	                            </div>
+	                       	</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mar10"></div>
+    <div class="mar10"></div>
+{cscms:bottom}
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#left_gbook').addClass('on');
+    });
+</script>
+</body>
+</html>

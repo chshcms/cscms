@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head> 
+<meta charset=utf-8>
+<meta http-equiv="X-UA-Compatible" content="IE=9">
+<title>{cscms:title}</title>
+<meta name="Keywords" content="{cscms:keywords}" />
+<meta name="Description" content="{cscms:description}" />
+<link rel="shortcut icon" href="{cscms:webpath}favicon.ico" />
+<link rel="stylesheet" href="{cscms:webpath}packs/font/font.css">
+<link rel="stylesheet" type="text/css" href="{cscms:tempurl}css/dance.css"/>
+<script type='text/javascript' src='{cscms:tempurl}js/dance.js'></script>
+</head>
+<body>
+    {cscms:head}
+    <div class="w960 bcolor">
+		<div class="mar10" style="margin-top: 60px;"></div> 
+        <div class="play-show">
+            <div class="play-intro box-left">
+                <div class="layui-collapse">
+                    <div class="layui-colla-item">
+                        <h2 class="layui-colla-title" align="left">&nbsp;&nbsp;下载排行</h2> 
+                        <div class="layui-colla-content layui-show" style="padding: 0px">
+                            <table class="layui-table" lay-even lay-skin="nob">
+                                <tbody>
+                                    {cscms:dance table="dance" field="id,name,pic,uid,xhits" sort="xhits" loop="10"}
+                                        <tr align="left">
+                                            <td><a target="_blank" class="listLeft" href="[dance:url zdy=dance,id,play,id]"><i class="layui-btn layui-btn-mini {if:[dance:i]<4}layui-btn-danger{else}layui-btn-primary{end if} iwidth">[dance:i]</i>[dance:name]</a></td>
+                                        </tr>
+                                    {/cscms:dance}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="mar10"></div>
+            </div>
+            <div class="play-list box-left">
+                <div class="layui-tab layui-tab-brief">
+                    <ul class="layui-tab-title">
+                        <li class="layui-this">《[dance:name len=60]》—&nbsp;下载</li>
+                    </ul>
+                    <div class="layui-tab-content">
+                        <table class="layui-table" lay-even>
+                            <thead><tr><th colspan="4">歌曲详细信息</th></tr></thead>
+                            <tbody>
+                                <tr><td align="center">名称</td> <td colspan="3"><a href="[dance:url link=play,id]">[dance:name]</a></td></tr>
+                                <tr>
+                                    <td align="center">会员</td><td><a target="_blank" href="[dance:url ulink=index]">{if:'[dance:zdy zd=user,name,uid]'==''}未知{else}[dance:zdy zd=user,name,uid]{end if}</a></td>
+                                    <td align="center">扣币</td><td><span class="colord" style="font-weight: bold;">[dance:cion]</span>&nbsp;个</td>
+                                </tr>
+                                <tr>
+                                    <td align="center">演唱</td><td>{if:'[dance:singer zd=name]'=='null'}佚名{else}<a href="[dance:url zdy=singer,singerid,show,id]" target="_blank">[dance:singer zd=name]</a>{end if}</td>
+                                    <td align="center">下载</td><td>[dance:xhits]&nbsp;次</td>
+                                </tr>
+                                <tr>
+                                    <td align="center">大小</td><td>[dance:dx]</td>
+                                    <td align="center">音质</td><td>[dance:yz]</td>
+                                </tr>
+                                <tr>
+                                    <td align="center">时长</td><td>[dance:sc]</td>
+                                    <td align="center">分类</td><td><a target="_blank" href="[dance:classlink]">[dance:classname]</a></td>
+                                </tr>
+                                <tr>
+                                    <td align="center">编曲</td><td>{if:'[dance:bq]'==''}佚名{else}<a href="{cscmsphp}linkurl('search','bq','[dance:bq]',1);{/cscmsphp}" target="_blank">[dance:bc]</a>{end if}</td>
+                                    <td align="center">视听</td><td>[dance:hits]&nbsp;次</td>
+                                    
+                                </tr>
+                                <tr>
+                                    <td align="center">作词</td><td>{if:'[dance:zc]'==''}佚名{else}<a href="{cscmsphp}linkurl('search','zc','[dance:zc]',1);{/cscmsphp}" target="_blank">[dance:zc]</a>{end if}</td>
+                                    <td align="center">作曲</td><td>{if:'[dance:zq]'==''}佚名{else}<a href="{cscmsphp}linkurl('search','zq','[dance:zq]',1);{/cscmsphp}" target="_blank">[dance:zc]</a>{end if}</td>
+                                </tr>
+                                <tr>
+                                    <td align="center">标签</td><td>[dance:tags]</td>
+                                    <td align="center">时间</td><td>[dance:addtime style=Y-m-d]</td>
+                                </tr>
+                                <tr><td colspan="4"><a href="[dance:url link=down,load]" class="layui-btn layui-btn-primary layui-btn-small"><i class="fa fa-cloud-download colorn"></i>&nbsp;下载到电脑</a></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mar10"></div>
+    </div>
+    {cscms:bottom}
+</body>
+</html>

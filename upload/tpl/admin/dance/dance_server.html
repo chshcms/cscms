@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset=utf-8>
+    <title></title>
+    <meta name="robots" content="noindex,nofollow">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/layui/css/layui.css">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/admin/css/font.css">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/admin/css/style.css">
+    <script src="<?=Web_Path?>packs/js/jquery.min.js"></script>
+    <script src="<?=Web_Path?>packs/layui/layui.js"></script>
+    <script src="<?=Web_Path?>packs/admin/js/cscms.js"></script>
+</head>
+<body>
+    <span class="layui-breadcrumb" >
+        <a ><cite><i class="fa fa-map-marker"></i>位置</cite></a>
+        <a href="<?=site_url('dance/admin/dance')?>">音乐</a>
+        <a href="<?=site_url('dance/admin/server')?>">服务器组列表</a>
+    </span>
+    <form class="layui-form" action="<?=site_url('dance/admin/server/del')?>" method="post">
+        <table class="layui-table">
+            <colgroup>
+                <col width="40">
+                <col>
+                <col>
+            </colgroup>
+            <thead>
+            <tr>
+                <th>选</th>
+                <th class="phide">ID</th>
+                <th>名称</th>
+                <th>试听组</th>
+                <th>下载组</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php
+                if(empty($dance_server)){
+                    echo '<tr><td align="center" height="50" colspan="6">没有找到相关记录</td></tr>';
+                }
+                foreach ($dance_server as $row) {
+                    echo '<tr id="row_'.$row->id.'">
+                        <td><input name="id['.$row->id.']" class="xuan" type="checkbox" value="'.$row->id.'"/></td>
+                        <td class="phide">'.$row->id.'</td>
+                        <td>'.$row->name.'</td>
+                        <td>'.$row->purl.'</td>
+                        <td>'.$row->durl.'</td>
+                        <td class="basedb-more"><a class="layui-btn layui-btn-mini" href="javascript:cscms.get_open(\''.site_url('dance/admin/server/add').'?&id='.$row->id.'\',\'修改服务器组\',\'500px\',\'300px\');">修改</a>
+                        <a class="layui-btn layui-btn-mini layui-btn-danger" href="javascript:cscms.del_one(\''.site_url('dance/admin/server/del').'?&fid=1\','.$row->id.');">删除</a></td></tr>';
+                }
+            ?>
+            </tbody>
+        </table>
+        <div class="more_func">
+        <a class="layui-btn layui-btn-primary layui-btn-small" href="javascript:cscms.select_all();"><i class="fa fa-check colorl" ></i>全选/反选</a>
+        <a class="layui-btn layui-btn-primary layui-btn-small" lay-submit lay-filter="del_pl"><i class="fa fa-close colorr"></i>删除选中</a>
+        <a class="layui-btn layui-btn-primary layui-btn-small" href="javascript:javascript:cscms.get_open('<?=site_url('dance/admin/server/add')?>','新增服务器组','500px','300px');"><i class="fa fa-plus colorn"></i>新增服务器组</a>
+    </div>
+    </form>
+    <script type="text/javascript">
+        cscms.init();
+    </script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset=utf-8>
+    <title></title>
+    <meta name="robots" content="noindex,nofollow">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/layui/css/layui.css">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/admin/css/font.css">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/admin/css/style.css">
+    <script src="<?=Web_Path?>packs/js/jquery.min.js"></script>
+    <script src="<?=Web_Path?>packs/layui/layui.js"></script>
+    <script src="<?=Web_Path?>packs/admin/js/cscms.js"></script>
+</head>
+<body>
+    <span class="layui-breadcrumb" >
+        <a ><cite><i class="fa fa-map-marker"></i><?=L('tpl_01')?></cite></a>
+        <a href="javascript:;"><?=L('tpl_02')?></a>
+        <a href="<?=site_url('skin')?>?ac=<?=$ac?>&op=<?=$op?>"><?=L('tpl_03')?></a>
+    </span>
+    <div class="more_func" style="padding: 10px;">
+        <a class="layui-btn layui-btn-small" href="javascript:cscms.get_open('<?=$uplink?>','<?=L('tpl_04')?>','480px','250px','250px');"><i class="fa fa-cloud-upload" ></i>&nbsp;<?=L('tpl_04')?></a>
+        <a class="layui-btn layui-btn-danger layui-btn-small" href="<?=site_url('skin/yun')?>"><i class="fa fa-cloud-download "></i>&nbsp;<?=L('tpl_05')?></a>
+    </div>
+    <ul style="text-align: center">
+    <?php
+        $mid=$v='';
+        foreach ($skins as $row) {
+              if($op=='home'){
+                   $title = L('tpl_06');
+                   $h='400';
+              }else{
+                   $title = L('tpl_07');
+                   $h='305';
+              }
+              if($row['clas']=='selected'){
+                   $mrpic='<em style="position: absolute;left:0px;top:0px;z-index: 1000;"><img src="'.Web_Path.'packs/admin/images/skin_bg.png" alt=""></em>';
+                   $dellink='javascript:cscms.layer.msg(\''.L('tpl_08').'\',{icon:2});';
+                   $mrlink='';
+              }else{
+                   $mrpic='';
+                   $mrlink = 'javascript:cscms.go_confirm(\''.$row['mrlink'].'\',\''.L('tpl_09').'\');';
+                   $dellink = 'javascript:cscms.del_one(\''.$row['dellink'].'\',1);';
+              }
+              echo '<li class="skin" id="row_'.$row['mid'].'">'.$mrpic.'
+                    <div onclick="'.$mrlink.'"><img title="'.L('tpl_10').'" class="exp" src="'.$row['pic'].'" alt=""></div>
+                    <div class="skin-more colorg" id="update_'.$row['mid'].'"><i class="fa fa-spin fa-spinner"></i>'.L('tpl_11').'</div>
+                    <div class="skin-more colorl">'.$row['name'].'</div>
+                    <div class="skin-more"><a class="layui-btn layui-btn-normal layui-btn-mini" href="javascript:cscms.get_open(\''.$row['ulink'].'\',\''.L('tpl_12').'\',\'500px\',\''.$h.'px\');">'.$title.'</a><a class="layui-btn layui-btn-mini" href="'.$row['link'].'">'.L('tpl_13').'</a><a class="layui-btn layui-btn-danger layui-btn-mini" href="'.$dellink.'">'.L('tpl_14').'</a></div></li>';
+                $mid.='#'.$row['mid'];
+                $v.='#'.$row['version'];
+        }
+    ?>
+    </ul>
+
+    <script type="text/javascript">
+        var mid="<?=$mid?>",v="<?=$v?>";
+        cscms.init(4);
+    </script>
+</body>
+</html>

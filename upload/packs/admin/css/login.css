@@ -1,0 +1,30 @@
+body{overflow-x:hidden;}
+.bg{position: absolute;width: 100%;left: 0;top: 0;bottom: 0;right: 0;z-index: 1;background:url(../images/login_bg.jpg) no-repeat center;background-size: cover;}
+.logkuang{position: absolute;width: 617px;height: 367px;left: 50%;top: 50%;margin-left: -308px;margin-top: -183px;z-index: 1;background: url(../images/log-form-bg.png);}
+.layui-form-label{width: 45px;float: none;display: inline-block;}
+.layui-input{display: inline-block;float: none;}
+.login_title{width: 100%;text-align: center;font-size: 20px;margin-top: 40px;line-height: 60px;}
+.layui-form-item .layui-input-inline{width: 316px;float: none;position: relative;}
+.layui-input-inline i{z-index: 2;position: absolute;left: 0px;width: 30px;height: 38px;line-height: 38px;font-size: 18px;color: #666;}
+.layui-input-block{margin-left: 0px;padding-top: 15px;}
+.layui-form-item{text-align: center;}
+.layui-input{text-indent: 1.5em;}
+@media screen and (max-width: 660px) { 
+    .logkuang{
+        width: 80%;
+        height: 340px;
+        margin-left: -40%;
+        margin-top: -170px;
+        background-size: 100% 100%;
+    }
+    .login_title{margin-top: 15px;}
+    .layui-form-item .layui-input-inline{
+        width: 80%;
+        margin: 0 0 0px 0px;
+        display: inline-block;
+    }
+    .layui-form-item .layui-form-label{
+        overflow: inherit;
+        padding-right: 5px;
+    }
+} 

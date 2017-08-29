@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <title>选择相册</title>
+    <meta name="Keywords" content="{cscms:keywords}" />
+    <meta name="Description" content="{cscms:description}" />
+    <link rel="shortcut icon" href="{cscms:path}favicon.ico" />
+    <link rel="stylesheet" href="{cscms:webpath}packs/font/font.css">
+    <link rel="stylesheet" type="text/css" href="{cscms:tempurl}css/pic.css"/>
+    <script type="text/javascript" src="{cscms:tempurl}js/user.js"></script>
+</head>
+<body>
+<div>
+    <ul style="padding: 10px;padding-right: 0px;overflow: hidden;">
+    {cscms:pic table="pic_type" pagesize="8" user="auto" sort="addtime" order="desc"}
+        <li class="picXc_x" {if:[pic:id]==[pic:sid]} class="on"{end if} onclick="pic_go('[pic:id]','[pic:name]');" title="选择相册" {if:[pic:i]%4==0}style="margin-right: 0px"{end if}>
+        <img src="[pic:pic dir=pic]"/>
+        <div class="picXc_xm">[pic:name]</div>
+    </li>
+    {/cscms:pic}
+    </ul>
+    {if:{cscms:pagedata}==0}<div class="zanwu">暂无数据！</div>{end if}
+    <div class="page" style="text-align: center;{if:{cscms:pagecout}<2}display: none;{end if}">
+        <div class="layui-box layui-laypage layui-laypage-default" id="layui-laypage-0">
+            <a href="{cscms:pageup}" class="layui-laypage-last" title="上一页">上一页</a>
+            {cscms:pagenum len=3}
+            <a href="{cscms:pagedown}" class="layui-laypage-next">下一页</a>
+        </div>
+   </div>
+</div> 
+<script type="text/javascript"> 
+function pic_go(_sid,_name) { 
+	parent.$('#sid').val(_sid);
+	parent.$('#name').val(_name);
+	parent.cscms.layer.closeAll();
+}
+</script>
+</body>
+</html>

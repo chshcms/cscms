@@ -1,0 +1,504 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset=utf-8>
+    <title></title>
+    <meta name="robots" content="noindex,nofollow">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/layui/css/layui.css">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/admin/css/font.css">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/admin/css/style.css">
+    <script src="<?=Web_Path?>packs/js/jquery.min.js"></script>
+    <script src="<?=Web_Path?>packs/layui/layui.js"></script>
+    <script src="<?=Web_Path?>packs/admin/js/cscms.js"></script>
+</head>
+<body id="index_setting">
+    <span class="layui-breadcrumb" >
+        <a ><cite><i class="fa fa-map-marker"></i><?=L('tpl_us_01')?></cite></a>
+        <a href="<?=site_url('user')?>"><?=L('tpl_us_02')?></a>
+        <a href="<?=site_url('user/setting')?>"><?=L('tpl_us_03')?></a>
+    </span>
+    <form class="layui-form layui-form-pane" action="<?=site_url('user/setting_save')?>" method="post">
+        <div class="layui-tab layui-tab-brief" >
+            <ul class="layui-tab-title">
+                <li class="layui-this"><?=L('tpl_us_04')?></li>
+                <li><?=L('tpl_us_05')?></li>
+                <li><?=L('tpl_us_06')?></li>
+                <li><?=L('tpl_us_07')?></li>
+                <li><?=L('tpl_us_08')?></li>
+            </ul>
+            <div class="layui-tab-content">
+                <div class="layui-tab-item layui-show">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><?=L('tpl_us_09')?></label>
+                        <div class="layui-input-inline" onclick="cscms.show_hide('mode','User_Mode')">
+                            <input type="radio" name="User_Mode" value="1" title="<?=L('tpl_us_10')?>" <?php if(User_Mode==1){echo 'checked';}?> >
+                            <input type="radio" name="User_Mode" value="0" title="<?=L('tpl_us_11')?>" <?php if(User_Mode==0){echo 'checked';}?> >
+                        </div>
+                    </div>
+                    <div class="layui-form-item mode mode0" <?php if(User_Mode==1){echo 'style="display:none"';}?>>
+                        <label class="layui-form-label"><?=L('tpl_us_12')?></label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="User_No_info" placeholder="<?=L('tpl_us_13')?>"  value="<?=User_No_info?>" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><?=L('tpl_us_14')?></label>
+                        <div class="layui-input-inline">
+                            <input type="radio" name="User_Code_Mode" value="1" title="<?=L('tpl_us_10')?>" <?php if(User_Code_Mode==1){echo 'checked';}?> >
+                            <input type="radio" name="User_Code_Mode" value="0" title="<?=L('tpl_us_11')?>" <?php if(User_Code_Mode==0){echo 'checked';}?> >
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><?=L('tpl_us_15')?></label>
+                        <div class="layui-input-inline">
+                            <input type="radio" name="User_Logo" value="1" title="<?=L('tpl_us_10')?>" <?php if(User_Logo==1){echo 'checked';}?> >
+                            <input type="radio" name="User_Logo" value="0" title="<?=L('tpl_us_11')?>" <?php if(User_Logo==0){echo 'checked';}?> >
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><?=L('tpl_us_16')?></label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="User_RmbToCion" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" placeholder="<?=L('tpl_us_17')?>" value="<?=User_RmbToCion?>" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><?=L('tpl_us_18')?></label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="User_Ym" placeholder="<?=L('tpl_us_19')?>" value="<?=User_Ym?>" class="layui-input">
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-tab-item">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><?=L('tpl_us_20')?></label>
+                        <div class="layui-input-inline">
+                            <input type="radio" name="User_Reg" value="1" title="<?=L('tpl_us_10')?>" <?php if(User_Reg==1){echo 'checked';}?> >
+                            <input type="radio" name="User_Reg" value="0" title="<?=L('tpl_us_11')?>" <?php if(User_Reg==0){echo 'checked';}?> >
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><?=L('tpl_us_21')?></label>
+                        <div class="layui-input-inline">
+                            <input type="radio" name="User_RegZw" value="1" title="<?=L('tpl_us_10')?>" <?php if(User_RegZw==1){echo 'checked';}?> >
+                            <input type="radio" name="User_RegZw" value="0" title="<?=L('tpl_us_11')?>" <?php if(User_RegZw==0){echo 'checked';}?> >
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><?=L('tpl_us_22')?></label>
+                        <div class="layui-input-inline">
+                            <input type="radio" name="User_RegEmailFun" value="1" title="<?=L('tpl_us_10')?>" <?php if(User_RegEmailFun==1){echo 'checked';}?> >
+                            <input type="radio" name="User_RegEmailFun" value="0" title="<?=L('tpl_us_11')?>" <?php if(User_RegEmailFun==0){echo 'checked';}?> >
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><?=L('tpl_us_23')?></label>
+                        <div class="layui-input-inline">
+                            <input type="radio" name="User_Tel" value="1" title="<?=L('tpl_us_10')?>" <?php if(User_Tel==1){echo 'checked';} if(CS_Sms_ID=='' || CS_Sms_Key==''){echo ' disabled';}?> >
+                            <input type="radio" name="User_Tel" value="0" title="<?=L('tpl_us_11')?>" <?php if(User_Tel==0){echo 'checked';}?> >
+                            <a class="phide colorl" href="<?=site_url('sms')?>"><?=L('tpl_us_24')?></a>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><?=L('tpl_us_25')?></label>
+                        <div class="layui-input-inline">
+                            <input type="radio" name="User_RegFun" value="1" title="<?=L('tpl_us_10')?>" <?php if(User_RegFun==1){echo 'checked';}?> >
+                            <input type="radio" name="User_RegFun" value="0" title="<?=L('tpl_us_11')?>" <?php if(User_RegFun==0){echo 'checked';}?> >
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><?=L('tpl_us_26')?></label>
+                        <div class="layui-input-inline" onclick="cscms.show_hide('wel','User_RegMsgFun')">
+                            <input type="radio" name="User_RegMsgFun" value="1" title="<?=L('tpl_us_10')?>" <?php if(User_RegMsgFun==1){echo 'checked';}?> >
+                            <input type="radio" name="User_RegMsgFun" value="0" title="<?=L('tpl_us_11')?>" <?php if(User_RegMsgFun==0){echo 'checked';}?> >
+                        </div>
+                    </div>
+                    <blockquote class="layui-elem-quote"><?=L('tpl_us_27')?></blockquote>
+                    <div class="layui-form-item layui-form-text wel wel1" <?php if(User_RegMsgContent==0){echo 'style="display:none"';}?>>
+                        <label class="layui-form-label"><?=L('tpl_us_28')?></label>
+                        <div class="layui-input-block">
+                            <textarea name="User_RegMsgContent" class="layui-textarea"><?=User_RegMsgContent?></textarea>
+                        </div>
+                    </div>
+                    <div class="layui-form-item layui-form-text">
+                        <label class="layui-form-label"><?=L('tpl_us_29')?></label>
+                        <div class="layui-input-block">
+                            <textarea name="User_RegEmailContent" class="layui-textarea"><?=User_RegEmailContent?></textarea>
+                        </div>
+                    </div>
+                    <div class="layui-form-item layui-form-text">
+                        <label class="layui-form-label"><?=L('tpl_us_30')?></label>
+                        <div class="layui-input-block">
+                            <textarea name="User_PassContent" class="layui-textarea"><?=User_PassContent?></textarea>
+                        </div>
+                    </div>
+                    <div class="layui-form-item layui-form-text">
+                        <label class="layui-form-label"><?=L('tpl_us_31')?></label>
+                        <div class="layui-input-block">
+                            <textarea name="User_Regxy" class="layui-textarea"><?=User_Regxy?></textarea>
+                        </div>
+                    </div>
+                    <div class="layui-form-item layui-form-text">
+                        <label class="layui-form-label"><?=L('tpl_us_32')?></label>
+                        <div class="layui-input-block">
+                            <textarea name="User_Reg_Name" class="layui-textarea"><?=User_Reg_Name?></textarea>
+                        </div>
+                    </div>
+                    <div class="layui-form-item" >
+                        <label class="layui-form-label"><?=L('tpl_us_33')?></label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="User_RegIP" placeholder="<?=L('tpl_us_34')?>"  value="<?=User_RegIP?>" class="layui-input">
+                        </div>
+                        <div class="layui-form-mid layui-word-aux"><?=L('tpl_us_35')?></div>
+                    </div>
+                </div>
+                <div class="layui-tab-item">
+                <?php if(!preg_match("/(iPhone|iPad|iPod|Android)/i", strtoupper($_SERVER['HTTP_USER_AGENT']))){?>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><?=L('tpl_us_36')?></label>
+                        <label class="layui-form-label" style="margin-left: 10px;width: 80px;"><i class="fa fa-plus colorl"></i> <?=L('tpl_us_37')?></label>
+                        <div class="layui-input-inline" style="width: 80px;">
+                            <input type="text" name="User_Jinyan_Zx" value="<?=User_Jinyan_Zx?>" class="layui-input">
+                        </div>
+                        <label class="layui-form-label" style="margin-left: 10px;width: 80px;"><i class="fa fa-plus colorl"></i> <?=L('tpl_us_38')?></label>
+                        <div class="layui-input-inline" style="width: 80px;">
+                            <input type="text" name="User_Cion_Zx" value="<?=User_Cion_Zx?>" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label" ><?=L('tpl_us_80')?></label>
+                        <label class="layui-form-label" style="margin-left: 10px;width: 80px;"><i class="fa fa-plus colorl"></i> <?=L('tpl_us_37')?></label>
+                        <div class="layui-input-inline" style="width: 80px;">
+                            <input type="text" name="User_Jinyan_Reg" value="<?=User_Jinyan_Reg?>" class="layui-input">
+                        </div>
+                        <label class="layui-form-label" style="margin-left: 10px;width: 80px;"><i class="fa fa-plus colorl"></i> <?=L('tpl_us_38')?></label>
+                        <div class="layui-input-inline" style="width: 80px;">
+                            <input type="text" name="User_Cion_Reg" value="<?=User_Cion_Reg?>" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label" ><?=L('tpl_us_39')?></label>
+                        <label class="layui-form-label" style="margin-left: 10px;width: 80px;"><i class="fa fa-plus colorl"></i> <?=L('tpl_us_37')?></label>
+                        <div class="layui-input-inline" style="width: 80px;">
+                            <input type="text" name="User_Jinyan_Log" value="<?=User_Jinyan_Log?>" class="layui-input">
+                        </div>
+                        <label class="layui-form-label" style="margin-left: 10px;width: 80px;"><i class="fa fa-plus colorl"></i> <?=L('tpl_us_38')?></label>
+                        <div class="layui-input-inline" style="width: 80px;">
+                            <input type="text" name="User_Cion_Log" value="<?=User_Cion_Log?>" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label" ><?=L('tpl_us_40')?></label>
+                        <label class="layui-form-label" style="margin-left: 10px;width: 80px;"><i class="fa fa-plus colorl"></i> <?=L('tpl_us_37')?></label>
+                        <div class="layui-input-inline" style="width: 80px;">
+                            <input type="text" name="User_Jinyan_Qd" value="<?=User_Jinyan_Qd?>" class="layui-input">
+                        </div>
+                        <label class="layui-form-label" style="margin-left: 10px;width: 80px;"><i class="fa fa-plus colorl"></i> <?=L('tpl_us_38')?></label>
+                        <div class="layui-input-inline" style="width: 80px;">
+                            <input type="text" name="User_Cion_Qd" value="<?=User_Cion_Qd?>" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label" ><?=L('tpl_us_41')?></label>
+                        <label class="layui-form-label" style="margin-left: 10px;width: 80px;"><i class="fa fa-plus colorl"></i> <?=L('tpl_us_37')?></label>
+                        <div class="layui-input-inline" style="width: 80px;">
+                            <input type="text" name="User_Jinyan_Logo" value="<?=User_Jinyan_Logo?>" class="layui-input">
+                        </div>
+                        <label class="layui-form-label" style="margin-left: 10px;width: 80px;"><i class="fa fa-plus colorl"></i> <?=L('tpl_us_38')?></label>
+                        <div class="layui-input-inline" style="width: 80px;">
+                            <input type="text" name="User_Cion_Logo" value="<?=User_Cion_Logo?>" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label" ><?=L('tpl_us_42')?></label>
+                        <label class="layui-form-label" style="margin-left: 10px;width: 80px;"><i class="fa fa-plus colorl"></i> <?=L('tpl_us_37')?></label>
+                        <div class="layui-input-inline" style="width: 80px;">
+                            <input type="text" name="User_Jinyan_Share" value="<?=User_Jinyan_Share?>" class="layui-input">
+                        </div>
+                        <label class="layui-form-label" style="margin-left: 10px;width: 80px;"><i class="fa fa-plus colorl"></i> <?=L('tpl_us_38')?></label>
+                        <div class="layui-input-inline" style="width: 80px;">
+                            <input type="text" name="User_Cion_Share" value="<?=User_Cion_Share?>" class="layui-input">
+                        </div>
+                        <label class="layui-form-label" style="margin-left: 10px;width: 120px;"><?=L('tpl_us_43')?></label>
+                        <div class="layui-input-inline" style="width: 80px;">
+                            <input type="text" name="User_Nums_Share" value="<?=User_Nums_Share?>" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label" ><?=L('tpl_us_44')?></label>
+                        <label class="layui-form-label" style="margin-left: 10px;width: 80px;"><i class="fa fa-plus colorl"></i> <?=L('tpl_us_37')?></label>
+                        <div class="layui-input-inline" style="width: 80px;">
+                            <input type="text" name="User_Jinyan_Add" value="<?=User_Jinyan_Add?>" class="layui-input">
+                        </div>
+                        <label class="layui-form-label" style="margin-left: 10px;width: 80px;"><i class="fa fa-plus colorl"></i> <?=L('tpl_us_38')?></label>
+                        <div class="layui-input-inline" style="width: 80px;">
+                            <input type="text" name="User_Cion_Add" value="<?=User_Cion_Add?>" class="layui-input">
+                        </div>
+                        <label class="layui-form-label" style="margin-left: 10px;width: 120px;"><?=L('tpl_us_43')?></label>
+                        <div class="layui-input-inline" style="width: 80px;">
+                            <input type="text" name="User_Nums_Add" value="<?=User_Nums_Add?>" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label" ><?=L('tpl_us_45')?></label>
+                        <label class="layui-form-label" style="margin-left: 10px;width: 80px;"><i class="fa fa-minus colorr"></i> <?=L('tpl_us_37')?></label>
+                        <div class="layui-input-inline" style="width: 80px;">
+                            <input type="text" name="User_Jinyan_Del" value="<?=User_Jinyan_Del?>" class="layui-input">
+                        </div>
+                        <label class="layui-form-label" style="margin-left: 10px;width: 80px;"><i class="fa fa-minus colorr"></i> <?=L('tpl_us_38')?></label>
+                        <div class="layui-input-inline" style="width: 80px;">
+                            <input type="text" name="User_Cion_Del" value="<?=User_Cion_Del?>" class="layui-input">
+                        </div>
+                    </div>
+                    <?php }else{?>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><?=L('tpl_us_36')?><i class="fa fa-plus colorl"></i> <?=L('tpl_us_37')?></label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="User_Jinyan_Zx" placeholder="<?=L('tpl_us_81')?>" value="<?=User_Jinyan_Zx?>" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><?=L('tpl_us_36')?><i class="fa fa-plus colorl"></i> <?=L('tpl_us_38')?></label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="User_Cion_Zx" value="<?=User_Cion_Zx?>" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label" ><?=L('tpl_us_80')?><i class="fa fa-plus colorl"></i> <?=L('tpl_us_37')?></label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="User_Jinyan_Reg" value="<?=User_Jinyan_Reg?>" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label" ><?=L('tpl_us_80')?><i class="fa fa-plus colorl"></i> <?=L('tpl_us_38')?></label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="User_Cion_Reg" value="<?=User_Cion_Reg?>" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label" ><?=L('tpl_us_40')?><i class="fa fa-plus colorl"></i> <?=L('tpl_us_37')?></label>
+                        <div class="layui-input-inline" >
+                            <input type="text" name="User_Jinyan_Qd" value="<?=User_Jinyan_Qd?>" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><?=L('tpl_us_40')?><i class="fa fa-plus colorl"></i> <?=L('tpl_us_38')?></label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="User_Cion_Qd" value="<?=User_Cion_Qd?>" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><?=L('tpl_us_41')?><i class="fa fa-plus colorl"></i> <?=L('tpl_us_37')?></label>
+                        <div class="layui-input-inline" >
+                            <input type="text" name="User_Jinyan_Logo" value="<?=User_Jinyan_Logo?>" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><?=L('tpl_us_41')?><i class="fa fa-plus colorl"></i> <?=L('tpl_us_38')?></label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="User_Cion_Logo" value="<?=User_Cion_Logo?>" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><?=L('tpl_us_42')?><i class="fa fa-plus colorl"></i> <?=L('tpl_us_37')?></label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="User_Jinyan_Share" value="<?=User_Jinyan_Share?>" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><?=L('tpl_us_42')?><i class="fa fa-plus colorl"></i> <?=L('tpl_us_38')?></label>
+                        <div class="layui-input-inline" >
+                            <input type="text" name="User_Cion_Share" value="<?=User_Cion_Share?>" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><?=L('tpl_us_46')?></label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="User_Nums_Share" value="<?=User_Nums_Share?>" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><?=L('tpl_us_44')?><i class="fa fa-plus colorl"></i> <?=L('tpl_us_37')?></label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="User_Jinyan_Add" value="<?=User_Jinyan_Add?>" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><?=L('tpl_us_44')?><i class="fa fa-plus colorl"></i> <?=L('tpl_us_38')?></label>
+                        <div class="layui-input-inline" >
+                            <input type="text" name="User_Cion_Add" value="<?=User_Cion_Add?>" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label" ><?=L('tpl_us_47')?></label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="User_Nums_Add" value="<?=User_Nums_Add?>" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><?=L('tpl_us_45')?><i class="fa fa-minus colorr"></i> <?=L('tpl_us_37')?></label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="User_Jinyan_Del" value="<?=User_Jinyan_Del?>" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><?=L('tpl_us_45')?><i class="fa fa-minus colorr"></i> <?=L('tpl_us_38')?></label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="User_Cion_Del" value="<?=User_Cion_Del?>" class="layui-input">
+                        </div>
+                    </div>
+                    <?php }?>
+                </div>
+                <div class="layui-tab-item">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><?=L('tpl_us_48')?></label>
+                        <div class="layui-input-inline">
+                            <input type="radio" name="User_BookFun" value="1" title="<?=L('tpl_us_10')?>" <?php if(User_BookFun==1){echo 'checked';}?> >
+                            <input type="radio" name="User_BookFun" value="0" title="<?=L('tpl_us_11')?>" <?php if(User_BookFun==0){echo 'checked';}?> >
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><?=L('tpl_us_49')?></label>
+                        <div class="layui-input-inline" onclick="cscms.show_hide('dc','User_DownFun')">
+                            <input type="radio" name="User_DownFun" value="1" title="<?=L('tpl_us_10')?>" <?php if(User_DownFun==1){echo 'checked';}?> >
+                            <input type="radio" name="User_DownFun" value="0" title="<?=L('tpl_us_11')?>" <?php if(User_DownFun==0){echo 'checked';}?> >
+                        </div>
+                    </div>
+                    <div class="layui-form-item dc dc1">
+                        <label class="layui-form-label"><?=L('tpl_us_50')?></label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="User_Downcion" placeholder="<?=L('tpl_us_51')?>" value="<?=User_Downcion?>" class="layui-input">
+                        </div>
+                        <div class="layui-form-mid layui-word-aux">%</div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><?=L('tpl_us_52')?></label>
+                        <div class="layui-input-inline">
+                            <input type="radio" name="User_YkDown" value="1" title="<?=L('tpl_us_10')?>" <?php if(User_YkDown==1){echo 'checked';}?> >
+                            <input type="radio" name="User_YkDown" value="0" title="<?=L('tpl_us_11')?>" <?php if(User_YkDown==0){echo 'checked';}?> >
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><?=L('tpl_us_53')?></label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="User_Downtime" placeholder="<?=L('tpl_us_54')?>" value="<?=User_Downtime?>" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><?=L('tpl_us_55')?></label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="User_Dtts" placeholder="<?=L('tpl_us_56')?>" value="<?=User_Dtts?>" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><?=L('tpl_us_57')?></label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="User_Fkts" placeholder="<?=L('tpl_us_58')?>" value="<?=User_Fkts?>" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><?=L('tpl_us_59')?></label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="User_Hyts" placeholder="<?=L('tpl_us_60')?>" value="<?=User_Hyts?>" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><?=L('tpl_us_61')?></label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="User_Fsts" placeholder="<?=L('tpl_us_62')?>" value="<?=User_Fsts?>" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><?=L('tpl_us_63')?></label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="User_Ssts" placeholder="<?=L('tpl_us_64')?>" value="<?=User_Ssts?>" class="layui-input">
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-tab-item">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><?=L('tpl_us_65')?></label>
+                        <div class="layui-input-inline" onclick="cscms.show_hide('uc','User_Uc_Mode')">
+                            <input type="radio" name="User_Uc_Mode" value="1" title="<?=L('tpl_us_10')?>" <?php if(User_Uc_Mode==1){echo 'checked';}?> >
+                            <input type="radio" name="User_Uc_Mode" value="0" title="<?=L('tpl_us_11')?>" <?php if(User_Uc_Mode==0){echo 'checked';}?> >
+                        </div>
+                    </div>
+                    <div class="uc uc1" <?php if(User_Uc_Mode==0){echo 'style="display:none"';}?>>
+                     <?php
+                        include CSCMS.'sys/Cs_Ucenter.php';
+                        $UC_PASS=substr(UC_DBPW,0,1)."********".substr(UC_DBPW,-1);
+                        $UC_DBTABLEPRE=explode("`".UC_DBNAME."`.",UC_DBTABLEPRE);
+                    ?>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label"><?=L('tpl_us_66')?></label>
+                            <div class="layui-input-inline" >
+                                <input type="radio" name="User_Uc_Fun" value="1" title="<?=L('tpl_us_67')?>" <?php if(User_Uc_Fun==1){echo 'checked';}?> >
+                                <input type="radio" name="User_Uc_Fun" value="0" title="<?=L('tpl_us_68')?>" <?php if(User_Uc_Fun==0){echo 'checked';}?> >
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label"><?=L('tpl_us_69')?></label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="UC_DBHOST" placeholder="<?=L('tpl_us_70')?>" value="<?=UC_DBHOST?>" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label"><?=L('tpl_us_71')?></label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="UC_DBUSER" placeholder="<?=L('tpl_us_71')?>" value="<?=UC_DBUSER?>" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label"><?=L('tpl_us_72')?></label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="UC_DBPW" placeholder="<?=L('tpl_us_72')?>" value="<?=$UC_PASS?>" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label"><?=L('tpl_us_73')?></label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="UC_DBNAME" placeholder="<?=L('tpl_us_73')?>" value="<?=UC_DBNAME?>" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label"><?=L('tpl_us_74')?></label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="UC_DBTABLEPRE" placeholder="<?=L('tpl_us_74')?>" value="<?=$UC_DBTABLEPRE[1]?>" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label"><?=L('tpl_us_75')?></label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="UC_KEY" placeholder="<?=L('tpl_us_75')?>" value="<?=UC_KEY?>" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label"><?=L('tpl_us_76')?></label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="UC_API" placeholder="<?=L('tpl_us_76')?>" value="<?=UC_API?>" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label"><?=L('tpl_us_77')?></label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="UC_APPID" placeholder="<?=L('tpl_us_77')?>" value="<?=UC_APPID?>" class="layui-input">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+            <div class="layui-input-block noborder">
+                <button style="margin-left: 20%;" class="layui-btn" lay-submit lay-filter="setting"><?=L('tpl_us_78')?></button>
+                <button type="reset" class="layui-btn layui-btn-primary"><?=L('tpl_us_79')?></button>
+            </div>
+        </div>
+        </div>
+
+    </form>
+    <script type="text/javascript">
+        cscms.init();
+    </script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <title>[singer:name]_最新[singer:name]好听的歌曲_MV_资料图片_新歌_[singer:name]专辑_{cscms:webname}</title>
+    <meta name="Keywords" content="{cscms:keywords}" />
+    <meta name="Description" content="{cscms:description}" />
+    <link rel="shortcut icon" href="{cscms:path}favicon.ico" />
+    <link rel="stylesheet" href="{cscms:webpath}packs/font/font.css">
+    <link rel="stylesheet" type="text/css" href="{cscms:tempurl}css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="{cscms:tempurl}css/singer.css"/>
+    <script type='text/javascript' src='{cscms:tempurl}js/wap.js'></script>
+    <script type='text/javascript' src='{cscms:tempurl}js/singer.js'></script>
+</head>
+<body>
+    {cscms:head}
+    <div class="layui-tab layui-tab-brief" style="margin: 0px">
+        <ul class="layui-tab-title">
+            <li class="" style="min-width: 50px"><a href="[singer:url link=show]">资料</a></li>
+            <li class="" style="min-width: 50px"><a href="[singer:url link=music,id]">歌曲</a></li>
+            <li class="" style="min-width: 50px"><a href="[singer:url link=mv,id]">M V</a></li>
+            <li class="layui-this" style="min-width: 50px"><a href="[singer:url link=album,id]">专辑</a></li>
+            <li class="" style="min-width: 50px"><a href="[singer:url link=pic,id]">图集</a></li>
+        </ul>
+        <div class="layui-tab-content">
+            <div class="layui-tab-item layui-show">
+                <table class="md-zj">
+                    <tbody>
+                        <tr>
+                            <td><a href="javascript:;"><img style="width: 60px;height: 60px;" src="[singer:pic dir=singer]" alt="[singer:name]"></a></td>
+                            <td class="md-zj-info">
+                                <a href="javascript:;" class="colord">[singer:name]<span class="ms-bname">{if:'[singer:bname]'!=''}&nbsp;(&nbsp;[singer:bname]&nbsp;){end if}</span></a>
+                                <div class="mp-more" style="margin-bottom: 3px;">
+                                    <span>性别：[singer:sex]</span>
+                                    <span>生日：[singer:sr]</span>
+                                </div>
+                                <div class="mp-more">
+                                    <span>身高：[singer:height]</span>
+                                    <span>体重：[singer:weight]</span>
+                                    <span>星座：[singer:xingzuo]</span>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                {cscms:album table="dance_topic" field="id,name,pic,neir" pagesize="10" singerid="auto" sort="addtime"}
+                    <table class="md-zj">
+                        <tbody>
+                            <tr>
+                                <td><a href="[album:url zdy=dance,id,topic/show]"><img style="width: 60px;height: 60px;" src="[album:pic dir=dancetopic]" alt="[album:name]"></a></td>
+                                <td class="md-zj-info">
+                                    <a href="[album:url zdy=dance,id,topic/show]"><i class="{if:[album:i]<4}colord{else}{end if}">[album:i]</i>.[album:name]</a>
+                                    <div class="ms-intro">
+                                        {if:'[album:neir len=10]'==''}发布者太懒，还没有相关介绍...{else}简介：[album:neir len=100]{end if}
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                {/cscms:album}
+                <div class="zanwu" {if:{cscms:pagedata}>0}style="display: none"{end if}>暂无相关的专辑！</div>
+                <div class="page" {if:{cscms:pagecout}<2}style="display:none"{end if}>
+                    <div class="layui-box layui-laypage layui-laypage-default" id="layui-laypage-0" style="width: 100%;text-align: center;">
+                        <a href="{cscms:pageup}" class="layui-laypage-last" title="上一页">上一页</a>
+                        {cscms:pagenum len=3}
+                        <a href="{cscms:pagedown}" class="layui-laypage-next">下一页</a>
+                    </div>
+               </div>
+            </div>
+        </div>
+    </div>
+</body>
+{cscms:bottom}
+<script type="text/javascript">
+    
+</script>
+</body>
+</html>

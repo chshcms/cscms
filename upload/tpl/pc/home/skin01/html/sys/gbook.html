@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{cscms:title}</title>
+<meta name="keywords" content="{cscms:keywords}"/>
+<meta name="description" content="{cscms:description}"/>
+<link href="{cscms:tempurl}css/public.css" rel="stylesheet" type="text/css" />
+<link href="{cscms:tempurl}css/space.css" rel="stylesheet" type="text/css" />
+<link href="{cscms:tempurl}css/song.css" rel="stylesheet" type="text/css" />
+<link href="{cscms:tempurl}css/more.css" rel="stylesheet" type="text/css" />
+<link href="{cscms:tempurl}css/manage.css" rel="stylesheet" type="text/css" />
+<script type='text/javascript' src='{cscms:tempurl}js/common.js'></script>
+</head>
+<body>
+{cscms:head}     
+<div class="k_content no_flush_content">
+            <div class="k_main">
+				{cscmsphp}get_gbook('[user:id]');{/cscmsphp}
+            </div>
+            <div class="k_right">
+                <div class="log">
+                    <div class="right_tit">
+                        <h3 class="right_tit_log">近况</h3>
+                        <a class="rt f_green right_tit_more" href="[user:url ulink=feed]">更多<b></b></a>
+                    </div>
+                    <ul>
+{cscms:dt table="dt" loop="5" uid="auto" sort="addtime" order="desc"}
+                        <li><span class="tips_gray">[[dt:addtime style=time]]</span>[dt:title]：<a href="[dt:link]" target="_blank">[dt:name]</a></li>   
+{/cscms:dt}
+					</ul>
+                </div>
+				<div class="follow">
+                    <div class="right_tit">
+                        <h3 class="right_tit_follow">{if:[user:id]=={cscms:uid}}我{else}TA{end if}的关注</h3>
+                        <a class="rt f_green right_tit_more" href="[user:url ulink=friend]">更多<b></b></a>
+                    </div>
+                    <div class="follow_list">
+{cscms:friend table="friend" field="uidb,addtime" uida="auto" loop="3"}
+                       <dl>
+                            <dt><a target="_blank" class="show_userCard_link" href="[friend:url ulink=index]"><img src="[friend:user zd=logo]" width="50" height="50" alt="[friend:user zd=nichen]" /></a></dt>
+                            <dd class="follow_name">
+                                <h4><a class="show_userCard_link" href="[friend:url ulink=index]">[friend:user zd=nichen]</a></h4>
+                                <p class="tips_gray">{cscmscount param="friend|uida=[friend:uidb]"}人关注</p>
+                            </dd>
+                            <dd class="follow_action"><a href="###" onclick="home.fansadd('[friend:uidb]',1);" class="follow_btn gz[friend:uidb]"><em>+</em>关注</a></dd>
+                        </dl>
+{/cscms:friend}
+                     </div>
+                </div>
+                <div class="fans">
+                    <div class="right_tit">
+                        <h3 class="right_tit_fans">{if:[user:id]=={cscms:uid}}我{else}TA{end if}的粉丝</h3>
+                        <a class="rt f_green right_tit_more" href="[user:url ulink=fans]">更多<b></b></a>
+                    </div>
+                    <div class="fans_list">
+                        <ul>
+						{cscms:fans table="fans" field="uidb,addtime" uida="auto" loop="8"}
+						<li><a class="show_userCard_link" href="[fans:url ulink=index]"><img src="[fans:user zd=logo]" width="50" height="50" alt="[fans:user zd=nichen]"><span class="fans_name">[fans:user zd=nichen]</span></a></li>
+						{/cscms:fans}
+                        </ul>
+                    </div>
+                </div>
+                <div class="guest">
+                    <div class="right_tit">
+                        <h3 class="right_tit_guest">最近访客</h3>
+                    </div>
+                    <div class="fans_list guest_list">
+                        <ul id="ListGuest">
+						{cscms:funco table="funco" field="uidb,addtime" uida="auto" loop="8"}
+						<li><a class="show_userCard_link" href="[funco:url ulink=index]"><img src="[funco:user zd=logo]" width="50" height="50" alt="[funco:user zd=nichen]"><span class="fans_name">[funco:user zd=nichen]</span></a><em class="tips_gray">[funco:addtime style=time]</em></li>
+						{/cscms:funco}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+{cscms:bottom}
+<script>$('#nav_gbook').addClass('sel');</script>
+</body>
+</html>

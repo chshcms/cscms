@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <title>{cscms:title}</title>
+    <meta name="Keywords" content="{cscms:keywords}" />
+    <meta name="Description" content="{cscms:description}" />
+    <link rel="shortcut icon" href="{cscms:path}favicon.ico" />
+    <link rel="stylesheet" href="{cscms:webpath}packs/font/font.css">
+    <link rel="stylesheet" type="text/css" href="{cscms:tempurl}css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="{cscms:tempurl}css/dance.css"/>
+    <script type='text/javascript' src='{cscms:tempurl}js/wap.js'></script>
+    <script type='text/javascript' src='{cscms:tempurl}js/dance.js'></script>
+</head>
+<body>
+    {cscms:head}
+    <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+        <ul class="layui-tab-title">
+            <li class="layui-this">新歌速递</li>
+            <li>最近热播</li>
+            <li>站长推荐</li>
+            <li>精品专辑</li>
+        </ul>
+        <div class="layui-tab-content">
+            <div class="layui-tab-item layui-show">
+                <ul class="dance_list">
+                {cscms:dance table="dance" field="id,name,hits,cid,shits,singerid,addtime" loop="20" sort="addtime"}
+                    <li class="dance-one">
+                        <div class="dance-one-left">
+                            <a class="id-title" title="[dance:name]" href="[dance:url zdy=dance,id,play,id]"><span class="dance-jx">新</span>[dance:name]</a>
+                            <div class="dance-one-more"><span><i class="fa fa-eye"></i>&nbsp;<i title="人气">[dance:hits]</i></span><span><i class="fa fa-star-o"></i>&nbsp;<i title="收藏">[dance:shits]</i></span><span><a href="[dance:url zdy=dance,cid,lists,hits]">[dance:zdy zd=dance_list,name,cid]</a></span></div>
+                        </div>
+                        <a class="dance-singer" href="[dance:url zdy=singer,singerid,show]">[dance:singer zd=name]</a>
+                    </li>
+                {/cscms:dance}
+                </ul>
+            </div>
+            <div class="layui-tab-item">
+                <ul class="dance_list">
+                {cscms:dance table="dance" field="id,name,hits,cid,shits,singerid,addtime" loop="20" sort="hits"}
+                    <li class="dance-one">
+                        <div class="dance-one-left">
+                            <a class="id-title" title="[dance:name]" href="[dance:url zdy=dance,id,play,id]"><span class="dance-jx">热</span>[dance:name]</a>
+                            <div class="dance-one-more"><span><i class="fa fa-eye"></i>&nbsp;<i title="人气">[dance:hits]</i></span><span><i class="fa fa-star-o"></i>&nbsp;<i title="收藏">[dance:shits]</i></span><span><a href="[dance:url zdy=dance,cid,lists,hits]">[dance:zdy zd=dance_list,name,cid]</a></span></div>
+                        </div>
+                        <a class="dance-singer" href="[dance:url zdy=singer,singerid,show]">[dance:singer zd=name]</a>
+                    </li>
+                {/cscms:dance}
+                </ul>
+            </div>
+            <div class="layui-tab-item">
+                <ul class="dance_list">
+                {cscms:dance table="dance" field="id,name,hits,cid,shits,singerid,addtime" reco="1,2,3,4,5" loop="20" sort="addtime"}
+                    <li class="dance-one">
+                        <div class="dance-one-left">
+                            <a class="id-title" title="[dance:name]" href="[dance:url zdy=dance,id,play,id]"><span class="dance-jx">荐</span>[dance:name]</a>
+                            <div class="dance-one-more"><span><i class="fa fa-eye"></i>&nbsp;<i title="人气">[dance:hits]</i></span><span><i class="fa fa-star-o"></i>&nbsp;<i title="收藏">[dance:shits]</i></span><span><a href="[dance:url zdy=dance,cid,lists,hits]">[dance:zdy zd=dance_list,name,cid]</a></span></div>
+                        </div>
+                        <a class="dance-singer" href="[dance:url zdy=singer,singerid,show]">[dance:singer zd=name]</a>
+                    </li>
+                {/cscms:dance}
+                </ul>
+            </div>
+            <div class="layui-tab-item" style="text-align: center;">
+                <table class="md-zj">
+                    <tbody>
+                    {cscms:topic table="dance_topic" field="id,name,pic,uid,hits,neir" sort="hits" reco="1,2,3,4,5" loop="10"}
+                        <tr>
+                            <td><a href="[topic:url link=topic/show]"><img style="width: 60px;height: 60px;" src="[topic:pic dir=dancetopic]" alt="[topic:name]"></a></td>
+                            <td class="md-zj-info">
+                                <a href="[topic:url link=topic/show]"><i class="{if:[topic:i]<4}colord{else}{end if}">[topic:i]</i>.[topic:name]</a>
+                                <div style="text-align: left">
+                                    简介：[topic:neir len=100]
+                                </div>
+                            </td>
+                        </tr>
+                    {/cscms:topic}
+                    </tbody>
+                </table>
+                <a class="md-more" href="{cscmsphp}linkurl('topic','id',1,1,'dance');{/cscmsphp}"> 更多精彩 </a>
+            </div>
+        </div>
+    </div>
+</body>
+{cscms:bottom}
+<script type="text/javascript">
+    cscms.mode('dance.init()');
+</script>
+</body>
+</html>

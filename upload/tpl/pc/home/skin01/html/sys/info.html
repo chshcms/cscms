@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{cscms:title}</title>
+<meta name="keywords" content="{cscms:keywords}"/>
+<meta name="description" content="{cscms:description}"/>
+<link href="{cscms:tempurl}css/public.css" rel="stylesheet" type="text/css" />
+<link href="{cscms:tempurl}css/space.css" rel="stylesheet" type="text/css" />
+<link href="{cscms:tempurl}css/song.css" rel="stylesheet" type="text/css" />
+<link href="{cscms:tempurl}css/more.css" rel="stylesheet" type="text/css" />
+<link href="{cscms:tempurl}css/manage.css" rel="stylesheet" type="text/css" />
+<script type='text/javascript' src='{cscms:tempurl}js/common.js'></script>
+</head>
+<body>
+{cscms:head}     
+<div class="k_content m_content c_wap p_detail no_flush_content">
+        <div class="main_tit">
+            <h2 class="main_tit_file">个人档案</h2>
+            {if:{cscms:uid}==[user:id]}<div class="k_main_tit_btn show_owner_panel"><a href="[user:url userlink=edit]" class="f_green"><b></b>编辑</a></div>{end if}
+        </div>
+        <dl class="c_wap">
+            <dt class="lt">
+            <p class="d_head"><img alt="" src="[user:logo dir=logo]" width="100" height="100"></p>
+            <ul>
+                <li class="u_t">昵&nbsp;&nbsp;&nbsp;称：</li>
+                <li>[user:nichen]</li>
+                <li class="u_t">性&nbsp;&nbsp;&nbsp;别：</li>
+                <li>{if:[user:sex]==1}女{else}男{end if}</li>
+                <li class="u_t">所在地：</li>
+                <li>[user:city]</li>
+                <li class="u_t">Q&nbsp;&nbsp;&nbsp;&nbsp;Q：</li>
+                <li>[user:qq]</li>
+            </ul>
+            </dt>
+            <dd class="lt">
+                <h4 href="###">个人介绍：</h4>
+                <p>[user:qianm]</p>
+            </dd>
+        </dl>
+</div>
+{cscms:bottom}
+<script>$('#nav_info').addClass('sel');</script>
+</body>
+</html>

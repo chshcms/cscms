@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <title>{cscms:title}</title>
+    <meta name="Keywords" content="{cscms:keywords}" />
+    <meta name="Description" content="{cscms:description}" />
+    <link rel="shortcut icon" href="{cscms:path}favicon.ico" />
+    <link rel="stylesheet" href="{cscms:webpath}packs/font/font.css">
+    <link rel="stylesheet" type="text/css" href="{cscms:tempurl}css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="{cscms:tempurl}css/vod.css"/>
+    <script type='text/javascript' src='{cscms:tempurl}js/iscroll.js'></script>
+    <script type='text/javascript' src='{cscms:tempurl}js/wap.js'></script>
+    <script type='text/javascript' src='{cscms:tempurl}js/vod.js'></script>
+</head>
+<body>
+    {cscms:head}
+    <div class="mv-list">
+        <div class="mv-neir">
+            <span>频道：</span>
+            <div class="mv-one" id="mvfl">
+                <div class="mv-lneir" id="mv-fls">
+                {cscms:class table="vod_list" field="id,name" fid="0" loop="10" sort="xid" order="asc"}
+                    <a href="[class:url link=lists,id]" {if:'{cscms:cid}'=='[class:id]' || '{cscmsphp}getzd('vod_list','fid','{cscms:cid}');{/cscmsphp}'=='[class:id]'}class="colord"{else}{end if}>[class:name]</a>
+                {/cscms:class}
+                    <a href="{cscms:opt-new}">今日更新</a>
+                    <a href="{cscms:opt-hot}">播放排行</a>
+                    <a href="{cscms:opt-tv}">电视直播</a>
+                    <a href="{cscmsphp}linkurl('topic/lists','id',1,1,'vod');{/cscmsphp}">视频专题</a>
+                </div>
+            </div>
+            <span id="mvtitle1">分类：</span>
+            <div class="mv-one" id="mvfl1">
+                <div class="mv-lneir" id="mv-fls1">
+                {cscms:class table="vod_list" field="id,name" fid="auto,sid" sort="xid" order="asc"}
+                    <a class="h {if:'[class:id]'=='{cscms:cid}'}colord{end if}" href="{cscmsphp}linkurl('search','cid','[class:id]',1);{/cscmsphp}&type={cscms:type}&diqu={cscms:diqu}&year={cscms:year}&zm={cscms:zm}">[class:name]</a>
+                {/cscms:class}</div>
+            </div>
+            <span id="mvtitle2">剧情：</span>
+            <div class="mv-one" id="mvfl2">
+                <div class="mv-lneir" id="mv-fls2">
+                    <a class="{if:''=='{cscms:type}'}colord{else}{end if}" href="{cscmsphp}linkurl('search','type','',1);{/cscmsphp}&cid={cscms:cid}&diqu={cscms:diqu}&year={cscms:year}&zm={cscms:zm}">全部</a>
+                    {cscms:type table="vod_type" field="name" cid="auto,sid" sort="xid" order="asc"}
+                        <a class="h {if:'[type:name]'=='{cscms:type}'}colord{else}{end if}" href="{cscmsphp}linkurl('search','type','[type:name]',1);{/cscmsphp}&cid={cscms:cid}&diqu={cscms:diqu}&year={cscms:year}&zm={cscms:zm}">[type:name]</a>
+                    {/cscms:type}
+                </div>
+            </div>
+            <script type="text/javascript">
+                if($('#mv-fls2 .h').length==0){
+                    $('#mvfl2').hide();
+                    $('#mvtitle2').hide();
+                }
+                if($('#mv-fls1 .h').length==0){
+                    $('#mvfl1').hide();
+                    $('#mvtitle1').hide();
+                }
+            </script>
+            <span>地区：</span>
+            <div class="mv-one" id="mvfl3">
+                <div class="mv-lneir" id="mv-fls3">
+                    <a class="{if:''=='{cscms:diqu}'}colord{end if}" href="{cscmsphp}linkurl('search','diqu','',1);{/cscmsphp}&cid={cscms:cid}&type={cscms:type}&year={cscms:year}&zm={cscms:zm}">全部</a>
+                    <a class="{if:'内地'=='{cscms:diqu}'}colord{end if}" href="{cscmsphp}linkurl('search','diqu','内地',1);{/cscmsphp}&cid={cscms:cid}&type={cscms:type}&year={cscms:year}&zm={cscms:zm}" target="_self">内地</a>
+                    <a class="{if:'香港'=='{cscms:diqu}'}colord{end if}" href="{cscmsphp}linkurl('search','diqu','香港',1);{/cscmsphp}&cid={cscms:cid}&type={cscms:type}&year={cscms:year}&zm={cscms:zm}" target="_self">香港</a>
+                    <a class="{if:'台湾'=='{cscms:diqu}'}colord{end if}" href="{cscmsphp}linkurl('search','diqu','台湾',1);{/cscmsphp}&cid={cscms:cid}&type={cscms:type}&year={cscms:year}&zm={cscms:zm}" target="_self">台湾</a>
+                    <a class="{if:'韩国'=='{cscms:diqu}'}colord{end if}" href="{cscmsphp}linkurl('search','diqu','韩国',1);{/cscmsphp}&cid={cscms:cid}&type={cscms:type}&year={cscms:year}&zm={cscms:zm}" target="_self">韩国</a>
+                    <a class="{if:'泰国'=='{cscms:diqu}'}colord{end if}" href="{cscmsphp}linkurl('search','diqu','泰国',1);{/cscmsphp}&cid={cscms:cid}&type={cscms:type}&year={cscms:year}&zm={cscms:zm}" target="_self">泰国</a>
+                    <a class="{if:'日本'=='{cscms:diqu}'}colord{end if}" href="{cscmsphp}linkurl('search','diqu','日本',1);{/cscmsphp}&cid={cscms:cid}&type={cscms:type}&year={cscms:year}&zm={cscms:zm}" target="_self">日本</a>
+                    <a class="{if:'美国'=='{cscms:diqu}'}colord{end if}" href="{cscmsphp}linkurl('search','diqu','美国',1);{/cscmsphp}&cid={cscms:cid}&type={cscms:type}&year={cscms:year}&zm={cscms:zm}" target="_self">美国</a>
+                    <a class="{if:'英国'=='{cscms:diqu}'}colord{end if}" href="{cscmsphp}linkurl('search','diqu','英国',1);{/cscmsphp}&cid={cscms:cid}&type={cscms:type}&year={cscms:year}&zm={cscms:zm}" target="_self">英国</a>
+                    <a class="{if:'新加坡'=='{cscms:diqu}'}colord{end if}" href="{cscmsphp}linkurl('search','diqu','新加坡',1);{/cscmsphp}&cid={cscms:cid}&type={cscms:type}&year={cscms:year}&zm={cscms:zm}" target="_self">新加坡</a>
+                </div>
+            </div>
+            <span>年代：</span>
+            <div class="mv-one" id="mvfl4">
+                <div class="mv-lneir" id="mv-fls4">
+                    <a class="{if:''=='{cscms:year}'}colord{end if}" href="{cscmsphp}linkurl('search','year','',1);{/cscmsphp}&cid={cscms:cid}&type={cscms:type}&diqu={cscms:diqu}&zm={cscms:zm}">全部</a>
+                    <a class="{if:'2015'=='{cscms:year}'}colord{end if}" href="{cscmsphp}linkurl('search','year','2015',1);{/cscmsphp}&cid={cscms:cid}&type={cscms:type}&diqu={cscms:diqu}&zm={cscms:zm}" target="_self">2015</a>
+                    <a class="{if:'2014'=='{cscms:year}'}colord{end if}" href="{cscmsphp}linkurl('search','year','2014',1);{/cscmsphp}&cid={cscms:cid}&type={cscms:type}&diqu={cscms:diqu}&zm={cscms:zm}" target="_self">2014</a>
+                    <a class="{if:'2013'=='{cscms:year}'}colord{end if}" href="{cscmsphp}linkurl('search','year','2013',1);{/cscmsphp}&cid={cscms:cid}&type={cscms:type}&diqu={cscms:diqu}&zm={cscms:zm}" target="_self">2013</a>
+                    <a class="{if:'2012'=='{cscms:year}'}colord{end if}" href="{cscmsphp}linkurl('search','year','2012',1);{/cscmsphp}&cid={cscms:cid}&type={cscms:type}&diqu={cscms:diqu}&zm={cscms:zm}" target="_self">2012</a>
+                    <a class="{if:'2011'=='{cscms:year}'}colord{end if}" href="{cscmsphp}linkurl('search','year','2011',1);{/cscmsphp}&cid={cscms:cid}&type={cscms:type}&diqu={cscms:diqu}&zm={cscms:zm}" target="_self">2011</a>
+                    <a class="{if:'2010'=='{cscms:year}'}colord{end if}" href="{cscmsphp}linkurl('search','year','2010',1);{/cscmsphp}&cid={cscms:cid}&type={cscms:type}&diqu={cscms:diqu}&zm={cscms:zm}" target="_self">2010</a>
+                    <a class="{if:'2009'=='{cscms:year}'}colord{end if}" href="{cscmsphp}linkurl('search','year','2009',1);{/cscmsphp}&cid={cscms:cid}&type={cscms:type}&diqu={cscms:diqu}&zm={cscms:zm}" target="_self">2009</a>
+                    <a class="{if:'2008'=='{cscms:year}'}colord{end if}" href="{cscmsphp}linkurl('search','year','2008',1);{/cscmsphp}&cid={cscms:cid}&type={cscms:type}&diqu={cscms:diqu}&zm={cscms:zm}" target="_self">2008</a>
+                    <a class="{if:'2007'=='{cscms:year}'}colord{end if}" href="{cscmsphp}linkurl('search','year','2007',1);{/cscmsphp}&cid={cscms:cid}&type={cscms:type}&diqu={cscms:diqu}&zm={cscms:zm}" target="_self">2007</a>
+                    <a class="{if:'2006'=='{cscms:year}'}colord{end if}" href="{cscmsphp}linkurl('search','year','2006',1);{/cscmsphp}&cid={cscms:cid}&type={cscms:type}&diqu={cscms:diqu}&zm={cscms:zm}" target="_self">2006</a>
+                    <a class="{if:'2005'=='{cscms:year}'}colord{end if}" href="{cscmsphp}linkurl('search','year','2005',1);{/cscmsphp}&cid={cscms:cid}&type={cscms:type}&diqu={cscms:diqu}&zm={cscms:zm}" target="_self">2005</a>
+                </div>
+            </div>
+            <span>字母：</span>
+            <div class="mv-one" id="mvfl5">
+                <div class="mv-lneir" id="mv-fls5">
+                    <a class="{if:''=='{cscms:zm}'}colord{end if}" href="{cscmsphp}linkurl('search','zm','',1);{/cscmsphp}&cid={cscms:cid}&type={cscms:type}&diqu={cscms:diqu}&year={cscms:year}">全部</a>
+                    {cscmszm:27}
+                        <a class="{if:'[zm:name]'=='{cscms:zm}'}colord{end if}" style="margin-right: 15px" href="{cscmsphp}linkurl('search','zm','[zm:name]',1);{/cscmsphp}&cid={cscms:cid}&type={cscms:type}&year={cscms:year}&diqu={cscms:diqu}">[zm:name]</a>
+                    {/cscmszm}
+                </div>
+            </div>
+        </div>
+        <a href="javascript:vod.mzhan();" class="mv-zhan"><i class="fa fa-angle-double-down"></i>点击展开</a>
+    </div>
+    <div class="layui-tab layui-tab-brief" style="margin: 0px">
+        <ul class="layui-tab-title">
+            <li class="layui-this">搜索结果</li>
+            <span class="right" style="margin-right: 5px;width: 100px;height:40px;font-size: 12px;line-height: 50px;text-align: center;">共有&nbsp;<em style="color: red">{cscms:pagedata}</em>&nbsp;个视频</span>
+        </ul>
+        <div class="layui-tab-content" style="padding: 10px 0px;background-color: #f6f6f6">
+            <div class="layui-tab-item layui-show" style="pad;overflow: hidden;text-align: center;">
+                <ul class="mv-ul">
+                    {cscms:vod table="vod" field="id,color,name,addtime,pic,remark" pagesize="24" sort="addtime" order="desc"}
+                    <li class="mv-li">
+                        <a title="[vod:name]" href="[vod:url zdy=vod,id,show,id]" >
+                            <img src="[vod:pic dir=vod]" alt="[vod:name]">
+                            <p>[vod:name]</p>
+                            <span>[vod:remark]</span>
+                        </a>
+                    </li>
+                   {/cscms:vod}
+                </ul> 
+                <div class="zanwu" {if:{cscms:pagedata}>0}style="display: none"{end if}>暂无相关记录！</div>
+                <div class="page" {if:{cscms:pagecout}<2}style="display:none"{end if}>
+                    <div class="layui-box layui-laypage layui-laypage-default" id="layui-laypage-0" style="width: 100%;text-align: center;">
+                        <a href="{cscms:pageup}" class="layui-laypage-last" title="上一页">上一页</a>
+                        {cscms:pagenum len=3}
+                        <a href="{cscms:pagedown}" class="layui-laypage-next">下一页</a>
+                    </div>
+               </div>
+            </div>
+        </div>
+    </div>
+</body>
+{cscms:bottom}
+<script type="text/javascript">
+    var ele = $("#mv-fls");
+    ele.width((ele.find("a").length + 1) * (ele.find("a").width()+20));
+    var myScroll = new IScroll('#mvfl', {scrollX: true, scrollY: false, click: true});
+    var ele1 = $("#mv-fls1");
+    ele1.width((ele1.find("a").length + 1) * (ele1.find("a").width()+20));
+    var myScroll1 = new IScroll('#mvfl1', {scrollX: true, scrollY: false, click: true});
+    var ele2 = $("#mv-fls2");
+    ele2.width((ele2.find("a").length + 1) * (ele2.find("a").width()+20));
+    var myScroll2 = new IScroll('#mvfl2', {scrollX: true, scrollY: false, click: true});
+    var ele3 = $("#mv-fls3");
+    ele3.width((ele3.find("a").length + 1) * (ele3.find("a").width()+20));
+    var myScroll3 = new IScroll('#mvfl3', {scrollX: true, scrollY: false, click: true});
+    var ele4 = $("#mv-fls4");
+    ele1.width((ele4.find("a").length + 1) * (ele4.find("a").width()+20));
+    var myScroll4 = new IScroll('#mvfl4', {scrollX: true, scrollY: false, click: true});
+    var ele5 = $("#mv-fls5");
+    ele5.width((ele5.find("a").length + 1) * (ele5.find("a").width()+20));
+    var myScroll5 = new IScroll('#mvfl5', {scrollX: true, scrollY: false, click: true});
+</script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+.md-head-more{display: none;background-color: #393D49;border-top: 1px solid #666;margin-top: -1px;padding-top: 5px}
+.mclass{padding: 5px;text-align: center;}
+.mclass a{color: #eee;padding: 3px 5px;display: inline-block;margin-bottom: 5px;}
+.md-head-search{padding:5px 10px 10px;position: relative;border: 0px}
+.md-head-search button{position: absolute;top: 4.3px;right: 10px;height: 31px}
+.md-head-search input{height: 30px;line-height: 30px}
+
+.md-zj{width: 100%;}
+.md-zj tr{margin-bottom: 10px;display: block;}
+.md-zj tr .md-zj-info{padding-left: 10px}
+.md-zj tr .md-zj-info a{text-align: left;display: block;height: 25px;line-height: 25px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;}
+.md-zj tr .md-zj-info div{height: 35px;overflow: hidden;font-size: 12px;color: #666;line-height: 17px;}
+.md-more{display: inline-block;padding: 5px 20px;border-radius: 15px;background-color: #5FB878;color: #fff;font-size: 13px;margin-top: 5px}
+.md-more:hover{color:#fff;}
+/*dance-play---赞收藏分享下载*/
+.md-zsxf{margin: 0px;background-color: transparent;}
+.md-zsxf tr td{padding: 5px 5px;font-size: 12px;}
+.md-zsxf tr td a{color: #555;}
+.md-zsxf tr{margin-bottom: 0px;}
+/*dance-play---播放器*/
+.md-play{height: 50px;background-color: #f2f2f2;border: 1px solid #e2e2e2;border-top: 0px}
+.md-picon{float:left;width: 120px;min-height: 20px;text-align: center;}
+.md-time{width: 80px;font-size: 12px;float: right;text-align: center;position: relative;top: 18px;color: #666}
+.md-progress{margin-left: 120px;margin-right: 80px;height: 10px;background: #e2e2e2;position: relative;top: 20px;border-radius: 10px;overflow: hidden;}
+.md-pronow{width: 0%;height: 10px;background-color: #aaa;border-radius: 10px}
+.md-pre{background: url(../images/mdpre.png);width: 32px;height: 32px;display:inline-block;margin-top: 9px;}
+.md-nxt{background: url(../images/mdnxt.png);width: 32px;height: 32px;display:inline-block;margin-top: 9px;}
+.md-pnow{background: url(../images/mdplay.png);width: 32px;height: 32px;display:inline-block;margin-top: 9px;}
+.md-pause{background: url(../images/mdpause.png);width: 32px;height: 32px;display:inline-block;margin-top: 9px;}
+
+/*dance--playsong---------播放列表*/
+.dance-ps{width: 17px;height: 17px;text-align: center;margin-right: 5px;display: inline-block;border-radius: 2px;line-height: 20px;margin-top: 3px;border: 1px solid #e2e2e2;color: #555;}
+.dance-pson{background-color: #FF5722;color: #fff;border: 0;width: 18px;height: 18px}
+.dance-one-more2 .layui-icon{font-size: 16px;}
+.dance-one-more2{line-height: 20px;height: 20px}
+.md-spanml{margin-left: 10px}
+
+.md-player{background-color: #393D49;position: fixed;bottom: 0px;left: 0px;z-index: 999;height: 50px;width: 100%;}
+.mp-btn{float: left;width: 120px;height: 50px;text-align: center;padding-top: 7px}
+.mp-btn a{background: url(../images/playbar.png) no-repeat -9999px;}
+a.mp-pre{width: 28px;height: 28px;background-position: 0 -130px;display: inline-block;position: relative;top: -4px}
+a.mp-nxt{width: 28px;height: 28px;background-position: -80px -130px;display: inline-block;position: relative;top: -4px}
+a.mp-play{width: 36px;height: 36px;background-position: 0 -204px;display: inline-block;margin: 0px 5px}
+a.mp-pause{background-position: 0px -165px;}
+.md-pright{margin-left: 120px;height: 50px;overflow: hidden;}
+.md-name{color: #eee;font-size: 12px;height: 25px;line-height: 25px;}
+.mp-time{float: right;width: 80px;color: #eee;font-size: 12px;text-align: center;line-height: 15px;}
+.md-pro{margin-right: 80px;height: 8px;border-radius: 5px;background-color: rgba(0,0,0,0.3);position: relative;top: 3px;overflow: hidden;}
+.md-nowpro{width: 0%;background-color: #ccc;height: 8px;border-radius: 5px;}

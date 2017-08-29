@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset=utf-8>
+    <meta http-equiv="X-UA-Compatible" content="IE=9">
+    <title>{cscms:title}</title>
+    <meta name="Keywords" content="{cscms:keywords}" />
+    <meta name="Description" content="{cscms:description}" />
+    <link rel="shortcut icon" href="{cscms:webpath}favicon.ico" />
+    <link rel="stylesheet" href="{cscms:webpath}packs/font/font.css">
+    <link rel="stylesheet" type="text/css" href="{cscms:tempurl}css/user.css" />
+    <script type='text/javascript' src='{cscms:tempurl}js/user.js'></script>
+</head>
+<body style="background: #f5f5f5">
+    {cscms:head}
+    {cscms:right}
+        {cscms:left}
+            <div class="sp-cont-r">
+                <div class="layui-tab layui-tab-card" lay-filter="dt1" style="margin-top: 0px;margin-bottom: 0px">
+                    <ul class="layui-tab-title" style="height: 41px">
+                        <li><a href="[user:url userlink=pay,lists]">充值记录</a></li>
+                        <li class="layui-this"><a href="[user:url userlink=pay,spend]">消费记录</a></li>
+                        <li><a href="[user:url userlink=pay,income]">分成记录</a></li>
+                        <li><a href="[user:url userlink=pay,cardlist]">充值卡记录</a></li>
+                    </ul>
+                    <div class="layui-tab-content" style="padding:0px;background-color: #fff">
+                        <div class="layui-tab-item layui-show">
+                            <div class="layui-tab layui-tab-brief">
+							    <ul class="layui-tab-title">
+							        <li {if:[spend:sid]==0}class="layui-this"{end if}><a href="[user:url userlink=pay,spend]">全部</a></li>
+							        <li {if:[spend:sid]==1}class="layui-this"{end if}><a href="[user:url userlink=pay,spend]/1">金币</a></li>
+							        <li {if:[spend:sid]==2}class="layui-this"{end if}><a href="[user:url userlink=pay,spend]/2">人民币</a></li>
+							    </ul>
+							    <style type="text/css">
+									.layui-table td, .layui-table th{padding: 9px 10px;}
+							    </style>
+							    <div class="layui-tab-content" style="padding: 10px">
+							    	<table class="layui-table" lay-even lay-skin="nob">
+							    	<colgroup>
+									    <col width="50">
+									    <col>
+									    <col width="80">
+									    <col width="80">
+									    <col width="80">
+									    <col>
+									    <col width="80">
+									</colgroup>
+							    		<thead>
+							    			<tr>
+												<th>序号</th>
+												<th>消费内容</th>
+												<th>所属板块</th>
+												<th>消费类型</th>
+												<th>消费数量</th>
+												<th>消费IP</th>
+												<th>操作时间</th>
+							    			</tr>
+							    		</thead>
+							    		<tbody>
+							    			{cscms:spend table="spend" field="*" uid="auto" pagesize="25" order="desc"}
+											<tr{if:[spend:i]%2==1} class="re"{end if}>
+												<td align="center">[spend:i]</td>
+												<td title="[spend:title]">[spend:title len=25]</td>
+												<td align="center">[spend:dir]</td>
+												<td align="center">
+												{if:[spend:sid]==0}<font class="colorl">金币</font>{end if}
+												{if:[spend:sid]==1}<font class="colord">人民币</font>{end if}
+												</td>
+												<td align="center">[spend:nums]</td>
+												<td>[spend:ip]</td>
+												<td>[spend:addtime style=y-m-d H:i:s]</td>
+											</tr>
+											{/cscms:spend}
+							    		</tbody>
+									</table>
+									{if:{cscms:pagedata}==0}<div class="zanwu">暂无数据！</div>{end if}
+									<div class="page" style="text-align: right;{if:{cscms:pagedata}==0}display: none;{end if}">
+			                            <div class="layui-box layui-laypage layui-laypage-default" id="layui-laypage-0">
+			                                <a href="{cscms:pagefirst}" class="layui-laypage-last" title="首页">首页</a>
+			                                <a href="{cscms:pageup}" class="layui-laypage-last" title="上一页">上一页</a>
+			                                {cscms:pagenum len=6}
+			                                <a href="{cscms:pagedown}" class="layui-laypage-next">下一页</a>
+			                                <a href="{cscms:pagelast}" class="layui-laypage-last" title="尾页">末页</a>
+			                            </div>
+			                       </div>
+							    </div>
+							</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mar10"></div>
+    <div class="mar10"></div>
+{cscms:bottom}
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#left_paylist').addClass('on');
+        $('#left_first').removeClass('layui-nav-itemed');
+        $('#left_paylist').parent().parent().addClass('layui-nav-itemed');
+    });
+</script>
+</body>
+</html>

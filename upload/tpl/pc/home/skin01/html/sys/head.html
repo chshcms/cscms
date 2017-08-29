@@ -1,0 +1,132 @@
+<div class="n_header">
+    <div class="header_bg">
+        <div class="header w1000">
+            <div class="logo">
+                <a href="http://{cscms:weburl}"><img src="{cscms:indextempurl}images/center_logo.png" width="125" height="40" alt="{cscms:webname}"></a>
+            </div>
+
+            <div class="h_nav">
+                <ul>
+                    <li class="h_nav_music h_nav_box">
+                        <a href="javascript:void(0)" class="h_nav_clo ctop_menu jsNavBtn"><span>导航</span></a>
+                        <div class="nav_box jsSNavMenu" style="display:none;">
+                            <dl class="flx">
+							    <dt>版块</dt>
+								<dd class="sline">|</dd>
+                                <dd>
+                                    <ul>
+{cscms:model table="plugins" field="dir,name" loop="8" order="asc"}
+                                        <li><a href="{cscmsphp}cscmslink('[model:dir]');{/cscmsphp}">[model:name]</a></li>
+{/cscms:model}
+                                    </ul>
+                                </dd>
+                            </dl>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="serach">
+                <div class="seh_m">
+                    <div class="seh_list">
+                        <span>
+                            <a href="javascript:;" class="seh_list_a">歌曲<b class="icon icon_ser_arr"></b></a>
+                        </span>
+                        <div class="seh_sort">
+                            {cscms:model table="plugins" field="dir,name" loop="8" order="asc"}
+                            <a href="javascript:;" dir="[model:dir]">[model:name]</a>
+                            {/cscms:model}
+                        </div>
+                    </div>
+                    <input class="seh_v jsSearchAutoComplete" dir="dance" type="text" id="txtKey">
+                    <button class="icon seh_b">搜 索</button>
+                </div>
+            </div>
+            <div class="top_nav">
+                {cscms:logkuang}
+            </div>
+        </div>
+    </div>
+</div>
+<style type="text/css">
+    {if:'[user:bgpic dir=bgpic]'==''}
+    .banner_yyr{background-position:center 0;}
+	{else}
+    .banner_yyr{background:url([user:bgpic dir=bgpic]) center 0;}
+	{end if}
+</style>
+    <div class="banner banner_yyr">
+    <div class="b_con c_wap">
+        <dl>
+            <dt>
+                <span><img src="[user:logo dir=logo]?size=188*188" width="188" height="188" alt=""></span>
+            </dt>
+            <dd>
+                <div class="rank_ry c_wap">
+                    <h1 class="lt">[user:nichen]</h1>
+                    <ul class="lt">
+                        <li><img src="{cscms:indextempurl}images/icon/{if:'[user:vip]'=='0'}u{end if}vip.gif" border="0" title="VIP会员"></li>
+						<li><img src="{cscms:indextempurl}images/icon/{if:'[user:rzid]'=='0'}u{end if}realname.gif" border="0" title="实名认证"></li>
+						<li><img src="{cscms:indextempurl}images/icon/{if:'[user:tid]'=='0'}u{end if}recommend.gif" border="0" title="推荐歌手"></li>
+						<li><img src="{cscms:indextempurl}images/icon/{if:'[user:hits]'<'2000'}u{end if}star.gif" border="0" title="明星会员"></li>
+					</ul>
+                </div>
+                <div class="b_dd c_wap">
+                    <b class="lt sex {if:'[user:sex]'=='1'}girl{else}boy{end if}">sex</b><span class="lt">[user:city]</span>
+					<span class="lt u_id">ID：[user:id]</span>
+                </div>
+                <p class="simpleTxt">
+                    [user:qianm len=100]&nbsp;&nbsp;<a href="[user:url ulink=info]" class="noFlush_load_link">详细</a>
+				</p>
+                <div class="rank new_icon">
+                    <ul>
+                        <li class="lt arr">
+                            <div class="number" id="totalfriend">
+                                <a href="[user:url ulink=friend]">[user:count zdy=friend,uida,id]</a>
+								<em>关注</em>
+                            </div>
+                        </li>
+                        <li class="lt">
+                            <div class="number p_rel" id="totalfans">
+                                <a href="[user:url ulink=fans]">[user:count zdy=fans,uida,id]</a>
+								<em>粉丝</em>
+                            </div>
+                        </li>
+                        <li class="lt dele">
+                            <div class="number" id="totalrq">
+                                <a href="javascript:;">[user:hits]</a>
+                                <em>人气</em>
+                            </div>
+                        </li>
+                        <li class="rt a_btn" style="display:{if:'{cscms:uid}'=='[user:id]'}none{end if}">
+							<a href="###" onclick="home.fansadd('[user:id]',0);" class="lt fol_btn">
+							{if:'{cscmsphp}getgz('[user:id]');{/cscmsphp}'=='0'}+关注{else}取消关注{end if}
+							</a>
+                            <a href="[user:url userlink=msg,add]?user=[user:name]" target="_blank" class="lt message_btn"><i></i>站内信</a>
+                        </li>
+						<li class="rt a_btn" style="display:{if:'{cscms:uid}'!='[user:id]'}none{end if}">
+                            <a href="{cscmsphp}spacelink('dance,add','dance');{/cscmsphp}" class="lt"><i></i>上传歌曲</a>
+                            <a href="{cscmsphp}spacelink('dance','dance');{/cscmsphp}" class="lt mag_btn"><i></i>管理歌曲</a>
+                        </li>
+                    </ul>
+					{if:'{cscms:uid}'!='[user:id]'}
+					<div class="praise"><a class="praise_num" title="赞TA一下" onclick="home.zan('[user:id]');"></a><div class="praiseDiv"><div class="praiseCount"><span id="zanhits">[user:zanhits]</span></div><div class="epilog"></div></div></div>
+					{end if}
+                </div>
+            </dd>
+        </dl>
+    </div>
+    <div class="b_nav c_wap">
+        <dl class="nav">
+            <dt><a id="nav_index" class="noFlush_load_link" href="[user:url ulink=index]">主页<b></b></a></dt>
+            <dd><a id="nav_info" class="noFlush_load_link" href="[user:url ulink=info]">资料<b></b></a></dd>
+{cscms:model table="plugins" field="dir,name" loop="10" order="asc"}
+            {if:'[model:dir]'!='singer'}
+            <dd><a id="nav_[model:dir]" class="noFlush_load_link" href="[user:url ulink=[model:dir]]">[model:name]<b></b></a></dd>
+			{end if}
+{/cscms:model}
+            <dd><a id="nav_fans" class="noFlush_load_link" href="[user:url ulink=friend]">关系<b></b></a></dd>
+            <dd><a id="nav_gbook" class="noFlush_load_link" href="[user:url ulink=gbook]">留言<b></b></a></dd>
+        </dl>
+    </div>
+</div>   

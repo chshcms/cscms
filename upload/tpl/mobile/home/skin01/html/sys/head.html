@@ -1,0 +1,76 @@
+<div class="header">
+    <a class="logo left" href="{cscms:path}"><img src="{cscms:tempurl}images/logo.png" alt=""></a>
+    <a href="javascript:wap.plutog();" class="more right"><i class="layui-icon">&#xe61a;</i></a>
+    <div class="plugins">
+        <a href="/">主站</a>
+        {cscms:plu table="plugins" field="dir,name" order="asc"}
+            <a href="{cscmsphp}cscmslink('[plu:dir]');{/cscmsphp}">[plu:name]</a>
+        {/cscms:plu}
+        <a href="{cscms:userlink}">会员</a>
+    </div>
+    {cscms:logkuang}
+</div>
+<div class="uc-info">
+    <div class="uci-img">
+        <a href=""><img id="mylogo" style="margin-top: 3px" src="[user:logo dir=logo]"></a>
+        <div class="uhits">
+            <li style="border-left: 0px;padding-left: 0px"><a href="[user:url ulink=friend]">
+                <strong class="colord">[user:count zdy=friend,uida,id]</strong>
+                <span>关注</span>
+            </a></li>
+            <li><a href="javascript:;">
+                <strong class="colord">[user:hits]</strong>
+                <span>人气</span>
+            </a></li>
+            <li><a href="[user:url ulink=fans]">
+                <strong class="colord">[user:count zdy=fans,uida,id]</strong>
+                <span>粉丝</span>
+            </a></li>
+        </div>
+    </div>
+    <div class="uci-all">
+        <div class="uname">
+            <div class="un-left">
+                <span>[user:nichen]</span>
+                 <span class="u-icon un-lv">Lv.&nbsp;[user:level]<i class="u-icon un-lvr"></i></span>
+            </div>
+        </div>
+        <div class="uci-other" style="margin-top: 8px">
+            <div class="info-one">
+                <div class="info-intro">
+                    <span class="info-jibie">[user:user zd=zid]</span>
+                    <div class="praise">
+                        <a class="praise_num" title="赞TA一下" onclick="home.zan([user:id]);"></a>
+                        <div class="praiseDiv">
+                            <div class="praiseCount"><span id="zanhits">[user:zanhits]</span></div>
+                            <div class="epilog"></div></div>
+                        </div>
+                </div>
+            </div>
+            <div class="info-one">
+                <ul class="uh-lt">
+                    <li><img src="{cscms:indextempurl}images/icon/{if:'[user:vip]'=='0'}u{end if}vip.gif" border="0" title="VIP会员"></li>
+                    <li><img src="{cscms:indextempurl}images/icon/{if:'[user:rzid]'=='0'}u{end if}realname.gif" border="0" title="实名认证"></li>
+                    <li><img src="{cscms:indextempurl}images/icon/{if:'[user:tid]'=='0'}u{end if}recommend.gif" border="0" title="推荐歌手"></li>
+                    <li><img src="{cscms:indextempurl}images/icon/{if:'[user:hits]'<'2000'}u{end if}star.gif" border="0" title="明星会员"></li>
+                </ul>
+                <b class="lt-sex {if:'[user:sex]'=='1'}girl{else}boy{end if}"></b>
+                <span class="lt u_id">ID：[user:id]</span>
+            </div>
+            <div class="info-one" style="display:{if:'{cscms:uid}'=='[user:id]'}none{end if}">
+                <a href="javascript:home.fansadd('[user:id]',0);" class="layui-btn layui-btn-small layui-btn-warm gz[user:id]">
+                {if:'{cscmsphp}getgz('[user:id]');{/cscmsphp}'=='0'}
+                    <i class="fa fa-plus-square"></i>&nbsp;添加关注
+                    {else}
+                    <i class="fa fa-minus-square"></i>&nbsp;取消关注
+                {end if}
+                </a>
+                <a href="[user:url userlink=msg,add]?user=[user:name]" class="layui-btn layui-btn-small layui-btn-danger" style="margin-left: 5px"><i class="fa fa-envelope"></i>&nbsp;发站内信</a>
+            </div>
+            <div class="info-one" style="display:{if:'{cscms:uid}'!='[user:id]'}none{end if}">
+                <a href="{cscmsphp}spacelink('dance,add','dance');{/cscmsphp}" class="layui-btn layui-btn-small layui-btn-danger"><i class="fa fa-cloud-upload"></i>上传歌曲</a>
+                <a href="{cscmsphp}spacelink('dance','dance');{/cscmsphp}" class="layui-btn layui-btn-small layui-btn-normal" style="margin-left: 5px"><i class="fa fa-cog"></i>&nbsp;管理歌曲</a>
+            </div>
+        </div>
+    </div>
+</div>

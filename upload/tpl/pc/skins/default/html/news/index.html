@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head> 
+<meta charset=utf-8>
+<meta http-equiv="X-UA-Compatible" content="IE=9">
+<title>{cscms:title}</title>
+<meta name="Keywords" content="{cscms:keywords}" />
+<meta name="Description" content="{cscms:description}" />
+<link rel="shortcut icon" href="{cscms:webpath}favicon.ico" />
+<link rel="stylesheet" href="{cscms:webpath}packs/font/font.css">
+<link rel="stylesheet" type="text/css" href="{cscms:tempurl}css/news.css"/>
+</head>
+<body>
+    {cscms:head}
+    <div class="w960 bcolor">
+        <div class="mar10" style="margin-top: 60px;"></div>
+        <div class="mar10"></div>
+        <div class="play-show">
+            <div class="play-intro left">
+                <div class="layui-collapse">
+                    <div class="layui-colla-item">
+                        <h2 class="layui-colla-title" align="left">&nbsp;&nbsp;站长推荐</h2>
+                        <div class="layui-colla-content layui-show" style="text-align: left;padding:0px">
+                            <table class="layui-table" lay-even lay-skin="nob">
+                            <tbody>
+                                {cscms:news table="news" field="id,name,pic,uid,hits" reco="1,2,3,4,5" loop="10" order="desc"}
+                                    <tr align="left">
+                                        <td><a target="_blank" title="[news:name]" class="listLeft" href="[news:url zdy=news,id,show,id]"><i class="layui-btn layui-btn-mini {if:[news:i]<4}{else}layui-btn-primary{end if} iwidth">[news:i]</i>[news:name]</a></td>
+                                    </tr>
+                                {/cscms:news}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="layui-colla-item">
+                        <h2 class="layui-colla-title" align="left">&nbsp;&nbsp;本周热门</h2>
+                        <div class="layui-colla-content layui-show" style="text-align: left;padding:0px">
+                            <table class="layui-table" lay-even lay-skin="nob">
+                            <tbody>
+                                {cscms:news table="news" field="id,name,pic,uid,hits" loop="10" sort="zhits" order="desc"}
+                                    <tr align="left">
+                                        <td><a target="_blank" title="[news:name]" class="listLeft" href="[news:url zdy=news,id,show,id]"><i class="layui-btn layui-btn-mini {if:[news:i]<4}{else}layui-btn-primary{end if} iwidth">[news:i]</i>[news:name]</a></td>
+                                    </tr>
+                                {/cscms:news}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="mar10"></div>
+            </div>
+            <div class="play-list left">
+                <div class="layui-collapse">
+                    <div class="layui-colla-item">
+                        <h2 class="layui-colla-title" align="left">&nbsp;&nbsp;类别选择</h2>
+                        <div class="layui-colla-content" align="left" style="padding: 10px 10px;padding-bottom: 0px">
+                            {cscms:class table="news_list" field="id,name" sort="xid" order="asc"}
+                                {if:[class:i]%12==0}<div class="mar10"></div>{else}{end if}
+                                <a style="margin-left: 6px;margin-bottom: 10px" class="layui-btn layui-btn-small layui-btn-primary" href="[class:url link=lists,id]">[class:name]</a>
+                            {/cscms:class}
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-tab layui-tab-brief">
+                    <ul class="layui-tab-title">
+                        <li class="layui-this">最新发布排行</li>
+                        <li>人气最高排行</li>
+                        <li>本月热门排行</li>
+                    </ul>
+                    <div class="layui-tab-content" style="padding-top: 0px">
+                        <div class="layui-tab-item layui-show">
+                            <table class="layui-table" lay-even lay-skin="nob">
+                                <thead></thead>   
+                                <tbody>
+                                    {cscms:news table="news" loop="20" sort="addtime" order="desc"}
+                                    <tr><td><a title="[news:name]" class="news-nobr" target="_blank" href="[news:url zdy=news,id,show,id]"><i class="layui-btn layui-btn-mini {if:[news:i]<4}layui-btn-danger{else}layui-btn-primary{end if} iwidth">[news:i]</i>[news:name]</a></td><td>[news:addtime style=y-m-d H:i:s]</td></tr>
+                                    {/cscms:news}
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="layui-tab-item">
+                            <table class="layui-table" lay-even lay-skin="nob">
+                                <thead></thead>   
+                                <tbody>
+                                    {cscms:news table="news" loop="20" sort="hits" order="desc"}
+                                    <tr><td><a title="[news:name]" class="news-nobr" target="_blank" href="[news:url zdy=news,id,show,id]"><i class="layui-btn layui-btn-mini {if:[news:i]<4}layui-btn-danger{else}layui-btn-primary{end if} iwidth">[news:i]</i>[news:name]</a></td><td>[news:addtime style=y-m-d H:i:s]</td></tr>
+                                    {/cscms:news}
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="layui-tab-item">
+                            <table class="layui-table" lay-even lay-skin="nob">
+                                <thead></thead>   
+                                <tbody>
+                                    {cscms:news table="news" loop="20" sort="yhits" order="desc"}
+                                    <tr><td><a title="[news:name]" class="news-nobr" target="_blank" href="[news:url zdy=news,id,show,id]"><i class="layui-btn layui-btn-mini {if:[news:i]<4}layui-btn-danger{else}layui-btn-primary{end if} iwidth">[news:i]</i>[news:name]</a></td><td>[news:addtime style=y-m-d H:i:s]</td></tr>
+                                    {/cscms:news}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mar10"></div>
+    {cscms:bottom}
+</body>
+</html>

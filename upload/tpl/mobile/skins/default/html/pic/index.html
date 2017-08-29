@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <title>{cscms:title}</title>
+    <meta name="Keywords" content="{cscms:keywords}" />
+    <meta name="Description" content="{cscms:description}" />
+    <link rel="shortcut icon" href="{cscms:path}favicon.ico" />
+    <link rel="stylesheet" href="{cscms:webpath}packs/font/font.css">
+    <link rel="stylesheet" type="text/css" href="{cscms:tempurl}css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="{cscms:tempurl}css/pic.css"/>
+    <script type='text/javascript' src='{cscms:tempurl}js/wap.js'></script>
+    <script type='text/javascript' src='{cscms:tempurl}js/pic.js'></script>
+</head>
+<body>
+    {cscms:head}
+    <div class="layui-tab layui-tab-brief">
+        <ul class="layui-tab-title">
+            <li class="layui-this">最新相册</li>
+            <li>最佳人气</li>
+            <li>站长推荐</li>
+        </ul>
+        <div class="layui-tab-content">
+            <div class="layui-tab-item layui-show">
+                <table class="md-zj">
+                    <tbody>
+                    {cscms:pictype table="pic_type" field="id,name,cid,pic,uid,singerid,hits,dhits,chits,addtime" sort="addtime" loop="15"}
+                        <tr>
+                            <td><a href="[pictype:url zdy=pic,id,show,id]"><img style="width: 60px;height: 60px;" src="[pictype:pic dir=pic]" alt="[pictype:name]"></a></td>
+                            <td class="md-zj-info">
+                                <a href="[pictype:url zdy=pic,id,show,id]"><i class="{if:[pictype:i]<4}colord{else}{end if}">[pictype:i]</i>.[pictype:name]</a>
+                                
+                                <div class="mp-more" style="margin-bottom: 3px;">
+                                    <span><i class="fa fa-eye"></i>&nbsp;浏览([pictype:hits])</span>
+                                    <span><i class="fa fa-thumbs-o-up"></i>&nbsp;顶([pictype:dhits])</span>
+                                    <span><i class="fa fa-thumbs-o-down"></i>&nbsp;踩([pictype:chits])</span>
+                                </div>
+                                <div class="mp-more">
+                                    <span>分类：[pictype:zdy zd=pic_list,name,cid]</span>
+                                    <span>歌手：{if:'[pictype:zdy zd=singer,name,singerid]'!=''}[pictype:zdy zd=singer,name,singerid]{else}佚名{end if}</span>
+                                    <span>会员：{if:'[pictype:zdy zd=user,name,cid]'!=''}[pictype:zdy zd=user,name,cid]{else}暂无{end if}</span>
+                                </div>
+                            </td>
+                        </tr>
+                    {/cscms:pictype}
+                    </tbody>
+                </table>
+            </div>
+            <div class="layui-tab-item">
+                <table class="md-zj">
+                    <tbody>
+                    {cscms:pictype table="pic_type" field="id,name,cid,pic,uid,singerid,hits,dhits,chits,addtime" sort="hits" loop="15"}
+                        <tr>
+                            <td><a href="[pictype:url zdy=pic,id,show,id]"><img style="width: 60px;height: 60px;" src="[pictype:pic dir=pic]" alt="[pictype:name]"></a></td>
+                            <td class="md-zj-info">
+                                <a href="[pictype:url zdy=pic,id,show,id]"><i class="{if:[pictype:i]<4}colord{else}{end if}">[pictype:i]</i>.[pictype:name]</a>
+                                
+                                <div class="mp-more" style="margin-bottom: 3px;">
+                                    <span><i class="fa fa-eye"></i>&nbsp;浏览([pictype:hits])</span>
+                                    <span><i class="fa fa-thumbs-o-up"></i>&nbsp;顶([pictype:dhits])</span>
+                                    <span><i class="fa fa-thumbs-o-down"></i>&nbsp;踩([pictype:chits])</span>
+                                </div>
+                                <div class="mp-more">
+                                    <span>分类：[pictype:zdy zd=pic_list,name,cid]</span>
+                                    <span>歌手：{if:'[pictype:zdy zd=singer,name,singerid]'!=''}[pictype:zdy zd=singer,name,singerid]{else}佚名{end if}</span>
+                                    <span>会员：{if:'[pictype:zdy zd=user,name,cid]'!=''}[pictype:zdy zd=user,name,cid]{else}暂无{end if}</span>
+                                </div>
+                            </td>
+                        </tr>
+                    {/cscms:pictype}
+                    </tbody>
+                </table>
+            </div>
+            <div class="layui-tab-item">
+                <table class="md-zj">
+                    <tbody>
+                    {cscms:pictype table="pic_type" field="id,name,cid,pic,uid,singerid,hits,dhits,chits,addtime" reco="1,2,3,4,5" sort="addtime" loop="15"}
+                        <tr>
+                            <td><a href="[pictype:url zdy=pic,id,show,id]"><img style="width: 60px;height: 60px;" src="[pictype:pic dir=pic]" alt="[pictype:name]"></a></td>
+                            <td class="md-zj-info">
+                                <a href="[pictype:url zdy=pic,id,show,id]"><i class="{if:[pictype:i]<4}colord{else}{end if}">[pictype:i]</i>.[pictype:name]</a>
+                                <div class="mp-more" style="margin-bottom: 3px;">
+                                    <span><i class="fa fa-eye"></i>&nbsp;浏览([pictype:hits])</span>
+                                    <span><i class="fa fa-thumbs-o-up"></i>&nbsp;顶([pictype:dhits])</span>
+                                    <span><i class="fa fa-thumbs-o-down"></i>&nbsp;踩([pictype:chits])</span>
+                                </div>
+                                <div class="mp-more">
+                                    <span>分类：[pictype:zdy zd=pic_list,name,cid]</span>
+                                    <span>歌手：{if:'[pictype:zdy zd=singer,name,singerid]'!=''}[pictype:zdy zd=singer,name,singerid]{else}佚名{end if}</span>
+                                    <span>会员：{if:'[pictype:zdy zd=user,name,cid]'!=''}[pictype:zdy zd=user,name,cid]{else}暂无{end if}</span>
+                                </div>
+                            </td>
+                        </tr>
+                    {/cscms:pictype}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+{cscms:bottom}
+<script type="text/javascript">
+	
+</script>
+</body>
+</html>

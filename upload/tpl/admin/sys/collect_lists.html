@@ -1,0 +1,101 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset=utf-8>
+    <title></title>
+    <meta name="robots" content="noindex,nofollow">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/layui/css/layui.css">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/admin/css/font.css">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/admin/css/style.css">
+    <script src="<?=Web_Path?>packs/js/jquery.min.js"></script>
+    <script src="<?=Web_Path?>packs/layui/layui.js"></script>
+    <script src="<?=Web_Path?>packs/admin/js/cscms.js"></script>
+</head>
+<body>
+    <span class="layui-breadcrumb" >
+        <a ><cite><i class="fa fa-map-marker"></i><?=L('tpl_cl_01')?></cite></a>
+        <a href="javascript:;"><?=L('tpl_cl_02')?></a>
+        <a href="<?=site_url('collect')?>"><?=L('tpl_cl_03')?></a>
+    </span>
+    <form class="layui-form layui-form-so" action="<?=site_url('collect/lists')?>" method="post">
+        <div class="layui-form-item">
+            <label class="layui-form-label"><?=L('tpl_cl_04')?></label>
+            <div class="layui-input-inline">
+                <select name="dir">
+                    <option value="0"><?=L('tpl_cl_05')?></option>
+                    <?php
+                        $query = $this->db->query("SELECT name,dir FROM ".CS_SqlPrefix."plugins order by id asc"); 
+                        foreach ($query->result() as $row) {
+                            
+                            $selected = ($row->dir == $dir)?'selected':'';
+                            echo '<option value="'.$row->dir.'" '.$selected.'>'.$row->name.'</option>';
+                        }
+                    ?>
+                </select>
+            </div>
+            <label class="layui-form-label"><?=L('tpl_cl_06')?></label>
+            <div class="layui-input-inline">
+                <select name="zid">
+                    <option value="0"><?=L('tpl_cl_05')?></option>
+                    <option <?php if($zid==2){echo 'selected';}?> value="2"><?=L('tpl_cl_07')?></option>
+                    <option <?php if($zid==1){echo 'selected';}?> value="1"><?=L('tpl_cl_08')?></option>
+                </select>
+            </div>
+             <div class="layui-input-inline">
+                <button class="layui-btn" type="submit"><?=L('tpl_cl_09')?></button>
+            </div>
+        </div>
+    </form>
+    <form class="layui-form" action="<?=site_url('collect/lists_del')?>" method="post">
+        <table class="layui-table" style="width: 99.7%">
+            <colgroup>
+                <col width="40">
+                <col>
+                <col>
+                <col>
+                <col>
+                <col width="60">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th><?=L('tpl_cl_10')?></th>
+                    <th><?=L('tpl_cl_11')?></th>
+                    <th><?=L('tpl_cl_12')?></th>
+                    <th><?=L('tpl_cl_13')?></th>
+                    <th><?=L('tpl_cl_14')?></th>
+                    <th><?=L('tpl_cl_15')?></th>
+                </tr>
+            </thead>
+            <tbody>
+            <?php
+                if(empty($collect)) echo '<tr><td align="center" height="50" colspan="7">'.L('tpl_10').'</td></tr>';
+                foreach ($collect as $row) {
+                    $zt=($row->zid==1)?'<i class="fa fa-check colorl"></i>':'<i class="fa fa-close colorr"></i>';
+                    echo '
+                    <tr>
+                    <td><input name="id['.$row->id.']" class="xuan" type="checkbox" value="'.$row->id.'" /></td>
+                    <td >'.$row->id.'</td>
+                    <td>'.$row->names.'</td>
+                    <td>'.$row->dir.'</td>
+                    <td ><a class="phide" href="'.$row->url.'" target="_blank">'.$row->url.'</a><a class="pshow" href="'.$row->url.'" target="_blank"><i class="fa fa-link colorl"></i></a></td>
+                    <td style="text-align: center;">'.$zt.'</td>
+                    </tr> ';
+                }
+            ?>
+            </tbody>
+        </table>
+        <div class="more_func">
+            <a class="layui-btn layui-btn-primary layui-btn-small" href="javascript:cscms.select_all();"><i class="fa fa-check colorl" ></i><?=L('tpl_cl_16')?></a><a class="layui-btn layui-btn-primary layui-btn-small" lay-submit lay-filter="del_pl"><i class="fa fa-close colorr" ></i><?=L('tpl_cl_17')?></a><a class="layui-btn layui-btn-primary layui-btn-small" href="javascript:cscms.go_confirm('<?=site_url('collect/lists_del')?>?ac=all','<?=L('tpl_cl_18')?>');"><i class="fa fa-trash colord" ></i><?=L('tpl_cl_19')?></a>
+        </div>
+    </form>
+    <div id="page">
+        <div class="data_nums phide"><?=$page_data?></div>
+        <div class="data_page"><?=$page_list?></div>
+    </div>
+<script type="text/javascript">
+    cscms.init();
+</script>
+</body>
+</html>

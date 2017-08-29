@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head> 
+<meta charset=utf-8>
+<meta http-equiv="X-UA-Compatible" content="IE=9">
+<title>{cscms:title}</title>
+<meta name="Keywords" content="{cscms:keywords}" />
+<meta name="Description" content="{cscms:description}" />
+<link rel="shortcut icon" href="{cscms:webpath}favicon.ico" />
+<link rel="stylesheet" href="{cscms:webpath}packs/font/font.css">
+<link rel="stylesheet" href="{cscms:webpath}packs/layui/css/layui.css">
+<link rel="stylesheet" type="text/css" href="{cscms:tempurl}css/vod.css"/>
+<script type='text/javascript' src='{cscms:webpath}packs/layui/layui.js'></script>
+<script type='text/javascript' src='{cscms:tempurl}js/vod.js'></script>
+</head>
+<body>
+    {cscms:head}
+    <div class="w960 bcolor">
+        <div class="mar10" style="margin-top: 60px;"></div>
+        <div class="mar10"></div>
+        <div class="play-show">
+            <div class="play-intro left">
+                <div class="gs-imgBox" style="overflow: hidden;zoom: 1;">
+                    <img class="play-img" id="gs-img" src="[topic:pic dir=vodtopic]?size=290*360" width="290" height="360">
+                </div>
+                <div class="mar10"></div>
+                <div class="layui-collapse">
+                    <div class="layui-colla-item">
+                        <h2 class="layui-colla-title " align="left">推荐专题<span style="float:right;font-size: 12px;color:#666;">人气</span></h2>
+                        <div class="layui-colla-content layui-show" style="overflow: hidden;zoom:1;padding: 0px">
+                            <table class="layui-table" lay-even lay-skin="nob">
+                            <tbody>
+                                {cscms:vod table="vod_topic" field="id,name,hits" tid="1" loop="10" sort="addtime" order="desc"}
+                                    <tr align="left">
+                                        <td><a target="_blank" title="[vod:name]" class="listLeft4" href="[vod:url link=topic/show]"><i class="layui-btn layui-btn-mini {if:[vod:i]<4}{else}layui-btn-primary{end if} iwidth">[vod:i]</i>[vod:name]</a></td><td>[vod:hits]</td>
+                                    </tr>
+                                {/cscms:vod}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="mar10"></div>
+            </div>
+            <div class="play-list left">
+                <div class="layui-tab layui-tab-brief">
+                    <ul class="layui-tab-title">
+                        <li class="layui-this">[topic:name]</li>
+                        <li >包含视频列表</li>
+                    </ul>
+                    <div class="layui-tab-content">
+                        <div class="layui-tab-item layui-show">
+                            <table class="layui-table" lay-even>
+                                <colgroup>
+                                </colgroup>
+                                <thead><tr><th colspan="4">基本信息</th></tr></thead>
+                                <tbody>
+                                    <tr>
+                                        <td width="60" align="center">专题名称</td><td >[topic:name]</td>
+                                        <td width="60" align="center">英文别名</td><td><a href='[vod:classlink]'>{if:'[topic:bname]'==''}暂无{else}[topic:bname]{end if}</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td width="60" align="center">更新时间</td><td>[topic:addtime style=Y-m-d H:s:i]</td>
+                                        <td width="60" align="center">收藏人气</td><td>[topic:year]</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="60" align="center">年度人气</td><td>[topic:hits]&nbsp;次</td>
+                                        <td width="60" align="center">本周人气</td><td>[topic:zhits]&nbsp;次</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="layui-collapse">
+                                <div class="layui-colla-item">
+                                    <h2 class="layui-colla-title" style="font-weight: bold;">专题介绍</h2>
+                                    <div class="layui-colla-content layui-show">
+                                        {if:'[topic:neir]'==''}<div style="width: 100%;height: 50px;line-height: 50px;text-align: center;">暂无专题介绍记录~！</div>{else}[topic:neir]{end if}
+                                    </div>
+                                </div>
+                            </div>
+                            [topic:pl]
+                        </div>
+                        <div class="layui-tab-item" id="topic_vod">
+                            {cscms:vod table="vod" field="id,name,pic,remark" loop="70" tid="auto" sort="addtime"}
+                               <div class="vod-one">
+                                   <a title="[vod:name]" href="[vod:url link=show,id]"><img width="145" height="200" src="[vod:pic dir=vod]?size=145*200" alt="[vod:name]"></a>
+                                   <a title="[vod:name]" href="[vod:url link=show,id]"><p>[vod:name len=9]</p></a>
+                                   <span class="layui-btn layui-btn-mini layui-btn-danger">[vod:remark]</span>
+                               </div>
+                            {/cscms:vod}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mar10"></div>
+    {cscms:bottom}
+    <script type="text/javascript">
+        cscms.init();
+        $(document).ready(function() {
+            var len = $('#topic_vod').children('div').length;
+            if(len<1){
+                $('#topic_vod').html('<div style="text-align:center;line-height:60px;">暂无相关记录~！</div>')
+            }
+        });
+        $('.layui-nav-item').removeClass('layui-this');
+        $('#zhw-topic').addClass('layui-this');
+    </script>
+</body>
+</html>

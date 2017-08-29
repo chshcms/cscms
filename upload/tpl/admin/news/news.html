@@ -1,0 +1,202 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset=utf-8>
+    <title></title>
+    <meta name="robots" content="noindex,nofollow">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/layui/css/layui.css">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/admin/css/font.css">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/admin/css/style.css">
+    <script src="<?=Web_Path?>packs/js/jquery.min.js"></script>
+    <script src="<?=Web_Path?>packs/layui/layui.js"></script>
+    <script src="<?=Web_Path?>packs/admin/js/cscms.js"></script>
+</head>
+<body>
+    <span class="layui-breadcrumb" >
+        <a ><cite><i class="fa fa-map-marker"></i>位置</cite></a>
+        <a href="<?=site_url('news/admin/news')?>">新闻</a>
+        <a href="">新闻管理</a>
+    </span>
+    <div class="layui-tab layui-tab-brief" >
+        <ul class="layui-tab-title">
+            <li <?php if($yid!=2&&$yid!=3){echo ' class="layui-this"';}?>><a class="tablink" href="<?=site_url('news/admin/news')?>">新闻列表</a></li>
+            <li <?php if($yid==2){echo ' class="layui-this"';}?>><a class="tablink" href="<?=site_url('news/admin/news')?>?yid=2">待审核新闻</a></li>
+            <li <?php if($yid==3){echo ' class="layui-this"';}?>><a class="tablink" href="<?=site_url('news/admin/news')?>?yid=3">回收站新闻</a></li>
+            <li><a class="tablink" href="<?=site_url('news/admin/news/edit')?>">增加新闻</a></li>
+        </ul>
+        <div class="layui-tab-content" style="min-height: 360px;">
+            <form class="layui-form layui-form-so" action="<?=site_url('news/admin/news')?>" method="post">
+                <div class="layui-form-item">
+                    <div class="layui-input-inline">
+                        <select class="select3" name="zd">
+                           <option value="name"<?php if($zd=='name') echo ' selected';?>>新闻名称</option>
+                           <option value="id"<?php if($zd=='id') echo ' selected';?>>新闻ID</option>
+                           <option value="user"<?php if($zd=='user') echo ' selected';?>>录入会员</option>
+                           <option value="tags"<?php if($zd=='tags') echo ' selected';?>>关键字</option>
+                        </select>
+                    </div>
+                    <div class="layui-input-inline">
+                        <input type="text" name="key" value="<?=$key?>" class="layui-input">
+                    </div>
+                    <div class="layui-input-inline">
+                        <select class="select5" name="cid">
+                            <option value="0"<?php if($cid==0) echo ' selected';?>>新闻分类</option>
+                            <?php
+                            $query = $this->db->query("SELECT id,name FROM ".CS_SqlPrefix."news_list where fid=0 order by xid asc"); 
+                            foreach ($query->result() as $row) {
+                                $clas=($row->id==$cid)?' selected="selected"':'';
+                                echo '<option value="'.$row->id.'"'.$clas.'>'.$row->name.'</option>';
+                                $query2 = $this->db->query("SELECT id,name FROM ".CS_SqlPrefix."news_list where fid=".$row->id." order by xid asc"); 
+                                foreach ($query2->result() as $row2) {
+                                    $clas2=($row2->id==$cid)?' selected="selected"':'';
+                                    echo '<option value="'.$row2->id.'"'.$clas2.'>'.$row2->name.'</option>';
+                                }
+                            }
+                            ?>
+                        </select>
+                    </div>
+                    <div class="layui-input-inline">
+                        <select class="select4" name="reco">
+                           <option value="0"<?php if($reco==0) echo ' selected';?>>新闻推荐</option>
+                           <option value="1"<?php if($reco=='1') echo ' selected';?>>★☆☆☆☆</option>
+                           <option value="2"<?php if($reco=='2') echo ' selected';?>>★★☆☆☆</option>
+                           <option value="3"<?php if($reco=='3') echo ' selected';?>>★★★☆☆</option>
+                           <option value="4"<?php if($reco=='4') echo ' selected';?>>★★★★☆</option>
+                           <option value="5"<?php if($reco=='5') echo ' selected';?>>★★★★★</option>
+                        </select>
+                    </div>
+                    <div class="layui-input-inline">
+                        <select class="select3" name="sort">
+                           <option value=""<?php if($sort=='') echo ' selected';?>>新闻排序</option>
+                           <option value="id"<?php if($sort=='id') echo ' selected';?>>ID编号</option>
+                           <option value="addtime"<?php if($sort=='addtime') echo ' selected';?>>更新时间</option>
+                           <option value="hits"<?php if($sort=='hits') echo ' selected';?>>总人气</option>
+                           <option value="yhits"<?php if($sort=='yhits') echo ' selected';?>>月人气</option>
+                           <option value="zhits"<?php if($sort=='zhits') echo ' selected';?>>周人气</option>
+                           <option value="rhits"<?php if($sort=='rhits') echo ' selected';?>>日人气</option>
+                        </select>
+                    </div>
+                     <div class="layui-input-inline">
+                        <button class="layui-btn" type="submit">查询</button>
+                    </div>
+                </div>
+            </form>
+            <form class="layui-form" action="<?=site_url('news/admin/news/del')?>?yid=<?=$yid?>" method="post">
+                <table class="layui-table">
+                    <colgroup>
+                        <col width="40">
+                        <col>
+                        <col>
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th>选</th>
+                            <th class="phide minwidth20">ID</th>
+                            <th class="phide minwidth30">图片</th>
+                            <th>标题</th>
+                            <th class="phide minwidth30">分类</th>
+                            <th class="phide minwidth30">会员</th>
+                            <th class="phide minwidth30">人气</th>
+                            <th class="phide minwidth30">推荐</th>
+                            <th class="phide minwidth30">状态</th>
+                            <th class="phide minwidth80">更新时间</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <?php
+                        if(empty($news)) echo '<tr><td align="center" height="50" colspan="11">没有找到相关记录~!</td></tr>';
+                        foreach ($news as $row) {
+                            $pic=!empty($row->pic)?'<a href="'.piclink('news',$row->pic).'" target="pic"><img height="30" src="'.piclink('news',$row->pic).'"></a>':'-';
+                            //状态
+                            $zt=($yid==0||$yid==1)?'<i class="fa fa-check colorl"></i>':'<i class="fa fa-close colorr"></i>';
+                            $ztclick = 'cscms.ok_no2(\''.site_url('news/admin/news/init/'.$yid).'\','.$row->id.','.$yid.',\'zt_\')';
+                            if($yid==3){ //回收站
+                                $zt='<i class="fa fa-close colorr"></i>';
+                                $ztclick = '';
+                            }
+                            //推荐状态
+                            $tj='<a title="点击取消推荐" href="javascript:cscms.get_tj(\''.site_url('news/admin/news/tj').'\',\'tj_\','.$row->id.',0);"><font color="#ff0033">×</font></a>';
+                            if($yid<2){
+                                for($i=1;$i<=$row->reco;$i++){
+                                    $tj.='<a title="推荐：'.$i.'星" href="javascript:cscms.get_tj(\''.site_url('news/admin/news/tj').'\',\'tj_\','.$row->id.','.$i.');">★</a>';
+                                }
+                                for($j=$row->reco+1;$j<=5;$j++){
+                                    $tj.='<a title="推荐：'.$j.'星" href="javascript:cscms.get_tj(\''.site_url('news/admin/news/tj').'\',\'tj_\','.$row->id.','.$j.');">☆</a>';
+                                }
+                            }else{
+                                $tj='<font color="#ff0033">×</font></a>';
+                                for($i=1;$i<=$row->reco;$i++){
+                                    $tj.='★';
+                                }
+                                for($j=$row->reco+1;$j<=5;$j++){
+                                    $tj.='☆';
+                                }
+                            }
+                            //分类
+                            $cname=getzd('news_list','name',$row->cid);
+                            //时间加亮
+                            if(date('Y-m-d',$row->addtime)==date('Y-m-d')){
+                                $addtime='<font color=red>'.date('Y-m-d',$row->addtime).'</font>';
+                            }else{
+                                $addtime=date('Y-m-d',$row->addtime);
+                            }
+                            //会员
+                            $user='--';
+                            if($row->uid>0){
+                                $user=getzd('user','name',$row->uid);
+                                if(!empty($user) && $user!='null'){
+                                    $user='<a href="'.userlink('index',$row->uid,$user).'" target="web">'.$user.'</a>';
+                                }
+                            }
+                            $hy = '';
+                            if($yid==3){
+                                $hy = '<a class="layui-btn layui-btn-mini layui-btn-normal" href="javascript:cscms.go_confirm(\''.site_url('news/admin/news/hy').'?id='.$row->id.'\',\'您确定还原吗？\');">还原</a>';
+                            }
+							$did = isset($row->did) ? $row->did : $row->id;
+                            echo '
+                            <tr id="row_'.$row->id.'">
+                            <td  align="center"><input name="id['.$row->id.']" class="xuan" type="checkbox" value="'.$row->id.'" /></td>
+                            <td align="center" class="phide">'.$row->id.'</td>
+                            <td align="center" class="phide">'.$pic.'</td>
+                            <td><a href="'.linkurl('show','id',$did,1,'news').'" target="web">'.$row->name.'</a></td>
+                            <td  align="center" class="phide"><a href="'.linkurl('lists','id',$row->cid,1,'news').'" target="web">'.$cname.'</a></td>
+                            <td align="center" class="phide">'.$user.'</td>
+                            <td align="center" class="phide">'.$row->hits.'</td>
+                            <td align="center" id="tj_'.$row->id.'" class="phide">'.$tj.'</td>
+                            <td align="center" id="zt_'.$row->id.'" class="phide" onclick="'.$ztclick.'">'.$zt.'</td>
+                            <td align="center" class="phide">'.$addtime.'</td>
+                            <td class="basedb-more">
+                                <a class="layui-btn layui-btn-mini" href="'.site_url('news/admin/news/edit').'?id='.$row->id.'&yid='.$yid.'">修改</a>
+                                '.$hy.'
+                                <a class="layui-btn layui-btn-mini layui-btn-danger" href="javascript:cscms.del_one(\''.site_url('news/admin/news/del').'?yid='.$yid.'\','.$row->id.');">删除</a></td>
+                            </tr> ';
+                        }
+                    ?>
+                    </tbody>
+                </table>
+                <div class="more_func">
+                    <a class="layui-btn layui-btn-primary layui-btn-small" href="javascript:cscms.select_all();"><i class="fa fa-check colorl" ></i>全选/反选</a>
+                    <a class="layui-btn layui-btn-primary layui-btn-small" lay-submit lay-filter="del_pl"><i class="fa fa-close " style="color: red" ></i>删除选中</a>
+                <?php 
+					if($yid<3) echo '<a class="layui-btn layui-btn-primary layui-btn-small" href="javascript:cscms.pl_edit(\''.site_url('news/admin/news/pledit').'?yid=<?=$yid?>&id=\',\'新闻批量修改\',\'500px\',\'350px\');"><i class="fa fa-pencil colorb"></i>批量修改</a>';
+                    if($yid==3) echo '<div class="next-line"><a class="layui-btn layui-btn-primary layui-btn-small" href="javascript:cscms.go_confirm(\''.site_url('news/admin/news/hy').'\',\'确认还原所选数据吗？\',1);"><i class="fa fa-refresh colorn"></i>还原所选</a><a class="layui-btn layui-btn-primary layui-btn-small" href="javascript:cscms.go_confirm(\''.site_url('news/admin/news/del').'?ac=hui\',\'确定清空回收站吗？\');"><i class="fa fa-trash colorr"></i>一键清空回收站</a></div>';
+                    if(config('Web_Mode')==3 && $yid==0) echo '<div id="html" class="next-line" style="margin-left:10px;"><a class="layui-btn layui-btn-primary layui-btn-small" href="javascript:cscms.go_html(\''.site_url('news/admin/html/show_save').'\');"><i class="fa fa-check-square-o colorn"></i>生成所选</a></div>';
+                ?>
+                </div>
+            </form>
+            <div id="page">
+                <div class="data_nums phide"><?=$page_data?></div>
+                <div class="data_page"><?=$page_list?></div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        cscms.init();
+    </script>
+</body>
+</html>
+
+

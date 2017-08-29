@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset=utf-8>
+    <meta http-equiv="X-UA-Compatible" content="IE=9">
+    <title>{cscms:title}</title>
+    <meta name="Keywords" content="{cscms:keywords}" />
+    <meta name="Description" content="{cscms:description}" />
+    <link rel="shortcut icon" href="{cscms:webpath}favicon.ico" />
+    <link rel="stylesheet" href="{cscms:webpath}packs/font/font.css">
+    <link rel="stylesheet" type="text/css" href="{cscms:tempurl}css/user.css" />
+    <script type='text/javascript' src='{cscms:tempurl}js/user.js'></script>
+</head>
+<body style="background: #f5f5f5">
+    {cscms:head}
+    {cscms:right}
+        {cscms:left}
+            <div class="sp-cont-r">
+                <div class="layui-tab layui-tab-card" style="margin-top: 0px;margin-bottom: 0px">
+                    <ul class="layui-tab-title" style="height: 41px">
+                        <li><a href="[user:url userlink=web]">主页模板</a></li>
+                        <li class="layui-this"><a href="[user:url userlink=web,pic]">主页背景</a></li>
+                    </ul>
+                    <iframe id="iframe-post-form" name="iframe-post-form" style="display:none;"></iframe>
+                    <div class="layui-tab-content" style="padding:10px 10px;background-color: #fff">
+                        <div class="layui-tab-item layui-show">
+                            <blockquote style="position: relative;" class="layui-elem-quote layui-quote-nm" style="padding:10px 15px">支持2M以内的jpg、jpeg、png图片<br>建议使用宽1920px 高350px 的图片，保证最佳效果
+                                <a style="position: absolute;right:10px;top:22px;" href="javascript:;" class="layui-btn layui-btn-small">上传图片<form style="position: absolute;top:0px;left:2px;opacity: 0;" name="myform" id="myform" action="[user:bgpicsave]" enctype="multipart/form-data" method="post" target="iframe-post-form"><input style="width: 65px;cursor: pointer;" class="upload_title_pic2" type="file" id="fileUploadHead" name="bgpic"></form></a>
+                            </blockquote>
+                            <div class="banner_clip" style="width:695px;height:186px;background-image: url([user:bgpic dir=bgpic]?size=720*186); background-position: 50% 50%; background-repeat: initial initial;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mar10"></div>
+    <div class="mar10"></div>
+{cscms:bottom}
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#left_web').addClass('on');
+        $('#left_first').removeClass('layui-nav-itemed');
+        $('#left_web').parent().parent().addClass('layui-nav-itemed');
+
+        $("#fileUploadHead").change(function(){
+            $('#myform').submit();
+        });
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,233 @@
+@charset "utf-8";
+/* CSS Document */
+img{border:0; vertical-align:bottom;}
+.font_bold{font-weight:bold;}
+.font14{font-size:14px;}
+.w_25{width:25%;}
+
+.song_tit{ overflow:hidden; zoom:1; height:44px; background:url(../images/m_icon.png) repeat-x 0 42px;}
+.song_tit_yc{ font-size:22px; float:left; width:170px;}
+.song_tit_total{ font-weight:400; font-size:14px; margin:5px 15px 0 0; color:#666;}
+.song_tit .k_main_tit_btn{ float:left; margin-top:2px;}
+.song_set a{ display:block; height:26px; line-height:26px; overflow:hidden; margin-top:4px; background:#f6f6f6; border:1px solid #d9d9d9; border-radius:4px;}
+.song_set_btn{ width:76px;}
+.song_set_out{ padding:0 10px; _width:75px;}
+.song_set_btn b{ display:block; float:left; width:13px; height:13px; *font-size:0; background:url(../images/m_icon.png) no-repeat -42px -60px; cursor:pointer; margin:7px 8px 0 13px;_margin:7px 8px 0 6px;}
+.song_set a:hover{ background:#fff; text-decoration:none;}
+
+.s_content .song_list li .list_name{ width:440px;}
+.s_content .song_list li .tips_gray{ padding-left:10px; width:130px; white-space:nowrap; overflow:hidden;text-overflow:ellipsis;}
+.s_content .song_list li .tips_gray a:link,.s_content .song_list li .tips_gray a:visited{ color:#999;}
+
+/* 分页 */
+.page{ margin:30px auto 0; text-align:center;}
+.page_list{ height:40px; line-height:26px;}
+.page_list a{ display:inline-block; border:1px solid #ddd; padding:0 10px; margin:0 2px; font-size:14px; border-radius:4px;box-shadow:0 1px 0 #fff inset;}
+.page_list a:link,.page_list a:visited{ color:#333; background:#f8f8f8; color:#666;}
+.page_list a:hover{ text-decoration:none; border:1px solid #bbb;}
+.page_list .page_clo:link,.page_list .page_clo:visited{ background:#5baa4b; color:#fff; border:1px solid #4e9f3e;box-shadow:0 0 0;}
+.song_tit_select{ float:left; margin-left:20px;}
+.song_tit_select select{ padding:5px; background:#f6f6f6; border:1px solid #d9d9d9; border-radius:4px; color:#666; *margin-top:6px;}
+
+/*  */
+.song_null_box{ width:410px; margin:70px auto 0; padding-bottom:100px;}
+.song_null_box dl{ overflow:hidden; zoom:1;}
+.song_null_box dl dt{ float:left; width:139px; height:137px; background:url(../images/null_song.png) no-repeat;}
+.song_null_box dl dd{ float:left; margin-left:30px; _display:inline; color:#666; line-height:2;}
+.song_null_box dl dd p{ font-size:14px;}
+.song_null_box dl dd p .tips_yel{ font-size:16px;}
+.song_null_btn{ margin-top:15px;}
+
+/* more */
+.m_content{width:960px; margin:0 auto; padding:30px 0 60px;}
+.p_more .main_tit{background:none;}
+.main_tit .main_tit_more{background:url(../images/tit_bg2.png) no-repeat;}
+
+.p_more dl.c_wap{padding-top:35px; min-height:360px; _height:360px;}
+.p_more dl.c_wap dt,.p_more dl.c_wap dd{width:49%;}
+.p_more dl.c_wap dt{border-right:#d6d6d6 dashed 1px;}
+.p_more dl.c_wap dt a,.p_more dl.c_wap dd a{width:278px; display:block; margin:0 auto; background:url(../images/more.png) #f8f8f8 no-repeat; height:192px; overflow:hidden; text-indent:-999px;}
+.p_more dl.c_wap dd a{background-position:-278px 0;}
+
+/* detail */
+.main_tit .main_tit_file{background:url(../images/tit_bg2.png) 0 -34px no-repeat; overflow:hidden;}
+.p_detail .k_main_tit_btn a:link,.p_detail .k_main_tit_btn a:visited{background:#6ab20b; width:82px; height:28px; text-indent:0px; color:#fff;}
+.p_detail .k_main_tit_btn a b{width:16px; height:16px; background:url(../images/a_icon.png) -32px -122px no-repeat; float:left; margin:7px 10px 0 12px; display:inline; overflow:hidden;}
+.p_detail .k_main_tit_btn a:hover{background:#388400;}
+.p_detail dl.c_wap{}
+.p_detail dl.c_wap dd,.p_detail dl.c_wap dt{min-height:360px; _height:360px;}
+.p_detail dl.c_wap dt{background:#eaeaea; width:200px; padding:40px 0 40px 40px;}
+.p_detail dl.c_wap dt p.d_head{width:100px; height:100px; border:#d3d3d3 solid 1px; margin-bottom:20px;}
+.p_detail dl.c_wap dt ul li{width:75%; float:left; height:30px; line-height:30px; overflow:hidden;}
+.p_detail dl.c_wap dt ul li.u_t{width:25%; color:#666;}
+.p_detail dl.c_wap dd{background:#f6f6f6; width:660px; _width:659px; padding:40px 30px;}
+.p_detail dl.c_wap dd h4{font-weight:normal; font-size:16px; height:30px;}
+.p_detail dl.c_wap dd p{text-indent:24px; line-height:24px; margin-top:20px;}
+
+/**/
+.list_mb_btn{ display:block; float:left; width:18px; height:18px; text-indent:-9999px; margin:4px; background:url(../images/m_icon.png) no-repeat -132px -94px;}
+.song_list .list_mb_clo,.musicbox_action_all .list_mb_clo{ background-position: -150px -94px;}
+.list_action .action_del{ background-position:-64px -92px;}
+.list_action .action_del:hover{ background-position:-64px -76px;}
+.musicbox_action{ overflow:hidden; zoom:1; padding:15px 0;}
+.musicbox_action_all{ float:left; overflow:hidden; zoom:1; cursor:pointer;}
+.musicbox_action_all em{ font-size:14px; float:left; margin:3px 0 0 15px;}
+.musicbox_action_all .list_mb_btn{ margin-left:16px;}
+/*.musicbox_action_btn{ float:right; padding:0 12px; height:28px; background:#f49000; color:#fff; font-size:14px; border:none; border-radius:4px; font-family:'Microsoft Yahei','\5FAE\8F6F\96C5\9ED1'; cursor:pointer; box-shadow:1px 1px 2px #aaa; margin-right:1px;}
+.musicbox_action_btn:hover{ background:#faa80b;}*/
+.song_list ul li em.list_action{ width:41px;}
+.song_list ul li .list_action_normal{ width:135px;}
+.main_tit .song_tit_yc{ background-position:0 -531px;}
+.main_tit .song_tit_fc{ background-position:0 -565px;}
+.main_tit .song_tit_bz{ background-position:0 -599px;}
+.main_tit .song_tit_mb{ background-position:0 -633px;}
+.manage_action_btn{ float:right; height:28px; overflow:hidden;}
+.manage_action_btn a{ display:block; width:100px; height:28px; line-height:29px; font-weight:900; overflow:hidden; background:#f86e74;}
+.manage_action_btn a:hover{ text-decoration:none; background:#f04f57; color:#fff;}
+.m_btn{ display:block; width:16px; height:16px; text-indent:-9999em; background:url(../images/m_icon.png) no-repeat -203px -34px;}
+.manage_action_btn a b{ float:left; margin:6px 6px 0 15px; _margin:6px 6px 0 7px;}
+
+
+/* 2014-8-20 qming */
+.w_25{width:25%;}
+.dj_mian{ background:#fff; margin-bottom:40px; }
+.dj_detail_lists,.dj_detail_info,.more_content{margin:30px 0; overflow:hidden;}
+
+
+/* 标题 */
+.dj_title{ border-bottom:#f3f3f3 solid 1px; line-height:34px; zoom:1;}
+.dj_title a.list_coll:link,.dj_title a.list_coll:visited,
+.dj_title a.song_coll:link,.dj_title a.song_coll:visited{ font-weight:normal; border:#fff solid 1px; padding:0 20px; height:33px; line-height:33px; color:#666;}
+.dj_title a.coll_pull:link,.dj_title a.coll_pull:visited{ font-weight:bold; border-color:#f3f3f3; border-bottom-color:#fff; margin:0 0 -1px 0; border-top:#59a809 solid 2px; color:#333; height:33px; line-height:33px;}
+.dj_title a.coll_pull:hover,.dj_title a.song_coll:hover{text-decoration:none;}
+
+.dj_title a.mang_btn:link,.dj_title a.mang_btn:visited,
+.dj_title a.quit_mang_btn:link,.dj_title a.quit_mang_btn:visited{ font-weight:normal; border:#f3f3f3 solid 1px; margin:0 0 -1px -1px; padding:0 10px; height:33px; line-height:33px; color:#59a809;}
+.dj_title a.mang_btn i,.dj_title a.quit_mang_btn i{width:15px; height:15px; overflow:hidden; background:url(../images/dj_icon.png) -15px -30px no-repeat; margin:9px 5px 0 0;}
+.dj_title a.mang_btn i{background-position:-105px -15px;}
+.dj_title a.quit_mang_btn i{background-position:-104px -30px;}
+.dj_title a.mang_btn:hover,.dj_title a.quit_mang_btn:hover,.dj_title a.quit_mang_btn:link,.dj_title a.quit_mang_btn:visited{background:#59a809; color:#fff; border-color:#59a809; text-decoration:none;}
+.dj_title a.mang_btn:hover i{background-position:-105px 0;}
+.dj_title a.quit_mang_btn:hover i{background-position:-104px -30px;}
+.dj_title a.mang_btn:link,.dj_title a.mang_btn:visited,
+.dj_title a.quit_mang_btn:link,.dj_title a.quit_mang_btn:visited{ margin-top:1px;}
+
+.dj_tool{height:50px; margin:10px; line-height:50px;}
+.dj_tool a.more:link,.dj_tool a.more:visited{ background:url(../images/dj_icon.png) -140px -27px no-repeat; color:#fff; height:20px; line-height:20px; padding:0 6px 0 30px; margin:15px 0 0 20px; display:inline;}
+.dj_tool a.more:hover{text-decoration:none;}
+
+/* 歌单 */
+.dj_lists ul.l_items{ width:1008px;}
+.dj_lists ul li.w_25{margin:40px 0 10px 0;}
+.dj_lists ul li .s_page{ width:194px; border:#d6dde3 solid 5px; position:relative;}
+.dj_lists ul li a.dj_t_page:link,.dj_lists ul li a.dj_t_page:visited{ display:block; width:194px;}
+.dj_lists ul li .s_page:hover{ border-color:#5aa709;}
+.dj_lists ul li .s_page .p_abs{left:0; bottom:0; background:rgba(0,0,0,0.6); filter:progid:DXImageTransform.Microsoft.gradient(enabled = 'true',startColorstr = '#60000000',endColorstr = '#60000000'); width:100%; color:#e3e3e3; height:38px; line-height:38px;}
+.dj_lists ul li .s_page .p_abs span{ text-indent:10px;}
+.dj_lists ul li .s_page .p_abs a.rt i{ width:20px; height:20px; overflow:hidden; background:url(../images/m_icon.png) -190px -128px no-repeat; margin:8px 10px 0 0;}
+.dj_lists ul li .s_page .p_abs a.rt:hover i{ background-position:-190px -148px;}
+.dj_lists ul li .s_page .p_abs a.no_play{cursor:default;}
+.dj_lists ul li .s_page .p_abs a.no_play:hover i{ background-position:-190px -128px;}
+.dj_lists ul li .s_page a.del_btn{position:absolute; top:0; right:0; padding:10px; background:#5aa709; display:none;}
+.dj_lists ul li .s_page a.del_btn i{width:14px; height:15px; overflow:hidden; display:block; background:url(../images/m_icon.png) -168px -134px no-repeat;}
+.dj_lists ul li .s_page:hover a.del_btn{display:block;}
+.dj_lists ul li .s_title{ width:204px; white-space:nowrap; text-overflow:ellipsis; overflow:hidden; margin:15px 0;}
+.dj_lists ul li .s_title a:hover{color:#59a809; text-decoration:none;}
+.dj_lists ul li .s_info{ width:204px; color:#999;}
+
+p.detail_nav{ color:#a6a6a6; font-size:14px;}
+p.detail_nav span{ color:#333;}
+
+.dj_detail_info dl.dj_infos{margin-top:30px;}
+.dj_detail_info dl.dj_infos dt{ width:220px; margin-right:30px;}
+.dj_detail_info dl.dj_infos dd{ width:710px;}
+.dj_detail_info dl.dj_infos dd .dj_title{}
+
+.dj_detail_info dl.dj_infos dd .s_cont{ margin-top:20px; line-height:30px; color:#999;}
+.s_cont a.user_name:link,.s_cont a.user_name:visited{ color:#59a809;}
+.s_cont a.user_name img{ -webkit-border-radius:50%; -moz-border-radius:50%; border-radius:50%;}
+.s_cont span{ margin-left:25px; display:inline;}
+
+dl.dj_infos dd .act_box{ margin:15px 0;}
+dl.dj_infos dd .act_box a{ border:#e3e3e3 solid 1px; padding:5px 15px; margin-right:20px; display:inline; -webkit-border-radius:30px; -moz-border-radius:30px; border-radius:30px; color:#333;}
+dl.dj_infos dd .act_box a:hover{text-decoration:none;}
+dl.dj_infos dd .act_box a.paly_btn:link,dl.dj_infos dd .act_box a.paly_btn:visited{color:#59a809;}
+dl.dj_infos dd .act_box a.paly_btn:hover{color:#fff; background:#59a809; border-color:#59a809;}
+dl.dj_infos dd .act_box a.coll_btn:hover{ background:#59a809; color:#fff; border-color:#59a809;}
+dl.dj_infos dd .act_box a.share_btn:hover{ background:#59a809; color:#fff; border-color:#59a809;}
+dl.dj_infos dd .act_box a i{ width:15px; height:15px; overflow:hidden; background:url(../images/dj_icon.png) no-repeat; margin:1px 10px 0 0; display:inline;}
+dl.dj_infos dd .act_box a.paly_btn i{ background:url(../images/m_icon.png) -101px -113px no-repeat;}
+dl.dj_infos dd .act_box a.coll_btn i{ background-position:-30px 0;}
+dl.dj_infos dd .act_box a.share_btn i{ background-position:-15px 0;}
+dl.dj_infos dd .act_box a.paly_btn:hover i{ background-position:-153px -113px;}
+dl.dj_infos dd .act_box a.coll_btn:hover i{ background-position:-45px -15px;}
+dl.dj_infos dd .act_box a.share_btn:hover i{ background-position:-30px -15px;}
+dl.dj_infos dd .act_box a.no_play:link,dl.dj_infos dd .act_box a.no_play:visited,
+dl.dj_infos dd .act_box a.no_coll:link,dl.dj_infos dd .act_box a.no_coll:visited,
+dl.dj_infos dd .act_box a.no_share:link,dl.dj_infos dd .act_box a.no_share:visited
+{background:#fff; color:#666; cursor:default;}
+dl.dj_infos dd .act_box a.no_play i{background-position:-85px -113px;}
+dl.dj_infos dd .act_box a.no_coll i{background-position:-60px -30px;}
+dl.dj_infos dd .act_box a.no_share i{background-position:-45px -30px;}
+dl.dj_infos dd .act_box a.no_play:hover,
+dl.dj_infos dd .act_box a.no_coll:hover,
+dl.dj_infos dd .act_box a.no_share:hover{background:#fff; color:#666; border:#e3e3e3 solid 1px;}
+dl.dj_infos dd .act_box a.no_play:hover i{background-position:-85px -113px;}
+dl.dj_infos dd .act_box a.no_coll:hover i{background-position:-60px -30px;}
+dl.dj_infos dd .act_box a.no_share:hover i{background-position:-45px -30px;}
+
+dl.dj_infos dd .act_box a.coll_pull{border-color:#e3e3e3;}
+dl.dj_infos dd .act_box a.coll_pull:hover{ border-color:#e3e3e3; background:#fff; color:#333;}
+dl.dj_infos dd .act_box a.coll_pull i{background-position:-60px -45px;}
+dl.dj_infos dd .act_box a.coll_pull:hover i{background-position:-60px -45px;}
+
+dl.dj_infos dd .tag_box{ margin:5px 0;}
+dl.dj_infos dd .tag_box span{color:#999; line-height:24px;}
+dl.dj_infos dd .tag_box label{float:left; background:#59a809; color:#fff; padding:3px 8px; margin-right:5px; display:inline;}
+dl.dj_infos dd .tag_box label.no_tags{background:#fff; color:#666;}
+dl.dj_infos dd p{line-height:24px; color:#999;}
+dl.dj_infos dd p a:link,dl.dj_infos dd p a:visited{ color:#59a809;}
+
+/* if 列表为空 */
+.dj_mian .song_null{ height:190px;}
+.dj_mian .song_null i{width:135px; height:133px; background:url(../images/null_song.png) no-repeat; display:block; margin:10px auto;}
+.dj_mian .song_null p{ color:#666; margin-bottom:5px;}
+.dj_mian .song_null p a:link,.dj_mian .song_null p a:visited{ color:#59a809;}
+
+/* 歌单 详细列表 */
+.dj_detail_lists .dj_songlists ul.c_wap{ border-left:#f3f3f3 solid 1px; margin:0 0 0 -1px;}
+.dj_detail_lists ul.c_wap li{ border-bottom:#f3f3f3 solid 1px; height:26px; line-height:26px; padding:13px 0;}
+.dj_detail_lists ul.c_wap li:hover{ background:#fafafa;}
+.dj_detail_lists ul.c_wap li:hover .seq_number{ color:#59a809;}
+.dj_detail_lists ul.c_wap li:hover .s_tit{ color:#59a809;}
+.dj_detail_lists ul.c_wap .s_sel{ width:20px; padding:5px 0 0 15px; height:20px; line-height:20px; display:inline;}
+.dj_detail_lists ul.c_wap .s_sel input{ width:17px; height:17px; margin:0;}
+.dj_detail_lists ul.c_wap .seq_number{ width:20px; text-align:right; margin:0 20px 0 10px; display:inline;}
+.dj_detail_lists ul.c_wap .s_tit{ width:400px; font-size:14px;}
+.dj_detail_lists ul.c_wap .s_tit a:hover{color:#59a809; text-decoration:none;}
+.dj_detail_lists ul.c_wap .s_soner{ width:80px; white-space:nowrap; text-overflow:ellipsis; overflow:hidden; margin-right:15px; display:inline;}
+.dj_detail_lists ul.c_wap .s_soner a:link,.dj_detail_lists ul.c_wap .s_soner a:visited,
+.dj_songlists ul.c_wap .s_soner a:link,.dj_songlists ul.c_wap .s_soner a:visited{color:#999;}
+.dj_detail_lists ul.c_wap .s_palynum{ margin-right:70px; text-align:right; color:#999;}
+.dj_detail_lists ul.c_wap .act_icon{ width:180px;}
+.dj_detail_lists ul.c_wap .act_icon a{ float:left; width:16px; height:16px; margin:4px 10px; background:url(../images/m_icon.png) -85px -113px no-repeat; overflow:hidden; text-indent:-999px; display:inline;}
+.dj_detail_lists ul.c_wap .act_icon a:hover{background-position: -101px -113px;}
+.dj_detail_lists ul.c_wap .act_icon a.add_btn{background-position:0px -91px;}
+.dj_detail_lists ul.c_wap .act_icon a.down_btn{background-position:-16px -91px;}
+.dj_detail_lists ul.c_wap .act_icon a.share_btn{background-position:-32px -91px;}
+.dj_detail_lists ul.c_wap .act_icon a.coll_btn{background-position:-48px -91px;}
+.dj_detail_lists ul.c_wap .act_icon a.add_btn:hover{background-position:0 -75px;}
+.dj_detail_lists ul.c_wap .act_icon a.down_btn:hover{background-position:-16px -75px;}
+.dj_detail_lists ul.c_wap .act_icon a.share_btn:hover{background-position:-32px -75px;}
+.dj_detail_lists ul.c_wap .act_icon a.coll_btn:hover,.dj_detail_lists ul.c_wap .act_icon a.coll_pull{background-position:-48px -75px;}
+
+.dj_mian .main_tit h2.yuep{background:none; text-indent:0; border-bottom:#f3f3f3 solid 1px; width:100%;}
+.dj_mian .main_tit h2 span.number{color:#666; font-size:12px;}
+.dj_mian .msg_release{width:930px;}
+.dj_mian .release_cont_txt{width:920px; max-width:920px;}
+.dj_mian .msg_list dl dd,.dj_mian .msg_list_txt{width:870px;}
+.dj_mian .msg_list_reply,.dj_mian .msg_list_reply .msg_release{width:850px;}
+.dj_mian .msg_list_reply .release_cont_txt{width:840px; max-width:840px;}
+.dj_mian .msg_list .msg_list_reply dl dd{width:788px;}
+
+.main_tit h2.main_tit_coll{ background-position:0 -667px;}

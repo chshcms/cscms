@@ -1,0 +1,566 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset=utf-8>
+    <title></title>
+    <meta name="robots" content="noindex,nofollow">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/layui/css/layui.css">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/admin/css/font.css">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/admin/css/style.css">
+    <?=$opt_gc?>
+    <script src="<?=Web_Path?>packs/js/jquery.min.js"></script>
+    <script src="<?=Web_Path?>packs/admin/js/setcolor.js"></script>
+    <script src="<?=Web_Path?>packs/layui/layui.js"></script>
+    <script src="<?=Web_Path?>packs/admin/js/cscms.js"></script>
+</head>
+<body id="index_setting">
+    <span class="layui-breadcrumb" >
+        <a ><cite><i class="fa fa-map-marker"></i>位置</cite></a>
+        <a href="<?=site_url('vod/admin/vod')?>">视频</a>
+        <a href="<?=site_url('vod/admin/vod')?>">视频管理</a>
+        <a href=""><?=$title2?></a>
+    </span>
+    <div class="layui-tab layui-tab-brief" >
+        <ul class="layui-tab-title">
+            <li><a class="tablink" href="<?=site_url('vod/admin/vod')?>">视频列表</a></li>
+            <li><a class="tablink" href="<?=site_url('vod/admin/vod')?>?yid=2">待审核视频</a></li>
+            <li><a class="tablink" href="<?=site_url('vod/admin/vod')?>?yid=3">回收站视频</a></li>
+            <li class="layui-this"><a class="tablink" href="<?=site_url('vod/admin/vod/edit')?>?id=<?=$id?>"><?=$title2?></a></li>
+        </ul>
+        <div class="layui-tab-content" style="min-height: 360px;">
+             <form class="layui-form layui-form-pane" action="<?=site_url('vod/admin/vod/save')?>" method="post">
+                <script type="text/javascript">
+                    vcls_id=<?=$cid?>;vcls_type='<?=$type?>';
+                </script>
+                <div class="layui-tab">
+                    <ul class="layui-tab-title">
+                        <li class="layui-this">主要参数</li>
+                        <li>其他参数</li>
+                        <li>介绍/SEO</li>
+                        <li>自定义字段</li>
+                    </ul>
+                    <div class="layui-tab-content">
+                        <div class="layui-tab-item layui-show">
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">视频分类</label>
+                                <div class="layui-input-inline">
+                                    <select name="cid" lay-filter="gettype">
+                                        <option value="0">选择分类</option>
+                                        <?php
+                                        $query = $this->db->query("SELECT id,name FROM ".CS_SqlPrefix."vod_list where fid=0 order by xid asc"); 
+                                        foreach ($query->result() as $row) {
+                                            $clas=($row->id==$cid)?' selected="selected"':'';
+                                            echo '<option value="'.$row->id.'"'.$clas.'>'.$row->name.'</option>';
+                                            $query2 = $this->db->query("SELECT id,name FROM ".CS_SqlPrefix."vod_list where fid=".$row->id." order by xid asc"); 
+                                            foreach ($query2->result() as $row2) {
+                                                $clas2=($row2->id==$cid)?' selected="selected"':'';
+                                                echo '<option value="'.$row2->id.'"'.$clas2.'>&nbsp;|—'.$row2->name.'</option>';
+                                            }
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                                <div class="layui-input-inline layui-input-inlinew">
+                                    <input type="checkbox" name="addtime" lay-skin="primary" value="ok" title="更新时间" checked>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">剧情分类</label>
+                                <div class="layui-input-block juqin">
+                                    <span class="apply-link" id="type">请先选择视频分类~！</span>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">视频名称</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="name" placeholder="请输入视频名称" value="<?=$name?>" class="layui-input">
+                                </div>
+                                <div class="layui-input-inline layui-input-inlinew" >
+                                    <input class="layui-input" name="color" id="color" type="text" value="<?=$color?>"/>
+                                    <img src="<?=Web_Path?>packs/admin/images/rect.gif" width="18" height="17" border=0 style="position:absolute;right: 5px;top:9px;cursor:pointer;background-Color:<?=$color?>;" title="字体颜色" onClick="initcolor('color','imgs_color');" id="imgs_color" align="absmiddle" vspace="1">
+                                </div>
+                                <div class="layui-form-mid layui-word-aux">名称颜色</div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">英文别名</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="bname" placeholder="" value="<?=$bname?>" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">视频图片</label>
+                                <div class="layui-input-inline" >
+                                    <input id="pic" type="text" name="pic" value="<?=$pic?>" class="layui-input">
+                                </div>
+                                <?php 
+                                    if(preg_match("/(iPhone|iPad|iPod|Android)/i", strtoupper($_SERVER['HTTP_USER_AGENT']))){
+                                        echo '<button type="button" class="layui-btn layui-btn-primary" id="pics"><i class="layui-icon colorb">&#xe608;</i>上传视频图片</button>';
+                                    }else{
+                                        echo '<div class="layui-input-inline" style="width: auto;"><a href="javascript:cscms.get_open(\''.site_url('upload/up').'?dir=vod\',\'上传图片\',\'500px\',\'360px\')" class="layui-btn layui-btn-primary"><i class="layui-icon" style="color:green">&#xe608;</i>上传视频图片</a></div>';
+                                    }
+                                ?>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">幻灯图片</label>
+                                <div class="layui-input-inline" >
+                                    <input id="pic2" type="text" name="pic2" value="<?=$pic2?>" class="layui-input">
+                                </div>
+                                <?php 
+                                    if(preg_match("/(iPhone|iPad|iPod|Android)/i", strtoupper($_SERVER['HTTP_USER_AGENT']))){
+                                        echo '<button type="button" class="layui-btn layui-btn-primary" id="huand"><i class="layui-icon colorb">&#xe608;</i>上传幻灯图片</button>';
+                                    }else{
+                                        echo '<div class="layui-input-inline" style="width: auto;"><a href="javascript:cscms.get_open(\''.site_url('upload/up').'?dir=vod&fid=2\',\'上传图片\',\'500px\',\'360px\')" class="layui-btn layui-btn-primary"><i class="layui-icon" style="color:green">&#xe608;</i>上传幻灯图片</a></div>';
+                                    }
+                                ?>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">观看所需金币</label>
+                                <div class="layui-input-inline layui-input-inlinew3" >
+                                    <input type="text" name="cion" value="<?=$cion?>" placeholder="观看视频所需金币" class="layui-input">
+                                </div>
+                                <label class="layui-form-label">下载所需金币</label>
+                                <div class="layui-input-inline layui-input-inlinew3" >
+                                    <input type="text" name="dcion" value="<?=$dcion?>" placeholder="下载视频所需金币" class="layui-input">
+                                </div>
+                            </div>
+                        
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">播放来源</label>
+                                <div class="layui-input-inline">
+                                    <a class="layui-btn layui-btn-small app-btn" href="javascript:addplist();"><i class="fa fa-plus"></i>&nbsp;添加一组播放来源</a><a class="layui-btn layui-btn-small layui-btn-danger app-btn" href="javascript:delall('plist','确定要清空所有的播放来源吗?');"><i class="fa fa-trash"></i>&nbsp;清空所有播放来源</a>
+                                </div>
+                            </div><div id="plist">
+                            <?php 
+                                if(!preg_match("/(iPhone|iPad|iPod|Android)/i",strtoupper($_SERVER['HTTP_USER_AGENT']))){
+                                    $agent = 0;
+                                }else{
+                                    $agent = 1;
+                                }
+                            ?>
+                            <script>var pnum=0;var dnum=0;</script>
+                            <script type="text/javascript">var agent=<?=$agent?></script>
+                            <?php
+                                require_once CSCMS.'vod/player.php';
+                                $player = $player_config;
+                                $vod_pc=$vod_pc2='';
+                                $vnum = 0;
+                                for ($i=0; $i<count($player); $i++) {
+                                    $vod_pc2.='<option value="'.$player[$i]['form'].'">'.$player[$i]['des'].'</option>';
+                                }
+                                $strs=explode("#cscms#",$purl);
+                                if(!empty($purl)){
+                                    for($j=0;$j<count($strs);$j++){
+                                        $laiy=explode("\n",$strs[$j]);
+                                        if(count($laiy)>1){
+                                            $jis=explode("$",$laiy[0]);
+                                        }else{
+                                            $jis=explode("$",$strs[$j]);
+                                        }
+                                        if(empty($jis[2])) $jis[2]="";
+                                        $jis[2]=trim($jis[2]);
+
+                                        for ($i=0; $i<count($player); $i++) {
+                                            $selec=($jis[2]==$player[$i]['form'])?' selected':'';
+                                            $vod_pc.='<option value="'.$player[$i]['form'].'"'.$selec.'>'.$player[$i]['des'].'</option>';
+                                        }
+                                        $vnum = $j+1;
+                            ?>
+                            <script type="text/javascript">pnum=pnum+1;</script>
+                            <fieldset class="layui-elem-field" id="src<?=$j?>">
+                                <legend>播放来源<?=($j+1)?> <a style="margin-left: 10px;" href="javascript:del('src<?=$j?>','确定删除该播放来源吗？');" title="删除该组标记"><i class="fa fa-trash colord" style="font-size: 16px;"></i></a></legend>
+                                <div class="layui-field-box">
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">站点选择</label>
+                                        <div class="layui-input-inline layui-input-inlinew3">
+                                            <select name="playform[<?=$j?>]" id="m_playfrom<?=$j?>" <?php if($agent!=0){echo 'lay-ignore class="sel_ignore"';}?>>
+                                                <?=$vod_pc?>
+                                            </select>
+                                        </div>
+                                        <div class="layui-input-inline noborder">
+                                            <a href="javascript:cscms.repairUrl(<?=$j?>,0)" class="layui-btn layui-btn-small layui-btn-primary app-btn colorl">格式校正</a>
+                                            <a href="javascript:cscms.get_open('<?=site_url('vod/admin/vod/caiji')?>?id=<?=$j?>&sid=0','地址采集','500px','350px');" class="layui-btn layui-btn-small layui-btn-primary app-btn colord">地址采集</a>
+                                            <?php
+                                                if($agent==0){
+                                                    echo '<a href="javascript:cscms.get_open(\''.site_url('upload/up').'?fhid=m_playurl&dir=video&fid='.$j.'&sid=1&type=*&nums=10\',\'视频上传\',\'500px\',\'360px\')" class="layui-btn layui-btn-primary layui-btn-small colorn">视频上传</a>';
+                                                }else{
+                                                    echo '<button type="button" class="layui-btn layui-btn-primary layui-btn-small colorb" id="video'.$j.'" >视频上传</button>';
+                                                }
+                                            ?>
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item layui-form-text">
+                                        <label class="layui-form-label">地址格式：<font class="colorr">集数$地址$来源(多集分行)</font></label>
+                                        <div class="layui-input-block">
+                                          <textarea name="purl[<?=$j?>]" id='m_playurl<?=$j?>' class="layui-textarea"><?=$strs[$j]?></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>   
+                            <?php } } ?></div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">下载来源</label>
+                                <div class="layui-input-inline">
+                                    <a class="layui-btn layui-btn-small app-btn" href="javascript:adddlist();"><i class="fa fa-plus"></i>&nbsp;添加一组下载来源</a><a class="layui-btn layui-btn-small layui-btn-danger app-btn" href="javascript:delall('dlist','确定要清空所有的下载来源吗?');"><i class="fa fa-trash"></i>&nbsp;清空所有下载来源</a>
+                                </div>
+                            </div><div id="dlist">
+                            <?php
+                                $strs2=explode("#cscms#",$durl);
+                                $dvnum=0;
+                                if(!empty($durl)){
+                                    for($j=0;$j<count($strs2);$j++){
+                                        $laiy=explode("\n",$strs2[$j]);
+                                        if(count($laiy)>1){
+                                            $jis=explode("$",$laiy[0]);
+                                        }else{
+                                            $jis=explode("$",$strs2[$j]);
+                                        }
+                                        if(empty($jis[2])) $jis[2]="";
+                                        $dvnum = $j+1;
+                            ?>
+                            <script type="text/javascript">dnum=dnum+1;</script>
+                            <fieldset class="layui-elem-field" id="dsrc<?=$j?>">
+                                <legend>下载来源<?=($j+1)?> <a style="margin-left: 10px;" href="javascript:del('dsrc<?=$j?>','确定删除该下载来源吗？');" title="删除该组标记"><i class="fa fa-trash colord" style="font-size: 16px;"></i></a></legend>
+                                <div class="layui-field-box">
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">下载方式</label>
+                                        <div class="layui-input-inline layui-input-inlinew3">
+                                            <select name="downform[<?=$j?>]" id="m_downfrom<?=$j?>" <?php if($agent!=0){echo 'lay-ignore class="sel_ignore"';}?>>
+                                                <option value="http"<?php if($jis[2]=='http') echo ' selected';?>>HTTP下载</option><option value="ftp"<?php if($jis[2]=='ftp') echo ' selected';?>>FTP下载</option><option value="thunder"<?php if($jis[2]=='thunder') echo ' selected';?>>迅雷下载</option><option value="flashget"<?php if($jis[2]=='flashget') echo ' selected';?>>快车下载</option><option value="qqdl"<?php if($jis[2]=='qqdl') echo ' selected';?>>旋风下载</option><option value="bt"<?php if($jis[2]=='bt') echo ' selected';?>>BT下载</option><option value="magnet"<?php if($jis[2]=='magnet') echo ' selected';?>>磁力链下载</option><option value="ed2k"<?php if($jis[2]=='ed2k') echo ' selected';?>>电炉下载</option>
+                                            </select>
+                                        </div>
+                                        <div class="layui-input-inline noborder">
+                                            <a href="javascript:cscms.repairUrl(<?=$j?>,2)" class="layui-btn layui-btn-small layui-btn-primary app-btn colorl">格式校正</a>
+                                            <a href="javascript:cscms.get_open('<?=site_url('vod/admin/vod/caiji')?>?id=<?=$j?>&sid=2','地址采集','500px','350px');" class="layui-btn layui-btn-small layui-btn-primary app-btn colord">地址采集</a>
+                                            <?php
+                                                if($agent==0){
+                                                    echo '<a href="javascript:cscms.get_open(\''.site_url('upload/up').'?fhid=m_downurl&dir=video&fid='.$j.'&sid=1&type=*&nums=10\',\'视频上传\',\'500px\',\'360px\')" class="layui-btn layui-btn-primary layui-btn-small colorn">视频上传</a>';
+                                                }else{
+                                                    echo '<button type="button" class="layui-btn layui-btn-primary layui-btn-small colorb" id="dvideo'.$j.'" >视频上传</button>';
+                                                }
+                                            ?>
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item layui-form-text">
+                                        <label class="layui-form-label">地址格式：<font class="colorr">集数$地址$来源(多集分行)</font></label>
+                                        <div class="layui-input-block">
+                                          <textarea name="durl[<?=$j?>]" id='m_downurl<?=$j?>' class="layui-textarea"><?php echo $strs2[$j]?></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <?php }}?>
+                            </div>
+                        </div>
+                        <div class="layui-tab-item">
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">视频参数</label>
+                                <div class="layui-input-inline layui-input-inlinew">
+                                    <select name="tid">
+                                        <option value="0">视频专题</option>
+                                        <?php
+                                            $query = $this->db->query("SELECT id,name FROM ".CS_SqlPrefix."vod_topic order by id asc"); 
+                                            foreach ($query->result() as $row) {
+                                                $clas=($row->id==$tid)?' selected="selected"':'';
+                                                echo '<option value="'.$row->id.'"'.$clas.'>'.$row->name.'</option>';
+                                            }
+                                        ?>
+                                    </select>
+                                </div>
+                                <div class="layui-input-inline layui-input-inlinew" >
+                                    <select name="reco">
+                                        <option value="0"<?php if($reco==0) echo ' selected';?>>视频推荐</option>
+                                        <option value="1"<?php if($reco=='1') echo ' selected';?>>★☆☆☆☆</option>
+                                        <option value="2"<?php if($reco=='2') echo ' selected';?>>★★☆☆☆</option>
+                                        <option value="3"<?php if($reco=='3') echo ' selected';?>>★★★☆☆</option>
+                                        <option value="4"<?php if($reco=='4') echo ' selected';?>>★★★★☆</option>
+                                        <option value="5"<?php if($reco=='5') echo ' selected';?>>★★★★★</option>
+                                    </select>
+                                </div>
+                                <div class="layui-input-inline layui-input-inlinew" >
+                                    <select name="diqu">
+                                        <option value=""<?php if(empty($diqu)) echo ' selected';?>>视频地区</option>
+                                        <option value="大陆"<?php if($diqu=='大陆') echo ' selected';?>>大陆</option>
+                                        <option value="香港"<?php if($diqu=='香港') echo ' selected';?>>香港</option>
+                                        <option value="台湾"<?php if($diqu=='台湾') echo ' selected';?>>台湾</option>
+                                        <option value="美国"<?php if($diqu=='美国') echo ' selected';?>>美国</option>
+                                        <option value="韩国"<?php if($diqu=='韩国') echo ' selected';?>>韩国</option>
+                                        <option value="日本"<?php if($diqu=='日本') echo ' selected';?>>日本</option>
+                                        <option value="泰国"<?php if($diqu=='泰国') echo ' selected';?>>泰国</option>
+                                        <option value="新加坡"<?php if($diqu=='新加坡') echo ' selected';?>>新加坡</option>
+                                        <option value="马来西亚"<?php if($diqu=='马来西亚') echo ' selected';?>>马来西亚</option>
+                                        <option value="印度"<?php if($diqu=='印度') echo ' selected';?>>印度</option>
+                                        <option value="英国"<?php if($diqu=='英国') echo ' selected';?>>英国</option>
+                                        <option value="法国"<?php if($diqu=='法国') echo ' selected';?>>法国</option>
+                                        <option value="加拿大"<?php if($diqu=='加拿大') echo ' selected';?>>加拿大</option>
+                                        <option value="西班牙"<?php if($diqu=='西班牙') echo ' selected';?>>西班牙</option>
+                                        <option value="俄罗斯"<?php if($diqu=='俄罗斯') echo ' selected';?>>俄罗斯</option>
+                                        <option value="其它"<?php if($diqu=='其它') echo ' selected';?>>其它</option>
+                                    </select>
+                                </div>
+                                <div class="layui-input-inline layui-input-inlinew">
+                                    <select name="yuyan">
+                                        <option value=""<?php if(empty($yuyan)) echo ' selected';?>>视频语言</option>
+                                        <option value="国语"<?php if($yuyan=='国语') echo ' selected';?>>国语</option>
+                                        <option value="英语"<?php if($yuyan=='英语') echo ' selected';?>>英语</option>
+                                        <option value="粤语"<?php if($yuyan=='粤语') echo ' selected';?>>粤语</option>
+                                        <option value="闽南语"<?php if($yuyan=='闽南语') echo ' selected';?>>闽南语</option>
+                                        <option value="韩语"<?php if($yuyan=='韩语') echo ' selected';?>>韩语</option>
+                                        <option value="日语"<?php if($yuyan=='日语') echo ' selected';?>>日语</option>
+                                        <option value="法语"<?php if($yuyan=='法语') echo ' selected';?>>法语</option>
+                                        <option value="德语"<?php if($yuyan=='德语') echo ' selected';?>>德语</option>
+                                        <option value="其它"<?php if($yuyan=='其它') echo ' selected';?>>其它</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">会员名称</label>
+                                <div class="layui-input-inline layui-input-inlinew3">
+                                    <input type="text" name="user" placeholder="会员名称" value="<?=getzd('user','name',$uid)?>" class="layui-input">
+                                </div>
+                                <div class="layui-input-inline layui-input-inlinew">
+                                    <select name="vip">
+                                        <option value="0">会员组</option>
+                                        <?php
+                                            $query = $this->db->query("SELECT id,name FROM ".CS_SqlPrefix."userzu order by id asc"); 
+                                            foreach ($query->result() as $row) {
+                                                $clas=($row->id==$vip)?' selected="selected"':'';
+                                                echo '<option value="'.$row->id.'"'.$clas.'>'.$row->name.'</option>';
+                                            }
+                                        ?>
+                                    </select>
+                                </div>
+                                <div class="layui-input-inline layui-input-inlinew" >
+                                    <select name="level">
+                                        <option value="0">会员等级</option>
+                                        <?php
+                                            $query = $this->db->query("SELECT id,name FROM ".CS_SqlPrefix."userlevel order by id asc"); 
+                                            foreach ($query->result() as $row) {
+                                                $clas=($row->id==$level)?' selected="selected"':'';
+                                                echo '<option value="'.$row->id.'"'.$clas.'>'.$row->name.'</option>';
+                                            }
+                                        ?>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">视频备注</label>
+                                <div class="layui-input-inline layui-input-inlinew3">
+                                    <input type="text" name="info" placeholder="" value="<?=$info?>" class="layui-input">
+                                </div>
+                                <label class="layui-form-label">发行年份</label>
+                                <div class="layui-input-inline layui-input-inlinew3">
+                                    <input type="text" name="year" placeholder="" value="<?=$year?>" class="layui-input">
+                                </div>
+                                <label class="layui-form-label label2">状态</label>
+                                <div class="layui-input-inline layui-input-inlinew">
+                                    <input type="text" name="remark" placeholder="" value="<?=$remark?>" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">视频主演</label>
+                                <div class="layui-input-inline layui-input-inlinew3">
+                                    <input type="text" name="zhuyan" placeholder="多个逗号隔开" value="<?=$zhuyan?>" class="layui-input">
+                                </div>
+                                <label class="layui-form-label">视频导演</label>
+                                <div class="layui-input-inline layui-input-inlinew3">
+                                    <input type="text" name="daoyan" placeholder="多个逗号隔开" value="<?=$daoyan?>" class="layui-input">
+                                </div>
+                            </div>
+                            <?php
+                                if($this->db->table_exists(CS_SqlPrefix.'singer')){  //歌手表存在
+                                    $singer=($singerid>0)?getzd('singer','name',$singerid):'';
+                                }
+                            ?>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">所属歌手</label>
+                                <div class="layui-input-inline ">
+                                    <input type="text" name="singer" placeholder="视频演唱者，可以留空，没有先在个歌手库增加" value="<?=$singer?>" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">TAGS标签</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="tags" placeholder="多个逗号隔开" value="<?=$tags?>" class="layui-input">
+                                </div>
+                            </div>
+                            
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">访问人气</label>
+                                <label class="layui-form-label label2 marg10">总</label>
+                                <div class="layui-input-inline layui-input-inlinehot">
+                                    <input type="text" name="hits" value="<?=$hits?>" class="layui-input">
+                                </div>
+                                <label class="layui-form-label label2 marg10">月</label>
+                                <div class="layui-input-inline layui-input-inlinehot">
+                                    <input type="text" name="yhits" value="<?=$yhits?>" class="layui-input">
+                                </div>
+                                <label class="layui-form-label label2 marg10">周</label>
+                                <div class="layui-input-inline layui-input-inlinehot">
+                                    <input type="text" name="zhits" value="<?=$zhits?>" class="layui-input">
+                                </div>
+                                <label class="layui-form-label label2 marg10">日</label>
+                                <div class="layui-input-inline layui-input-inlinehot">
+                                    <input type="text" name="rhits" value="<?=$rhits?>" class="layui-input">
+                                </div>
+                                <label class="layui-form-label label2 marg10">收藏</label>
+                                <div class="layui-input-inline layui-input-inlinehot">
+                                    <input type="text" name="shits" value="<?=$shits?>" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">其他人气</label>
+                                <label class="layui-form-label label2 marg10">顶</label>
+                                <div class="layui-input-inline layui-input-inlinehot">
+                                    <input type="text" name="dhits" value="<?=$dhits?>" class="layui-input">
+                                </div>
+                                <label class="layui-form-label label2 marg10">踩</label>
+                                <div class="layui-input-inline layui-input-inlinehot">
+                                    <input type="text" name="chits" value="<?=$chits?>" class="layui-input">
+                                </div>
+                                <label class="layui-form-label label2 marg10">下载</label>
+                                <div class="layui-input-inline layui-input-inlinehot">
+                                    <input type="text" name="xhits" value="<?=$xhits?>" class="layui-input">
+                                </div>
+                                <label class="layui-form-label label2 marg10">评分</label>
+                                <div class="layui-input-inline layui-input-inlinehot">
+                                    <input type="text" name="pfen" value="<?=$pfen?>" class="layui-input">
+                                </div>
+                                <label class="layui-form-label label2 marg10">评次</label>
+                                <div class="layui-input-inline layui-input-inlinehot">
+                                    <input type="text" name="phits" value="<?=$phits?>" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">播放模版</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="skins" value="<?=$skins?>" class="layui-input">
+                                </div>
+                                <div class="layui-form-mid layui-word-aux">默认为play.html</div>
+                            </div>
+                        </div>
+                        <div class="layui-tab-item">
+                            <div class="layui-form-item layui-form-text" >
+                                <label class="layui-form-label">视频介绍</label>
+                                <div class="layui-input-block">
+                                    <textarea id="text" lay-verify="content" name="text" placeholder="请输入歌词" style="display: none;" class="layui-textarea"><?=$text?></textarea>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">SEO设置</label>
+                                <div class="layui-input-inline">
+                                    <a class="layui-btn layui-btn-small" style="margin: 4px 10px;" href="javascript:$('#seo').toggle();">点击展开/合并SEO设置</a>
+                                </div>
+                            </div>
+                            <div id="seo" style="display: none;">
+                                <div class="layui-form-item layui-form-text">
+                                    <label class="layui-form-label">SEO标题</label>
+                                    <div class="layui-input-block">
+                                        <textarea name="title" style="height: 100px" class="layui-textarea"><?=$title?></textarea>
+                                    </div>
+                                </div>
+                                <div class="layui-form-item layui-form-text">
+                                    <label class="layui-form-label">SEO关键字</label>
+                                    <div class="layui-input-block">
+                                        <textarea name="keywords" style="height: 100px" class="layui-textarea"><?=$keywords?></textarea>
+                                    </div>
+                                </div>
+                                <div class="layui-form-item layui-form-text">
+                                    <label class="layui-form-label">SEO介绍</label>
+                                    <div class="layui-input-block">
+                                        <textarea name="description" style="height: 100px" class="layui-textarea"><?=$description?></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-tab-item"><?=$opt_field?></div>
+                    </div>
+                </div>
+                
+                <input type="hidden" name="id" value="<?=$id?>">
+                <input type="hidden" name="sid" value="<?=$sid?>">
+                <div class="layui-form-item">
+                    <div class="layui-input-block layui-input-common noborder">
+                        <button class="layui-btn" lay-submit lay-filter="setting">提交</button>
+                        <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script type="text/javascript">
+        cscms.init(5);
+        cscms.mode("cscms.getUpload('<?=Web_Path.SELF?>/upload/up_save_json?dir=vod','pic','pics')");
+        cscms.mode("cscms.getUpload('<?=Web_Path.SELF?>/upload/up_save_json?dir=vod','pic2','huand')");
+        
+        <?php
+            for($i=0;$i<$vnum;$i++){
+                echo 'cscms.mode("cscms.getUpload(\''.Web_Path.SELF.'/upload/up_save_json?dir=video&type=m_playurl&fid='.$i.'&sid=1&type=*&nums=10\',\'m_playurl'.$i.'\',\'video'.$i.'\',\'video\',1)");';
+            }
+        ?>
+        <?php
+            for($i=0;$i<$dvnum;$i++){
+                echo 'cscms.mode("cscms.getUpload(\''.Web_Path.SELF.'/upload/up_save_json?dir=video&type=m_downurl&fid='.$i.'&sid=1&type=*&nums=10\',\'m_downurl'.$i.'\',\'dvideo'.$i.'\',\'video\',1)");';
+            }
+        ?>
+        
+        function addplist(){
+            var tempnum = pnum+1;
+            var tmepsel = '<?=$vod_pc2?>';
+            if(agent==0){
+                var sp = '<a href="javascript:cscms.get_open(\'<?=site_url('upload/up')?>?fhid=m_playurl&dir=video&fid='+pnum+'&sid=1&type=*&nums=10\',\'视频上传\',\'500px\',\'360px\')" class="layui-btn layui-btn-primary layui-btn-small colorn">视频上传</a>';
+                var layn = '';
+            }else{
+                var sp = '<button type="button" class="layui-btn layui-btn-primary layui-btn-small colorb" id="video'+pnum+'" >视频上传</button>';
+                var layn = 'lay-ignore class="sel_ignore"';
+            }
+            var html =  '<fieldset class="layui-elem-field" id="src'+pnum+'"><legend>播放来源'+tempnum+' <a style="margin-left: 10px;" href="javascript:del(\'src'+pnum+'\',\'确定删除该播放来源吗？\');" title="删除该组标记"><i class="fa fa-trash colord" style="font-size: 16px;"></i></a></legend><div class="layui-field-box"><div class="layui-form-item"><label class="layui-form-label">站点选择</label><div class="layui-input-inline layui-input-inlinew3"><select name="playform['+pnum+']" id="m_playfrom'+pnum+'" '+layn+'>'+tmepsel+'</select></div><div class="layui-input-inline noborder"><a href="javascript:cscms.repairUrl('+pnum+',0)" class="layui-btn layui-btn-small layui-btn-primary app-btn colorl">格式校正</a><a href="javascript:cscms.get_open(\'<?=site_url('vod/admin/vod/caiji')?>?id='+pnum+'&sid=0\',\'地址采集\',\'500px\',\'350px\');" class="layui-btn layui-btn-small layui-btn-primary app-btn colord">地址采集</a>'+sp+'</div></div><div class="layui-form-item layui-form-text"><label class="layui-form-label">地址格式：<font class="colorr">集数$地址$来源(多集分行)</font></label><div class="layui-input-block"><textarea name="purl['+pnum+']" id="m_playurl'+pnum+'" class="layui-textarea"></textarea></div></div></div></fieldset>  ';
+            $('#plist').append(html);
+            cscms.mode("cscms.getUpload('<?=Web_Path.SELF?>/upload/up_save_json?dir=video&type=m_playurl&fid="+pnum+"&sid=1&type=*&nums=10','m_playurl"+pnum+"','video"+pnum+"','video',1)");
+            pnum = pnum+1;
+            cscms.form.render();
+        }
+        function adddlist(){
+            var temdnum = dnum+1;
+            var tmedsel = '<option value="http">HTTP下载</option><option value="ftp">FTP下载</option><option value="thunder">迅雷下载</option><option value="flashget">快车下载</option><option value="qqdl">旋风下载</option><option value="bt">BT下载</option><option value="magnet">磁力链下载</option><option value="ed2k">电炉下载</option>';
+            if(agent==0){
+                var sp = '<a href="javascript:cscms.get_open(\'<?=site_url('upload/up')?>?fhid=m_downurl&dir=video&fid='+dnum+'&sid=1&type=*&nums=10\',\'视频上传\',\'500px\',\'360px\')" class="layui-btn layui-btn-primary layui-btn-small colorn">视频上传</a>';
+                var layn = '';
+            }else{
+                var sp = '<button type="button" class="layui-btn layui-btn-primary layui-btn-small colorb" id="dvideo'+dnum+'" >视频上传</button>';
+                var layn = 'lay-ignore class="sel_ignore"';
+            }
+            var html =  '<fieldset class="layui-elem-field" id="dsrc'+dnum+'"><legend>下载来源'+temdnum+' <a style="margin-left: 10px;" href="javascript:del(\'dsrc'+dnum+'\',\'确定删除该下载来源吗？\');" title="删除该组标记"><i class="fa fa-trash colord" style="font-size: 16px;"></i></a></legend><div class="layui-field-box"><div class="layui-form-item"><label class="layui-form-label">站点选择</label><div class="layui-input-inline layui-input-inlinew3"><select name="downform['+dnum+']" id="m_downfrom'+dnum+'" '+layn+'>'+tmedsel+'</select></div><div class="layui-input-inline noborder"><a href="javascript:cscms.repairUrl('+dnum+',2)" class="layui-btn layui-btn-small layui-btn-primary app-btn colorl">格式校正</a><a href="javascript:cscms.get_open(\'<?=site_url('vod/admin/vod/caiji')?>?id='+dnum+'&sid=2\',\'地址采集\',\'500px\',\'350px\');" class="layui-btn layui-btn-small layui-btn-primary app-btn colord">地址采集</a>'+sp+'</div></div><div class="layui-form-item layui-form-text"><label class="layui-form-label">地址格式：<font class="colorr">集数$地址$来源(多集分行)</font></label><div class="layui-input-block"><textarea name="durl['+dnum+']" id="m_downurl'+dnum+'" class="layui-textarea"></textarea></div></div></div></fieldset>  ';
+            $('#dlist').append(html);
+            cscms.mode("cscms.getUpload('<?=Web_Path.SELF?>/upload/up_save_json?dir=video&fhid=m_downurl&dir=video&fid="+dnum+"&sid=1&type=*&nums=10','m_downurl"+dnum+"','dvideo"+dnum+"','video',1)");
+            dnum = dnum+1;
+            cscms.form.render();
+        }
+        function delall(id,title){
+            cscms.layer.confirm(title, {
+                btn: ['确定','取消'] //按钮
+            }, function(index){
+                $('#'+id).html('');
+                cscms.layer.close(index);
+            }, function(index){
+                cscms.layer.close(index);
+            });
+            pnum=0;
+        }
+        function del(id,title){
+            cscms.layer.confirm(title, {
+                btn: ['确定','取消'] //按钮
+            }, function(index){
+                $('#'+id).remove();
+                cscms.layer.close(index);
+            }, function(index){
+                cscms.layer.close(index);
+            });
+        }
+        if(vcls_id>0){
+			cscms.go_vod_type(vcls_id);
+        }
+    </script>
+</body>
+</html>

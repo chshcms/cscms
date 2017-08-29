@@ -1,0 +1,99 @@
+{cscmsfield:dadd}
+    {if:'[dadd:leix]'=='number'}
+    <div class="layui-form-item">
+        <label class="layui-form-label">[dadd:note]</label>
+        <div class="layui-input-block">
+            <input type="text" name="[dadd:zd]"  {toif:[dadd:required]==1}lay-required="[dadd:regexp]"{end toif} placeholder="[dadd:notice]" value="[dadd:default]" class="layui-input">
+        </div>
+    </div>
+    {end if}
+    {if:'[dadd:leix]'=='text' && '[dadd:attr]'=='0'}
+    <div class="layui-form-item">
+        <label class="layui-form-label">[dadd:note]</label>
+        <div class="layui-input-block">
+            <input type="{toif:[dadd:pass]==1}password{else}text{end toif}" name="[dadd:zd]" {toif:[dadd:required]==1}lay-required="[dadd:regexp]"{end toif} placeholder="[dadd:notice]" value="[dadd:default]" class="layui-input">
+        </div>
+    </div>
+    {end if}
+    {if:'[dadd:leix]'=='text' && '[dadd:attr]'=='1'}
+    <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label">[dadd:note]</label>
+        <div class="layui-input-block">
+            <textarea type="text" name="[dadd:zd]" {toif:[dadd:required]==1}lay-required="[dadd:regexp]"{end toif} placeholder="[dadd:notice]" value="[dadd:default]" class="layui-input"></textarea>
+        </div>
+    </div>
+    {end if}
+    {if:'[dadd:leix]'=='text' && '[dadd:attr]'=='2'}
+    <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label">[dadd:note]</label>
+        <div class="layui-input-block">
+            <textarea style="display: none;" type="text" name="[dadd:zd]"lay-verify="content" id="gc[dadd:i]" placeholder="[dadd:notice]" value="[dadd:default]" class="layui-input"></textarea>
+        </div>
+    </div>
+    <script>cscms.mode("cscms.getEditup('[dadd:dir]','gc[dadd:i]')");</script>
+    {end if}
+    {if:'[dadd:leix]'=='image'}
+    <div class="layui-form-item">
+        <label class="layui-form-label">[dadd:note]</label>
+        <div class="layui-input-inline">
+            <input type="text" name="[dadd:zd]" id="pic[dadd:i]" {toif:[dadd:required]==1}lay-required="required"{end toif} placeholder="[dadd:notice]" value="[dadd:default]" class="layui-input">
+        </div>
+        <div class="layui-input-inline" style="width: auto;">
+            <a href="javascript:cscms.get_upurl('[dadd:dir]','pic[dadd:i]')" class="layui-btn layui-btn-primary"><i class="layui-icon" style="color:green">&#xe608;</i>上传图片</a>
+        </div>
+    </div>
+    {end if}
+    {if:'[dadd:leix]'=='select'}
+    <div class="layui-form-item">
+        <label class="layui-form-label">[dadd:note]</label>
+        <div class="layui-input-block">
+            {toif:'[dadd:attr]'=='0'}
+                    {cscmsfield2}
+                    <input type="radio" name="[dadd:zd]" value="[dadd:option1]" title="[dadd:option2]"[dadd:option3]>
+                    {/cscmsfield2}
+            {end toif}
+            {toif:'[dadd:attr]'=='1'}
+                    {cscmsfield2}
+                    <input type="checkbox" name="[dadd:zd][]" value="[dadd:option1]" title="[dadd:option2]" lay-skin="primary"[dadd:option3]>
+                    {/cscmsfield2}
+            {end toif}
+            {toif:'[dadd:attr]'=='2'}
+                <select name="[dadd:zd]">
+                    {cscmsfield2}
+                    <option value="[dadd:option1]"[dadd:option3]>[dadd:option2]</option>
+                    {/cscmsfield2}
+                </select>
+            {end toif}
+        </div>
+    </div>
+    {end if}
+    {if:'[dadd:leix]'=='datetime' && '[dadd:attr]'=='date'}
+    <div class="layui-form-item">
+        <label class="layui-form-label">[dadd:note]</label>
+        <div class="layui-input-block">
+            <input type="text" name="[dadd:zd]" {toif:[dadd:required]==1}lay-required="[dadd:regexp]"{end toif} placeholder="[dadd:notice]" value="[dadd:default]" class="layui-input" id="datetime_[dadd:i]">
+        </div>
+    </div>
+    <script>cscms.mode("cscms.getTime('datetime_[dadd:i]','date')");</script>
+    {end if}
+    {if:'[dadd:leix]'=='datetime' && '[dadd:attr]'=='datetime'}
+    <div class="layui-form-item">
+        <label class="layui-form-label">[dadd:note]</label>
+        <div class="layui-input-block">
+            <input type="text" name="[dadd:zd]" {toif:[dadd:required]==1}lay-required="[dadd:regexp]"{end toif} placeholder="[dadd:notice]" value="[dadd:default]" class="layui-input" id="datetime_[dadd:i]">
+        </div>
+    </div>
+    <script> cscm.mode("cscms.getTime('datetime_[dadd:i]','datetime')");</script>
+    {end if}
+    {if:'[dadd:leix]'=='upload'}
+    <div class="layui-form-item">
+        <label class="layui-form-label">[dadd:note]</label>
+        <div class="layui-input-inline">
+            <input type="text" name="[dadd:zd]" id="pic[dadd:i]" {toif:[dadd:required]==1}lay-required="required"{end toif} placeholder="[dadd:notice]" value="[dadd:default]" class="layui-input">
+        </div>
+        <div class="layui-input-inline" style="width: auto;">
+            <a href="javascript:cscms.get_upurl('[dadd:dir]','pic[dadd:i]','[dadd:accept]');" class="layui-btn layui-btn-primary layui-upload-icon" style="display: inline-block;margin: 0px;padding: 0px 15px"><i class="layui-icon" style="font-size:20px">&#xe61f;</i>上传文件</a>
+        </div>
+    </div>
+    {end if}
+{/cscmsfield:dadd}

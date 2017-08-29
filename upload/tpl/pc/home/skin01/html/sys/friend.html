@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{cscms:title}</title>
+<meta name="keywords" content="{cscms:keywords}"/>
+<meta name="description" content="{cscms:description}"/>
+<link href="{cscms:tempurl}css/public.css" rel="stylesheet" type="text/css" />
+<link href="{cscms:tempurl}css/space.css" rel="stylesheet" type="text/css" />
+<link href="{cscms:tempurl}css/song.css" rel="stylesheet" type="text/css" />
+<link href="{cscms:tempurl}css/more.css" rel="stylesheet" type="text/css" />
+<link href="{cscms:tempurl}css/manage.css" rel="stylesheet" type="text/css" />
+<script type='text/javascript' src='{cscms:tempurl}js/common.js'></script>
+</head>
+<body>
+{cscms:head}     
+<div class="k_content no_flush_content">
+     <div class="fans_nav c_wap show_visitor_panel"{if:[user:id]=={cscms:uid}} style="display:none;"{end if}>
+                <a href="[user:url ulink=friend]" class="lt f14 a_btn coll" >TA的关注</a>
+				<a href="[user:url ulink=fans]" class="lt f14 a_btn" >TA的粉丝</a>
+				<a href="[user:url ulink=funco]" class="lt f14 a_btn" >TA的访客</a>
+				<p class="f14">@[user:nichen]@关注了&nbsp;{cscms:pagedata}&nbsp;人</p>
+	 </div>
+     <div class="fans_nav c_wap show_owner_panel"{if:[user:id]!={cscms:uid}} style="display:none;"{end if}>
+            <a href="[user:url ulink=friend]" class="lt f14 a_btn coll" >我的关注</a>
+			<a href="[user:url ulink=fans]" class="lt f14 a_btn" >我的粉丝</a>
+			<a href="[user:url ulink=funco]" class="lt f14 a_btn" >我的访客</a>
+			<p class="f14">我关注了&nbsp;{cscms:pagedata}&nbsp;人</p>
+	 </div>
+     <div class="fans_items">
+            <ul class="c_wap">
+			{cscms:friend table="friend" pagesize="20" uida="auto" sort="addtime" order="desc"}
+                   <li class="w_50 lt f_item">
+                         <dl class="c_wap">
+                                <dt class="lt"><a target="_blank" href="[friend:url ulink=index]" class="show_userCard_link"><img src="[friend:user zd=logo]" width="70" height="70"></a></dt>
+                                <dd class="lt">
+                                    <h2 class="c_wap">
+                                        <a target="_blank" href="[friend:url ulink=index]" title="[friend:user zd=nichen]" class="show_userCard_link f14 lt">[friend:user zd=nichen]</a>
+                                        <ul class="user_icon c_wap lt"></ul>
+                                        <a href="###" onclick="home.fansadd('[friend:uidb]',2);" uid="[friend:uidb]" class="rt f14 watch_btn gz[friend:uidb]"><i></i>关注</a>
+                                    </h2>
+                                    <div class="c_wap f_rank">
+                                        <label>关注&nbsp;[friend:count zdy=friend,uida,uidb]</label>&nbsp;&nbsp;&nbsp;
+                                        <label>粉丝&nbsp;[friend:count zdy=fans,uida,uidb]</label>&nbsp;&nbsp;&nbsp;
+                                        <label>人气&nbsp;[friend:user zd=hits]</label>
+                                    </div>
+                                    <p>
+                                        <span>简介：</span>
+                                        [friend:user zd=qianm]
+									</p>
+                                </dd>
+                            </dl>
+                   </li>
+			{/cscms:friend}
+            </ul>
+     </div>
+	 <div class="msg_page f14 tc fa_g6 g6 mt20 msg_page_green" style="display:{if:{cscms:pagecout}==1}none{end if};">
+			<span class="msg_page_list">
+				<a href="{cscms:pageup}" class="commentsPrevPage">上一页</a>
+				{cscms:pagenum len=6}
+				<a href="{cscms:pagedown}" class="commentsNextPage">下一页</a>
+			</span>
+			<span class="msg_page_jump ml10"> 到<input type="text" id="home_page" class="tc commentsJumpPageTxt" size="4" maxlength="4">页<a href="javascript:window.location.href='[user:url ulink=fans]/'+$('#home_page').val();" class="tdn commentsJumpPageBtn">确 定</a></span>
+	 </div>
+</div>
+{cscms:bottom}
+<script>$('#nav_fans').addClass('sel');home.fans();</script>
+</body>
+</html>

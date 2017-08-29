@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+<head>
+<meta charset=utf-8>
+<title><?=L('login_title')?></title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<link type="text/css" rel="stylesheet" href="<?=Web_Path?>packs/admin/css/style.css" />
+<link rel="stylesheet" href="<?=Web_Path?>packs/admin/css/font.css">
+<link rel="stylesheet" href="<?=Web_Path?>packs/layui/css/layui.css">
+<link rel="stylesheet" href="<?=Web_Path?>packs/admin/css/style.css">
+<link type="text/css" rel="stylesheet" href="<?=Web_Path?>packs/admin/css/login.css" />
+<script src="<?=Web_Path?>packs/layui/layui.js"></script>
+<script src="<?=Web_Path?>packs/js/jquery.min.js"></script>
+<script src="<?=Web_Path?>packs/admin/js/cscms.js"></script>
+</head>
+<body>
+<div class="bg ">
+	<div class="logkuang">
+		<div class="login_title" style="margin-top:70px"><?=L('lcard_01')?></div>
+		<form class="layui-form" backurl="<?=$this->input->get('backurl')?>" action="<?=site_url('login/log_card')?>?backurl=<?=$this->input->get('backurl')?>" method="post">
+			<div class="layui-form-item">
+			    <div  class="layui-input-inline">
+			    <?=L('lcard_02',array($zb))?>
+			    </div>
+			</div>
+			<div class="layui-form-item">
+			    <div  class="layui-input-inline"><i class="fa fa-lock"></i>
+			        <input type="text" name="admincard" required lay-verify="required" placeholder="<?=L('lcard_03')?>" autocomplete="off" class="layui-input">
+			    </div>
+			</div>
+			<div class="layui-form-item">
+			    <div class="layui-input-block">
+			        <button class="layui-btn" lay-submit lay-filter="formDemo" ><?=L('lcard_04')?></button>
+			        <button type="reset" class="layui-btn layui-btn-primary"><?=L('lcard_05')?></button>
+			    </div>
+			</div>
+		</form>
+	</div>
+</div>
+<script>
+	cscms.init();
+</script>
+</body>
+</html>

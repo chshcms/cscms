@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Cscms 后台管理系统</title>
+    <link rel="stylesheet" href="<?=Web_Path?>packs/layui/css/layui.css">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/admin/css/font.css">
+    <link rel="stylesheet" href="<?=Web_Path?>packs/admin/css/style.css">
+    <script src="<?=Web_Path?>packs/js/jquery.min.js"></script>
+</head>
+<body>
+<!-- 头部导航 -->
+<div class="layui-layout layui-layout-admin">
+  <div class="layui-header header">
+    <div class="l">
+        <span class="logo"><?=L('menu-top-0')?></span>
+        <div class="toggle">
+            <i class="fa fa-bars"></i>
+        </div>
+    </div>
+    <div class="l">
+        <ul class="layui-nav" id="nav_li">
+            <li class="layui-nav-item layui-this" onclick="cscms.nav_dir('index')"><a  href="javascript:;"><?=L('menu-top-1')?></a></li>
+            <li id="pli_sys" class="layui-nav-item"  onclick="cscms.nav_dir('sys')"><a href="javascript:;"><?=L('menu-top-2')?></a></li>
+            <li id="pli_tools" class="layui-nav-item"  onclick="cscms.nav_dir('tools')"><a href="javascript:;"><?=L('menu-top-3')?></a></li>
+            <li id="pli_skin" class="layui-nav-item"  onclick="cscms.nav_dir('skin')"><a href="javascript:;"><?=L('menu-top-4')?></a></li>
+            <li id="pli_user" class="layui-nav-item"  onclick="cscms.nav_dir('user')"><a href="javascript:;"><?=L('menu-top-5')?></a></li>
+            <?php 
+			foreach($plugins as $k => $row){
+                if($k > 4){
+                    $hide = 'class="hide"';
+                }else{
+                    $hide = '';
+                }
+				$dname = (CS_Language == 'zh_cn') ? $row->name : $row->dir;
+                echo '<li '.$hide.' id="pli_'.$row->dir.'"  onclick="cscms.nav_dir(\''.$row->dir.'\')" class="layui-nav-item pli_'.$k.'"><a href="javascript:;">'.$dname.'</a></li>';
+            }
+			?>
+            <li dir="more" id="nav_more" class="layui-nav-item">
+                <a href="javascript:;"><?=L('menu-top-6')?></a>
+                <dl class="layui-nav-child" id="nav_dd">
+                    <dd id="pdd_sys"  class=" hide" onclick="cscms.nav_dir('sys')"><a href="javascript:;"><?=L('menu-top-2')?></a></dd>
+                    <dd id="pdd_tools" class="hide" onclick="cscms.nav_dir('tools')"><a href="javascript:;"><?=L('menu-top-3')?></a></dd>
+                    <dd id="pdd_skin" class="hide" onclick="cscms.nav_dir('skin')"><a href="javascript:;"><?=L('menu-top-4')?></a></dd>
+                    <dd id="pdd_user" class="hide" onclick="cscms.nav_dir('user')"><a href="javascript:;"><?=L('menu-top-5')?></a></dd>
+                    <?php 
+					foreach($plugins as $k => $row){
+                        if($k < 5){
+                            $hide = 'hide';
+                        }else{
+                            $hide = 'show';
+                        }
+						$dname = (CS_Language == 'zh_cn') ? $row->name : $row->dir;
+                        echo '<dd  id="pdd_'.$row->dir.'" class="'.$hide.' pdd_'.$k.'" onclick="cscms.nav_dir(\''.$row->dir.'\')"><a  href="javascript:;">'.$dname.'</a></dd>';
+                    }
+					?>
+                </dl>
+            </li>
+        </ul>
+    </div>
+    <div class="r" style="margin-right: 25px;">
+        <ul class="layui-nav phide" lay-filter="more">
+            <li id="nav_more2" class="layui-nav-item">
+                <a href="javascript:;"><?=$_SESSION['admin_name'];?></a>
+                <dl class="layui-nav-child" style="left: -25px;"> 
+                    <dd><a target="_blank" href="<?=Web_Path?>"><i class="fa fa-home"></i>&nbsp;<?=L('menu-top-7')?></a></dd>
+                    <dd><a href="<?=site_url('login/logout')?>"><i class="fa fa-power-off"></i>&nbsp;<?=L('menu-top-8')?></a></dd>
+                </dl>
+            </li>
+        </ul>
+        <a class="pshow" style="height: 50px;line-height: 50px;" href="<?=site_url('login/logout')?>"><?=L('menu-top-9')?></a>
+    </div>
+  </div>
+  <!-- 侧边导航 -->
+    <div class="layui-side left">
+        <ul class="layui-nav layui-nav-tree" lay-filter="test" id="left-menu">
+        </ul>
+  </div>
+  <!-- 中间部分 -->
+    <div class="layui-body" id="body-main">
+        <div class="layui-tab layui-tab-card" lay-allowclose="true" id="tab-content" lay-filter="demo">
+            <ul class="layui-tab-title">
+                <li class="layui-this" lay-id="0" id="admin_index"><i class="fa fa-home"></i>&nbsp;<?=L('menu-center-0')?></li>
+            </ul>
+            <div iframe="0" title="<?=L('menu-center-1')?>" class="del_iframe  layui-btn layui-btn-small layui-btn-primary"><i class="fa fa-ban"></i></div>
+            <div iframe="0" title="<?=L('menu-center-2')?>" class="refresh_iframe layui-btn layui-btn-small layui-btn-primary"><i class="fa fa-refresh"></i></div>
+            <div class="layui-tab-content">
+                <div class="layui-tab-item layui-show">
+                    <iframe name="iframe_0" id="iframe_0" src="<?=site_url('opt/main')?>"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+  <!-- 底部部分 -->
+  <div class="layui-footer">
+      <div class="layui-main">
+          <p>2008-2018 © <a href="http://www.chshcms.com/" target="_blank">Cscms V4</a>&nbsp;<span id="cscms_version"></span></p>
+      </div>
+  </div>
+</div>
+<script src="<?=Web_Path?>packs/layui/layui.js"></script>
+<script src="<?=Web_Path?>packs/admin/js/cscms.js"></script>
+<script>
+var plub_install = <?=$plub_install?>;
+var menu_json = <?=$dir?>;
+var web_path="<?=Web_Path?>";
+var web_self="<?=SELF?>";
+var yun_url="<?=CS_YPTURL?>";
+var code = "<?=$code?>";
+cscms.init(1);
+if(cscms.wap){
+    $('#body-main').css('position', 'relative');
+    $('#nav_more').click(function(event) {
+        //alert($('#nav_more dl.layui-show').length);
+        if($('#nav_more dl.layui-show').length > 0){
+            $('#nav_more dl').removeClass('layui-show');
+            $('#nav_more span').removeClass('layui-nav-mored');
+        }else{
+            $('#nav_more dl').addClass('layui-show');
+            $('#nav_more span').addClass('layui-nav-mored');
+        }
+    });
+     $('#nav_more2').click(function(event) {
+        //alert($('#nav_more dl.layui-show').length);
+        if($('#nav_more2 dl.layui-show').length > 0){
+            $('#nav_more2 dl').removeClass('layui-show');
+            $('#nav_more2 span').removeClass('layui-nav-mored');
+        }else{
+            $('#nav_more2 dl').addClass('layui-show');
+            $('#nav_more2 span').addClass('layui-nav-mored');
+        }
+    });
+}
+var hei = parseInt($(document).height())-55;
+$('.left').css('height', hei+'px');
+</script>
+</body>
+</html>

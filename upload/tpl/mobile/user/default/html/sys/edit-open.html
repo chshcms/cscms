@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <title>{cscms:title}</title>
+    <meta name="Keywords" content="{cscms:keywords}" />
+    <meta name="Description" content="{cscms:description}" />
+    <link rel="shortcut icon" href="{cscms:path}favicon.ico" />
+    <link rel="stylesheet" href="{cscms:webpath}packs/font/font.css">
+    <link rel="stylesheet" type="text/css" href="{cscms:tempurl}css/user.css"/>
+    <script type="text/javascript" src="{cscms:tempurl}js/user.js"></script>
+</head>
+<body>
+    {cscms:head}
+    {cscms:right}
+    <div class="layui-tab layui-tab-card layui-tab-min" lay-filter="dt1" style="margin-top: 0px;margin-bottom: 0px">
+        <ul class="layui-tab-title" >
+            <li><a href="[user:url userlink=edit]">基本资料</a></li>
+            <li><a href="[user:url userlink=edit,logo]">修改头像</a></li>
+            <li><a href="[user:url userlink=edit,pass]">修改密码</a></li>
+            <li class="layui-this"><a href="[user:url userlink=edit,open]">绑定同步</a></li>
+        </ul>
+        <div class="layui-tab-content">
+            <div class="layui-tab-item layui-show">
+                <div class="bsite cf">
+                    <div class="bs-icon qq"></div>
+                    {if:[user:qqmode]==0}
+                        <a class="layui-btn layui-btn-small openbtn" style="margin-top: 15px" href="{cscms:qqlink}">绑定</a>
+                        {else}
+                        <a class="layui-btn layui-btn-small layui-btn-danger openbtn" style="margin-top: 15px" href="javascript:;" onclick="user.open_del(1);">解绑</a>
+                    {end if}
+                    <div class="bs-mid">
+                        <strong>腾讯QQ</strong>
+                        <div>绑定腾讯QQ帐号后，您便可使用腾讯QQ帐号登录网站</div>
+                    </div>
+                    
+                </div>
+                <div class="bsite cf">
+                    <div class="bs-icon sina"></div>
+                    {if:[user:wbmode]==0}
+                        <a class="layui-btn layui-btn-small openbtn" style="margin-top: 15px" href="{cscms:weibolink}">绑定</a>
+                        {else}
+                        <a class="layui-btn layui-btn-small layui-btn-danger openbtn" style="margin-top: 15px" href="javascript:;" onclick="user.open_del(2);">解绑</a>
+                    {end if}
+                    <div class="bs-mid">
+                        <strong>新浪微博</strong>
+                        <div>绑定新浪微博帐号后，您便可使用新浪微博帐号登录网站</div>
+                    </div>
+                </div> 
+                <div class="bsite cf">
+                    <div class="bs-icon baidu"></div>
+                    {if:[user:bdmode]==0}
+                        <a class="layui-btn layui-btn-small openbtn" style="margin-top: 15px" href="{cscms:baidulink}">绑定</a>
+                        {else}
+                        <a class="layui-btn layui-btn-small layui-btn-danger openbtn" style="margin-top: 15px" href="javascript:;" onclick="user.open_del(3);">解绑</a>
+                    {end if}
+                    <div class="bs-mid">
+                        <strong>百度网账号</strong>
+                        <div>绑定百度网账号后，您便可使用百度网帐号登录网站</div>
+                    </div>
+                </div>
+                <div class="bsite cf">
+                    <div class="bs-icon renren"></div>
+                    {if:[user:rrmode]==0}
+                        <a class="layui-btn layui-btn-small openbtn" style="margin-top: 15px" href="{cscms:renrenlink}">绑定</a>
+                        {else}
+                        <a class="layui-btn layui-btn-small layui-btn-danger openbtn" style="margin-top: 15px" href="javascript:;" onclick="user.open_del(4);">解绑</a>
+                    {end if}
+                    <div class="bs-mid">
+                        <strong>人人网账号</strong>
+                        <div>绑定人人网账号后，您便可使用人人网账号登录网站</div>
+                    </div>
+                </div>
+                <div class="bsite cf">
+                    <div class="bs-icon kaixin"></div>
+                    {if:[user:kxmode]==0}
+                        <a class="layui-btn layui-btn-small openbtn" style="margin-top: 15px" href="{cscms:kaixinlink}">绑定</a>
+                        {else}
+                        <a class="layui-btn layui-btn-small layui-btn-danger openbtn" style="margin-top: 15px" href="javascript:;" onclick="user.open_del(5);">解绑</a>
+                    {end if}
+                    <div class="bs-mid">
+                        <strong>开心网账号</strong>
+                        <div>绑定开心网账号后，您便可使用开心网账号登录网站</div>
+                    </div>
+                    
+                </div>
+                <div class="bsite cf">
+                    <div class="bs-icon douban"></div>
+                    {if:[user:dbmode]==0}
+                        <a class="layui-btn layui-btn-small openbtn" style="margin-top: 15px" href="{cscms:doubanlink}">绑定</a>
+                        {else}
+                        <a class="layui-btn layui-btn-small layui-btn-danger openbtn" style="margin-top: 15px" href="javascript:;" onclick="user.open_del(6);">解绑</a>
+                    {end if}
+                    <div class="bs-mid">
+                        <strong>豆瓣网账号</strong>
+                        <div>绑定豆瓣网账号后，您便可使用豆瓣网账号登录网站</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {cscms:bottom}
+    <script type="text/javascript">
+        
+    </script>
+</body>
+</html>
