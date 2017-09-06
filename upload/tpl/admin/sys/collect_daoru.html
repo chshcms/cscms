@@ -31,7 +31,7 @@
         <div class="layui-form-item sid sid2" style="display: none;">
             <label class="layui-form-label"><?=L('tpl_cd_06')?></label>
             <div class="layui-input-inline" style="width: 145px;">
-                <input type="file" name="userfile" style="margin-left: 10px;" class="layui-upload-file">
+				<button style="margin-left: 10px;" class="layui-btn" id="upid"><?=L('tpl_cd_09')?></button>
             </div>
             <div class="layui-form-mid layui-word-aux info"></div>
         </div>
@@ -45,20 +45,18 @@
     <script type="text/javascript">
         cscms.init();
         layui.use('upload', function(){
-            layui.upload({
-                url: '<?=Web_Path.SELF?>/upload/caiji'
-                ,title: '<?=L('tpl_cd_09')?>'
-                ,ext: 'txt'
-                ,success: function(res){
-                    console.log(res);
+            layui.upload.render({
+				url: '<?=Web_Path.SELF?>/upload/caiji'
+				,elem:'#upid'
+				,exts: 'txt'
+				,done: function(res){
                     if(res.error==0){
-                        $('.sid2').append('<input type="hidden" name="filename" value="'+res.info.name+'">');
                         $('.info').html('<?=L('tpl_cd_10')?>');
                     }else{
                         cscms.layer.msg(res.info);
                     }
-                }
-            });
+				}
+			});
         });
     </script>
 </body>
