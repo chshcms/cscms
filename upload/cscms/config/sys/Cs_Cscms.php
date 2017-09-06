@@ -141,9 +141,10 @@ if(defined('MOBILE')){
 		    header("location:".$Web_Link);exit;
 		}
     }
-}else{
-	$Web_Link="http://".str_replace('//','/',Web_Url.Web_Path.cscms_cur_url());
+}
+if(!defined('MOBILE') || (defined('MOBILE') && Mobile_Win==0)){
 	if((Mobile_Is==0 || Mobile_Win==0) && $_SERVER['HTTP_HOST']==Mobile_Url){
+		$Web_Link="http://".str_replace('//','/',Web_Url.Web_Path.cscms_cur_url());
 		header("location:".$Web_Link);exit;
 	}
 }

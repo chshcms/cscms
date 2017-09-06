@@ -331,10 +331,11 @@ class Csskins extends CI_Model{
 						$dir=$arr[0];
 					}
 				}
-				if($dir=='' && defined('PLUBPATH')){
-					$dir=PLUBPATH;
+				if(PLUBPATH!='sys' && $dir!='sys' && $dir!='index'){
+					$dir = PLUBPATH;
 				}
-				if($dir==''){
+				$opt = str_replace($dir.'-','',$ArrBd[1][$i]);
+				if($dir=='' || $dir=='sys' || $dir=='index'){
 					$str=str_replace($ArrBd[0][$i],get_link('opt/'.$ArrBd[1][$i]),$str);
 				}else{
 					$opt=str_replace($dir.'-','',$ArrBd[1][$i]);
