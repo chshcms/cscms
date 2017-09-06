@@ -27,37 +27,54 @@ class Upload extends Cscms_Controller {
 		}
 	    $nums=intval($this->input->get('nums')); //支持数量
 	    $types=$this->input->get('type',true);  //支持格式
+        $types = (empty($types) || $types == 'undefined') ? "gif,png,jpg,jpeg" : $types;
+        $dir=$this->input->get('dir',true);   //上传目录
         $data['tsid']=$this->input->get('tsid',true); //返回提示ID
         $data['sid']=intval($this->input->get('sid')); //返回输入框方法，0替换、1换行增加
-        $data['dir']=$this->input->get('dir',true);   //上传目录
         $data['fid']=$this->input->get('fid',true);   //返回ID，一个页面多个返回可以用到
         $data['upsave']=site_url('upload/up_save');
-        $data['size'] = UP_Size;
-		$data['types'] = (empty($types))?"*":$types;
+        $data['size'] = UP_Size.'kb';
+		$data['types'] = str_replace(array(';*.',';','*.','='),array(',','','',''),$types);
         $data['nums']=($nums==0)?1:$nums;
-		if($data['fid']=='undefined') $data['fid']='';
-		if($data['tsid']=='undefined') $data['tsid']='';
-		if($data['types']=='undefined') $data['types']='*';
-		if($data['dir']=='undefined') $data['dir']='other';
+		if($data['fid']==='undefined') $data['fid']='';
+		if($data['tsid']==='undefined') $data['tsid']='';
+		if($data['dir']==='undefined') $data['dir']='other';
 		$str['fid']=$rowu->fid;
 		$str['id']=$_SESSION['cscms__id'];
 		$str['login']=$_SESSION['cscms__login'];
-        $data['key'] = sys_auth(addslashes(serialize($str)),'E');
+        $key = sys_auth(addslashes(serialize($str)),'E');
+        $params = array();
+        if(UP_Mode == 3){ //七牛
+        	$this->load->library('csup');
+	        $token = $this->csup->qiniu_uptoken();
+	        $params['token'] = $token;
+	        $data['dir'] = date('Ymd').'/';
+	        $data['upsave'] = 'http://upload.qiniu.com/';
+        }elseif(UP_Mode == 4){ //阿里云OSS
+        	$this->load->library('csup');
+	        $params = $this->csup->osssign();
+	        $data['dir'] = date('Ymd').'/';
+	        $data['upsave'] = $params['host'];
+        }else{ //本地
+	        $params['dir'] = $dir;
+	        $params['upkey'] = $key;
+        }
+        $data['params'] = json_encode($params);
 		$this->load->get_templates('common');
         $this->load->view('upload.html',$data);
 	}
 
     //保存附件
 	public function up_save(){
-        $key=$this->input->post('key',true);
+        $key=$this->input->post('upkey',true);
         if(!$this->Csuser->User_Login(1,$key)){
-             exit('No Login');
+             getjson('No Login',1,1);
 		}
 		//检测会员组上传附件权限
 		$key   = unserialize(stripslashes(sys_auth($key,'D')));
         $fid   = isset($key['fid'])?intval($key['fid']):0;
 		if($fid==0){
-             exit('You do not have permission to upload attachments of group members!');
+             getjson('You do not have permission to upload attachments of group members!',1,1);
 		}
         $dir=$this->input->post('dir',true);
 		if(empty($dir) || !preg_match('/^[0-9a-zA-Z\_]*$/', $dir)) {  
@@ -73,22 +90,30 @@ class Upload extends Cscms_Controller {
 		if (!is_dir($path)) {
             mkdirss($path);
         }
-		$tempFile = $_FILES['Filedata']['tmp_name'];
-		$file_name = $_FILES['Filedata']['name'];
+		$tempFile = $_FILES['file']['tmp_name'];
+		$file_name = $_FILES['file']['name'];
 		$file_size = filesize($tempFile);
         $file_ext = strtolower(trim(substr(strrchr($file_name, '.'), 1)));
+        $file_type = $_FILES['file']['type'];
+
+        //判断文件MIME类型
+        $mimes = get_mimes();
+		if(!is_array($mimes[$file_ext])) $mimes[$file_ext] = array($mimes[$file_ext]);
+        if(isset($mimes[$file_ext]) && $file_type !== false && !in_array($file_type,$mimes[$file_ext],true)){
+        	getjson(L('up_02'),1,1);
+        }
 
         //检查扩展名
 		$ext_arr = explode("|", UP_Type);
         if(!in_array($file_ext,$ext_arr,true)){
-            exit(escape(L('up_02')));
+            getjson(L('up_02'),1,1);
 		}elseif(in_array($file_ext, array('gif', 'jpg', 'jpeg', 'jpe', 'png'), TRUE) && @getimagesize($tempFile) === FALSE){
-            exit(escape(L('up_03')));
+            getjson(L('up_03'),1,1);
 		}
 
         //PHP上传失败
-        if (!empty($_FILES['Filedata']['error'])) {
-            switch($_FILES['Filedata']['error']){
+        if (!empty($_FILES['file']['error'])) {
+            switch($_FILES['file']['error']){
 	            case '1':$error = L('up_04');break;
 	            case '2':$error = L('up_05');break;
 	            case '3':$error = L('up_06');break;
@@ -98,7 +123,7 @@ class Upload extends Cscms_Controller {
 	            case '8':$error = 'File upload stopped by extension。';break;
 	            case '999':default:$error = L('up_10');
             }
-            exit(escape($error));
+            getjson($error,1,1);
         }
         //新文件名
         //$file_name=date("YmdHis") . rand(10000, 99999) . '.' . $file_ext;
@@ -127,14 +152,14 @@ class Upload extends Cscms_Controller {
 							$filepath = annexlink($filepath);
 						}
 					}
-				    exit('ok=cscms='.$filepath);
+					getjson(array('msg'=>'ok','fileurl'=>$filepath),1,1);
 				}else{
 					@unlink($file_path);
-                    exit('no');
+                    getjson('no',1,1);
 				}
 
 		}else{ //上传失败
-			  exit('no');
+			  getjson('no',1,1);
 		}
 	}
 
