@@ -327,11 +327,11 @@ class Csskins extends CI_Model{
 				$dir='';
 				if(strpos($ArrBd[1][$i],'-') !== FALSE){
 					$arr=explode('-',$ArrBd[1][$i]);
-					if(!empty($arr[0]) && is_dir(FCPATH.'plugins/'.$arr[0])){
+					if(!empty($arr[0]) && is_dir(FCPATH.'plugins'.FGF.$arr[0])){
 						$dir=$arr[0];
 					}
 				}
-				if(PLUBPATH!='sys' && $dir!='sys' && $dir!='index'){
+				if($dir=='' && PLUBPATH!='sys'){
 					$dir = PLUBPATH;
 				}
 				$opt = str_replace($dir.'-','',$ArrBd[1][$i]);
