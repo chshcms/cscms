@@ -1,131 +1,159 @@
 <!doctype html>
 <html>
 <head>
-<meta charset=utf-8>
+<meta charset="utf-8">
 <title><?=L('login_title')?></title>
 <meta name="robots" content="noindex,nofollow">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <link rel="stylesheet" href="<?=Web_Path?>packs/layui/css/layui.css">
-    <link rel="stylesheet" href="<?=Web_Path?>packs/admin/css/font.css">
-	<link type="text/css" rel="stylesheet" href="<?=Web_Path?>packs/swfupload/swfupload.css" />
-    <link rel="stylesheet" href="<?=Web_Path?>packs/admin/css/style.css">
-    <script src="<?=Web_Path?>packs/js/jquery.min.js"></script>
-    <script src="<?=Web_Path?>packs/layui/layui.js"></script>
-	<script type="text/javascript" src="<?=Web_Path?>packs/swfupload/swfupload.js"></script>
-	<script type="text/javascript">
-var swfu;
+<link rel='stylesheet' href='<?=Web_Path?>packs/layui/css/layui.css'>
+<link rel="stylesheet" href="<?=Web_Path?>packs/webupload/plupload.css" />
+<script src="<?=Web_Path?>packs/js/jquery.min.js"></script>
+<script type="text/javascript" src="<?=Web_Path?>packs/webupload/plupload.full.min.js"></script>
+<script type="text/javascript">
+var uploader,len = 0,upnum = <?=$nums?>,up_params = <?=$params?>;
 $(document).ready(function(){
-	swfu = new SWFUpload({
-		flash_url:"<?=Web_Path?>packs/swfupload/swfupload.swf?"+Math.random(),
-		upload_url:"<?=$upsave?>",
-		file_post_name : "Filedata",
-		post_params:{"dir":"<?=$dir?>","fid":"<?=$fid?>","key":"<?=$key?>"},
-		file_size_limit:"<?=$size?>",
-		file_types:"<?=$types?>",
-		file_types_description:"All Files",
-		file_upload_limit:"<?=$nums?>",
-		custom_settings : {progressTarget : "fsUploadProgress",cancelButtonId : "btnCancel"},
-
-		button_image_url: "",
-		button_width: 75,
-		button_height: 28,
-		button_placeholder_id: "buttonPlaceHolder",
-		button_text_style: "",
-		button_text_top_padding: 3,
-		button_text_left_padding: 12,
-		button_window_mode: SWFUpload.WINDOW_MODE.TRANSPARENT,
-		button_cursor: SWFUpload.CURSOR.HAND,
-
-		file_dialog_start_handler : fileDialogStart,
-		file_queued_handler : fileQueued,
-		file_queue_error_handler:fileQueueError,
-		file_dialog_complete_handler:fileDialogComplete,
-		upload_progress_handler:uploadProgress,
-		upload_error_handler:uploadError,
-		upload_success_handler:uploadSuccess,
-		upload_complete_handler:uploadComplete
+	uploader = new plupload.Uploader({ 
+		runtimes: 'html5,flash,silverlight,html4',
+		browse_button: 'addnew',
+		url: "<?=$upsave?>",
+		multi_selection: upnum == 1 ? false : true,
+		flash_swf_url: '<?=Web_Path?>packs/webupload/Moxie.swf',
+		silverlight_xap_url: '<?=Web_Path?>packs/webupload/Moxie.xap',
+		filters: {
+			max_file_size: '<?=$size?>',
+			mime_types: [{title: "files", extensions: "<?=$types?>"}],
+			prevent_duplicates : true
+		},
+		init: {  
+			FilesAdded: function(up, files) {
+				var li = '',index = 1,no = 0;
+				plupload.each(files, function(file) {
+					if(index > upnum || (upnum==1 && len>0)){
+						up.removeFile(file);
+						no++;
+					}else{
+						li += '<div class="progressWrapper" id="' + file['id'] + '"><div class="progressContainer"><a class="progressCancel" onclick="get_updel(\'' + file['id'] + '\');" href="#" upid="' + file['id'] + '" style="visibility: visible;"> </a><div class="progressName">'+file['name']+'</div><div class="progressBarStatus">&nbsp;</div><div class="progressBarInProgress"></div></div></div>';
+						len++;
+					}
+					index++;
+				});
+				$("#fsUploadProgress").append(li); 
+				if(no>0){
+					parent.cscms.layer.msg('您最多只能上传'+upnum+'个文件',{icon:2});
+				}
+			},
+			BeforeUpload: function(up, file) {
+				get_params(up,file.name);
+			},
+			UploadProgress: function(up, file) {
+				var percent = file.percent;  
+				if(percent == 100){
+					$("#" + file.id).find(".progressBarStatus").text("上传完成，请稍后..");
+				}else{
+					$("#" + file.id).find('.progressBarInProgress').css({"width": percent + "%"});  
+					$("#" + file.id).find(".progressBarStatus").text("正在上传("+percent + " %)请稍后..");
+				}
+			},
+			FileUploaded: function(up, file, info) {
+				if(up_params.upkey === undefined){
+					var fhost = '<?=$fhhost?>';
+					var fileurl = fhost + up_params.key;
+					var msg = 'ok';
+				}else{
+					var data = JSON.parse(info.response);
+					var msg = unescape(data['msg']);
+					var fileurl = data['fileurl'];
+				}
+				var sid = <?=$sid?>;
+				if(msg=='ok'){
+					 if(sid==0){
+						parent.$('#<?=$fhid.$fid?>').val(fileurl);
+					 }else{
+						var text=parent.$('#<?=$fhid.$fid?>').val();
+						 if(text!='') text+="\n";
+						parent.$('#<?=$fhid.$fid?>').val(text+fileurl);
+					}
+					var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+					parent.layer.close(index); //再执行关闭   
+				} else {
+					 if(msg=='no') msg='上传失败~';
+					 parent.cscms.layer.msg(msg,{icon:2});
+					 location.reload();
+				}
+			},
+			Error: function(up, err) {
+				console.log(err.response);
+				if (err.code == -600) {
+					parent.cscms.layer.msg("选择的文件太大了",{icon:2});
+				} else if (err.code == -601) {
+					parent.cscms.layer.msg("选择的文件后缀不对",{icon:2});
+				} else if (err.code == -602) {
+					parent.cscms.layer.msg("这个文件已经上传过了",{icon:2});
+				} else {
+					parent.cscms.layer.msg(err.response,{icon:2});
+				}
+				location.reload();
+			}
+		}
 	});
-})
-function att_show(serverData,file){
-	var serverData = serverData.replace(/<div.*?<\/div>/g,'');
-	var data = serverData.split('=cscms=');
-	var sid=<?=$sid?>;
-    var msg=unescape(data[0]);
-	if(msg=='ok'){
-          var filename=unescape(data[1]);
-	     if(sid==0){
-	        parent.$('#<?=$fhid.$fid?>').val(filename);
-	     }else{
-	        var text=parent.$('#<?=$fhid.$fid?>').val();
-	         if(text!='') text+="\n";
-	        parent.$('#<?=$fhid.$fid?>').val(text+filename);
-	    }
-	    var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
-		parent.layer.close(index); //再执行关闭   
-	} else {
-	     if(msg=='no') msg='<?=L('tpl_u_01')?>';
-         alert(msg);
-		 location.reload();
-	}
+	function get_params(up,filename){
+		var pos = filename.lastIndexOf('.');
+		var suffix = '.jpg';
+		if (pos != -1) {
+			suffix = filename.substring(pos);
+		}
+		up_params.key = '<?=$dir?>' + random_string() + suffix;
+		new_multipart_params = up_params;
+		delete new_multipart_params.host;
+		up.setOption({
+			'multipart_params': new_multipart_params
+		});
+		return false;
+	};
+	uploader.init();
+});
+function get_updel(_id){
+    var filebnj = uploader.getFile(_id);
+	$("#" + _id).remove();
+	len--;
+	uploader.removeFile(filebnj);
+}
+function random_string(n) {
+　　n = n || 32;
+　　var chars = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678';   
+　　var maxPos = chars.length;
+　　var pwd = '';
+　　for (i = 0; i < n; i++) {
+    　　pwd += chars.charAt(Math.floor(Math.random() * maxPos));
+    }
+    return pwd;
 }
 </script>
 </head>
-<body id="upload_up">
-<div class="layui-tab" lay-filter="demo">
-	<ul class="layui-tab-title">
-		<li class="layui-this"><?=L('tpl_u_02')?></li>
-		<li><?=L('tpl_u_03')?></li>
-		<li><?=L('tpl_u_04')?></li>
+<body style="padding: 0px 10px">
+<div class="layui-tab" lay-filter="demo" style="box-shadow: none">
+	<ul class="layui-tab-title" >
+		<li class="layui-this">上传文件</li>
 	</ul>
 	<div class="layui-tab-content">
-		<div class="layui-tab-item layui-show">
+		<div class="layui-tab-item layui-show" style="padding-bottom: 10px">
 			<div id="cnt_0" class="dr_hide">
 				<div>
-					<div class="addnew" id="addnew">
-						<span id="buttonPlaceHolder"></span>
-					</div>
-					<input type="button" id="btupload" value="<?=L('tpl_u_05')?>" onClick="swfu.startUpload();" />
-					<div id="nameTip" class="onShow"> <?=L('tpl_u_06',array($nums,ceil($size/1024)))?></div>
+					<div class="addnew" id="addnew"></div>
+					<input type="button" id="btupload" value="开始上传" onClick="uploader.start();" />
+					<div id="nameTip" class="onShow">最多上传 <font color="red"><?=$nums?></font> 个文件,单文件最大 <font color="red"><?=ceil($size/1024)?></font> MB</div>
 					<div class="bk3"></div>
-					<div class="lh24"><?=L('tpl_u_07').str_replace(array(';', '*.'), array('、', ''), $types)?></div>
+					<div class="lh24">文件格式：<?=$types?></div>
 				</div> 	
 				<div class="bk10"></div>
-				<fieldset class="blue pad-10" id="swfupload">
-				<legend><?=L('tpl_u_08')?></legend>
+				<fieldset class="blue pad-10" id="swfupload" style="min-height: 60px">
+				<legend>文件列表</legend>
 				<ul class="attachment-list" id="fsUploadProgress">    
 				</ul>
 				</fieldset>
 			</div>
 		</div>
-		<div class="layui-tab-item">
-			<div class="layui-form-item">
-			    <label class="layui-form-label" style="width: 60px;"><?=L('tpl_u_09')?></label>
-			    <div class="layui-input-inline" style="margin-left: 0px;width: 250px;">
-			        <input type="text" name="url" id="url" class="layui-input" value="http://">
-			    </div>
-			    <div class="layui-input-inline" style="margin-left: 0px;width: auto;">
-			        <input onclick="att_show('ok=cscms='+$('#url').val());" class="layui-btn" type="button" name="button" value="提交">
-			    </div>
-			</div>
-		</div>
-		<div class="layui-tab-item">
-			<div id="cnt_2" class="dr_hide">
-				<iframe name="myfile" id="myfile" src="<?=site_url('upload/myattach')?>?ext=<?=str_replace(array(';', '*.'), array('|', ''), $types)?>" frameborder="false" scrolling="auto" style="overflow-x:hidden;border:none;height: 210px" width="100%" allowtransparency="true" id="myattach"></iframe>
-			</div>
-		</div>
-		<div id="att-status" class="hidden"></div>
-        <div id="att-status-del" class="hidden"></div>
 	</div>
 </div>
-<script src="<?=Web_Path?>packs/admin/js/cscms.js"></script>
-<script>
-cscms.init();
-$(document).ready(function() {
-	setInterval(function(){
-		$('#myfile').css('height', '210px');
-	},300);
-	
-});
-</script>
 </body>
 </html>

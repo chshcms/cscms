@@ -60,7 +60,7 @@ class Gbook extends Cscms_Controller {
 		               $arr['uida']=$row['id'];
 				       $sqlstr=$this->Csskins->cscms_sql($page_arr[1][0],$page_arr[2][0],$page_arr[0][0],$page_arr[3][0],'id',$arr,'');
 				       $nums=$this->db->query($sqlstr)->num_rows(); //总数量
-				       $Arr=spanajaxpage($sqlstr,$nums,$page_arr[3][0],$pagenum,'cscms_home_gbook',$page);
+				       $Arr=spanajaxpage($sqlstr,$nums,$page_arr[3][0],$pagenum,'cscms.home_gbook',$page);
 		               if($nums==0){
 			                $data_content.="";
 		               }else{

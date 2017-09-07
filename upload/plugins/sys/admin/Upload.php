@@ -139,6 +139,10 @@ class Upload extends Cscms_Controller {
 	        $params['upkey'] = $key;
         }
         $data['params'] = json_encode($params);
+		$data['fhhost'] = '';
+		if(UP_Mode>1 && ($dir=='music' || $dir=='video')){
+			$data['fhhost'] = $this->csup->down(UP_Mode);
+		}
         $this->load->view('upload.html',$data);
 	}
 
@@ -167,11 +171,13 @@ class Upload extends Cscms_Controller {
         $file_type = $_FILES['file']['type'];
 
         //判断文件MIME类型
-        $mimes = get_mimes();
-		if(!is_array($mimes[$file_ext])) $mimes[$file_ext] = array($mimes[$file_ext]);
-        if(isset($mimes[$file_ext]) && $file_type !== false && !in_array($file_type,$mimes[$file_ext],true)){
-        	getjson(L('plub_04'),1,1);
-        }
+        if($file_type != 'application/octet-stream'){
+			$mimes = get_mimes();
+			if(!is_array($mimes[$file_ext])) $mimes[$file_ext] = array($mimes[$file_ext]);
+			if(isset($mimes[$file_ext]) && $file_type !== false && !in_array($file_type,$mimes[$file_ext],true)){
+				getjson(L('plub_04'),1,1);
+			}
+		}
 
         //检查扩展名
 		$ext_arr = explode("|", UP_Type);

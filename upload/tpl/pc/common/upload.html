@@ -6,81 +6,141 @@
 <meta name="robots" content="noindex,nofollow">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <link rel='stylesheet' href='<?=Web_Path?>packs/layui/css/layui.css'>
-<link rel="stylesheet" href="<?=Web_Path?>packs/swfupload/swfupload.css" />
+<link rel="stylesheet" href="<?=Web_Path?>packs/webupload/plupload.css" />
 <script src="<?=Web_Path?>packs/js/jquery.min.js"></script>
 <script src="<?=Web_Path?>packs/js/cscms.js"></script>
-<script type="text/javascript" src="<?=Web_Path?>packs/swfupload/swfupload.js"></script>
+<script type="text/javascript" src="<?=Web_Path?>packs/webupload/plupload.full.min.js"></script>
 <script type="text/javascript">
 cscms.get_host();
-var swfu;
+var uploader,len = 0,upnum = <?=$nums?>,up_params = <?=$params?>;
 $(document).ready(function(){
-	swfu = new SWFUpload({
-		flash_url:"<?=Web_Path?>packs/swfupload/swfupload.swf?"+Math.random(),
-		upload_url:"<?=$upsave?>",
-		file_post_name : "Filedata",
-		post_params:{"dir":"<?=$dir?>","key":"<?=$key?>"},
-		file_size_limit:"<?=$size?>",
-		file_types:"<?=$types?>",
-		file_types_description:"All Files",
-		file_upload_limit:"<?=$nums?>",
-		file_queue_limit : "0",
-		custom_settings : {progressTarget : "fsUploadProgress",cancelButtonId : "btnCancel"},
-		debug: false,
-
-		button_image_url: "",
-		button_width: 75,
-		button_height: 28,
-		button_placeholder_id: "buttonPlaceHolder",
-		button_text_style: "",
-		button_text_top_padding: 3,
-		button_text_left_padding: 12,
-		button_window_mode: SWFUpload.WINDOW_MODE.TRANSPARENT,
-		button_cursor: SWFUpload.CURSOR.HAND,
-
-		file_dialog_start_handler : fileDialogStart,
-		file_queued_handler : fileQueued,
-		file_queue_error_handler:fileQueueError,
-		file_dialog_complete_handler:fileDialogComplete,
-		upload_progress_handler:uploadProgress,
-		upload_error_handler:uploadError,
-		upload_success_handler:uploadSuccess,
-		upload_complete_handler:uploadComplete
+	uploader = new plupload.Uploader({ 
+		runtimes: 'html5,flash,silverlight,html4',
+		browse_button: 'addnew',
+		url: "<?=$upsave?>",
+		multi_selection: upnum == 1 ? false : true,
+		flash_swf_url: '<?=Web_Path?>packs/webupload/Moxie.swf',
+		silverlight_xap_url: '<?=Web_Path?>packs/webupload/Moxie.xap',
+		filters: {
+			max_file_size: '<?=$size?>',
+			mime_types: [{title: "files", extensions: "<?=$types?>"}],
+			prevent_duplicates : true
+		},
+		init: {  
+			FilesAdded: function(up, files) {
+				var li = '',index = 1,no = 0;
+				plupload.each(files, function(file) {
+					if(index > upnum || (upnum==1 && len>0)){
+						up.removeFile(file);
+						no++;
+					}else{
+						li += '<div class="progressWrapper" id="' + file['id'] + '"><div class="progressContainer"><a class="progressCancel" onclick="get_updel(\'' + file['id'] + '\');" href="#" upid="' + file['id'] + '" style="visibility: visible;"> </a><div class="progressName">'+file['name']+'</div><div class="progressBarStatus">&nbsp;</div><div class="progressBarInProgress"></div></div></div>';
+						len++;
+					}
+					index++;
+				});
+				$("#fsUploadProgress").append(li); 
+				if(no>0){
+					parent.cscms.layer.msg('您最多只能上传'+upnum+'个文件',{icon:2});
+				}
+			},
+			BeforeUpload: function(up, file) {
+				get_params(up,file.name);
+			},
+			UploadProgress: function(up, file) {
+				var percent = file.percent;  
+				if(percent == 100){
+					$("#" + file.id).find(".progressBarStatus").text("上传完成，请稍后..");
+				}else{
+					$("#" + file.id).find('.progressBarInProgress').css({"width": percent + "%"});  
+					$("#" + file.id).find(".progressBarStatus").text("正在上传("+percent + " %)请稍后..");
+				}
+			},
+			FileUploaded: function(up, file, info) {
+				if(up_params.upkey === undefined){
+					var fhost = '<?=$fhhost?>';
+					var fileurl = fhost + up_params.key;
+					var msg = 'ok';
+				}else{
+					var data = JSON.parse(info.response);
+					var msg = unescape(data['msg']);
+					var fileurl = data['fileurl'];
+				}
+				var sid = <?=$sid?>;
+				if(msg=='ok'){
+					if(sid==0){
+						if(parent.$('#<?=$fid?>').length>0){
+							parent.$('#<?=$fid?>').val(fileurl);
+						}
+					}else{
+						if(parent.$('#<?=$fid?>').length>0){
+							var text=parent.$('#<?=$fid?>').val();
+							if(text!='') text+="\n";
+							parent.$('#<?=$fid?>').val(text+fileurl);
+								
+							if('<?=$fid?>'=='zpic'){
+								var html = '<img src="<?=Web_Path?>attachment/pic/'+fileurl+'"/>';
+								parent.$('#showpic').append(html);
+							}
+								
+						}
+					}
+					if(parent.$('#<?=$tsid?>').length>0){
+						  parent.$('#<?=$tsid?>').html('<font color=#0000ff><?=L('up_tpl_01')?></font>');
+					}
+					parent.cscms.layer.closeAll();
+				}else{
+					if(msg=='no') msg='上传失败';
+					parent.cscms.layer.msg(msg,{icon:2});
+					location.reload();
+				}
+			},
+			Error: function(up, err) {
+				console.log(err.response);
+				if (err.code == -600) {
+					parent.cscms.layer.msg("选择的文件太大了",{icon:2});
+				} else if (err.code == -601) {
+					parent.cscms.layer.msg("选择的文件后缀不对",{icon:2});
+				} else if (err.code == -602) {
+					parent.cscms.layer.msg("这个文件已经上传过了",{icon:2});
+				} else {
+					parent.cscms.layer.msg(err.response,{icon:2});
+				}
+				location.reload();
+			}
+		}
 	});
-})
-function att_show(serverData,file)
-{
-	var serverData = serverData.replace(/<div.*?<\/div>/g,'');
-	var data = serverData.split('=cscms=');
-	var sid=<?=$sid?>;
-    var msg=unescape(data[0]);
-	if(msg=='ok'){
-        var filename=data[1];
-	    if(sid==0){
-	        if(parent.$('#<?=$fid?>').length>0){
-	            parent.$('#<?=$fid?>').val(filename);
-		    }
-	    }else{
-	        if(parent.$('#<?=$fid?>').length>0){
-        		var text=parent.$('#<?=$fid?>').val();
-	            if(text!='') text+="\n";
-	            parent.$('#<?=$fid?>').val(text+filename);
-		            
-	        	if('<?=$fid?>'=='zpic'){
-	        		var html = '<img src="<?=Web_Path?>attachment/pic/'+filename+'"/>';
-	        		parent.$('#showpic').append(html);
-	        	}
-		            
-		    }
-	    }
-	    if(parent.$('#<?=$tsid?>').length>0){
-	          parent.$('#<?=$tsid?>').html('<font color=#0000ff><?=L('up_tpl_01')?></font>');
-	    }
-	    parent.cscms.layer.closeAll();
-	}else{
-	    if(msg=='no') msg='上传失败';
-	    parent.cscms.layer.msg(msg,{icon:2});
-		location.reload();
-	}
+	function get_params(up,filename){
+		var pos = filename.lastIndexOf('.');
+		var suffix = '.jpg';
+		if (pos != -1) {
+			suffix = filename.substring(pos);
+		}
+		up_params.key = '<?=$dir?>' + random_string() + suffix;
+		new_multipart_params = up_params;
+		delete new_multipart_params.host;
+		up.setOption({
+			'multipart_params': new_multipart_params
+		});
+		return false;
+	};
+	uploader.init();
+});
+function get_updel(_id){
+    var filebnj = uploader.getFile(_id);
+	$("#" + _id).remove();
+	len--;
+	uploader.removeFile(filebnj);
+}
+function random_string(n) {
+　　n = n || 32;
+　　var chars = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678';   
+　　var maxPos = chars.length;
+　　var pwd = '';
+　　for (i = 0; i < n; i++) {
+    　　pwd += chars.charAt(Math.floor(Math.random() * maxPos));
+    }
+    return pwd;
 }
 </script>
 </head>
@@ -93,13 +153,11 @@ function att_show(serverData,file)
 		<div class="layui-tab-item layui-show" style="padding-bottom: 10px">
 			<div id="cnt_0" class="dr_hide">
 				<div>
-					<div class="addnew" id="addnew">
-						<span id="buttonPlaceHolder"></span>
-					</div>
-					<input type="button" id="btupload" value="开始上传" onClick="swfu.startUpload();" />
+					<div class="addnew" id="addnew"></div>
+					<input type="button" id="btupload" value="开始上传" onClick="uploader.start();" />
 					<div id="nameTip" class="onShow">最多上传 <font color="red"><?=$nums?></font> 个文件,单文件最大 <font color="red"><?=ceil($size/1024)?></font> MB</div>
 					<div class="bk3"></div>
-					<div class="lh24"><?='文件格式：'.str_replace(array(';', '*.'), array('、', ''), $types)?></div>
+					<div class="lh24">文件格式：<?=$types?></div>
 				</div> 	
 				<div class="bk10"></div>
 				<fieldset class="blue pad-10" id="swfupload" style="min-height: 60px">
@@ -109,10 +167,7 @@ function att_show(serverData,file)
 				</fieldset>
 			</div>
 		</div>
-		<div id="att-status" class="hidden"></div>
-        <div id="att-status-del" class="hidden"></div>
 	</div>
 </div>
 </body>
 </html>
-
