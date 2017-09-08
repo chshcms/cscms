@@ -252,14 +252,7 @@ class Csdb extends CI_Model{
     //创建表
     function get_table ($sql){
 		//创建数据库
-		$lnk=@mysql_connect(CS_Sqlserver,CS_Sqluid,CS_Sqlpwd);
-		if(!$lnk){
-			$this->Csadmin->Admin_Url('<font color=red>抱歉,数据库连接失败！</font>','javascript:history.back();');
-			exit();
-		}
-		mysql_select_db(CS_Sqlname,$lnk);
-		mysql_query("SET NAMES ".CS_Sqlcharset."", $lnk);
-		mysql_query($sql, $lnk);
+		$this->db->query($sql);
 	}
 
     //获取任意字段信息
