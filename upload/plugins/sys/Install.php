@@ -56,9 +56,6 @@ class Install extends Cscms_Controller {
                          $this->db->query("DROP TABLE IF EXISTS `".$table."`");
 					  }
 				}
-				$lnk=@mysql_connect(CS_Sqlserver,CS_Sqluid,CS_Sqlpwd);
-				@mysql_select_db(CS_Sqlname,$lnk);
-	            @mysql_query("SET NAMES ".CS_Sqlcharset, $lnk);
                 //导入数据表
 	            $sql=read_file("./packs/install/cscms_table.sql");
                 $sql=str_replace('{Prefix}',CS_SqlPrefix,$sql);
@@ -68,7 +65,7 @@ class Install extends Cscms_Controller {
                      $datasql=explode("--",$sqlarr[$i]);
                      $sql=explode("<cscms>",$sqlarr[$i]);
 					 if(!empty($sql[1])){
-		                 @mysql_query($sql[1], $lnk);
+		                 $this->db->query($sql[1]);
 					 }
                      $str.=@$datasql[1];
 	            }
@@ -78,7 +75,7 @@ class Install extends Cscms_Controller {
 	            $sqlarr=explode("#cscms#",$sql);
 	            for($i=0;$i<count($sqlarr);$i++){
 					if(!empty($sqlarr[$i])){
-		                 @mysql_query($sqlarr[$i], $lnk);
+		                 $this->db->query($sqlarr[$i]);
 					}
 	            }
                 $data['str']=str_replace('cs_',CS_SqlPrefix,$str);
@@ -164,42 +161,78 @@ class Install extends Cscms_Controller {
  	            $dbname = rawurldecode($_GET['dbname']);
  	            $dbprefix = rawurldecode($_GET['dbprefix']);
 				if(empty($dbdriver)) $dbdriver='mysql';
+				if($dbdriver=='mysqli'){
+					$mysqli = new mysqli($dbhost,$dbuser,$dbpwd);
+					if(mysqli_connect_errno()){
+						exit('2');
+					}else{
+						if(!$mysqli->select_db($dbname)){
+							if(!$mysqli->query("CREATE DATABASE `".$dbname."`")){
+								 exit('3');
+							}
+					    }
+					    mysqli_select_db($dbname);
+						//修改数据库配置
+						$this->load->helper('string');
+						$CS_Encryption_Key='cscms_'.random_string('alnum',10);
+						//修改数据库配置文件
+						$config=read_file(CSCMS.'sys'.FGF.'Cs_DB.php');
+						$config=preg_replace("/'CS_Sqlserver','(.*?)'/","'CS_Sqlserver','".$dbhost."'",$config);
+						$config=preg_replace("/'CS_Sqlname','(.*?)'/","'CS_Sqlname','".$dbname."'",$config);
+						$config=preg_replace("/'CS_Sqluid','(.*?)'/","'CS_Sqluid','".$dbuser."'",$config);
+						$config=preg_replace("/'CS_Sqlpwd','(.*?)'/","'CS_Sqlpwd','".$dbpwd."'",$config);
+						$config=preg_replace("/'CS_Dbdriver','(.*?)'/","'CS_Dbdriver','".$dbdriver."'",$config);
+						$config=preg_replace("/'CS_SqlPrefix','(.*?)'/","'CS_SqlPrefix','".$dbprefix."'",$config);
+						$config=preg_replace("/'CS_Encryption_Key','(.*?)'/","'CS_Encryption_Key','".$CS_Encryption_Key."'",$config);
+						if(!write_file(CSCMS.'sys'.FGF.'Cs_DB.php', $config)) exit('5');
 
-                $lnk=@mysql_connect($dbhost,$dbuser,$dbpwd);
-                if(!$lnk) {
-                         exit('2');
-                }else{
-                   if(!mysql_select_db($dbname)){
-                        if(!@mysql_query("CREATE DATABASE `".$dbname."`")){
-                             exit('3');
-                        }
-                   }
-				   if(mysql_select_db($dbname)){
-					    //修改数据库配置
-                        $this->load->helper('string');
-                        $CS_Encryption_Key='cscms_'.random_string('alnum',10);
-                        //修改数据库配置文件
-	                    $config=read_file(CSCMS.'sys'.FGF.'Cs_DB.php');
-	                    $config=preg_replace("/'CS_Sqlserver','(.*?)'/","'CS_Sqlserver','".$dbhost."'",$config);
-	                    $config=preg_replace("/'CS_Sqlname','(.*?)'/","'CS_Sqlname','".$dbname."'",$config);
-	                    $config=preg_replace("/'CS_Sqluid','(.*?)'/","'CS_Sqluid','".$dbuser."'",$config);
-	                    $config=preg_replace("/'CS_Sqlpwd','(.*?)'/","'CS_Sqlpwd','".$dbpwd."'",$config);
-	                    $config=preg_replace("/'CS_Dbdriver','(.*?)'/","'CS_Dbdriver','".$dbdriver."'",$config);
-	                    $config=preg_replace("/'CS_SqlPrefix','(.*?)'/","'CS_SqlPrefix','".$dbprefix."'",$config);
-	                    $config=preg_replace("/'CS_Encryption_Key','(.*?)'/","'CS_Encryption_Key','".$CS_Encryption_Key."'",$config);
-	                    if(!write_file(CSCMS.'sys'.FGF.'Cs_DB.php', $config)) exit('5');
+						$tables = array();
+						$query = $mysqli->query("SHOW TABLES FROM `".$dbname."`");
+						while($r = mysqli_fetch_row($query)) {
+							$tables[] = $r[0];
+						}
+						if(!empty($tables) && in_array($dbprefix.'plugins', $tables)) {
+							exit('1');
+						}
+						exit('0');
+					}
+				}else{
+					$lnk=@mysql_connect($dbhost,$dbuser,$dbpwd);
+					if(!$lnk) {
+						exit('2');
+					}else{
+					   if(!mysql_select_db($dbname)){
+							if(!@mysql_query("CREATE DATABASE `".$dbname."`")){
+								 exit('3');
+							}
+					   }
+					   if(mysql_select_db($dbname)){
+							//修改数据库配置
+							$this->load->helper('string');
+							$CS_Encryption_Key='cscms_'.random_string('alnum',10);
+							//修改数据库配置文件
+							$config=read_file(CSCMS.'sys'.FGF.'Cs_DB.php');
+							$config=preg_replace("/'CS_Sqlserver','(.*?)'/","'CS_Sqlserver','".$dbhost."'",$config);
+							$config=preg_replace("/'CS_Sqlname','(.*?)'/","'CS_Sqlname','".$dbname."'",$config);
+							$config=preg_replace("/'CS_Sqluid','(.*?)'/","'CS_Sqluid','".$dbuser."'",$config);
+							$config=preg_replace("/'CS_Sqlpwd','(.*?)'/","'CS_Sqlpwd','".$dbpwd."'",$config);
+							$config=preg_replace("/'CS_Dbdriver','(.*?)'/","'CS_Dbdriver','".$dbdriver."'",$config);
+							$config=preg_replace("/'CS_SqlPrefix','(.*?)'/","'CS_SqlPrefix','".$dbprefix."'",$config);
+							$config=preg_replace("/'CS_Encryption_Key','(.*?)'/","'CS_Encryption_Key','".$CS_Encryption_Key."'",$config);
+							if(!write_file(CSCMS.'sys'.FGF.'Cs_DB.php', $config)) exit('5');
 
-		                $tables = array();
-		                $query = mysql_query("SHOW TABLES FROM `".$dbname."`");
-		                while($r = mysql_fetch_row($query)) {
-			                $tables[] = $r[0];
-		                }
-		                if($tables && in_array($dbprefix.'plugins', $tables)) {
-                            exit('1');
-		                }
-				   }
-                   exit('0');
-                }
+							$tables = array();
+							$query = mysql_query("SHOW TABLES FROM `".$dbname."`");
+							while($r = mysql_fetch_row($query)) {
+								$tables[] = $r[0];
+							}
+							if(!empty($tables) && in_array($dbprefix.'plugins', $tables)) {
+								exit('1');
+							}
+					   }
+					   exit('0');
+					}
+				}
             }
 	}
 }
