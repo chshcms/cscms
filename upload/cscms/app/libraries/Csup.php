@@ -73,10 +73,10 @@ class Csup {
 			if($linkurl!=''){
                 if(substr($linkurl,0,7)!='http://' && substr($linkurl,0,8)!='https://') $linkurl = "http://".$linkurl;
 			}else{
-                $linkurl = is_ssl().CS_Qn_Bk.".qiniudn.com";
+                $linkurl = is_ssl().CS_Qn_Bk.".qiniudn.com/";
 			}
         }elseif($ids==4){  //阿里云
-              $linkurl = is_ssl().CS_Os_Bk.".oss-cn-hangzhou.aliyuncs.com";
+              $linkurl = is_ssl().CS_Os_Bk.".oss-cn-hangzhou.aliyuncs.com/";
         }elseif($ids==5){  //又拍云
               $linkurl = CS_Upy_Url;
 			  if(substr($linkurl,0,7)!='http://' && substr($linkurl,0,8)!='https://') $linkurl = "http://".$linkurl;
@@ -157,7 +157,7 @@ class Csup {
 		}elseif(UP_Mode==5){ //又拍云
             return $this->upyundel($file_path);
         }else{
-			  if(substr($file_path,0,7)=='http://'){
+			  if(substr($file_path,0,7)=='http://' || substr($file_path,0,8)=='https://'){
 		          return true;
 			  }
 			  if(UP_Pan!=''){
@@ -318,6 +318,46 @@ class Csup {
     		return false;
 		}
     }
+
+    //阿里云表单上传获取签名
+    public function osssign(){
+	    $now = time();
+	    $expire = 1800; //设置有效时间
+	    $end = $now + $expire;
+	    //生成到期时间
+	    $dtStr = date("c", $end);
+        $mydatetime = new DateTime($dtStr);
+        $expiration = $mydatetime->format(DateTime::ISO8601);
+        $pos = strpos($expiration, '+');
+        $expiration = substr($expiration, 0, $pos)."Z";
+	    $condition = array(0=>'content-length-range', 1=>0, 2=>UP_Size*1024);
+	    $conditions[] = $condition; 
+	    $start = array(0=>'starts-with', 1=>CS_Os_Ak, 2=>'');
+	    $conditions[] = $start; 
+	    $arr = array('expiration'=>$expiration,'conditions'=>$conditions);
+
+	    $policy = json_encode($arr);
+	    $base64_policy = base64_encode($policy);
+	    $string_to_sign = $base64_policy;
+	    $signature = base64_encode(hash_hmac('sha1', $string_to_sign, CS_Os_Ak, true));
+
+	    $response = array();
+	    $response['host'] = is_ssl().CS_Os_Bk.'.oss-cn-hangzhou.aliyuncs.com';
+	    $response['policy'] = $base64_policy;
+	    $response['OSSAccessKeyId'] = CS_Os_Ai;
+	    $response['signature'] = $signature;
+	    $response['success_action_status'] = 200;
+	    $response['callback'] = '';
+	    return $response;
+    }
+
+    //七牛表单上传token
+	public function qiniu_uptoken(){
+		require_once CSPATH.'uploads/qiniu/io.php';
+		require_once CSPATH.'uploads/qiniu/rs.php';
+		Qiniu_SetKeys(CS_Qn_Ak, CS_Qn_Sk);
+		$putPolicy = new Qiniu_RS_PutPolicy(CS_Qn_Bk);
+		$upToken = $putPolicy->Token(null);
+   		return $upToken;
+    }
 }
-
-

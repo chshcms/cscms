@@ -34,10 +34,12 @@ if(!defined('IS_ADMIN') && User_Mode==0 && strpos(REQUEST_URI,'user') !== FALSE)
 	die(User_No_info);
 }
 //手机客户端访问标示
-if(preg_match("/(iPhone|iPad|iPod|Android)/i", strtoupper($_SERVER['HTTP_USER_AGENT']))){
+if(preg_match("/(iPhone|iPad|iPod|Linux|Android)/i", strtoupper($_SERVER['HTTP_USER_AGENT']))){
     if(Mobile_Is==1 && !defined('IS_ADMIN')){
 	    define('MOBILE', true);	
 	}
+}else{
+	define('PCWIN', true);	
 }
 //手机二级域名
 if(Mobile_Is==1 && $_SERVER['HTTP_HOST']==Mobile_Url){
@@ -142,8 +144,9 @@ if(defined('MOBILE')){
 		}
     }
 }
-if(!defined('MOBILE') || (defined('MOBILE') && Mobile_Win==0)){
-	if((Mobile_Is==0 || Mobile_Win==0) && $_SERVER['HTTP_HOST']==Mobile_Url){
+//判断电脑端访问手机域名
+if(defined('PCWIN') && defined('MOBILE') && Mobile_Win==0){
+	if(Mobile_Is==0 || (Mobile_Url!='' && $_SERVER['HTTP_HOST']==Mobile_Url)){
 		$Web_Link="http://".str_replace('//','/',Web_Url.Web_Path.cscms_cur_url());
 		header("location:".$Web_Link);exit;
 	}

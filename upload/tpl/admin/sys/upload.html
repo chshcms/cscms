@@ -8,6 +8,7 @@
 <link rel='stylesheet' href='<?=Web_Path?>packs/layui/css/layui.css'>
 <link rel="stylesheet" href="<?=Web_Path?>packs/webupload/plupload.css" />
 <script src="<?=Web_Path?>packs/js/jquery.min.js"></script>
+<script src="<?=Web_Path?>packs/layui/layui.js"></script>
 <script type="text/javascript" src="<?=Web_Path?>packs/webupload/plupload.full.min.js"></script>
 <script type="text/javascript">
 var uploader,len = 0,upnum = <?=$nums?>,up_params = <?=$params?>;
@@ -64,22 +65,7 @@ $(document).ready(function(){
 					var msg = unescape(data['msg']);
 					var fileurl = data['fileurl'];
 				}
-				var sid = <?=$sid?>;
-				if(msg=='ok'){
-					 if(sid==0){
-						parent.$('#<?=$fhid.$fid?>').val(fileurl);
-					 }else{
-						var text=parent.$('#<?=$fhid.$fid?>').val();
-						 if(text!='') text+="\n";
-						parent.$('#<?=$fhid.$fid?>').val(text+fileurl);
-					}
-					var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
-					parent.layer.close(index); //再执行关闭   
-				} else {
-					 if(msg=='no') msg='上传失败~';
-					 parent.cscms.layer.msg(msg,{icon:2});
-					 location.reload();
-				}
+				get_ok(msg,fileurl);
 			},
 			Error: function(up, err) {
 				console.log(err.response);
@@ -128,32 +114,79 @@ function random_string(n) {
     }
     return pwd;
 }
+function get_ok(msg,fileurl){
+	var sid = <?=$sid?>;
+	if(msg=='ok'){
+		 if(sid==0){
+			parent.$('#<?=$fhid.$fid?>').val(fileurl);
+		 }else{
+			var text=parent.$('#<?=$fhid.$fid?>').val();
+			 if(text!='') text+="\n";
+			parent.$('#<?=$fhid.$fid?>').val(text+fileurl);
+		}
+		var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+		parent.layer.close(index); //再执行关闭   
+	} else {
+		 if(msg=='no') msg='上传失败~';
+		 parent.cscms.layer.msg(msg,{icon:2});
+		 location.reload();
+	}
+}
 </script>
 </head>
-<body style="padding: 0px 10px">
-<div class="layui-tab" lay-filter="demo" style="box-shadow: none">
-	<ul class="layui-tab-title" >
-		<li class="layui-this">上传文件</li>
+<body id="upload_up" style="padding: 0px 10px">
+<div class="layui-tab" lay-filter="demo">
+	<ul class="layui-tab-title">
+		<li class="layui-this"><?=L('tpl_u_02')?></li>
+		<li><?=L('tpl_u_03')?></li>
+		<li><?=L('tpl_u_04')?></li>
 	</ul>
 	<div class="layui-tab-content">
-		<div class="layui-tab-item layui-show" style="padding-bottom: 10px">
+		<div class="layui-tab-item layui-show">
 			<div id="cnt_0" class="dr_hide">
 				<div>
-					<div class="addnew" id="addnew"></div>
-					<input type="button" id="btupload" value="开始上传" onClick="uploader.start();" />
-					<div id="nameTip" class="onShow">最多上传 <font color="red"><?=$nums?></font> 个文件,单文件最大 <font color="red"><?=ceil($size/1024)?></font> MB</div>
+					<div class="addnew" id="addnew">
+						<span id="buttonPlaceHolder"></span>
+					</div>
+					<input type="button" id="btupload" value="<?=L('tpl_u_05')?>" onClick="uploader.start();" />
+					<div id="nameTip" class="onShow"> <?=L('tpl_u_06',array($nums,ceil($size/1024)))?></div>
 					<div class="bk3"></div>
-					<div class="lh24">文件格式：<?=$types?></div>
+					<div class="lh24"><?=L('tpl_u_07').$types?></div>
 				</div> 	
 				<div class="bk10"></div>
-				<fieldset class="blue pad-10" id="swfupload" style="min-height: 60px">
-				<legend>文件列表</legend>
+				<fieldset class="blue pad-10" id="swfupload">
+				<legend><?=L('tpl_u_08')?></legend>
 				<ul class="attachment-list" id="fsUploadProgress">    
 				</ul>
 				</fieldset>
 			</div>
 		</div>
+		<div class="layui-tab-item">
+			<div class="layui-form-item">
+			    <label class="layui-form-label" style="width: 60px;"><?=L('tpl_u_09')?></label>
+			    <div class="layui-input-inline" style="margin-left: 0px;width: 250px;">
+			        <input type="text" name="url" id="url" class="layui-input" value="http://">
+			    </div>
+			    <div class="layui-input-inline" style="margin-left: 0px;width: auto;">
+			        <input onclick="get_ok('ok',$('#url').val());" class="layui-btn" type="button" name="button" value="提交">
+			    </div>
+			</div>
+		</div>
+		<div class="layui-tab-item">
+			<div id="cnt_2" class="dr_hide">
+				<iframe name="myfile" id="myfile" src="<?=site_url('upload/myattach')?>?ext=<?=str_replace(',','|', $types)?>" frameborder="false" scrolling="auto" style="overflow-x:hidden;border:none;height: 210px" width="100%" allowtransparency="true" id="myattach"></iframe>
+			</div>
+		</div>
 	</div>
 </div>
+<script src="<?=Web_Path?>packs/admin/js/cscms.js"></script>
+<script>
+cscms.init();
+$(document).ready(function() {
+	setInterval(function(){
+		$('#myfile').css('height', '210px');
+	},300);
+});
+</script>
 </body>
 </html>

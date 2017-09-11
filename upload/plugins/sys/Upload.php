@@ -49,13 +49,14 @@ class Upload extends Cscms_Controller {
 	        $token = $this->csup->qiniu_uptoken();
 	        $params['token'] = $token;
 	        $data['dir'] = date('Ymd').'/';
-	        $data['upsave'] = 'http://upload.qiniu.com/';
+	        $data['upsave'] = is_ssl().'upload.qiniu.com/';
         }elseif(UP_Mode == 4){ //阿里云OSS
         	$this->load->library('csup');
 	        $params = $this->csup->osssign();
 	        $data['dir'] = date('Ymd').'/';
 	        $data['upsave'] = $params['host'];
         }else{ //本地
+	        $data['dir'] = $dir;
 	        $params['dir'] = $dir;
 	        $params['upkey'] = $key;
         }

@@ -12,7 +12,6 @@
     <script src="<?=Web_Path?>packs/js/jquery.min.js"></script>
     <script src="<?=Web_Path?>packs/layui/layui.js"></script>
     <script src="<?=Web_Path?>packs/admin/js/cscms.js"></script>
-    
 </head>
 <table class="layui-table" lay-even lay-skin="nob">
     <thead>
@@ -27,11 +26,23 @@
               echo '<tr><td><img align="absmiddle" src="'.$dirs[$i]['icon'].'">&nbsp;<a href="'.$dirs[$i]['link'].'/">'.$dirs[$i]['name'].'</a></td></tr>';
         } 
         for ($j=0; $j<count($show); $j++) {
-              $pic=($show[$j]['ext']=='jpg' || $show[$j]['ext']=='bmp' || $show[$j]['ext']=='gif' || $show[$j]['ext']=='png')?' Cstip="<DIV align=\'center\'><img src=\''.$show[$j]['link'].'\' onload=\'ResizeImages(this,200,200);\'></DIV>"':'';
-              echo '<tr><td><img align="absmiddle" src="'.$show[$j]['icon'].'">&nbsp;<a '.$pic.' href="javascript:;" onclick="parent.att_show(\'ok=cscms='.$show[$j]['link'].'\')">'.$show[$j]['name'].'</a></td></tr>';
+			  $pic = '';
+			  if($show[$j]['ext']=='pic'){
+				$pic='<div style="position: absolute; bottom: 30px; left: 32px; width: 100px; height: 100px; display: none; background-color: #fff;z-index: 2;padding: 5px;"><img src=\''.$show[$j]['link'].'\'></div>';
+			  }
+              echo '<tr><td style="position:relative;">'.$pic.'<img align="absmiddle" src="'.$show[$j]['icon'].'">&nbsp;<a class="'.$show[$j]['ext'].'" href="javascript:;" onclick="parent.get_ok(\'ok\',\''.$show[$j]['link'].'\')">'.$show[$j]['name'].'</a></td></tr>';
         } 
         ?>
     </tbody>
 </table>
+<script>
+$(document).ready(function(){
+	$('.pic').hover( function(){ 
+		$(this).siblings('div').show(); 
+	}, function(){  
+		$(this).siblings('div').hide(); 
+	});
+});
+</script>
 </body>
 </html>
