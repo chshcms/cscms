@@ -39,7 +39,7 @@ if(preg_match("/(iPhone|iPad|iPod|Linux|Android)/i", strtoupper($_SERVER['HTTP_U
 	    define('MOBILE', true);	
 	}
 }else{
-	define('PCWIN', true);	
+	define('PCWIN', true);
 }
 //手机二级域名
 if(Mobile_Is==1 && $_SERVER['HTTP_HOST']==Mobile_Url){
