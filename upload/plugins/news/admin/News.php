@@ -92,6 +92,7 @@ class News extends Cscms_Controller {
             }
         }else{
             $row = $this->Csdb->get_row_arr('news_verify','*',$id);
+			$this->dt($id,'news_verify');
             if($row['did']==0){
                 unset($row['id']);
             }else{
@@ -254,7 +255,7 @@ class News extends Cscms_Controller {
 			$data['addtime']=time();
             $this->Csdb->get_insert('news',$data);
 		}else{
-			if($yid==0) $this->dt($id);
+			if($yid==0) $this->dt($id,$table);
             if($addtime=='ok') $data['addtime']=time();
             $this->Csdb->get_update($table,$id,$data);
 		}
@@ -600,10 +601,10 @@ class News extends Cscms_Controller {
 	}
 
 	//审核文章增加积分、经验、同时动态显示
-	public function dt($id,$sid=0){
+	public function dt($id,$table='news',$sid=0){
 		$dt=$this->db->query("SELECT id,yid,name FROM ".CS_SqlPrefix."dt where link='".linkurl('show','id',$id,1,'news')."'")->row();
 		if($dt){
-              $uid=getzd('news','uid',$id);
+              $uid=getzd($table,'uid',$id);
 			  if($sid>0){ //删除回收站
 
 				  $str='';

@@ -10,6 +10,7 @@ class Down extends Cscms_Controller {
 	function __construct(){
 		parent::__construct();
 		$this->load->model('Cstpl');
+	    $this->load->helper('vod');
 		$this->load->model('Csuser');
 	}
 
@@ -34,11 +35,11 @@ class Down extends Cscms_Controller {
 		    msg_url('出错了，该数据不存在或者没有审核！',Web_Path);
 		}
 		if(empty($row['durl'])){
-		    msg_url('该视频下载地址不正确！',Web_Path);
+		    msg_url('该视频没有下载地址！',Web_Path);
 		}
 
 		//判断收费
-		if($row['vip']>0 || $row['level']>0 || $row['cion']>0 || User_YkDown==0){
+		if(($row['vip']>0 || $row['level']>0 || $row['cion']>0) && User_YkDown==0){
 			$this->Csuser->User_Login();
 			$rowu=$this->Csdb->get_row_arr('user','vip,zid,zutime,level,cion',$_SESSION['cscms__id']);
 			if($rowu['zutime']<time()){
@@ -135,14 +136,17 @@ class Down extends Cscms_Controller {
 		$arr['cid']=getChild($row['cid']);
 		$arr['uid']=$row['uid'];
 		$arr['tags']=$row['tags'];
+		$zdy['[vod:tags]'] = tagslink($row['tags']);
 		unset($row['tags']);
 
-		$zdy['[vod:tags]'] = tagslink($row['tags']);
 		$zdy['[vod:pl]'] = get_pl('vod',$id);
 		$zdy['[vod:link]'] = LinkUrl('show','id',$row['id'],1,'vod');
 		$zdy['[vod:classlink]'] = LinkUrl('lists','id',$row['cid'],1,'vod');
 		$zdy['[vod:classname]'] = getzd('vod_list','name',$row['cid']);
+
+
 		//输出下载地址
+		require_once CSCMS.'vod/down.php';
 		$Data_Arr=explode("#cscms#",$row['durl']);
 		if($zu>=count($Data_Arr)) $zu=0;
 		$DataList_Arr=explode("\n",$Data_Arr[$zu]);
@@ -154,9 +158,17 @@ class Down extends Cscms_Controller {
 		if(substr($url,0,11)=='attachment/') $url=annexlink($url);
 		$zdy['[down:url]'] = $url;
 		$zdy['[down:laiy]'] = $laiyuan;
+		$zdy['[down:laiyname]'] = '来源不存在';
 		$zdy['[down:ji]'] = $pname;
+		for ($i=0; $i<count($down_config); $i++) {
+	        if($down_config[$i]['form'] == $laiyuan){
+	        	$zdy['[down:laiyname]'] = $down_config[$i]['name'];
+	        	break;
+	        }
+	    }
 
 		//装载模板并输出
-		$this->Cstpl->plub_show('vod',$row,$arr,false,'down.html',$row['name'],$row['name'],'','',$zdy);
+		$cacheid = 'vod_down_'.$id.'_'.$zy.'_'.$ji;
+		$this->Cstpl->plub_show('vod',$row,$arr,false,'down.html',$row['name'],$row['name'],'',$cacheid,$zdy);
 	}
 }

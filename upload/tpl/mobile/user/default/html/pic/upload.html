@@ -1,65 +1,115 @@
-
-<!DOCTYPE html>
+<!doctype html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<title><?=L('login_title')?></title>
-		<meta name="robots" content="noindex,nofollow">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-		<link rel="stylesheet" href="<?=Web_Path?>packs/layui/css/layui.css">
-		<link type="text/css" rel="stylesheet" href="<?=Web_Path?>packs/mbupload/Huploadify.css?v=1.2" />
-		<script src="<?=Web_Path?>packs/js/jquery.min.js"></script>
-		<script src="<?=Web_Path?>packs/layui/layui.js"></script>
-		<script src="<?=Web_Path?>packs/js/cscms.js"></script>
-		<script type="text/javascript" src="<?=Web_Path?>packs/mbupload/jquery.Huploadify.js"></script>
-		<script type="text/javascript">
-		cscms.get_host();
-		var len = 0;
-		$(function(){
-			$('#upload').Huploadify({
-				auto:true,
-				fileTypeExts:'*.jpeg;*.jpg;*.png;*.gif;*.bmp;',
-				multi:true,
-				fileSizeLimit:204800,
-				formData:{"dir":"<?=$dir?>","key":"<?=$key?>","cid":"<?=$cid?>","sid":"<?=$sid?>"},
-				fileObjName:'Filedata',
-				showUploadedPercent:true,//是否实时显示上传的百分比，如20%
-				showUploadedSize:true,
-				removeTimeout:9999999,
-				uploader:"<?=$upsave?>",
-				onUploadStart:function(){
-					
-				},
-				onInit:function(){
-					
-				},
-				onUploadComplete:function(data,responseText){
-					var msg = JSON.parse(responseText);
-					len++;
-					if(msg['msg']=='ok'){
-						parent.cscms.layer.msg('恭喜你，'+len+'张图片上传成功',{icon:1});
+<head>
+<meta charset="utf-8">
+<title><?=L('login_title')?></title>
+<meta name="robots" content="noindex,nofollow">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<link rel='stylesheet' href='<?=Web_Path?>packs/layui/css/layui.css'>
+<link rel="stylesheet" href="<?=Web_Path?>packs/webupload/plupload.css" />
+<script src="<?=Web_Path?>packs/js/jquery.min.js"></script>
+<script src="<?=Web_Path?>packs/js/cscms.js"></script>
+<script type="text/javascript" src="<?=Web_Path?>packs/webupload/plupload.full.min.js"></script>
+<script type="text/javascript">
+cscms.get_host();
+var uploader,len = 0,upnum = <?=$nums?>;
+$(document).ready(function(){
+	uploader = new plupload.Uploader({ 
+		runtimes: 'html5,flash,silverlight,html4',
+		browse_button: 'addnew',
+		url: "<?=$upsave?>",
+		multi_selection: true,
+		flash_swf_url: '<?=Web_Path?>packs/webupload/Moxie.swf',
+		silverlight_xap_url: '<?=Web_Path?>packs/webupload/Moxie.xap',
+		multipart_params: <?=$params?>,
+		filters: {
+			max_file_size: '<?=$size?>',
+			mime_types: [{title: "files", extensions: "<?=$types?>"}],
+			prevent_duplicates : true
+		},
+		init: {  
+			FilesAdded: function(up, files) {
+				var li = '',index = 1,no = 0;
+				plupload.each(files, function(file) {
+					if(index > upnum || (upnum==1 && len>0)){
+						up.removeFile(file);
+						no++;
 					}else{
-						parent.cscms.layer.msg('抱歉上传失败,请刷新重试',{icon:2});
+						li += '<div class="progressWrapper" id="' + file['id'] + '"><div class="progressContainer"><a class="progressCancel" onclick="get_updel(\'' + file['id'] + '\');" href="#" upid="' + file['id'] + '" style="visibility: visible;"> </a><div class="progressName">'+file['name']+'</div><div class="progressBarStatus">&nbsp;</div><div class="progressBarInProgress"></div></div></div>';
+						len++;
 					}
-					setTimeout(function(){
-						var index = parent.layer.getFrameIndex(window.name);
-						parent.layer.close(index);
-					},2000);
-				},
-				onDelete:function(file){
-					console.log('删除的文件：'+file);
-					console.log(file);
-				}
+					index++;
 				});
-			});
-		</script>
-	</head>
-	<body style="padding: 0px 10px">
-		<div id="upload"></div>
-	</body>
-	<script>
-		cscms.init();
-	</script>
+				$("#fsUploadProgress").append(li); 
+				if(no>0){
+					parent.cscms.layer.msg('您最多只能上传'+upnum+'个文件',{icon:2});
+				}
+			},
+			UploadProgress: function(up, file) {
+				var percent = file.percent;  
+				if(percent == 100){
+					$("#" + file.id).find(".progressBarStatus").text("上传完成，请稍后..");
+				}else{
+					$("#" + file.id).find('.progressBarInProgress').css({"width": percent + "%"});  
+					$("#" + file.id).find(".progressBarStatus").text("正在上传("+percent + " %)请稍后..");
+				}
+			},
+			FileUploaded: function(up, file, info) {
+				var msg = unescape(info.response);
+				if(msg=='ok'){
+					parent.cscms.layer.msg('恭喜你，'+file['name']+'上传成功',{icon:1});
+				}else{
+					parent.cscms.layer.msg('抱歉，'+file['name']+'上传失败',{icon:2});
+				}
+				get_updel(file['id']);
+			},
+			Error: function(up, err) {
+				if (err.code == -600) {
+					parent.cscms.layer.msg("选择的文件太大了",{icon:2});
+				} else if (err.code == -601) {
+					parent.cscms.layer.msg("选择的文件后缀不对",{icon:2});
+				} else if (err.code == -602) {
+					parent.cscms.layer.msg("这个文件已经上传过了",{icon:2});
+				} else {
+					parent.cscms.layer.msg(err.response,{icon:2});
+				}
+			}
+		}
+	});
+	uploader.init();
+});
+function get_updel(_id){
+    var filebnj = uploader.getFile(_id);
+	$("#" + _id).remove();
+	len--;
+	uploader.removeFile(filebnj);
+}
+</script>
+</head>
+<body style="padding: 0px 10px">
+<div class="layui-tab" lay-filter="demo" style="box-shadow: none">
+	<ul class="layui-tab-title" >
+		<li class="layui-this">上传文件</li>
+	</ul>
+	<div class="layui-tab-content">
+		<div class="layui-tab-item layui-show" style="padding-bottom: 10px">
+			<div id="cnt_0" class="dr_hide">
+				<div>
+					<div class="addnew" id="addnew"></div>
+					<input type="button" id="btupload" value="开始上传" onClick="uploader.start();" />
+					<div id="nameTip" class="onShow">最多上传 <font color="red"><?=$nums?></font> 个文件,单文件最大 <font color="red"><?=ceil($size/1024)?></font> MB</div>
+					<div class="bk3"></div>
+					<div class="lh24">文件格式：<?=$types?></div>
+				</div> 	
+				<div class="bk10"></div>
+				<fieldset class="blue pad-10" id="swfupload" style="min-height: 60px">
+				<legend>文件列表</legend>
+				<ul class="attachment-list" id="fsUploadProgress">    
+				</ul>
+				</fieldset>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
 </html>
-
-

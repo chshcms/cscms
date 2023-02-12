@@ -43,16 +43,10 @@ class Playsong extends Cscms_Controller {
 	    $callback = $this->input->get('callback',true);
         $Arr=explode(',',$ids);
         $lists=array();
-        $zd = $this->input->get_post('zd',TRUE);
-        $zdarr = array();
-        if(!empty($zd)){
-            $zdarr = explode(',',$zd);
-            $zd = ','.$zd;
-        }
         for($j=0;$j<count($Arr);$j++){
             $id=intval($Arr[$j]);
 			if($id>0){
-			    $row=$this->db->query("select id,cid,singerid,name,tid,fid,purl,sc,lrc,dhits".$zd." from ".CS_SqlPrefix."dance where id=".$id."")->row();
+			    $row=$this->db->query("select * from ".CS_SqlPrefix."dance where id=".$id."")->row();
 			    if($row){
 				    $lrc=str_checkhtml($row->lrc);
                     if(empty($lrc)) $lrc='0';
@@ -111,13 +105,7 @@ class Playsong extends Cscms_Controller {
         $num = intval($this->input->get_post('num'));
         $num = $num<1 || $num>100 ? 30 : $num;
         $lists=array();
-        $zd = $this->input->get_post('zd',TRUE);
-        $zdarr = array();
-        if(!empty($zd)){
-            $zdarr = explode(',',$zd);
-            $zd = ','.$zd;
-        }
-        $result=$this->db->query("select id,singerid,name,tid,fid,purl,sc,lrc".$zd." from ".CS_SqlPrefix."dance order by rand() desc LIMIT ".$num);
+        $result=$this->db->query("select * from ".CS_SqlPrefix."dance order by rand() desc LIMIT ".$num);
 		$j=0;
 		foreach ($result->result() as $row) {
 		    $lrc=str_checkhtml($row->lrc);
@@ -173,12 +161,6 @@ class Playsong extends Cscms_Controller {
         header("Pragma: no-cache");
         if(empty($_SERVER['HTTP_REFERER'])){exit('QQ:848769359');}
 		$lists=array();
-        $zd = $this->input->get_post('zd',TRUE);
-        $zdarr = array();
-        if(!empty($zd)){
-            $zdarr = explode(',',$zd);
-            $zd = ','.$zd;
-        }
 	    $callback = $this->input->get('callback',true);
         $num = intval($this->input->get_post('num'));
         $num = $num<1 || $num>100 ? 30 : $num;
@@ -190,7 +172,7 @@ class Playsong extends Cscms_Controller {
         $result=$this->db->query("select did from ".CS_SqlPrefix."dance_fav where uid='".$_SESSION['cscms__id']."' order by id desc LIMIT ".$num);
 		$j=0;
 		foreach ($result->result() as $row2) {
-           $row=$this->db->query("select id,singerid,name,tid,fid,purl,sc,lrc".$zd." from ".CS_SqlPrefix."dance where id=".$row2->did."")->row();
+           $row=$this->db->query("select * from ".CS_SqlPrefix."dance where id=".$row2->did."")->row();
 
 		   if($row){
 
@@ -268,13 +250,7 @@ class Playsong extends Cscms_Controller {
 	    $callback = $this->input->get('callback',true);
         $lists=array();
         $row2=$this->db->query("select cid from ".CS_SqlPrefix."dance where id='".$id."'")->row();
-        $zd = $this->input->get_post('zd',TRUE);
-        $zdarr = array();
-        if(!empty($zd)){
-            $zdarr = explode(',',$zd);
-            $zd = ','.$zd;
-        }
-        $result2=$this->db->query("select id,singerid,name,tid,fid,purl,sc,lrc".$zd." from ".CS_SqlPrefix."dance where cid=".$row2->cid." order by rand() desc LIMIT ".$num);
+        $result2=$this->db->query("select * from ".CS_SqlPrefix."dance where cid=".$row2->cid." order by rand() desc LIMIT ".$num);
 		$j=0;
 		foreach ($result2->result() as $row) {
 		    $lrc=str_checkhtml($row->lrc);

@@ -20,7 +20,7 @@ class Gbook extends Cscms_Controller {
 	}
 
     //留言列表
-	public function lists($ac='',$page=1){
+	public function lists($page=1){
 	    //关闭数据库缓存
         $this->db->cache_off();
 	    $callback = $this->input->get('callback',true);
@@ -63,3 +63,4 @@ class Gbook extends Cscms_Controller {
 		getjson($error);
 	}
 }
+

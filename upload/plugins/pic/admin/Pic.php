@@ -85,6 +85,7 @@ class Pic extends Cscms_Controller {
             }
         }else{
             $row = $this->Csdb->get_row_arr('pic_verify','*',$id);
+			$this->dt($id,'pic_verify');
             if($row['did']==0){
                 unset($row['id']);
             }else{
@@ -167,7 +168,7 @@ class Pic extends Cscms_Controller {
 			$data['addtime']=time();
             $this->Csdb->get_insert('pic',$data);
 		}else{
-			if($yid==0) $this->dt($id);
+			if($yid==0) $this->dt($id,$table);
             if($addtime=='ok') $data['addtime']=time();
             $this->Csdb->get_update($table,$id,$data);
 		}
@@ -300,11 +301,11 @@ class Pic extends Cscms_Controller {
 	}
 
 	//审核图片增加积分、经验、同时动态显示
-	public function dt($id,$yid=0){
+	public function dt($id,$table='pic',$yid=0){
 	    $sid=getzd('pic','sid',$id);
 		$dt=$this->db->query("SELECT id,yid,name FROM ".CS_SqlPrefix."dt where link='".linkurl('show','id',$sid,1,'pic')."'")->row();
 		if($dt){
-              $uid=getzd('pic','uid',$id);
+              $uid=getzd($table,'uid',$id);
 			  if($yid>0){ //删除回收站
 
 				  $str='';

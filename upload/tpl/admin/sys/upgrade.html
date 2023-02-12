@@ -45,7 +45,7 @@
                     $v = (CS_Version == $cscms_update[$i]['v'] && CS_Uptime==$update)?'<b><font class="colorl">'.L('tpl_10').'</font></b>':'';
 
                     $uplink = ((CS_Version < $cscms_update[$i]['v']) ||  (CS_Version == $cscms_update[$i]['v'] && CS_Uptime<$update))?'<a href="javascript:cscms.confirm_url(\''.site_url('upgrade/init').'?id='.$cscms_update[$i]['id'].'\',\''.L('tpl_11').'\');"><i class="fa fa-send colord" style="font-size:16px;"></i></a>':'--';
-                    $downlink=((CS_Version < $cscms_update[$i]['v']) ||  (CS_Version == $cscms_update[$i]['v'] && CS_Uptime<$update))?'<a href="http://www.chshcms.com/down/xia/utf8/'.$cscms_update[$i]['id'].'.html"><i class="fa fa-download colorn" style="font-size:16px;"></i></a>':'--';
+                    $downlink=((CS_Version < $cscms_update[$i]['v']) ||  (CS_Version == $cscms_update[$i]['v'] && CS_Uptime<$update))?'<a href="http://www.chshcms.net/product/updatezip/'.$cscms_update[$i]['id'].'/down.html"><i class="fa fa-download colorn" style="font-size:16px;"></i></a>':'--';
                     if((CS_Version < $cscms_update[$i]['v']) ||  (CS_Version == $cscms_update[$i]['v'] && CS_Uptime<$update)){
                         $sign++;
                         $cls = 'hide upgrade'.$sign;
@@ -59,7 +59,7 @@
                         <td class="phide">'.formatsize($cscms_update[$i]['size']).'</td>
                         <td align="center">'.$uplink.'</td>
                         <td class="phide" align="center">'.$downlink.'</td>
-                        <td class="phide" align="center"><a class="layui-btn layui-btn-mini" href="http://www.chshcms.com/down/show/'.$cscms_update[$i]['id'].'.html" target="_blank" title="'.L('tpl_12').'">'.L('tpl_13').'</a></td></tr>';
+                        <td class="phide" align="center"><a class="layui-btn layui-btn-mini" href="http://www.chshcms.net/product/update/'.$cscms_update[$i]['id'].'.html" target="_blank" title="'.L('tpl_12').'">'.L('tpl_13').'</a></td></tr>';
                }
             } 
             ?>

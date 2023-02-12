@@ -514,7 +514,6 @@ if ( ! is_php('5.4'))
 	// Mark a start point so we can benchmark the controller
 	$BM->mark('controller_execution_time_( '.$class.' / '.$method.' )_start');
 	$CI = new $class();
-	eval(cs_base64_decode('aWYoUExVQlBBVEggIT0gJ3N5cycpew0KCQkJCSRBID0gZ2V0emQoJ3BsdWdpbnMnLCdhaycsUExVQlBBVEgsJ2RpcicpOw0KCQkJCWlmKGVtcHR5KCRBKSkgbXNnX3R4dCgnPGZvbnQgY29sb3I9cmVkPicuUExVQlBBVEguJzwvZm9udD6w5r_pydDOtMXk1sOjrMfr1NrU2rrzzKjF5NbDsOa_6X4hJyxXZWJfUGF0aCk7DQoJCQkJJEIgPSB1bmFycmF5c3RyaW5nKHN5c19hdXRoKCRBLCdEJykpOw0KCQkJCWlmKGVtcHR5KCRCKSB8fCBlbXB0eSgkQlsnbWQ1J10pIHx8IG1kNShQTFVCUEFUSC4kQlsna2V5J10uaG9zdF95bSgxKSkhPSRCWydtZDUnXSl7DQoJCQkJCW1zZ190eHQoJzxmb250IGNvbG9yPXJlZD4nLlBMVUJQQVRILic8L2ZvbnQ-sOa_6crayKhLRVmyu9X9yLcsx-vBqs-1v6q3otXfu_HIocrayKhLRVl-ITxicj48YnI-xPq_ydLU1Nq688yos6LK1NbY0MLF5NbDz8Kw5r_pfqOhJyxXZWJfUGF0aCk7DQoJCQkJfQ0KICAgIAkJfQ'));
 /*
  * ------------------------------------------------------
  *  Is there a "post_controller_constructor" hook?

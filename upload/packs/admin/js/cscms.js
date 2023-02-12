@@ -2,7 +2,7 @@
  * Cscms后台脚本
  * www.chshcms.com
  */
-var CSCMSAPI   = 'http://upgrade.chshcms.com/';
+var CSCMSAPI   = '//api.chshcms.net/cscms/';
 var gc;
 var layid = 1;//tab的ID
 var vcls_id = 0;
@@ -1149,3 +1149,4 @@ $(function(){
       }).blur();
   	};
 })
+

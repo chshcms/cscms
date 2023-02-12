@@ -14,23 +14,6 @@ class Picadd extends Cscms_Controller {
 		$this->load->helper('string');
 	}
 
-	function picContent($sign){
-		$id = (int)$this->input->get_post('id');
-		if($id<1) getjson('参数错误~！');
-		if($sign==0){
-			$row = getzd('pic','content',$id);
-			if($row=='NULL') getjson('图片不存在~!');
-			getjson($row,0);
-		}else{
-			$content = $this->input->post('content',true,true);
-			$res = $this->db->update('pic',array('content'=>$content),array('id'=>$id));
-			if($res){
-				getjson('',0);
-			}else{
-				getjson('数据异常，请刷新重试');
-			}
-		}
-	}
 	//上传附件
 	public function index(){
         if(!$this->Csuser->User_Login(1)){
@@ -54,12 +37,12 @@ class Picadd extends Cscms_Controller {
 
 	    $nums=intval($this->input->get('nums')); //支持数量
 	    $types=$this->input->get('type',true);  //支持格式
+        $dir = $this->input->get('dir',true);   //上传目录
         $data['tsid']=$this->input->get('tsid',true); //返回提示ID
-        $data['dir']=$this->input->get('dir',true);   //上传目录
         $data['fid']=$this->input->get('fid',true);   //返回ID，一个页面多个返回可以用到
         $data['upsave']=site_url('pic/user/picadd/up_save');
-        $data['size'] = UP_Size;
-		$data['types'] = (empty($types))?"*":$types;
+        $data['size'] = UP_Size.'kb';
+        $data['types'] =(empty($types))?"gif,png,jpg,jpeg":str_replace(array(';*.',';','*.'),array(',','',''),$types);
         $data['nums']=($nums==0)?1:$nums;
 		if($data['fid']=='undefined') $data['fid']='';
 		if($data['tsid']=='undefined') $data['tsid']='';
@@ -72,13 +55,17 @@ class Picadd extends Cscms_Controller {
 		$str['pname'] = $rows->name;
 		$str['id']=$_SESSION['cscms__id'];
 		$str['login']=$_SESSION['cscms__login'];
-        $data['key'] = sys_auth(addslashes(serialize($str)),'E');
+        $key = sys_auth(addslashes(serialize($str)),'E');
+        $params = array();
+		$params['dir'] = $dir;
+		$params['upkey'] = $key;
+        $data['params'] = json_encode($params);
         $this->load->view('upload.html',$data);
 	}
 
     //保存附件
 	public function up_save(){
-        $key=$this->input->post('key',true);
+        $key=$this->input->post('upkey',true);
         if(!$this->Csuser->User_Login(1,$key)){
             exit('No Login');
 		}
@@ -108,10 +95,18 @@ class Picadd extends Cscms_Controller {
 		if (!is_dir($path)) {
             mkdirss($path);
         }
-		$tempFile = $_FILES['Filedata']['tmp_name'];
-		$file_name = $_FILES['Filedata']['name'];
+		$tempFile = $_FILES['file']['tmp_name'];
+		$file_name = $_FILES['file']['name'];
 		$file_size = filesize($tempFile);
         $file_ext = strtolower(trim(substr(strrchr($file_name, '.'), 1)));
+        $file_type = $_FILES['file']['type'];
+
+        //判断文件MIME类型
+        $mimes = get_mimes();
+		if(!is_array($mimes[$file_ext])) $mimes[$file_ext] = array($mimes[$file_ext]);
+        if(isset($mimes[$file_ext]) && $file_type !== false && !in_array($file_type,$mimes[$file_ext],true)){
+        	exit(escape(L('up_02')));
+        }
 
         //检查扩展名
 		$ext_arr = explode("|", UP_Type);
@@ -124,8 +119,8 @@ class Picadd extends Cscms_Controller {
 			}
 		}
         //PHP上传失败
-        if (!empty($_FILES['Filedata']['error'])) {
-            switch($_FILES['Filedata']['error']){
+        if (!empty($_FILES['file']['error'])) {
+            switch($_FILES['file']['error']){
 	            case '1':$error = L('up_04');break;
 	            case '2':$error = L('up_05');break;
 	            case '3':$error = L('up_06');break;
@@ -172,7 +167,6 @@ class Picadd extends Cscms_Controller {
 				 }
 			}
 
-
             //判断水印
             if($dir!='links' && CS_WaterMark==1){
 				if($file_ext=='jpg' || $file_ext=='png' || $file_ext=='gif' || $file_ext=='bmp' || $file_ext=='jpge'){
@@ -188,14 +182,32 @@ class Picadd extends Cscms_Controller {
 				if(UP_Mode==1 && ($dir=='music' || $dir=='video')){
 				    $filepath='attachment/'.$dir.$filepath;
 				}
-				$arr['msg'] = 'ok';
-			    exit(json_encode($arr));
+				exit('ok');
 			}else{
 				@unlink($file_path);
                 exit('no');
 			}
 		}else{ //上传失败
 			exit('no');
+		}
+	}
+
+	//修改介绍
+	function picContent($sign){
+		$id = (int)$this->input->get_post('id');
+		if($id<1) getjson('参数错误~！');
+		if($sign==0){
+			$row = getzd('pic','content',$id);
+			if($row=='NULL') getjson('图片不存在~!');
+			getjson($row,0);
+		}else{
+			$content = $this->input->post('content',true,true);
+			$res = $this->db->update('pic',array('content'=>$content),array('id'=>$id));
+			if($res){
+				getjson('',0);
+			}else{
+				getjson('数据异常，请刷新重试');
+			}
 		}
 	}
 }

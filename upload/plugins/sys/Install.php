@@ -160,6 +160,7 @@ class Install extends Cscms_Controller {
  	            $dbpwd = rawurldecode($_GET['dbpwd']);
  	            $dbname = rawurldecode($_GET['dbname']);
  	            $dbprefix = rawurldecode($_GET['dbprefix']);
+				if(is_numeric($dbname)) exit('6');
 				if(empty($dbdriver)) $dbdriver='mysql';
 				if($dbdriver=='mysqli'){
 					$mysqli = new mysqli($dbhost,$dbuser,$dbpwd);
@@ -171,7 +172,7 @@ class Install extends Cscms_Controller {
 								 exit('3');
 							}
 					    }
-					    mysqli_select_db($dbname);
+						mysqli_select_db($dbname);
 						//修改数据库配置
 						$this->load->helper('string');
 						$CS_Encryption_Key='cscms_'.random_string('alnum',10);
@@ -185,7 +186,6 @@ class Install extends Cscms_Controller {
 						$config=preg_replace("/'CS_SqlPrefix','(.*?)'/","'CS_SqlPrefix','".$dbprefix."'",$config);
 						$config=preg_replace("/'CS_Encryption_Key','(.*?)'/","'CS_Encryption_Key','".$CS_Encryption_Key."'",$config);
 						if(!write_file(CSCMS.'sys'.FGF.'Cs_DB.php', $config)) exit('5');
-
 						$tables = array();
 						$query = $mysqli->query("SHOW TABLES FROM `".$dbname."`");
 						while($r = mysqli_fetch_row($query)) {

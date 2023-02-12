@@ -386,6 +386,14 @@ function str_encode($str){
 			$str=str_replace(">","&gt;",$str);
 			$str=str_replace("\"","&quot;",$str);
 			$str=str_replace("'",'&#039;',$str);
+			$str=str_replace('{','&#123;',$str);
+			$str=str_replace('}','&#125;',$str);
+			$str=str_replace("$","&#36;",$str);
+			$str=str_replace("(","&#40;",$str);
+			$str=str_replace(")","&#41;",$str);
+			if(!defined('IS_ADMIN')){
+				$str=str_replace("cscmsphp",'',$str);
+			}
 		}
 	}
 	return $str;
@@ -457,6 +465,7 @@ function str_checkhtml($str,$sql=0) {
 }
 //xss过滤函数
 function remove_xss($val) { 
+	$val = str_replace('cscmsphp','',$val);
 	$ci = &get_instance();
 	$vaule = $ci->security->xss_clean($val);
 	return $vaule; 
@@ -720,7 +729,7 @@ function arr_file_edit($arr,$file=''){
 }
 //加入全局核心JS
 function cs_addjs($Mark_Text){
-	if(strpos($Mark_Text,'</title>') !== FALSE){
+	if(strpos($Mark_Text,'</title>') !== FALSE && strpos($Mark_Text,'<html mip>') === FALSE){
 	    $view = explode('</title>',$Mark_Text); 
 	    $Mark_Text=$view[0]."</title>\r\n<script type='text/javascript'>var cscms_path='".is_ssl().Web_Url.Web_Path."';</script>\r\n<link rel='stylesheet' href='".Web_Path."packs/layui/css/layui.css?v=2.0'>\r\n<script type='text/javascript' src='".Web_Path."packs/layui/layui.js?v=2.0'></script>\r\n<script type='text/javascript' src='".Web_Path."packs/js/jquery.min.js'></script>\r\n<script type='text/javascript' src='".Web_Path."packs/js/cscms.js?v=2.1'></script>";
 	    if(count($view)>1) $Mark_Text.=$view[1];
@@ -729,6 +738,7 @@ function cs_addjs($Mark_Text){
 }
 //给模板加入增加人气JS
 function hits_js($Mark_Text,$jslink){
+	if(strpos($Mark_Text,'<html mip>') !== FALSE) return $Mark_Text;
 	$js="<script type='text/javascript'>cscms.inc_js('".$jslink."');</script>";
 	if(strpos($Mark_Text,'</body>') !== FALSE){
 		$view = explode('</body>',$Mark_Text); 
@@ -859,15 +869,19 @@ function filter($str){
 }
 //中文分词
 function gettag($title,$content=''){
-	if(empty($content)) $content = $title;
-	$url = 'http://ictclas.nlpir.org/nlpir/index5/getKeyWords.do';
-	$post = 'content='.sub_str($content,500);
-	$head = "Origin:http://ictclas.nlpir.org \r\nReferer:http://ictclas.nlpir.org/nlpir/";
-	$option = array('http'=>array('method'=>'POST','header'=>$head,'content'=>$post)); 
-	$xoption = stream_context_create($option);  
-	$json = file_get_contents($url, false, $xoption);
-	$arr = json_decode($json,1);
-	$tags = array_filter(explode('#',$arr['keywords']));
+	return '';
+	$content = sub_str($content,200);
+	$url = 'http://api.pullword.com/get.php?source='.urlencode($title.$content).'&param1=1&param2=0';
+	$text = trim(file_get_contents($url));
+	$text = str_replace("\r", "",$text);
+	$arr = array_filter(explode("\n", $text));
+	$len = count($arr) >10 ? 10 : count($arr);
+	$tags = array();
+	for($i=0;$i<$len;$i++){
+		if(!empty($arr[$i]) && $arr[$i]!='error'){
+			$tags[] = $arr[$i];
+		}
+	}
 	if(!empty($tags)){
 		return get_bm(implode(',',$tags));
 	}else{

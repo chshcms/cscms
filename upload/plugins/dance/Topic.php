@@ -35,6 +35,7 @@ class Topic extends Cscms_Controller {
 		$zdy['[topic:zlink]'] = LinkUrl('topic','zhou',0,$page,'dance');
 		$zdy['[topic:ylink]'] = LinkUrl('topic','yue',0,$page,'dance');
 		$zdy['[topic:slink]'] = LinkUrl('topic','fav',0,$page,'dance');
+		$zdy['[topic:name]'] = '全部分类';
 		//装载模板并输出
         $this->Cstpl->plub_list($row,0,$fid,$page,'',false,'topic.html','topic','','歌曲专辑','歌曲专辑','',$zdy);
 	}
@@ -70,7 +71,7 @@ class Topic extends Cscms_Controller {
 			'[topic:slink]'=>LinkUrl('topic/lists','fav',$cid,$page,'dance')
 		);
 		//装载模板并输出
-        $this->Cstpl->plub_list($row,$cid,$fid,$page,$cid,false,'topic.html','topic/lists','',L('dance_22'),L('dance_22'),'',$fidetpl);
+        $this->Cstpl->plub_list($row,$cid,$fid,$page,$cid,false,'topic.html','topic/lists','topic',L('dance_22'),L('dance_22'),'',$fidetpl);
 	}
 
     //专题内容

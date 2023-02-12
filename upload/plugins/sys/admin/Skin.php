@@ -146,7 +146,7 @@ class Skin extends Cscms_Controller {
 	public function look(){
         $ac = $this->input->get('ac',true);
         $op = $this->input->get('op',true);
-        $dir = $this->input->get('dirs',true);
+        $dir = str_replace("..","",$this->input->get('dirs',true));
 		if($ac!='mobile') $ac='pc';
 		if($op!='home' && $op!='user') $op='skins';
 
@@ -175,7 +175,7 @@ class Skin extends Cscms_Controller {
         $level = intval($this->input->post('level'));
         $cion = intval($this->input->post('cion'));
         $name = $this->input->post('name',true);
-        $dir = $this->input->post('dir',true);
+        $dir = str_replace("..","",$this->input->post('dir',true));
 		if(empty($dir)) admin_msg(L('plub_06'),'javascript:history.back();','no');
         $confiles = VIEWPATH.$ac.FGF.$op.FGF.$dir.FGF.'config.php';
 		if (file_exists($confiles)){
@@ -202,7 +202,7 @@ class Skin extends Cscms_Controller {
         $ac = $this->input->get('ac',true);
         $op = $this->input->get('op',true);
         $do = $this->input->get('do',true);
-        $dir = $this->input->get('dirs',true);
+        $dir = str_replace("..","",$this->input->get('dirs',true));
         $file = str_replace("..","",$this->input->get('file'));
 		$exts = strtolower(trim(strrchr($file, '.'), '.'));
 		if($ac!='mobile') $ac='pc';
@@ -214,7 +214,9 @@ class Skin extends Cscms_Controller {
         if(!file_exists($skin_dir)) getjson(L('plub_09'));
 
         $this->load->helper('file');
-        if($do=='add'){
+        if($do=='add'){        	
+			//正规验证文件名
+			if(!preg_match("/^[0-9a-zA-Z\_\/\.]{1,}$/i",$file)) getjson(L('plub_08'));
 	        $html = $this->input->post('html');
             //写文件
             if (!write_file($skin_dir, $html)){
@@ -243,8 +245,8 @@ class Skin extends Cscms_Controller {
 	public function show(){
         $ac = $this->input->get('ac',true);
         $op = $this->input->get('op',true);
-        $dir = $this->input->get('dirs',true);
-        $path = $this->input->get('path');
+        $dir = str_replace("..","",$this->input->get('dirs',true));
+        $path = str_replace("..","",$this->input->get('path'));
 		if($ac!='mobile') $ac='pc';
 		if($op!='home' && $op!='user') $op='skins';
 
@@ -344,8 +346,8 @@ class Skin extends Cscms_Controller {
         $ac = $this->input->get('ac',true);
         $op = $this->input->get('op',true);
         $do = $this->input->get('do',true);
-        $dir = $this->input->get('dirs',true);
-        $file = $this->input->post('file',true);
+        $dir = str_replace("..","",$this->input->get('dirs',true));
+        $file = str_replace("..","",$this->input->post('file',true));
 		if($ac!='mobile') $ac='pc';
 		if($op!='home' && $op!='user') $op='skins';
 
@@ -357,6 +359,8 @@ class Skin extends Cscms_Controller {
 		}
 		if($do=='add'){
 			if(empty($file)) exit('<script>alert("'.L('plub_16').'");javascript:history.back();</script>');
+        	//正规验证文件名
+			if(!preg_match("/^[0-9a-zA-Z\_\/\.]{1,}$/i",$file)) getjson(L('plub_08'));
 			$path=$skin_dir.$file;
             $exts = strtolower(trim(strrchr($file, '.'), '.'));
 			if($exts=='html' || $exts=='js' || $exts=='css'){ //增加文件
@@ -395,9 +399,9 @@ class Skin extends Cscms_Controller {
 	public function copyt(){
         $ac = $this->input->get('ac',true);
         $op = $this->input->get('op',true);
-        $dir = $this->input->get('dirs',true);
-        $file = $this->input->get('file');
-        $path = $this->input->get('path');
+        $dir = str_replace("..","",$this->input->get('dirs',true));
+        $file = str_replace("..","",$this->input->get('file'));
+        $path = str_replace("..","",$this->input->get('path'));
 		if($ac!='mobile') $ac='pc';
 		if($op!='home' && $op!='user') $op='skins';
 		if(empty($dir) || empty($file)) getjson('路径不能为空'); //路径不能为空
@@ -418,11 +422,12 @@ class Skin extends Cscms_Controller {
 	public function del(){
         $ac = $this->input->get('ac',true);
         $op = $this->input->get('op',true);
-        $dir = $this->input->get('dirs',true);
-        $file = $this->input->get('file');
+        $dir = str_replace(".","",$this->input->get('dirs',true));
+        $file = str_replace("..","",$this->input->get('file'));
 		if($ac!='mobile') $ac='pc';
 		if($op!='home' && $op!='user') $op='skins';
-		if(empty($dir)) getjson(L('plub_27'));
+		if(empty($dir) || preg_match("/^[\/]{1,}$/i",$dir)) getjson(L('plub_27'));
+
 
         $skin_dir = VIEWPATH.$ac.FGF.$op.FGF.$dir.FGF.$file;
 		if (!is_dir($skin_dir)) {  //文件
@@ -445,7 +450,7 @@ class Skin extends Cscms_Controller {
         $ac = $this->input->get('ac',true);
         $op = $this->input->get('op',true);
         $do = $this->input->get('do',true);
-        $dir = $this->input->get('dirs',true);
+        $dir = str_replace("..","",$this->input->get('dirs',true));
 		if($ac!='mobile') $ac='pc';
 		if($op!='home' && $op!='user') $op='skins';
 
@@ -599,3 +604,4 @@ class Skin extends Cscms_Controller {
 		}
 	}
 }
+

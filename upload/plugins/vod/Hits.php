@@ -30,6 +30,7 @@ class Hits extends Cscms_Controller {
 		$updata['zhits']=$row->zhits+1;
 		$updata['yhits']=$row->yhits+1;
 		$updata['hits']=$row->hits+1;
+		if($zd=='vod') $updata['playtime']=time();
 		$this->Csdb->get_update($zd,$id,$updata);
 
 		//清空月人气

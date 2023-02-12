@@ -35,7 +35,7 @@ class Topic extends Cscms_Controller {
 		$zdy['[topic:zlink]'] = LinkUrl('topic','zhou',0,$page,'news');
 		$zdy['[topic:ylink]'] = LinkUrl('topic','yue',0,$page,'news');
 		//装载模板并输出
-        $Mark_Text=$this->Cstpl->plub_list($row,0,$fid,$page,'',false,'topic.html','topic','','新闻专题','新闻专题','',$zdy);
+        $Mark_Text=$this->Cstpl->plub_list($row,0,$fid,$page,'',false,'topic.html','topic','topic','新闻专题','新闻专题','',$zdy);
 	}
 
     //专题内容
@@ -59,7 +59,7 @@ class Topic extends Cscms_Controller {
 		$zdy['[topic:pl]'] = get_pl('news',$id,1);
 		$hitslink = hitslink('hits/ids/'.$id.'/topic','news');
 		//装载模板并输出
-        $this->Cstpl->plub_show('topic',$row,$id,true,'topic-show.html',$row['name'],$row['name'],'','',$zdy,$hitslink);
+        $this->Cstpl->plub_show('topic',$row,$id,false,'topic-show.html',$row['name'],$row['name'],'','',$zdy,$hitslink);
 	}
 }
 

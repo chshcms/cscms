@@ -275,7 +275,7 @@ class Apiku extends Cscms_Controller {
 
 		}elseif(empty($do)){  //资源库首页
 			$data['jumpurl']=@file_get_contents(CSCMS."vod/jumpurl.txt");
-			$data['api']="http://vod.chshcms.com/api/cscms_zy_4.1_utf8.js?".rand(1000, 9999);
+			$data['api']="//vod.chshcms.com/api/cscms_zy_4.1_utf8.js?".rand(1000, 9999);
 			$this->load->view('apiku.html',$data);
 		}
 	}

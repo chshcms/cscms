@@ -7,7 +7,15 @@
  */
 //获取地址
 function get_link($uri){
+	$dir = current(explode("/",$uri));
 	$url = is_ssl().Web_Url.site_url($uri);
+	if(strpos($uri,'/user/') === FALSE && is_dir(FCPATH.'plugins/'.$dir) && file_exists(CSCMS.$dir.'/site.php')){
+		$mode = config('Ym_Mode',$dir);
+		if($mode == 1){
+			$dir_host = config('Ym_Url',$dir);
+			$url = str_replace(Web_Url.Web_Path.'index.php/'.$dir,$dir_host.Web_Path.'index.php',$url);
+		}
+	}
 	//伪静态
 	if(Web_Mode==2){
 		$url = str_replace('index.php/','',$url);

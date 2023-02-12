@@ -110,15 +110,13 @@ var cscms = {
 	//上传文件
 	,get_upurl : function(dir,fid,type,tsid){
 		if(cscms.wap){
-			var url = cscms_path+'index.php/upload_wap';
 			var w = '90%';
 			var h = '350px';
 		}else{
-			var url = cscms_path+'index.php/upload';
 			var w = '500px';
 			var h = '350px';
 		}
-		url += '?dir='+dir+'&fid='+fid+'&type='+type+'&tsid='+tsid;
+		var url = cscms_path+'index.php/upload?dir='+dir+'&fid='+fid+'&type='+type+'&tsid='+tsid;
 		cscms.layer.open({
 			title:'上传文件',
 			type: 2,

@@ -14,13 +14,13 @@ class Upgrade extends Cscms_Controller {
 	    $this->load->model('Csadmin');
         $this->Csadmin->Admin_Login();
 		$this->lang->load('admin_upgrade');
-		$this->_upgrade = "http://upgrade.chshcms.com/"; //程序升级地址
+		$this->_upgrade = "http://api.chshcms.net/cscms/"; //程序升级地址
 		$this->_filearr = array('.','packs','cscms'); //MD5效验目录
 	}
 
     //系统升级
 	public function index(){
-		$cscms_update = htmlall($this->_upgrade.'ajax/update?charset=utf-8&version='.CS_Version.'&update='.CS_Uptime);
+		$cscms_update = htmlall($this->_upgrade.'ajax/update?version='.CS_Version.'&update='.CS_Uptime);
         $data['cscms_update'] = json_decode($cscms_update,1);
         $this->load->view('upgrade.html',$data);
 	}

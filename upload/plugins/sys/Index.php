@@ -22,17 +22,27 @@ class Index extends Cscms_Controller {
 
     //分享
 	public function share($uid=0){
+		//分享访问的地址
+		$shareurl=is_ssl().Web_Url.Web_Path;
 		//关闭数据库缓存
 		$this->db->cache_off();
 		$this->load->library('user_agent');
 		$uid=intval($uid);
 		if($uid==0){
-		   header("Location: ".Web_Path);exit;
+		   header("Location: ".$shareurl);exit;
+		}
+		//今日0点时间戳
+		$times=strtotime(date("Y-m-d 0:0:0"));
+		//判断分享IP
+		$ip = getip();
+		$row = $this->db->query("select id from ".CS_SqlPrefix."share where ip='".$ip."'' and addtime>".$times."")->row();
+		//每天一个IP 只计算一次
+		if($row){
+			header("Location: ".$shareurl);exit;
 		}
 		//判断每天上限次数
 		$addid=1;
 		if(User_Nums_Share>0){
-		    $times=strtotime(date("Y-m-d 0:0:0"));
 		    $nums=$this->db->query("select id from ".CS_SqlPrefix."share where uid=".$uid." and addtime>".$times."")->num_rows();
 		    if($nums>User_Nums_Share){
 		        $addid=0;
@@ -53,17 +63,14 @@ class Index extends Cscms_Controller {
 		    }
 		}
 		//写入分享记录
-		$agent = ($this->agent->is_mobile() ? $this->agent->mobile() :                    $this->agent->platform()).'&nbsp;/&nbsp;'.$this->agent->browser().' v'.$this->agent->version();
+		$agent = ($this->agent->is_mobile() ? $this->agent->mobile() : $this->agent->platform()).'&nbsp;/&nbsp;'.$this->agent->browser().' v'.$this->agent->version();
 		$add['uid']=$uid;
 		$add['cion']=($addid==1)?User_Cion_Share:0;
 		$add['jinyan']=($addid==1)?User_Jinyan_Share:0;
-		$add['ip']=getip();
+		$add['ip']=$ip;
 		$add['agent']=$agent;
 		$add['addtime']=time();
 		$this->Csdb->get_insert('share',$add);
-		//分享访问的地址
-		$shareurl=is_ssl().Web_Url.Web_Path;
 		header("Location: ".$shareurl);exit;
 	}
 }
-

@@ -92,6 +92,7 @@ class Vod extends Cscms_Controller {
 
 		if($sid > 0){ //审核
             $row = $this->Csdb->get_row_arr('vod_verify','*',$id);
+			$this->dt($row['id'],'vod_verify');
             if($row['did']==0){
                 unset($row['id']);
             }else{
@@ -317,9 +318,9 @@ class Vod extends Cscms_Controller {
 					 if(!empty($All[$j])){
                          if(strpos($All[$j],'$') === FALSE){
                              if(($j+1)==count($All)){
-                                  $downurl.="第".($j+1)."集$".$All[$j]."$".$playform[$k];
+                                  $downurl.="第".($j+1)."集$".$All[$j]."$".$downform[$k];
                              }else{
-                                  $downurl.="第".($j+1)."集$".$All[$j]."$".$playform[$k]."\n";
+                                  $downurl.="第".($j+1)."集$".$All[$j]."$".$downform[$k]."\n";
                              }
                          }else{
                              if(($j+1)==count($All)){
@@ -463,7 +464,7 @@ class Vod extends Cscms_Controller {
             foreach ($result as $row) {
                 $id2 = $row['id'];
                 if($yid==2){
-                    $this->dt($row['id'],1);
+                    $this->dt($row['id'],$table,1);
                     $row['hid'] = 1;
                     unset($row['did']);
                 }else{
@@ -572,7 +573,7 @@ class Vod extends Cscms_Controller {
                             $id2 = $row['id'];
                             if($row['did']==0){
                                 //增加金币、经验
-                                $this->dt($id2);
+                                $this->dt($id2,'vod_verify');
                             	unset($row['id']);
                             }else{
                             	$row['id'] = $row['did'];
@@ -641,7 +642,7 @@ class Vod extends Cscms_Controller {
                         foreach ($result as $row) {
                             $id2 = $row['id'];
                             //删除金币、经验
-                            $this->dt($row['id'],1);
+                            $this->dt($row['id'],$table,1);
                             $row['hid'] = $sid==2 ? 1 : 0;
                             $row['did'] = $row['id'];
                             unset($row['id']);
@@ -665,7 +666,7 @@ class Vod extends Cscms_Controller {
                             $id2 = $row['id'];
                             if($row['did']==0){
                                 //增加金币、经验
-                                $this->dt($row['id']);
+                                $this->dt($row['id'],'vod_verify');
                                 unset($row['id']);
                             }else{
                             	$row['id'] = $row['did'];
@@ -724,7 +725,7 @@ class Vod extends Cscms_Controller {
                         foreach ($result as $row) {
                             $id2 = $row['id'];
                             //删除金币、经验
-                            $this->dt($row['id'],1);
+                            $this->dt($row['id'],$table,1);
                             $row['hid'] = $sid==2 ? 1 : 0;
                             $row['did'] = $row['id'];
                             unset($row['id']);
@@ -743,11 +744,11 @@ class Vod extends Cscms_Controller {
 	}
 
 	//审核增加积分、经验、同时动态显示
-	public function dt($id,$sid=0)
+	public function dt($id,$table='vod',$sid=0)
 	{
 		$dt=$this->db->query("SELECT id,yid,name FROM ".CS_SqlPrefix."dt where link='".linkurl('show','id',$id,1,'vod')."'")->row();
 		if($dt){
-              $uid=getzd('vod','uid',$id);
+              $uid=getzd($table,'uid',$id);
 			  if($sid>0){ //删除回收站
 
 				  $str='';
@@ -796,3 +797,4 @@ class Vod extends Cscms_Controller {
 		}
 	}
 }
+

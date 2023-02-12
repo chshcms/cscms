@@ -439,7 +439,11 @@ class Csskins extends CI_Model{
 		 	if(defined('USERPATH')){
 			    $DIRS=VIEWPATH.'mobile'.FGF.'user'.FGF.Mobile_User_Dir;
 		 	}elseif(defined('HOMEPATH')){
-			    $DIRS=VIEWPATH.'mobile'.FGF.'home'.FGF.Mobile_Home_Dir;
+		 		if(!defined('HOMESKINS')){
+			    	$DIRS=VIEWPATH.'mobile'.FGF.'home'.FGF.Mobile_Home_Dir;
+		 		}else{
+			    	$DIRS=VIEWPATH.'mobile'.FGF.'home'.FGF.HOMESKINS;
+		 		}
 		 	}else{
 			    $DIRS=VIEWPATH.'mobile'.FGF.'skins'.FGF.Mobile_Skins_Dir;
 		 	}
@@ -447,7 +451,11 @@ class Csskins extends CI_Model{
 		 	if(defined('USERPATH')){
 			    $DIRS=VIEWPATH.'pc'.FGF.'user'.FGF.Pc_User_Dir;
 		 	}elseif(defined('HOMEPATH')){
-			    $DIRS=VIEWPATH.'pc'.FGF.'home'.FGF.Pc_Home_Dir;
+		 		if(!defined('HOMESKINS')){
+			    	$DIRS=VIEWPATH.'pc'.FGF.'home'.FGF.Pc_Home_Dir;
+		 		}else{
+			    	$DIRS=VIEWPATH.'pc'.FGF.'home'.FGF.HOMESKINS;
+		 		}
 		 	}else{
 			    $DIRS=VIEWPATH.'pc'.FGF.'skins'.FGF.Pc_Skins_Dir;
 		 	}
@@ -790,7 +798,7 @@ class Csskins extends CI_Model{
 			$time1 = microtime();
 			for($i=0;$i<count($field_arr[0]);$i++){
 				$type=$field_arr[1][$i];
-				if(array_key_exists($type,$row) && trim($field_arr[2][$i])!='zd'){
+				if(array_key_exists($type,$row) && trim($field_arr[2][$i])!='zd' && !($type=='user' && trim($field_arr[2][$i])=='level')){
 				    if($type=='addtime'){
 				         $label=str_replace('['.$field.':'.$type.']',date('Y-m-d H:i:s',$row[$type]),$label);
 					}else{

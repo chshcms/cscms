@@ -206,6 +206,13 @@
                                 </div>
                             </div><div id="dlist">
                             <?php
+                                require_once CSCMS.'vod/down.php';
+                                $down = $down_config;
+                                $vod_dw=$vod_dw2='';
+                                $vnum = 0;
+                                for ($i=0; $i<count($down); $i++) {
+                                    $vod_dw2.='<option value="'.$down[$i]['form'].'">'.$down[$i]['des'].'</option>';
+                                }
                                 $strs2=explode("#cscms#",$durl);
                                 $dvnum=0;
                                 if(!empty($durl)){
@@ -217,6 +224,10 @@
                                             $jis=explode("$",$strs2[$j]);
                                         }
                                         if(empty($jis[2])) $jis[2]="";
+                                        for ($i=0; $i<count($down); $i++) {
+                                            $selec=($jis[2]==$down[$i]['form'])?' selected':'';
+                                            $vod_dw.='<option value="'.$down[$i]['form'].'"'.$selec.'>'.$down[$i]['des'].'</option>';
+                                        }
                                         $dvnum = $j+1;
                             ?>
                             <script type="text/javascript">dnum=dnum+1;</script>
@@ -227,7 +238,7 @@
                                         <label class="layui-form-label">下载方式</label>
                                         <div class="layui-input-inline layui-input-inlinew3">
                                             <select name="downform[<?=$j?>]" id="m_downfrom<?=$j?>" <?php if($agent!=0){echo 'lay-ignore class="sel_ignore"';}?>>
-                                                <option value="http"<?php if($jis[2]=='http') echo ' selected';?>>HTTP下载</option><option value="ftp"<?php if($jis[2]=='ftp') echo ' selected';?>>FTP下载</option><option value="thunder"<?php if($jis[2]=='thunder') echo ' selected';?>>迅雷下载</option><option value="flashget"<?php if($jis[2]=='flashget') echo ' selected';?>>快车下载</option><option value="qqdl"<?php if($jis[2]=='qqdl') echo ' selected';?>>旋风下载</option><option value="bt"<?php if($jis[2]=='bt') echo ' selected';?>>BT下载</option><option value="magnet"<?php if($jis[2]=='magnet') echo ' selected';?>>磁力链下载</option><option value="ed2k"<?php if($jis[2]=='ed2k') echo ' selected';?>>电炉下载</option>
+                                                <?=$vod_dw?>
                                             </select>
                                         </div>
                                         <div class="layui-input-inline noborder">
@@ -523,7 +534,7 @@
         }
         function adddlist(){
             var temdnum = dnum+1;
-            var tmedsel = '<option value="http">HTTP下载</option><option value="ftp">FTP下载</option><option value="thunder">迅雷下载</option><option value="flashget">快车下载</option><option value="qqdl">旋风下载</option><option value="bt">BT下载</option><option value="magnet">磁力链下载</option><option value="ed2k">电炉下载</option>';
+            var tmedsel = '<?=$vod_dw2?>';
             if(agent==0){
                 var sp = '<a href="javascript:cscms.get_open(\'<?=site_url('upload/up')?>?fhid=m_downurl&dir=video&fid='+dnum+'&sid=1&type=*&nums=10\',\'视频上传\',\'500px\',\'360px\')" class="layui-btn layui-btn-primary layui-btn-small colorn">视频上传</a>';
                 var layn = '';
@@ -559,8 +570,9 @@
             });
         }
         if(vcls_id>0){
-			cscms.go_vod_type(vcls_id);
+			cscms.mode('cscms.go_vod_type(vcls_id)');
         }
     </script>
 </body>
 </html>
+

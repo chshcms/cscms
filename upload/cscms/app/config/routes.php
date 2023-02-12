@@ -11,6 +11,7 @@ $route['share/(\d+)']	= 'api/share/index/$1';
 $route['sitemap.xml']	= 'api/sitemap';
 $route['baidu.xml']	= 'api/baidu';
 $route['google.xml']	= 'api/google';
+$route['360.xml']    = 'api/s360';
 $route['opt/(\w+)']	= 'opt/index/$1';
 
 /**

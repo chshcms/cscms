@@ -24,7 +24,11 @@ class Pic extends Cscms_Controller {
 		$tpl='pic.html';
 		//URL地址
 	    $url='pic/index/'.$cid.'/'.$yid;
-        $sqlstr = "select {field} from ".CS_SqlPrefix."pic where uid=".$_SESSION['cscms__id'];
+		if($yid==1){
+			$sqlstr = "select {field} from ".CS_SqlPrefix."pic_verify where uid=".$_SESSION['cscms__id'];
+		}else{
+			$sqlstr = "select {field} from ".CS_SqlPrefix."pic where uid=".$_SESSION['cscms__id'];
+		}
         if($cid>0){
 			$cids = getChild($cid);
 			if(is_numeric($cids)){
@@ -233,61 +237,6 @@ class Pic extends Cscms_Controller {
 		$zdy['[user:token]'] = get_token('pics_token');
 		$zdy['[user:picsave]'] = spacelink('pic,save','pic');
         $this->Cstpl->user_list($row,$url,1,$tpl,$title,'','',$ids,false,'user',$zdy);
-	}
-
-	//上传图片保存
-	public function save(){
-		$token=$this->input->post('token', TRUE);
-		if(!get_token('pics_token',1,$token)) msg_url('非法提交~!','javascript:history.back();');
-
-		//检测发表权限
-		$zuid=getzd('user','zid',$_SESSION['cscms__id']);
-		$rowu=$this->Csdb->get_row('userzu','aid,sid',$zuid);
-		if(!$rowu || $rowu->aid==0){
-             msg_url('您所在会员组没有权限上传图片~!','javascript:history.back();');
-		}
-		//检测发表数据是否需要审核
-		$table=($rowu->sid==1)?'pic':'pic_verify';
-		//选填字段
-		$pic['content']=remove_xss(str_replace("\r\n","<br>",$_POST['content']));
-		$pic['uid']=$_SESSION['cscms__id'];
-		$pic['addtime']=time();
-		$name=$this->input->post('name', TRUE, TRUE);
-        //必填字段
-		$pic['sid']=intval($this->input->post('sid'));
-		$pic['cid']=intval($this->input->post('cid'));
-		$pic['pic']=$this->input->post('pic', TRUE, TRUE);
-        //检测必须字段
-		if($pic['cid']==0) msg_url('请选择图片分类~!','javascript:history.back();');
-		if($pic['sid']==0) msg_url('请选择图片所属相册~!','javascript:history.back();');
-		if(empty($pic['pic'])) msg_url('图片地址不能为空~!','javascript:history.back();');
-        //增加到数据库
-        $did=$this->Csdb->get_insert($table,$pic);
-		if(intval($did)==0){
-			 msg_url('图片上传失败，请稍候再试~!','javascript:history.back();');
-		}
-        //摧毁token
-        get_token('pics_token',2);
-		//增加动态
-	    $dt['dir'] = 'pic';
-	    $dt['uid'] = $_SESSION['cscms__id'];
-	    $dt['did'] = $pic['sid'];
-	    $dt['yid'] = $rowu->sid==1?0:1;
-	    $dt['title'] = '上传了图片到'.$name;
-	    $dt['name'] = $name;
-	    $dt['link'] = linkurl('show','id',$pic['sid'],1,'pic');
-	    $dt['addtime'] = time();
-        $this->Csdb->get_insert('dt',$dt);
-		//如果免审核，则给会员增加相应金币、积分
-		if($rowu->sid==1){
-		     $addhits=getzd('user','addhits',$_SESSION['cscms__id']);
-			 if($addhits<User_Nums_Add){
-                 $this->db->query("update ".CS_SqlPrefix."user set cion=cion+".User_Cion_Add.",jinyan=jinyan+".User_Jinyan_Add.",addhits=addhits+1 where id=".$_SESSION['cscms__id']."");
-			 }
-			 msg_url('恭喜您，图片上传成功~!',spacelink('pic','pic'));
-		}else{
-			 msg_url('恭喜您，图片上传成功,请等待管理员审核~!',spacelink('pic','pic').'/index/0/1');
-		}
 	}
 
     //删除图片

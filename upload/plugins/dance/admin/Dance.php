@@ -94,6 +94,7 @@ class Dance extends Cscms_Controller {
         if($ac == 'yid'){
             if($sign == 2){ //审核
                 $row = $this->Csdb->get_row_arr('dance_verify','*',$id);
+                $this->dt($row['id'],'dance_verify');
                 if($row['did']==0){
                     unset($row['id']);
                 }else{
@@ -366,7 +367,7 @@ class Dance extends Cscms_Controller {
             foreach ($result as $row) {
                 $id2 = $row['id'];
                 if($yid==2){
-                    $this->dt($row['id'],1);
+                    $this->dt($row['id'],$table,1);
                     $row['hid'] = 1;
                     unset($row['did']);
                 }else{
@@ -473,7 +474,7 @@ class Dance extends Cscms_Controller {
                             $id2 = $row['id'];
                             if($row['did']==0){
                                 //增加金币、经验
-                                $this->dt($id2);
+                                $this->dt($id2,'dance_verify');
                             	unset($row['id']);
                             }else{
                             	$row['id'] = $row['did'];
@@ -538,7 +539,7 @@ class Dance extends Cscms_Controller {
                         foreach ($result as $row) {
                             $id2 = $row['id'];
                             //删除金币、经验
-                            $this->dt($row['id'],1);
+                            $this->dt($row['id'],$table,1);
                             $row['hid'] = $sid==2 ? 1 : 0;
                             $row['did'] = $row['id'];
                             unset($row['id']);
@@ -562,7 +563,7 @@ class Dance extends Cscms_Controller {
                             $id2 = $row['id'];
                             if($row['did']==0){
                                 //增加金币、经验
-                                $this->dt($row['id']);
+                                $this->dt($row['id'],'dance_verify');
                                 unset($row['id']);
                             }else{
                             	$row['id'] = $row['did'];
@@ -617,7 +618,7 @@ class Dance extends Cscms_Controller {
                         foreach ($result as $row) {
                             $id2 = $row['id'];
                             //删除金币、经验
-                            $this->dt($row['id'],1);
+                            $this->dt($row['id'],$table,1);
                             $row['hid'] = $sid==2 ? 1 : 0;
                             $row['did'] = $row['id'];
                             unset($row['id']);
@@ -636,10 +637,10 @@ class Dance extends Cscms_Controller {
 	}
 
 	//审核歌曲增加积分、经验、同时动态显示
-	public function dt($id,$sid=0){
+	public function dt($id,$table='dance',$sid=0){
 		$dt=$this->db->query("SELECT id,name,yid FROM ".CS_SqlPrefix."dt where link='".linkurl('play','id',$id,1,'dance')."'")->row();
 		if($dt){
-              $uid=getzd('dance','uid',$id);
+              $uid=getzd($table,'uid',$id);
 			  if($sid>0){ //删除
 
 				  $str='';
@@ -681,7 +682,7 @@ class Dance extends Cscms_Controller {
 			      $add['uida']=$uid;
 			      $add['uidb']=0;
 			      $add['name']='歌曲审核通知';
-			      $add['neir']=vsprintf(L('plub_101'),array($dt->name,$str));
+			      $add['neir']='您的歌曲《'.$dt->name.'》已通过审核，系统同时给您奖励了'.User_Cion_Add.'个金币，'.User_Jinyan_Del.'个经验';
 			      $add['addtime']=time();
         	      $this->Csdb->get_insert('msg',$add);
 			  }

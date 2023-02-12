@@ -1,5 +1,5 @@
 <?php
-define('Web_Name','cms多元化内容管理系统'); //站点名称  
+define('Web_Name','cscms多元化内容管理系统'); //站点名称  
 define('Web_Url','www.cscms.com'); //站点域名  
 define('Web_Path','/'); //站点路径  
 define('Admin_Code','111');  //后台验证码  
@@ -11,9 +11,9 @@ define('Html_StopTime',1);  //生成间隔秒数
 define('Html_PageNum',30);  //每页生成数量  
 define('Html_Wap_Dir','wap');  //手机版本目录  
 define('Web_Icp','沪ICP备06000000号');  //网站ICP  
-define('Admin_QQ','2811358863');  //站长QQ  
+define('Admin_QQ','88888888');  //站长QQ  
 define('Admin_Tel','1300000000');  //站长电话  
-define('Admin_Mail','chshcms@qq.com');  //站长EMAIL  
+define('Admin_Mail','888888@qq.com');  //站长EMAIL  
 define('Web_Key','Dj小波|DJ黄子浩|Dj罗清|DJ文杰|DJ千里|Mc洋哥');  //热门搜索  
 define('Web_Count','统计代码');  //统计代码  
 define('Web_Title','程氏CMS'); //SEO-标题  

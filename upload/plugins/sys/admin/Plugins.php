@@ -67,20 +67,6 @@ class Plugins extends Cscms_Controller {
 		if(!empty($name) && $name!=$row->name){
             $this->db->query("update ".CS_SqlPrefix."plugins set name='".$name."' where dir='".$dir."'");
 		}
-		$arrs=unarraystring(sys_auth($row->ak,'D'));
-		if(empty($key)) $key='0';
-        if(empty($arrs) || empty($arrs['md5']) || $key!=$arrs['key'] || host_ym(1)!=$arrs['host']){
-			$app['dir']=$dir;
-			$app['key']=$key;
-			$ak=$this->csapp->keys($app);
-			if(empty($ak)){
-			   	getjson(L('plub_save_1'));
-			}elseif($ak=='0'){
-			    getjson(L('plub_save_2'));
-			}
-			$this->db->query("update ".CS_SqlPrefix."plugins set ak='".$ak."' where dir='".$dir."'");
-		}
-
         if(is_dir(FCPATH.'plugins'.FGF.$dir)){
 			$data['Web_Mode']=$Web_Mode;
 			$data['Mobile_Is']=$Mobile_Is;

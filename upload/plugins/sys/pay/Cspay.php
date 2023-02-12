@@ -144,6 +144,7 @@ class Cspay extends Cscms_Controller {
         $sign_md5 = $this->md5_sign($sign_arr,$key);
 
         if ($sign_md5 == $sign && $cspay_pid==1){
+        	$row=$this->Csdb->get_row('pay','*',$out_trade_no,'dingdan');
             if($row && $row->pid!=1){
                 //增加金钱
                 $this->db->query("update ".CS_SqlPrefix."user set rmb=rmb+".$row->rmb." where id=".$row->uid."");

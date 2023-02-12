@@ -80,7 +80,8 @@ class Upload extends Cscms_Controller {
 	//删除附件
 	public function del(){
         $this->Csadmin->Admin_Login();
-	        $path = $this->input->get('path',true);
+	    $path = $this->input->get('path',true);
+		$path = str_replace('..','',$path);
 		if(empty($path)){
 			getjson(L('plub_01'));
 		}
@@ -123,14 +124,13 @@ class Upload extends Cscms_Controller {
 		$str['pass']=$_SESSION['admin_pass'];
         $key = sys_auth(addslashes(serialize($str)),'E');
         $params = array();
+		$this->load->library('csup');
         if(UP_Mode == 3){ //七牛
-        	$this->load->library('csup');
 	        $token = $this->csup->qiniu_uptoken();
 	        $params['token'] = $token;
 	        $data['dir'] = date('Ymd').'/';
 	        $data['upsave'] = is_ssl().'upload.qiniu.com/';
         }elseif(UP_Mode == 4){ //阿里云OSS
-        	$this->load->library('csup');
 	        $params = $this->csup->osssign();
 	        $data['dir'] = date('Ymd').'/';
 	        $data['upsave'] = $params['host'];
@@ -142,7 +142,9 @@ class Upload extends Cscms_Controller {
         $data['params'] = json_encode($params);
 		$data['fhhost'] = '';
 		if(UP_Mode>1 && ($dir=='music' || $dir=='video')){
-			$data['fhhost'] = $this->csup->down(UP_Mode);
+			$fhhost = $this->csup->down(UP_Mode);
+			if(substr($fhhost,-1) != '/') $fhhost .= '/';
+			$data['fhhost'] = $fhhost;
 		}
         $this->load->view('upload.html',$data);
 	}
@@ -244,6 +246,9 @@ class Upload extends Cscms_Controller {
 		    $this->load->helper('directory');
  	        $path = $this->input->get('path',true);
  	        $ext = $this->input->get('ext',true);
+
+			$path = str_replace('..','',$path);
+			$ext = str_replace('..','',$ext);
 
             if(empty($ext)) $ext=UP_Type;
 

@@ -19,7 +19,7 @@
         <a href="javascript:;">首页</a>
         <a href="<?=site_url('collect')?>">采集项目管理</a>
     </span>
-    <blockquote style="position: fixed;width: 96%;top: 0px;" class="layui-elem-quote">正在采集 <span class="colorl"><?=$names?></span>，第<span class="colord" id="zhw-page"><?=$page?></span>页列表，共<span class="colord" id="pagejs"><?=$pagejs?></span>页，当前页共有<span class="colord" id="linkcount"><?=$linkcount?></span>条数据，已采集<span class="colorn" id="oknum"><?=$oknum?></span>条，成功<span class="colorl" id="success">0</span>条，失败<span class="colord" id="fail">0</span>条&nbsp;&nbsp;&nbsp;&nbsp;<a id="zhw-pause" class="layui-btn layui-btn-mini layui-btn-danger" href="javascript:play_pause();">紧急停止</a></blockquote>
+    <blockquote style="position: fixed;width: 96%;top: 0px;z-index:9999;" class="layui-elem-quote">正在采集 <span class="colorl"><?=$names?></span>，第<span class="colord" id="zhw-page"><?=$page?></span>页列表，共<span class="colord" id="pagejs"><?=$pagejs?></span>页，当前页共有<span class="colord" id="linkcount"><?=$linkcount?></span>条数据，已采集<span class="colorn" id="oknum"><?=$oknum?></span>条，成功<span class="colorl" id="success">0</span>条，失败<span class="colord" id="fail">0</span>条&nbsp;&nbsp;&nbsp;&nbsp;<a id="zhw-pause" class="layui-btn layui-btn-mini layui-btn-danger" href="javascript:play_pause();">紧急停止</a></blockquote>
     <div id="zhw-lists" style="margin-top: 50px;"></div>
     <div id="footer"></div>
 <script type="text/javascript">

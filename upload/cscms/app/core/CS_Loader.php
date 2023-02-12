@@ -41,17 +41,18 @@ class CS_Loader extends CI_Loader {
 	        $optfield = array();
             if(isset($field[$dir])){
                 foreach ($field[$dir] as $key => $value){
+					$zd = $value['zd'];
                     if($value['table']==$table && $value['status']==1){
                     	if(!isset($vars['row']) || empty($vars['row'])){
-                        	$optfield[$value['zd']] = '';
+                        	$optfield[$zd] = '';
                     	}else{
                     		$row = $vars['row'];
                     		if(gettype($row) === 'object'){
-                        		$optfield[$value['zd']] = $row->$value['zd'];
-                    		}elseif(isset($row[$value['zd']])){
-                        		$optfield[$value['zd']] = $row[$value['zd']];
+                        		$optfield[$zd] = $row->$zd;
+                    		}elseif(isset($row[$zd])){
+                        		$optfield[$zd] = $row[$zd];
                         	}else{
-                        		$optfield[$value['zd']] = '';
+                        		$optfield[$zd] = '';
 							}
                     	}
                     }

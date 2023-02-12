@@ -148,7 +148,7 @@ class Csuser extends CI_Model{
 				 $this->cookie->set_cookie("user_login");
 					   
                  if($cid==0){
-					   msg_url('您还没有登录或者登录已超时~!',userurl(site_url('user/login')));
+					   msg_url('您还没有登录或者登录已超时~!',spacelink('user/login'));
 		         }
           }else{
 		         //判断每天会员要删除的数据
@@ -161,7 +161,7 @@ class Csuser extends CI_Model{
 		         }
 				 //强制上传头像
 				 if($cid==0 && $logo==1 && strpos(REQUEST_URI,'edit/logo') === FALSE){
-					   msg_url('您还没有上传头像，请先上传头像~!',userurl(site_url('user/edit/logo')));
+					   msg_url('您还没有上传头像，请先上传头像~!',spacelink('user/edit/logo'));
 				 }
 		  }
           return $login;  

@@ -48,7 +48,7 @@ class Album extends Cscms_Controller {
 		$ids['uid']=$_SESSION['cscms__id'];
 		$ids['uida']=$_SESSION['cscms__id'];
         $sqlstr = "select {field} from ".CS_SqlPrefix."dance_topic where yid=1 and uid=".$_SESSION['cscms__id'];
-        $this->Cstpl->user_list($row,$url,$page,$tpl,$title,'','',$ids);
+        $this->Cstpl->user_list($row,$url,$page,$tpl,$title,'',$sqlstr,$ids);
 	}
 
 	//创建专辑

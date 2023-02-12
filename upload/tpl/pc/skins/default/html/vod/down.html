@@ -1,99 +1,109 @@
 <!DOCTYPE html>
 <html>
 <head> 
-<meta charset="utf-8">
+<meta charset=utf-8>
+<meta http-equiv="X-UA-Compatible" content="IE=9">
 <title>{cscms:title}</title>
 <meta name="Keywords" content="{cscms:keywords}" />
 <meta name="Description" content="{cscms:description}" />
 <link rel="shortcut icon" href="{cscms:webpath}favicon.ico" />
-<link rel="stylesheet" type="text/css" href="{cscms:indextempurl}css/style.css"/>
-<link rel="stylesheet" type="text/css" href="{cscms:indextempurl}css/vod.css"/>
-<script type='text/javascript' src='{cscms:tempurl}js/common.js'></script>
+<link rel="stylesheet" href="{cscms:webpath}packs/font/font.css">
+<link rel="stylesheet" href="{cscms:webpath}packs/layui/css/layui.css">
+<link rel="stylesheet" type="text/css" href="{cscms:tempurl}css/vod.css"/>
+<script type='text/javascript' src='{cscms:webpath}packs/layui/layui.js'></script>
+<script type='text/javascript' src='{cscms:tempurl}js/vod.js'></script>
 </head>
-<body> 
-{cscms:head}
-<div class="wrap mt20" style="margin-top:10px;">
-<div class="box cat_pos clearfix" style="border:1px solid #D9D9D9;background:#FFF;">
-<span class="cat_pos_l">您的位置：<a href='{cscms:webpath}'>首页</a>&nbsp;&nbsp;&raquo;&nbsp;&nbsp;<a href='[vod:classlink]'>[vod:classname]</a>&nbsp;&nbsp;&raquo;&nbsp;&nbsp;<a href='[vod:url link=lists,id]'>[vod:name]</a></h2></span>
-</div></div>
-<div id="video_vod_show" style="margin-top:3px;">
-<div id="box">
-<div id="vod">
-<div class="h2title"><h3>[vod:name]</h3></div>
-<div class="vod_show">
-<img data-original="[vod:pic dir=vod]?size=201*230" alt="[vod:name]" title="[vod:name]" class="hshare_images lazy"/>
-<div class="vodmain">
-<p class="title"><strong><font color="[vod:color]">[vod:name]</font></strong><em>[vod:remark]</em></p>
-<p class="actor">
-影片主演 ： [vod:zhuyan]<br />
-<span class="wide">视频导演 ： [vod:daoyan]</span>
-<span class="wide">视频类型 ： <a href='[vod:classlink]'>[vod:classname]</a></span>
-<span class="wide">视频地区 ： [vod:diqu]</span>
-<span class="wide">视频语言 ： [vod:yuyan]</span>
-<span class="wide">上映年份 ： [vod:year]</span>
-<span class="wide">本周人气 ： [vod:zhits]&nbsp;次</span>
-<span class="wide">年度人气 ： [vod:hits]&nbsp;次</span>
-<span class="wide">更新时间 ： [vod:addtime style=Y-m-d H:s:i]</span>
-</p>
-</div>
-<div class="neir">
-<!--div class="jiesao">视频介绍 ： [vod:text len=80]<a href="#voddetail">详细>></a></div-->
-<div style="clear:both;padding:0px;margin-top:8px;"></div>
-<div class="yyu">
-<div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a><a href="#" class="bds_kaixin001" data-cmd="kaixin001" title="分享到开心网"></a><a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a><a href="#" class="bds_tqf" data-cmd="tqf" title="分享到腾讯朋友"></a><a href="#" class="bds_tsohu" data-cmd="tsohu" title="分享到搜狐微博"></a><a href="#" class="bds_tieba" data-cmd="tieba" title="分享到百度贴吧"></a><a href="#" class="bds_taobao" data-cmd="taobao" title="分享到我的淘宝"></a><a href="#" class="bds_t163" data-cmd="t163" title="分享到网易微博"></a><a href="#" class="bds_diandian" data-cmd="diandian" title="分享到点点网"></a><a href="#" class="bds_isohu" data-cmd="isohu" title="分享到我的搜狐"></a><a href="#" class="bds_copy" data-cmd="copy" title="分享到复制网址"></a></div>
-<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"32"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin","kaixin001","douban","tqf","tsohu","tieba","taobao","t163","diandian","isohu","copy"],"viewText":"分享到：","viewSize":"16"}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=1.js?cdnversion='+~(-new Date()/36e5)];</script>		
-</div>
-<div style="clear:both;padding:0px;margin:0px;"></div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<table width="980" border="0">
-<tr>
-<td height="2"></td>
-</tr>
-</table>
-<div id="listbox">
-  <div class="play-list-box" id="[down:laiy]">
-  <div class="Title"><h4>[down:laiy]</h4></div>
-  <div class="contents">
-     <p class="play-list">
-	   	 <span style="float:left;width:70px;height:30px; line-height:30px;">下载地址：</span>
-		 <span style="float:left;"><input value="[down:url]" id="down" style="width:520px;border:1px solid #ccc;height:30px; line-height:30px;"></span>
-		 <span><input type="button" value="下 载" onclick="window.open('[down:url]', 'down');" class="down"></span>
-     </p>
-  </div>
-  </div>
-</div>
-<table width="980" border="0" id="voddetail">
-<tr>
-<td height="5"></td>
-</tr>
-</table>
-<div id="box">
-<div class="lmain">
-<div class="h2title"><h3>视频介绍</h3></div>
-<ul class="vcs">[vod:text]</ul>
-</div>
-</div>
-<table width="980" border="0">
-<tr>
-<td height="5"></td>
-</tr>
-</table>
-<div id="box">
-<div class="lmain">
-<div class="h2title"><h3>热门推荐</h3></div>
-<ul class="vlistbox">
-{cscms:vod table="vod" field="id,name,pic,color" loop="7" reco="1,2,3,4,5" sort="rhits"}
-<li><a href="[vod:url link=show,id]"><img class="lazy" alt="[vod:name]" title="[vod:name]" data-original="[vod:pic dir=vod]?size=107*133" width="160"/></a><a href="[vod:url link=show,id]"><font color="[vod:color]">[vod:name]</font></a></li>
-{/cscms:vod}
-</ul>
-</div>
-</div>
-<div class="clear"></div>
-</div>
-{cscms:bottom}
+<body>
+    {cscms:head}
+    <div class="w960 bcolor">
+        <div class="mar10" style="margin-top: 60px;"></div>
+        <div class="mar10"></div>
+        <div class="play-show">
+            <div class="play-intro left">
+                <div class="gs-imgBox" style="overflow: hidden;zoom: 1;">
+                    <img class="play-img" id="gs-img" src="[vod:pic dir=vod]?size=290*360" width="290" height="360">
+                </div>
+                <div class="mar10"></div>
+                <div class="layui-collapse">
+                    <div class="layui-colla-item">
+                        <h2 class="layui-colla-title " align="left">同类影片<span style="float:right;font-size: 12px;color:#666;">人气</span></h2>
+                        <div class="layui-colla-content layui-show" style="overflow: hidden;zoom:1;padding: 0px">
+                            <table class="layui-table" lay-even lay-skin="nob">
+                            <tbody>
+                                {cscms:vod table="vod" loop="12" cid="auto" sort="hits"}
+                                    <tr align="left">
+                                        <td><a target="_blank" title="[vod:name]" class="listLeft4" href="[vod:url zdy=vod,id,show,id]"><i class="layui-btn layui-btn-mini {if:[vod:i]<4}{else}layui-btn-primary{end if} iwidth">[vod:i]</i>[vod:name]</a></td><td>[vod:hits]</td>
+                                    </tr>
+                                {/cscms:vod}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="mar10"></div>
+            </div>
+            <div class="play-list left">
+                <div class="layui-tab layui-tab-brief">
+                    <ul class="layui-tab-title">
+                        <li class="layui-this">[vod:name]</li>
+                        <li >剧情简介</li>
+                    </ul>
+                    <div class="layui-tab-content">
+                        <div class="layui-tab-item layui-show">
+                            <table class="layui-table" lay-even>
+                                <colgroup>
+                                </colgroup>
+                                <thead><tr><th colspan="4">基本信息</th></tr></thead>
+                                <tbody>
+                                    <tr>
+                                        <td width="60" align="center">视频名称</td><td >[vod:name]</td>
+                                        <td width="60" align="center">视频类型</td><td><a href='[vod:classlink]'>[vod:classname]</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td width="60" align="center">影片主演</td><td>{if:'[vod:zhuyan]'==''}暂无{else}[vod:zhuyan]{end if}</td>
+                                        <td width="60" align="center">视频导演</td><td>[vod:daoyan]</td>
+                                        
+                                    </tr>
+                                    <tr>
+                                        <td width="60" align="center">视频地区</td><td>[vod:diqu]</td>
+                                        <td width="60" align="center">视频语言</td><td>[vod:yuyan]</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="60" align="center">更新时间</td><td>[vod:addtime style=Y-m-d H:s:i]</td>
+                                        <td width="60" align="center">上映年份</td><td>[vod:year]</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="60" align="center">本周人气</td><td>[vod:zhits]&nbsp;次</td>
+                                        <td width="60" align="center">年度人气</td><td>[vod:hits]&nbsp;次</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="layui-tab layui-tab-brief">
+                                <ul class="layui-tab-title">
+                                        <li class="layui-this">[down:laiyname]</li>
+                                </ul>
+                                <div class="layui-tab-content" style="max-height: 300px;overflow-y:auto">
+                                    <div class="layui-tab-item layui-show" style="margin-top: 20px;">
+                                     <span style="float:left;width:70px;height:30px; line-height:30px;">下载地址：</span>
+									 <span style="float:left;"><input value="[down:url]" style="width: 469px;border:1px solid #ccc;height:30px; line-height:30px;margin-right: 10px;"></span>
+									 <span><input type="button" value="下 载" onclick="window.open('[down:url]', 'down');" class="layui-btn layui-btn-small layui-btn-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-tab-item">
+                            {if:'[vod:text]'==''}<div style="width: 100%;height: 50px;line-height: 50px;text-align: center;">暂无剧情介绍~！</div>{else}[vod:text]{end if}
+                        </div>
+                    </div>
+                </div>
+                [vod:pl]
+            </div>
+        </div>
+    </div>
+    <div class="mar10"></div>
+    {cscms:bottom}
+    <script type="text/javascript">
+        cscms.init();
+    </script>
 </body>
 </html>

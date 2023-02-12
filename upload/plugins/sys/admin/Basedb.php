@@ -129,7 +129,7 @@ class Basedb extends Cscms_Controller {
 
 	//还原数据库
 	public function restore_save(){
-		$dirs = $this->input->get_post('dir',true);
+		$dirs = str_replace("//","/",str_replace("..","",$this->input->get_post('dir',true)));
 		if(empty($dirs)){
 			getjson(L('plub_09'));
 		}
@@ -141,7 +141,7 @@ class Basedb extends Cscms_Controller {
 
 	//备份打包下载
 	public function zip(){
-		$dirs = $this->input->get('dir',true);
+		$dirs = str_replace("//","/",str_replace("..","",$this->input->get('dir',true)));
 		if(empty($dirs)) admin_msg(L('plub_11'),'javascript:history.back();','no');
 	    $this->load->library('zip');
         $path = FCPATH.'attachment/backup/'.$dirs.'/';
@@ -158,7 +158,7 @@ class Basedb extends Cscms_Controller {
 
 	//备份删除
 	public function del(){
-		$dir = $this->input->get_post('id',true);
+		$dir = str_replace("//","/",str_replace("..","",$this->input->get_post('id',true)));
 		if(empty($dir)){
 			getjson(L('plub_11'));
 		}

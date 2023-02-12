@@ -312,6 +312,7 @@ class Cstpl extends CI_Model{
 					$row['skins'] = defined('MOBILE') ? Mobile_Home_Dir : Pc_Home_Dir;
 				}
 			}
+			if(!defined('HOMESKINS')) define('HOMESKINS',$row['skins']);
 			if(!defined('HOMEPATH')) define('HOMEPATH',true);
 			$this->load->get_templates('',$row['skins']);
 			$template=$this->load->view($tpl,$data,true);

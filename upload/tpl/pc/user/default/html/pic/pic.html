@@ -33,11 +33,10 @@
 							    <ul class="layui-tab-title">
 							    	<li{if:[pic:yid]==0} class="layui-this"{end if}><a class="colord" href="[user:url userlink=pic,index]/[pic:cid]">已审核</a></li>
 							    	<li{if:[pic:yid]==1} class="layui-this"{end if}><a class="colord" href="[user:url userlink=pic,index]/[pic:cid]/1">待审核</a></li>
-							        <li{if:[pic:cid]==0} class="layui-this"{end if}><a href="[user:url userlink=pic,index]">全部类型</a></li>
+							        <li{if:[pic:cid]==0} class="layui-this"{end if}><a href="[user:url userlink=pic,index]/0/[pic:yid]">全部类型</a></li>
 	                                {cscms:class table="pic_list" order="asc"}
-									<li{if:[pic:cid]==[class:id]} class="layui-this"{end if}><a href="[user:url userlink=pic,index]/[class:id]">[class:name]</a></li>
+									<li{if:[pic:cid]==[class:id]} class="layui-this"{end if}><a href="[user:url userlink=pic,index]/[class:id]/[pic:yid]">[class:name]</a></li>
 	                                {/cscms:class}
-	                                
 							    </ul>
 							    <style type="text/css">
 									.layui-table td, .layui-table th{padding: 9px 10px;}
