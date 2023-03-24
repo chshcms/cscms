@@ -19,16 +19,12 @@ class User extends Cscms_Controller {
 	public function index(){
         $kstime = $this->input->get_post('kstime',true);
         $jstime = $this->input->get_post('jstime',true);
-        $sort = $this->input->get_post('sort',true);
-        $desc = $this->input->get_post('desc',true);
         $sid  = intval($this->input->get_post('sid'));
         $zid  = intval($this->input->get_post('zid'));
         $zd   = $this->input->get_post('zd',true);
         $key  = $this->input->get_post('key',true);
-	        $page = intval($this->input->get('page'));
+	    $page = intval($this->input->get('page'));
         if($page==0) $page=1;
-		if(empty($sort)) $sort="id";
-		if(empty($desc)) $desc="desc";
 		$kstimes=empty($kstime)?0:strtotime($kstime)-86400;
 		$jstimes=empty($jstime)?0:strtotime($jstime)+86400;
 		if($kstimes>$jstimes) $kstimes=strtotime($kstime);
@@ -59,7 +55,7 @@ class User extends Cscms_Controller {
 		if($jstimes>0){
              $sql_string.= " and addtime<".$jstimes."";
 		}
-        $sql_string.= " order by ".$sort." ".$desc;
+        $sql_string.= " order by id desc";
         $count_sql = str_replace('id,name,logo,email,vip,zid,sid,tid,rzid,regip,addtime,lognum,nichen,rmb,cion','count(*) as count',$sql_string);
         $query = $this->db->query($count_sql)->result_array();
         $total = $query[0]['count'];
@@ -85,21 +81,14 @@ class User extends Cscms_Controller {
 
     //待审核会员列表
 	public function verify(){
-        $sort = $this->input->get_post('sort',true);
-        $desc = $this->input->get_post('desc',true);
-	        $page = intval($this->input->get('page'));
+	    $page = intval($this->input->get('page'));
         if($page==0) $page=1;
-		if(empty($sort)) $sort="id";
-		if(empty($desc)) $desc="desc";
-
         $data['page'] = $page;
-        $data['sort'] = $sort;
-        $data['desc'] = $desc;
 
-        $sql_string = "SELECT id,name,email,regip,addtime FROM ".CS_SqlPrefix."user where yid>0  order by ".$sort." ".$desc;
+        $sql_string = "SELECT id,name,email,regip,addtime FROM ".CS_SqlPrefix."user where yid>0  order by id desc";
         $query = $this->db->query($sql_string); 
         $total = $query->num_rows();
-        $base_url = site_url('user/verify')."?sort=".$sort."&desc=".$desc;
+        $base_url = site_url('user/verify');
         $per_page = 15; 
         $totalPages = ceil($total / $per_page); // 总页数
         $data['nums'] = $total;

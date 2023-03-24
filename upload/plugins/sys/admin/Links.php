@@ -16,15 +16,11 @@ class Links extends Cscms_Controller {
 	}
 
 	public function index(){
-        $sort = $this->input->get_post('sort',true);
-        $desc = $this->input->get_post('desc',true);
         $sid  = intval($this->input->get_post('sid'));
         $cid  = intval($this->input->get_post('cid'));
         $key  = str_replace('%','',$this->input->get_post('key',true));
 	    $page = intval($this->input->get('page'));
         if($page==0) $page=1;
-		if(empty($sort)) $sort="id";
-		if(empty($desc)) $desc="desc";
         $data['sid'] = $sid;
         $data['key'] = $key;
         $data['cid'] = $cid;
@@ -41,11 +37,11 @@ class Links extends Cscms_Controller {
 		if(!empty($key)){
              $sql_string.= " and name like '%".$key."%'";
 		}
-        $sql_string.= " order by ".$sort." ".$desc;
+        $sql_string.= " order by id desc";
         $query = $this->db->query($sql_string); 
         $total = $query->num_rows();
 
-        $base_url = site_url('links')."?cid=".$cid."&sid=".$sid."&sort=".$sort."&desc=".$desc."&page=";
+        $base_url = site_url('links')."?cid=".$cid."&sid=".$sid."&page=";
         $per_page = 15; 
         $totalPages = ceil($total / $per_page); // 总页数
         if($totalPages<1) $totalPages = 1;

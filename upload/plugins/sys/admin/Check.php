@@ -9,10 +9,10 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class Check extends Cscms_Controller {
 
 	function __construct(){
-		    parent::__construct();
-		    $this->load->model('Csadmin');
-			$this->lang->load('admin_check');
-	        $this->Csadmin->Admin_Login();
+	    parent::__construct();
+	    $this->load->model('Csadmin');
+		$this->lang->load('admin_check');
+        $this->Csadmin->Admin_Login();
 	}
 
 	public function index(){

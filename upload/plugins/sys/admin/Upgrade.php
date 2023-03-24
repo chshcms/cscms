@@ -56,8 +56,8 @@ class Upgrade extends Cscms_Controller {
         $this->load->library('cszip');
 	    $this->cszip->PclZip($zippath);
 	    if ($this->cszip->extract(PCLZIP_OPT_PATH, $dircache, PCLZIP_OPT_REPLACE_NEWER) == 0) {
-               @unlink($zippath);
-               getjson(L('plub_08'));//抱歉，补丁解压失败~!
+            @unlink($zippath);
+            getjson(L('plub_08'));//抱歉，补丁解压失败~!
 	    }
 
 		//覆盖到根目录
@@ -67,17 +67,17 @@ class Upgrade extends Cscms_Controller {
 			
 		//检查文件操作权限，是否复制成功
 		if($this->copyfailnum > 0) {
-				//如果失败，恢复当前版本
-				write_file(CSCMS.'lib/Cs_Version.php', $versiondata);
-				echo '<LINK href="'.base_url().'packs/admin/css/style.css" type="text/css" rel="stylesheet"><br>';
-				$k=1;
-                foreach ($this->copymsg as $msg) {
-				    echo '&nbsp;&nbsp;'.$k.'.'.$msg;
-					$k++;
-				}
-				echo '&nbsp;&nbsp;<b style="color:red">'.L('plub_09').'&nbsp;&nbsp;<a href="'.site_url('upgrade').'">'.L('plub_10').'</a</b>';
-				@unlink($zippath);
-				exit;
+			//如果失败，恢复当前版本
+			write_file(CSCMS.'lib/Cs_Version.php', $versiondata);
+			echo '<LINK href="'.base_url().'packs/admin/css/style.css" type="text/css" rel="stylesheet"><br>';
+			$k=1;
+			foreach ($this->copymsg as $msg) {
+			    echo '&nbsp;&nbsp;'.$k.'.'.$msg;
+				$k++;
+			}
+			echo '&nbsp;&nbsp;<b style="color:red">'.L('plub_09').'&nbsp;&nbsp;<a href="'.site_url('upgrade').'">'.L('plub_10').'</a</b>';
+			@unlink($zippath);
+			exit;
 		}
 
 		//检测执行SQL语句
@@ -99,11 +99,11 @@ class Upgrade extends Cscms_Controller {
 	    $path = str_replace("..","",$path);
 	
 	    if (!file_exists(FCPATH.$path) || is_dir($path)) {
-			 die(L('plub_13'));//文件不存在~!
+			die(L('plub_13'));//文件不存在~!
 	    }
 	    $data['html'] = str_replace('</textarea>','&lt;/textarea&gt;',file_get_contents(FCPATH.$path));
 	    //判断重要文件，不能查看
-	    if(strpos(strtolower($path),'cscms/lib') !== FALSE){
+	    if(strpos(strtolower($path),'cscms/config') !== FALSE){
 		    die(L('plub_14'));//重要文件，不允许在线查看！
 	    }
         $this->load->view('upgrade_look.html',$data);

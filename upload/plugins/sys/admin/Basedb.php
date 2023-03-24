@@ -88,6 +88,7 @@ class Basedb extends Cscms_Controller {
 
     //备份数据库
 	public function backup(){
+		if(CS_Sqlname == '') getjson(L('plub_06'));
 		$table = $this->input->get_post('table',true);
 		$bkdir =  $this->input->get_post('bkdir',true);
 		$ok =  (int)$this->input->get_post('ok',true);

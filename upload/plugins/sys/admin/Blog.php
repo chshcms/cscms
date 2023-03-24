@@ -19,7 +19,7 @@ class Blog extends Cscms_Controller {
 	public function index(){
         $zd   = $this->input->get_post('zd',true);
         $key  = $this->input->get_post('key',true,true);
-	        $page = intval($this->input->get('page'));
+        $page = intval($this->input->get('page'));
         if($page==0) $page=1;
 
         $data['page'] = $page;

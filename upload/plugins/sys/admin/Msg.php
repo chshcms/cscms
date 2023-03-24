@@ -17,8 +17,8 @@ class Msg extends Cscms_Controller {
     //私信列表
 	public function index(){
         $zd   = $this->input->get_post('zd',true);
-        $key  = $this->input->get_post('key',true);
-	        $page = intval($this->input->get('page'));
+        $key  = $this->input->get_post('key',true,true);
+        $page = intval($this->input->get('page'));
         if($page==0) $page=1;
 
         $data['page'] = $page;

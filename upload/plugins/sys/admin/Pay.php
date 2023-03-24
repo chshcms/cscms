@@ -88,7 +88,7 @@ class Pay extends Cscms_Controller {
         $pid  = intval($this->input->get_post('pid'));
         $zd   = $this->input->get_post('zd',true);
         $key  = $this->input->get_post('key',true);
-	        $page = intval($this->input->get('page'));
+        $page = intval($this->input->get('page'));
         if($page==0) $page=1;
 		$kstimes=empty($kstime)?0:strtotime($kstime)-86400;
 		$jstimes=empty($jstime)?0:strtotime($jstime)+86400;
@@ -182,7 +182,7 @@ class Pay extends Cscms_Controller {
         $dir  = $this->input->get_post('dir',true);
         $zd   = $this->input->get_post('zd',true);
         $key  = $this->input->get_post('key',true);
-	        $page = intval($this->input->get('page'));
+        $page = intval($this->input->get('page'));
         if($page==0) $page=1;
 		$kstimes=empty($kstime)?0:strtotime($kstime)-86400;
 		$jstimes=empty($jstime)?0:strtotime($jstime)+86400;
@@ -256,7 +256,7 @@ class Pay extends Cscms_Controller {
         $sid  = intval($this->input->get_post('sid'));
         $zd   = $this->input->get_post('zd',true);
         $key  = $this->input->get_post('key',true);
-	        $page = intval($this->input->get('page'));
+        $page = intval($this->input->get('page'));
         if($page==0) $page=1;
 		$kstimes=empty($kstime)?0:strtotime($kstime)-86400;
 		$jstimes=empty($jstime)?0:strtotime($jstime)+86400;
