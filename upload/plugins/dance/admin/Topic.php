@@ -16,7 +16,6 @@ class Topic extends Cscms_Controller {
     //专辑列表
 	public function index(){
         $sort = $this->input->get_post('sort',true);
-        $desc = $this->input->get_post('desc',true);
         $zd = $this->input->get_post('zd',true);
         $yid  = intval($this->input->get_post('yid'));
 		$tid = intval($this->input->get_post('tid'));
@@ -30,7 +29,7 @@ class Topic extends Cscms_Controller {
         $data['yid'] = $yid;
         $data['key'] = $key;
         $data['tid'] = $tid;
-		if(empty($sort)) $sort="addtime";
+        if(!in_array($sort,array('id','addtime','hits','rhits','zhits','yhits'))) $sort="addtime";
 
         $sql_string = "SELECT id,name,pic,hits,tid,yid,singerid,addtime FROM ".CS_SqlPrefix."dance_topic where 1=1";
 		if($yid==1){

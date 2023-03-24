@@ -15,7 +15,6 @@ class Topic extends Cscms_Controller {
     //专题列表
 	public function index(){
         $sort = $this->input->get_post('sort',true);
-        $desc = $this->input->get_post('desc',true);
         $yid  = intval($this->input->get_post('yid'));
 		$tid = intval($this->input->get_post('tid'));
         $key  = $this->input->get_post('key',true);
@@ -27,7 +26,7 @@ class Topic extends Cscms_Controller {
         $data['yid'] = $yid;
         $data['key'] = $key;
         $data['tid'] = $tid;
-		if(empty($sort)) $sort="id";
+		if(!in_array($sort,array('id','addtime','hits','rhits','zhits','yhits'))) $sort="addtime";
 
         $sql_string = "SELECT id,name,pic,hits,tid,yid,addtime FROM ".CS_SqlPrefix."news_topic where 1=1";
 		if($yid==1){

@@ -15,7 +15,6 @@ class Singer extends Cscms_Controller {
 
 	public function index(){
         $sort = $this->input->get_post('sort',true);
-        $desc = $this->input->get_post('desc',true);
         $cid  = intval($this->input->get_post('cid'));
         $yid  = intval($this->input->get_post('yid'));
 		$reco = intval($this->input->get_post('reco'));
@@ -31,7 +30,7 @@ class Singer extends Cscms_Controller {
         $data['zd'] = $zd;
         $data['key'] = $key;
         $data['reco'] = $reco;
-		if(empty($sort)) $sort="addtime";
+		if(!in_array($sort,array('id','addtime','hits','rhits','zhits','yhits'))) $sort="addtime";
 
 
         if($yid==2){

@@ -19,7 +19,7 @@ class Pic extends Cscms_Controller {
         $yid  = intval($this->input->get_post('yid'));
         $zd   = $this->input->get_post('zd',true);
         $key  = $this->input->get_post('key',true);
-	        $page = intval($this->input->get('page'));
+        $page = intval($this->input->get('page'));
         if($page==0) $page=1;
 
         $data['page'] = $page;

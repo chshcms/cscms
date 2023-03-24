@@ -16,7 +16,6 @@ class Vod extends Cscms_Controller {
 
 	public function index(){
         $sort = $this->input->get_post('sort',true);
-        $desc = $this->input->get_post('desc',true);
         $form = $this->input->get_post('form',true);
         $cid  = intval($this->input->get_post('cid'));
         $yid  = intval($this->input->get_post('yid'));
@@ -36,7 +35,7 @@ class Vod extends Cscms_Controller {
         $data['remark'] = $remark;
         $data['reco'] = $reco;
         $data['form'] = $form;
-		if(empty($sort)) $sort="addtime";
+		if(!in_array($sort,array('id','addtime','hits','rhits','zhits','yhits'))) $sort="addtime";
 
         if($yid==2){
             $table= "vod_verify";
