@@ -1,6 +1,6 @@
 <?php
 define('Web_Name','cscms多元化内容管理系统'); //站点名称  
-define('Web_Url','www.cscms.com'); //站点域名  
+define('Web_Url','www.chshcms.com'); //站点域名  
 define('Web_Path','/'); //站点路径  
 define('Admin_Code','111');  //后台验证码  
 define('Web_Off',1);  //网站开关  
