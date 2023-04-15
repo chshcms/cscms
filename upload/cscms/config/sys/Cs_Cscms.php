@@ -13,6 +13,9 @@ if(!defined('IS_INSTALL') && !file_exists(FCPATH.'packs/install/install.lock')){
 	$webpath = str_replace(SELF,'',$uri['path']);
 	header("location:".$webpath."install.php");exit;
 }
+if(defined('IS_ADMIN') && SELF == 'admin.php'){
+	exit('请修改后台入口文件名，预防CSRF攻击，修改方法：把 ./admin.php 改成任意文件名即可。');
+}
 //装载全局配置文件
 require_once 'Cs_Version.php';
 require_once 'Cs_DB.php';
