@@ -20,7 +20,7 @@ class Dance extends Cscms_Controller {
         $yid  = intval($this->input->get_post('yid'));
 		$reco = intval($this->input->get_post('reco'));
         $zd   = $this->input->get_post('zd',true);
-        $key  = $this->input->get_post('key',true);
+        $key  = $this->input->get_post('key',true,true);
 	    $page = intval($this->input->get('page'));
         if($page==0) $page=1;
 
@@ -339,7 +339,7 @@ class Dance extends Cscms_Controller {
         }
         if(empty($ids)) getjson('请选择要删除的数据');
         if(is_array($ids)){
-            $idss=implode(',', $ids);
+            $idss=implode(',',$ids);
         }else{
             $idss=$ids;
         }

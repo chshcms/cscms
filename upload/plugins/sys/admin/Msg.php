@@ -16,7 +16,7 @@ class Msg extends Cscms_Controller {
 	}
     //私信列表
 	public function index(){
-        $zd   = $this->input->get_post('zd',true);
+        $zd   = $this->input->get_post('zd',true,true);
         $key  = $this->input->get_post('key',true,true);
         $page = intval($this->input->get('page'));
         if($page==0) $page=1;
@@ -63,7 +63,7 @@ class Msg extends Cscms_Controller {
 
     //阅读私信
 	public function look(){
-        $id = $this->input->get_post('id',true);
+        $id = $this->input->get_post('id',true,true);
 		if(empty($id)) exit(L('plub_01'));
         $row=$this->db->query("SELECT did,uida,uidb,name,neir,addtime FROM ".CS_SqlPrefix."msg where id=".$id."")->row();
 		if(!$row) exit(L('plub_02'));
@@ -85,7 +85,7 @@ class Msg extends Cscms_Controller {
 	
 	//删除私信
 	public function del(){
-        $id = $this->input->get_post('id',true);
+        $id = $this->input->get_post('id',true,true);
 		if(empty($id)) getjson(L('plub_07'));
 		$this->Csdb->get_del('msg',$id);
 		$info['url'] = site_url('msg').'?v='.rand(1000,9999);
