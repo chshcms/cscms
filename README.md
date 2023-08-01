@@ -1,5 +1,5 @@
 <p align=center>
-  <a href="http://www.chshcms.com">
+  <a href="https://music.chshcms.com">
     Cscms多元化内容管理系统
   </a>
 </p>
