@@ -114,7 +114,7 @@ class Collect extends Cscms_Controller {
             if(empty($datas['name']) || empty($datas['url']) || empty($datas['dir']) || empty($datas['cjurl'])){
                getjson(L('plub_02'));//名称、地址、板块、采集地址都不能为空
             }
-            $cjurl =str_replace('{$id}',$datas['ksid'],$datas['cjurl']);
+            $cjurl =str_replace('{$id}',$datas['ksid'],str_decode($datas['cjurl']));
             $data['cjurl'] = $cjurl;
             $data['code'] = $datas['code'];
             $neir=$this->caiji->str($cjurl,$datas['code']);
@@ -209,7 +209,7 @@ class Collect extends Cscms_Controller {
             //$data['name']=$this->caiji->rep($this->caiji->getstr($html,$datas['nameks'],$datas['namejs']),$datas['strth']);
             //获取图片
             if($row->picmode==1){
-                $cjurl =str_replace('{$id}',$row->ksid,$row->cjurl);
+                $cjurl =str_replace('{$id}',$row->ksid,str_decode($row->cjurl));
                 $phtml=$this->caiji->str($cjurl,$row->code);
                 $pstr=$this->caiji->getstr($phtml,$row->listks,$row->listjs);
                 $pics=$this->caiji->getarr($row->picks,$row->picjs,$pstr);
@@ -335,12 +335,12 @@ class Collect extends Cscms_Controller {
         //倒顺采集
         if($row->dxid==1){
             if($xid==1) $xid=$row->jsid;
-            $cjurl =str_replace('{$id}',$xid,$row->cjurl);
+            $cjurl =str_replace('{$id}',$xid,str_decode($row->cjurl));
             $data['ids']=$xid;
             $xid=($xid-1);
         }else{
             if($xid==1) $xid=$row->ksid;
-            $cjurl =str_replace('{$id}',$xid,$row->cjurl);
+            $cjurl =str_replace('{$id}',$xid,str_decode($row->cjurl));
             $data['ids']=$xid;
             $xid=($xid+1);
         }
@@ -430,12 +430,12 @@ class Collect extends Cscms_Controller {
         //倒顺采集
         if($row->dxid==1){
             if($xid==1) $xid=$row->jsid;
-            $cjurl =str_replace('{$id}',$xid,$row->cjurl);
+            $cjurl =str_replace('{$id}',$xid,str_decode($row->cjurl));
             $data['ids']=$xid;
             $xid=($xid-1);
         }else{
             if($xid==1) $xid=$row->ksid;
-            $cjurl =str_replace('{$id}',$xid,$row->cjurl);
+            $cjurl =str_replace('{$id}',$xid,str_decode($row->cjurl));
             $data['ids']=$xid;
             $xid=($xid+1);
         }

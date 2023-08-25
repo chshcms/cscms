@@ -410,6 +410,11 @@ function str_decode($str){
 			$str=str_replace("&gt;",">",$str);
 			$str=str_replace("&quot;","\"",$str);
 			$str=str_replace("&#039;","'",$str);
+			$str=str_replace('&#123;','{',$str);
+			$str=str_replace('&#125;','}',$str);
+			$str=str_replace("&#36;","$",$str);
+			$str=str_replace("&#40;","(",$str);
+			$str=str_replace("&#41;",")",$str);
 		}
 	}
 	return $str;
